@@ -33,6 +33,6 @@ Quản lí căn tin đại học khoa học tự nhiên
 </tbody>
 </table>
 
-2. Link Trello:
-3. Link Slack:
+2. Link Trello: https://trello.com/b/tv74NDpa/isenndk13
+3. Link Slack: 
 
