@@ -1,4 +1,4 @@
-﻿# ISE_NNDK_13
+# ISE_NNDK_13
 Quản lí căn tin đại học khoa học tự nhiên
 
 1. Danh sách thành viên:
@@ -29,11 +29,6 @@ Quản lí căn tin đại học khoa học tự nhiên
   <td>Trần Khánh Linh</td>
   <td>trankhanhlinh98@gmail.com</td>
   <td>0947161098</td>
-</tr>
-  <td>1612300</td>
-  <td>Thái Đăng Khoa</td>
-  <td> dktp98@gmail.com</td>
-  <td>0938498003</td>
 </tr>
 </tbody>
 </table>
