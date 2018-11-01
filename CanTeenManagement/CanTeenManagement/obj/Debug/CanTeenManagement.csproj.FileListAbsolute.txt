@@ -1,0 +1,143 @@
+<<<<<<< Updated upstream
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignColors.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignColors.dll
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\callFoodView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\callFoodView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.baml
+=======
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignColors.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignColors.dll
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\callFoodView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.g.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\callFoodView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.baml
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.baml
+>>>>>>> Stashed changes

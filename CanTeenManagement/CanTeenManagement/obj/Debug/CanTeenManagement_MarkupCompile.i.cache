@@ -1,0 +1,43 @@
+<<<<<<< Updated upstream
+﻿CanTeenManagement
+
+
+winexe
+C#
+.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\
+CanTeenManagement
+none
+false
+DEBUG;TRACE
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\View\App.xaml
+13-1489100428
+
+22-368218826
+15933657102
+ResourceXAML\MainResource.xaml;View\callFoodView.xaml;View\customersView.xaml;View\dashBoardView.xaml;View\employeesView.xaml;View\listView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\reportView.xaml;View\settingsView.xaml;View\sortFoodView.xaml;View\usersView.xaml;
+
+False
+
+=======
+﻿CanTeenManagement
+
+
+winexe
+C#
+.cs
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\obj\Debug\
+CanTeenManagement
+none
+false
+DEBUG;TRACE
+C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\CanTeenManagement\View\App.xaml
+13-1489100428
+
+22-368218826
+15933657102
+ResourceXAML\MainResource.xaml;View\callFoodView.xaml;View\customersView.xaml;View\dashBoardView.xaml;View\employeesView.xaml;View\listView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\reportView.xaml;View\settingsView.xaml;View\sortFoodView.xaml;View\usersView.xaml;
+
+False
+
+>>>>>>> Stashed changes
