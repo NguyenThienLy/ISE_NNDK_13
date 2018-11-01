@@ -23,5 +23,20 @@ namespace CanTeenManagement.View
         {
             InitializeComponent();
         }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

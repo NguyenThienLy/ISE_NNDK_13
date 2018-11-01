@@ -83,7 +83,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="AttachMoney" />
                                     </Button>
@@ -116,7 +116,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="AttachMoney" />
                                     </Button>
@@ -149,7 +149,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="AttachMoney" />
                                     </Button>
@@ -182,7 +182,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="AttachMoney" />
                                     </Button>

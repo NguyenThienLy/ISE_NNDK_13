@@ -5,8 +5,212 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement.View"
         mc:Ignorable="d"
-        Title="usersView" Height="450" Width="800">
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+          DataContext="{StaticResource MainVM}"
+        Title="MainWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-        <TextBlock Text="Linh design" FontSize="50"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF28878B">
+            <TextBlock Text="Nguyễn Thiên Lý" Height="76" Width="386" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="327,0,0,95" FontSize="50" FontFamily="Roboto" TextAlignment="Left" Foreground="LightGray" Background="{x:Null}" />
+            <TextBlock Text="My profile" Height="63" Width="243" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="327,0,0,27" FontSize="45" FontFamily="Roboto" TextAlignment="Left" Foreground="LightGray" Background="{x:Null}" FontWeight="Bold"/>
+            <Button x:Name="btnHome" Height="Auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="LightGray" Margin="570,122,536,35" Click="btnSettings_Click">
+                <materialDesign:PackIcon Kind="HomeAccount" Height="60" Width="70" RenderTransformOrigin="-2.302,0.922">
+                    <materialDesign:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.998"/>
+                            <TranslateTransform X="-0.383" Y="-2.686"/>
+                        </TransformGroup>
+                    </materialDesign:PackIcon.RenderTransform>
+                </materialDesign:PackIcon>
+            </Button>
+            <Button x:Name="btnSettings" Height="Auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="LightGray" Margin="1064,127,36,35" Click="btnSettings_Click">
+                <materialDesign:PackIcon Kind="Settings" Height="55" Width="55" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.998"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </materialDesign:PackIcon.RenderTransform>
+                </materialDesign:PackIcon>
+            </Button>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="228" Width="267">
+                <Grid>
+                    <Ellipse VerticalAlignment="Top" Height="208" Margin="45,10,10,0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\AVT.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <TextBox FontSize="30" FontFamily="Roboto" Margin="39,42,658,367" materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                materialDesign:HintAssist.FloatingScale="0.50"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="AccountKey" FontSize="100"/>
+                        <TextBlock Text=" ID" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <TextBox FontSize="30" FontFamily="Roboto" Margin="39,134,658,275" materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+            materialDesign:HintAssist.FloatingScale="0.50"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="InformationVariant" FontSize="100"/>
+                        <TextBlock Text=" Họ tên" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <ComboBox FontSize="30" FontFamily="Roboto" Margin="39,227,658,183" 
+            materialDesign:HintAssist.FloatingScale="0.50" 
+            IsEditable="False"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="65">
+
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="GenderMaleFemale"/>
+                        <TextBlock Text=" Giới tính" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+
+                <ComboBoxItem>
+                    Male
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Female
+                </ComboBoxItem>
+
+
+
+            </ComboBox>
+
+            <TextBox FontSize="30" FontFamily="Roboto" Margin="39,320,658,88" materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+            materialDesign:HintAssist.FloatingScale="0.50"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="GenderMaleFemale"/>
+                        <TextBlock Text=" Năm sinh" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <TextBox FontSize="30" FontFamily="Roboto" Margin="627,38,70,367" materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+            materialDesign:HintAssist.FloatingScale="0.50"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="Phone" />
+                        <TextBlock Text=" Phone" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <ComboBox FontSize="30" FontFamily="Roboto" Margin="627,227,70,183" 
+            materialDesign:HintAssist.FloatingScale="0.50" 
+            IsEditable="False"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="65" RenderTransformOrigin="0.511,0.554">
+
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="BriefcaseOutline"/>
+                        <TextBlock Text=" Vị trí" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+
+                <ComboBoxItem>
+                    Thu ngân
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Tiếp thực
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Quản lý
+                </ComboBoxItem>
+            </ComboBox>
+
+            <ComboBox FontSize="30" FontFamily="Roboto" Margin="627,322,70,88" 
+            materialDesign:HintAssist.FloatingScale="0.50" 
+            IsEditable="False"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="65">
+
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="Diamond"/>
+                        <TextBlock Text=" Quyền" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+
+                <ComboBoxItem>
+                    Member
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Admin
+                </ComboBoxItem>
+            </ComboBox>
+
+            <TextBox FontSize="30" FontFamily="Roboto" Margin="627,135,70,275" materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+            materialDesign:HintAssist.FloatingScale="0.50"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="EmailOutline" />
+                        <TextBlock Text=" Email" FontSize="30" FontFamily="Roboto" TextAlignment="Left" Foreground="Black"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <Button Name="btnEdit" FontSize="20" FontFamily="Roboto" Margin="855,418,222,21" Foreground="Black"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Click="btnEdit_Click"
+                ToolTip="Resource name: MaterialDesignRaisedLightButton" Height="Auto" Background="#FF28878B">
+                SỬA
+            </Button>
+
+            <Button Name="btnSave" FontSize="20" FontFamily="Roboto" Margin="1007,418,70,21" Foreground="Black"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Click="btnSave_Click"
+                ToolTip="Resource name: MaterialDesignRaisedLightButton" Height="Auto" Background="#FF28878B">
+                LƯU
+            </Button>
+        </Grid>
+
+
     </Grid>
 </Window>
