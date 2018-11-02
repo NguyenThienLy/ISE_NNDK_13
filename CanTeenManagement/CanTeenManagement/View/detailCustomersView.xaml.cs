@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace CanTeenManagement.View
 {
     /// <summary>
-    /// Interaction logic for usersView.xaml
+    /// Interaction logic for detailCustomersView.xaml
     /// </summary>
-    public partial class usersView : Window
+    public partial class detailCustomersView : Window
     {
-        public usersView()
+        public detailCustomersView()
         {
             InitializeComponent();
         }

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
 CanTeenManagement
 none
 false
 DEBUG;TRACE
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
-13-1489100428
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
+14-2076320853
 
-222126051525
-15-1355476441
-ResourceXAML\MainResource.xaml;View\callFoodView.xaml;View\customersView.xaml;View\dashBoardView.xaml;View\employeesView.xaml;View\listView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\reportView.xaml;View\settingsView.xaml;View\sortFoodView.xaml;View\usersView.xaml;
+23-1385687717
+15-1589356961
+ResourceXAML\MainResource.xaml;View\callFoodView.xaml;View\customersView.xaml;View\dashBoardView.xaml;View\detailCustomersView.xaml;View\employeesView.xaml;View\listView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\reportView.xaml;View\settingsView.xaml;View\sortFoodView.xaml;View\usersView.xaml;
 
-True
+False
 

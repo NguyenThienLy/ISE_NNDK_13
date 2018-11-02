@@ -1,10 +1,10 @@
-﻿<Window x:Class="CanTeenManagement.View.usersView"
+﻿<Window x:Class="CanTeenManagement.View.detailCustomersView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement.View"
-         mc:Ignorable="d"
+        mc:Ignorable="d"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
@@ -30,7 +30,7 @@
                         </Rectangle.Fill>
                     </Rectangle>
                 </Grid>
-
+                     
                 <Rectangle Height="200" VerticalAlignment="Top" RadiusY="25" RadiusX="25" Grid.RowSpan="2">
                     <Rectangle.Fill>
                         <ImageBrush  ImageSource ="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\backgroud.jpg" Stretch="Fill"/>
@@ -66,12 +66,12 @@
                                     <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold" Margin="0" />
                                 </Viewbox>
                                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                Nhân viên căn tin, trường đại học Khoa Học Tự Nhiên - Đại học quốc gia Tp Hồ Chí Minh
+                                Khoa công nghệ thông tin, trường đại học Khoa Học Tự Nhiên - Đại học quốc gia Tp Hồ Chí Minh
                                 </TextBlock>
                             </StackPanel>
                             <Separator   Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0" />
                             <TextBlock Grid.Row="3"  Margin="8 4 8 4" Style="{StaticResource MaterialDesignBody2TextBlock}">
-                                Ca làm việc gần nhất
+                                Thời gian ăn gần nhất
                             </TextBlock>
                             <Grid Grid.Row="4">
                                 <Grid.ColumnDefinitions>

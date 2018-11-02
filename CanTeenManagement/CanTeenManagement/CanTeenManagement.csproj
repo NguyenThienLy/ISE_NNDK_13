@@ -72,6 +72,9 @@
     <Compile Include="View\dashBoardView.xaml.cs">
       <DependentUpon>dashBoardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\detailCustomersView.xaml.cs">
+      <DependentUpon>detailCustomersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\employeesView.xaml.cs">
       <DependentUpon>employeesView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\dashBoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\detailCustomersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

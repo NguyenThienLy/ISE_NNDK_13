@@ -15,7 +15,9 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
-    <Grid>
+
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid>
         <Grid Height="40" Width="980"  VerticalAlignment="Top">
             <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
                 <Rectangle.Fill>
@@ -28,11 +30,16 @@
             </Rectangle>
         </Grid>
 
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+
             <StackPanel>
                 <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
                         <ToggleButton  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"  VerticalAlignment="Center" DockPanel.Dock="Right" />
+                        <materialDesign:Badged Margin="10 5"  Badge="6" Background="White" DockPanel.Dock="Right" BadgeBackground="Red">
+                            <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Kind="Cart" />
+                            </Button>
+                        </materialDesign:Badged>
                         <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
                             <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
                             <materialDesign:ColorZone  Mode="Standard"  Padding="8 4 8 4"   CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
@@ -54,14 +61,13 @@
                         </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
+
                 <Grid Height="620">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="290"/>
+                        <RowDefinition Height="290"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="1"/>
-                        <RowDefinition Height="288"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" >
@@ -79,25 +85,27 @@
                             <materialDesign:Card  Grid.Column="0" Width="200">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="130" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
-                                        <materialDesign:PackIcon  Kind="AttachMoney" />
+                                        <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Gà chiên mắm" />
                                         <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
+                                    
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
                                             <materialDesign:PackIcon Kind="Update" />
                                         </Button>
-                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="30"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
-                                            <materialDesign:PackIcon Kind="Heart" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
                                         </Button>
                                         <materialDesign:PopupBox Padding="2 0 2 0">
                                             <StackPanel>
@@ -112,13 +120,13 @@
                             <materialDesign:Card  Grid.Column="1" Width="200">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="130" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
-                                        <materialDesign:PackIcon  Kind="AttachMoney" />
+                                        <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Đậu ve xào thịt" />
@@ -129,8 +137,8 @@
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
                                             <materialDesign:PackIcon Kind="Update" />
                                         </Button>
-                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="30"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
-                                            <materialDesign:PackIcon Kind="Heart" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
                                         </Button>
                                         <materialDesign:PopupBox Padding="2 0 2 0">
                                             <StackPanel>
@@ -145,13 +153,13 @@
                             <materialDesign:Card  Grid.Column="2" Width="200">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="130" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
-                                        <materialDesign:PackIcon  Kind="AttachMoney" />
+                                        <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Ba rọi nướng" />
@@ -162,8 +170,8 @@
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
                                             <materialDesign:PackIcon Kind="Update" />
                                         </Button>
-                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="30"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
-                                            <materialDesign:PackIcon Kind="Heart" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
                                         </Button>
                                         <materialDesign:PopupBox Padding="2 0 2 0">
                                             <StackPanel>
@@ -178,13 +186,13 @@
                             <materialDesign:Card  Grid.Column="3" Width="200">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="130" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
-                                        <materialDesign:PackIcon  Kind="AttachMoney" />
+                                        <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Hoa thiên lý xào thịt bò" />
@@ -195,8 +203,8 @@
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
                                             <materialDesign:PackIcon Kind="Update" />
                                         </Button>
-                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="30"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
-                                            <materialDesign:PackIcon Kind="Heart" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
                                         </Button>
                                         <materialDesign:PopupBox Padding="2 0 2 0">
                                             <StackPanel>
@@ -210,20 +218,21 @@
 
                             <Grid Grid.Column="4" >
 
-                                <Grid Margin="0 10"  VerticalAlignment="Top" Height="120" Width="140">
+                                <Grid Margin="0 0"  VerticalAlignment="Top" Height="130" Width="140">
                                     <Slider HorizontalAlignment="Left" Width="30"  Height="120"  TickFrequency="5" TickPlacement="Both" Orientation="Vertical" Minimum="1" Maximum="10" Foreground="#FF36AE98"  />
-                                    <TextBlock Text="10.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 0"/>
-                                    <TextBlock Text="25.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 15"/>
-                                    <TextBlock Text="50.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center"  Margin="0 -2 15 0"/>
+                                    <TextBlock Text="10.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 5"/>
+                                    <TextBlock Text="30.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 15"/>
+                                    <TextBlock Text="50.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center"  Margin="0 2 15 0"/>
                                 </Grid>
 
                                 <Grid Margin="0 15" VerticalAlignment="Bottom" Height="120" Width="140" >
-                                    <CheckBox Height="20" VerticalAlignment="Top"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn qua chế biến"/>
-                                    <RadioButton Height="20"  Margin="10 20 0 80" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bún, cơm, phở, ..."/>
-                                    <RadioButton Height="20" Margin="10 40 0 60" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước mía, chè, ..."/>
-                                    <CheckBox Height="20" Margin="0 0 0 -20"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn có sẵn"/>
-                                    <RadioButton  Height="20" Margin="10 60 0 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước ngọt, ..."/>
-                                    <RadioButton Height="20" Margin="10 100 0 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Hot dog, ..."/>
+                                    <StackPanel Margin="0 0"  VerticalAlignment="Top" Height="120" Width="140">
+                                        <materialDesign:RatingBar Value="1"  Foreground="Gold" />
+                                        <materialDesign:RatingBar Value="2"  Foreground="Gold" />
+                                        <materialDesign:RatingBar Value="3" Foreground="Gold" />
+                                        <materialDesign:RatingBar Value="4" Foreground="Gold" />
+                                        <materialDesign:RatingBar Value="5"  Foreground="Gold" />
+                                    </StackPanel>
                                 </Grid>
 
                             </Grid>
@@ -232,7 +241,163 @@
 
                     </Grid>
 
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"></GridSplitter>
+                    <Grid Grid.Row="1" >
+
+                        <Grid Height="280" Width="980" HorizontalAlignment="Left" Margin="0 10">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="140"/>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:Card  Grid.Column="0" Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                                        <materialDesign:PackIcon  Kind="Cart" />
+                                    </Button>
+                                    <StackPanel Grid.Row="1"  Margin="8 10 8 0">
+                                        <TextBlock FontWeight="Bold" Text="Gà chiên mắm" />
+                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
+                                        <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:PackIcon Kind="Update" />
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
+                                        </Button>
+                                        <materialDesign:PopupBox Padding="2 0 2 0">
+                                            <StackPanel>
+                                                <Button  Content="More" />
+                                                <Button Content="Options" />
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card  Grid.Column="1" Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                                        <materialDesign:PackIcon  Kind="Cart" />
+                                    </Button>
+                                    <StackPanel Grid.Row="1"  Margin="8 10 8 0">
+                                        <TextBlock FontWeight="Bold" Text="Đậu ve xào thịt" />
+                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
+                                        <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:PackIcon Kind="Update" />
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
+                                        </Button>
+                                        <materialDesign:PopupBox Padding="2 0 2 0">
+                                            <StackPanel>
+                                                <Button  Content="More" />
+                                                <Button Content="Options" />
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card  Grid.Column="2" Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                                        <materialDesign:PackIcon  Kind="Cart" />
+                                    </Button>
+                                    <StackPanel Grid.Row="1"  Margin="8 10 8 0">
+                                        <TextBlock FontWeight="Bold" Text="Ba rọi nướng" />
+                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
+                                        <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:PackIcon Kind="Update" />
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
+                                        </Button>
+                                        <materialDesign:PopupBox Padding="2 0 2 0">
+                                            <StackPanel>
+                                                <Button  Content="More" />
+                                                <Button Content="Options" />
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card  Grid.Column="3" Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                                        <materialDesign:PackIcon  Kind="Cart" />
+                                    </Button>
+                                    <StackPanel Grid.Row="1"  Margin="8 10 8 0">
+                                        <TextBlock FontWeight="Bold" Text="Hoa thiên lý xào thịt bò" />
+                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
+                                        <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:PackIcon Kind="Update" />
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
+                                        </Button>
+                                        <materialDesign:PopupBox Padding="2 0 2 0">
+                                            <StackPanel>
+                                                <Button  Content="More" />
+                                                <Button Content="Options" />
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <StackPanel Grid.Column="4" >
+                                <CheckBox Height="20" VerticalAlignment="Top"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn qua chế biến"/>
+                                    <RadioButton Height="20" Margin="20 0"  Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bún, cơm, phở, ..."/>
+                                <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước mía, chè, ..."/>
+                                <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bánh mì, ..."/>
+                                    <CheckBox Height="20"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn có sẵn"/>
+                                <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước ngọt, ..."/>
+                                <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Hot dog, ..."/>
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Grid>
 
                     <Grid Grid.Row="2" Height="30">
                         <Grid Width="300">
@@ -272,11 +437,10 @@
                         </Grid>
                     </Grid>
 
-                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch"></GridSplitter>
-
                 </Grid>
 
             </StackPanel>
-        </materialDesign:TransitioningContent>
+      
     </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>
