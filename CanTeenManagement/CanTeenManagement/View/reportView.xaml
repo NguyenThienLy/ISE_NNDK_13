@@ -16,8 +16,58 @@
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
     <Grid>
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <TextBlock Text="Khoa design" FontSize="50"/>
-        </materialDesign:TransitioningContent>
+        <ListView x:Name="LV_Report"
+                  ItemsSource="{Binding Items1}"
+                  VerticalAlignment="Top"
+                  Margin="0,62,0,0"
+                  Height="412" 
+                  FontSize="28" FontFamily="Calibri">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Name}"
+                        Header="Báo cáo"
+                        Width="250"/>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Time}"
+                        Header="Thời gian" 
+                        Width="200"/>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Note}"
+                        Header="Ghi chú"
+                        Width="150"/>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Handle}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" 
+                                 Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <Button  x:Name="Btn_AddReport"
+                 Width="60"
+                 Height="60"
+                 Content="+"
+                 Click="Btn_AddReport_Click" 
+                 FontSize="45"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Right"
+                 Margin="0,59,20,20"
+                 FontFamily="Arial" 
+                 FontWeight="Light">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#FF456DC3"/>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </UserControl>
