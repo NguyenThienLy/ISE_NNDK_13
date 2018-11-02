@@ -34,21 +34,16 @@
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"  Margin="224,258,456,202" Foreground="White" Background="#FF28878B" BorderBrush="#FF28878B">
                         <materialDesign:PackIcon Kind="Settings" Height="30" Width="21" />
                     </Button>
-                    <Rectangle Height="200" VerticalAlignment="Top" RadiusY="25" RadiusX="25" Grid.RowSpan="2">
+                    <Rectangle Height="190" VerticalAlignment="Top" Grid.RowSpan="2">
                         <Rectangle.Fill>
-                            <ImageBrush  ImageSource ="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\Ocean.jpg" Stretch="Fill"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Rectangle Height="193" VerticalAlignment="Top" Grid.RowSpan="1">
-                        <Rectangle.Fill>
-                            <ImageBrush  ImageSource ="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\Ocean.jpg" Stretch="Fill"/>
+                            <ImageBrush  ImageSource ="G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\backgroudbeach.jpg" Stretch="Fill"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Grid>
 
                 <Ellipse VerticalAlignment="Top" Height="144" Margin="10,10,568,0">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\AVT.jpg" Stretch="Fill"/>
+                        <ImageBrush ImageSource ="G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\AVT.jpg" Stretch="Fill"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" Margin="170,94,300,370" FontWeight="Bold">
