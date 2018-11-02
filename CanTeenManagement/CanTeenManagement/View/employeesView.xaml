@@ -15,9 +15,156 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
-    <Grid>
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <TextBlock Text="Long design" FontSize="50"/>
-        </materialDesign:TransitioningContent>
-    </Grid>
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid x:Name="gvMain" Loaded="gvMain_Loaded">
+            <Grid Height="40" Width="980"  VerticalAlignment="Top">
+                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF26788A" Offset="1"/>
+                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+            <StackPanel>
+                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
+                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+
+                        <Button x:Name="btnSave" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnSave_Click">
+                            <materialDesign:PackIcon Kind="ContentSave" />
+                        </Button>
+
+                        <Button x:Name="btnExport" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnExport_Click">
+                            <materialDesign:PackIcon Kind="Export" />
+                        </Button>
+                        
+                        <Button x:Name="btnAdd" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnAdd_Click">
+                            <materialDesign:PackIcon Kind="Add" />
+                        </Button>
+
+                        <Button x:Name="btnEdit" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnEdit_Click">
+                            <materialDesign:PackIcon Kind="Edit" />
+                        </Button>
+
+                        <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                            <materialDesign:ColorZone  Mode="Standard"  Padding="8 4 8 4"   CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
+                                    </Button>
+                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập thông tin nhân viên ..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" FontSize="10" />
+                                </Grid>
+                            </materialDesign:ColorZone>
+                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                                <materialDesign:PackIcon Kind="Send" />
+                            </Button>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+
+                <Grid Height="620">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="rDefTop" Height="40"/>
+                        <RowDefinition Height="380"/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="grvTop" Grid.Row="0" VerticalAlignment="Stretch">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="100"/>                                                         
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="1" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Mã nhân viên" />
+                            <TextBox  Grid.Column="3" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Họ và tên" />
+                            <TextBox Grid.Column="5" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Số điện thoại" />
+                            <TextBox  Grid.Column="7" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Giới tính" />
+                            <TextBox  Grid.Column="9" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Ngày sinh" />
+                            <TextBox  Grid.Column="11" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Trạng thái làm việc" />
+                            <TextBox  Grid.Column="13" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Tổng lương" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="1" VerticalAlignment="Stretch">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ListView x:Name="lsVEmployees"  ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode =OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="50">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnDetail" Margin="0 -10" Click="btnDetail_Click" Style="{DynamicResource MaterialDesignToolButton}">
+                                                        <materialDesign:PackIcon Kind="Details"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn  Header="Mã nhân viên" Width="120" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Họ và tên" Width="200" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Số điện thoại" Width="110" DisplayMemberBinding="{Binding Phone}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Giới tính" Width="90" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Ngày sinh" Width="100" DisplayMemberBinding="{Binding Birthday}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Trạng thái làm việc" Width="150" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Tổng lương" Width="100" DisplayMemberBinding="{Binding Salary}"></GridViewColumn>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </Grid>
+                    <Grid Grid.Row="2" VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 0">
+                            <Button
+                                Width="150"
+                                Height="50"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Click="btnPhanca_Click"
+                                ToolTip="MaterialDesignFlatButton">                                
+                                Phân ca
+                            </Button>
+                            <Button
+                                Width="150"
+                                Height="50"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Click="btnLuong_Click"
+                                ToolTip="MaterialDesignFlatButton">
+                                Tính lương
+                            </Button>
+                        </StackPanel>
+                        <Grid x:Name="GridCursor" Width="150" Height="5" Background="#FF28878B" HorizontalAlignment="Left" Margin="10,45,0,150"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>            
+
+        </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>
