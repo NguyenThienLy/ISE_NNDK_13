@@ -23,6 +23,54 @@ namespace CanTeenManagement.View
         public customersView()
         {
             InitializeComponent();
+
+            List<customers> items = new List<customers>();
+
+            items.Add(new customers() { ID = "1612365", Name = "Nguyễn Thiên Lý", Gmail = "nguyenmit2012@gmail.com", Phone =  "0344374834", PointSave= "20000", TypeCustomer = "4 sao", Password = "pepo2703", Status ="Sử dụng" });
+            items.Add(new customers() { ID = "1612339", Name = "Trần Khánh Linh", Gmail = "trankhanhlinh98@gmail.com", Phone = "0344374834", PointSave = "20000", TypeCustomer = "3 sao", Password = "duyduy", Status = "Sử dụng" });
+
+            this.lsVCustomer.ItemsSource = items;
+
+            this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            this.rDefTop.Height = new GridLength(40, GridUnitType.Star);
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            this.rDefTop.Height = new GridLength(40, GridUnitType.Star);
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+        }
+
+        private void gvMain_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+        }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            detailCustomersView detailCusView = new detailCustomersView();
+
+            detailCusView.ShowDialog();
+        }
+    }
+
+    public class customers
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string Gmail { get; set; }
+        public string Phone { get; set; }
+        public string PointSave { get; set; }
+        public string TypeCustomer { get; set; }
+        public string Password { get; set; }
+        public string Status { get; set; }
     }
 }

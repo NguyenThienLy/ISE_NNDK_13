@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CanTeenManagement.View"
              mc:Ignorable="d" 
-                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
@@ -15,9 +15,101 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
-    <Grid>
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <TextBlock Text="Long design" FontSize="50"/>
-        </materialDesign:TransitioningContent>
-    </Grid>
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid x:Name="gvMain" Loaded="gvMain_Loaded">
+            <Grid Height="40" Width="980"  VerticalAlignment="Top">
+                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF26788A" Offset="1"/>
+                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+            <StackPanel>
+                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
+                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+
+                        <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                            <materialDesign:ColorZone  Mode="Standard"  Padding="8 4 8 4"   CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
+                                    </Button>
+                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" materialDesign:HintAssist.Hint="" materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" FontSize="10" />
+                                </Grid>
+                            </materialDesign:ColorZone>
+                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                                <materialDesign:PackIcon Kind="Send" />
+                            </Button>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+
+                <Grid Width="980">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Width="300" HorizontalAlignment="Left" Margin="0 0">
+                        <TextBlock FontWeight="Bold" Text="HÀNG CHỜ" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                    </Grid>
+
+                    <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,-578">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="680"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ListView x:Name="lsVSortFood"  ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode =OneWayToSource}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Tên món" Width="180" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                            <GridViewColumn Header="Số lượng" Width="90" DisplayMemberBinding="{Binding Quantity}"></GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <TextBlock FontWeight="Bold" Text="GÀ CHIÊN MẮM" FontSize="40"
+                                        HorizontalAlignment="Center"/>
+
+                            <Image Source="E:\Documents\Nhap mon CNPM\ISE_NNDK_13\CanTeenManagement\Gachienmam.jpg" 
+                                   Height="229" Stretch="UniformToFill" 
+                                   VerticalAlignment="Center" Margin="180,90,180,259" />
+
+                            <Button Margin="478,434,52,112" Height="60" Width="150" Content="Tiếp theo" Name="btnNext" 
+                                    Background="#76FF03" Foreground="Black" Click="btnNext_Click" 
+                                    BorderBrush="{x:Null}" FontSize="20"></Button>
+
+                            <Button Margin="258,434,272,112" Height="60" Width="150" Content="Bỏ qua" x:Name="btnNext_Copy" 
+                                    Background="#9E9E9E" Foreground="Black" Click="btnSkip_Click" 
+                                    BorderBrush="{x:Null}" FontSize="20" HorizontalAlignment="Center"/>
+                            
+                            <Button Margin="42,434,488,112" Height="60" Width="150" Content="Hết món" x:Name="btnNext_Copy1" 
+                                Background="#D50000" Foreground="White" Click="btnSoldOut_Click" 
+                                BorderBrush="{x:Null}" FontSize="20"/>
+                        </Grid>
+
+                    </Grid>
+
+                </Grid>
+
+            </StackPanel>
+        </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>

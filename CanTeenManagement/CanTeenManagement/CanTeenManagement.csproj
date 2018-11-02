@@ -72,6 +72,12 @@
     <Compile Include="View\dashBoardView.xaml.cs">
       <DependentUpon>dashBoardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\detailCustomersView.xaml.cs">
+      <DependentUpon>detailCustomersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\detailEmployeeView.xaml.cs">
+      <DependentUpon>detailEmployeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\employeesView.xaml.cs">
       <DependentUpon>employeesView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\dashBoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\detailCustomersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\detailEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +189,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="View\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
