@@ -141,3 +141,5 @@ C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManageme
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.baml
