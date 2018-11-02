@@ -16,13 +16,47 @@ using System.Windows.Shapes;
 namespace CanTeenManagement.View
 {
     /// <summary>
-    /// Interaction logic for sortFoodView.xaml
+    /// Interaction logic for employeesView.xaml
     /// </summary>
     public partial class sortFoodView : UserControl
     {
         public sortFoodView()
         {
             InitializeComponent();
+            List<sortFood> items = new List<sortFood>();
+
+            items.Add(new sortFood() { Name = "Gà chiên mắm", Quantity = "1" });
+            items.Add(new sortFood() { Name = "Thịt kho trứng", Quantity = "2" });
+
+            this.lsVSortFood.ItemsSource = items;
+
+            //this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
+
+        private void gvMain_Loaded(object sender, RoutedEventArgs e)
+        {
+           //this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSoldOut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSkip_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
+    public class sortFood
+    {
+        public string Name { get; set; }
+        public string Quantity { get; set; }
     }
 }
