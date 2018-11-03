@@ -17,7 +17,65 @@
        Height="660" Width="980">
     <Grid>
         <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <TextBlock Text="Linh design" FontSize="50"/>
+            <Grid>
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                            <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <StackPanel>
+                    <Grid Height="659">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="198"/>
+                            <RowDefinition Height="422"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="41"/>
+                                <ColumnDefinition Width="160*"/>
+                                <ColumnDefinition Width="779*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel  Grid.Column="1" Margin="8 0 8 0" Background="#FFC00000">
+                                <materialDesign:PackIcon Kind="FoodForkDrink" Foreground="White" Height="117" Width="134" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="7,0"/>
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="7,0"><Run Text="CĂN TIN"/></TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="25" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="7,0"><Run Text="ĐH KHTN"/></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="417"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40,40,10,0">
+                                    <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
+                                    <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                                        <TextBlock Text="25.000" FontSize="70" FontFamily="Cooper Black" Foreground="#FFC00000" />
+                                        <TextBlock Text="VNĐ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
+                                    </StackPanel>
+                                    <TextBlock Text="CÁNH GÀ CHIÊN NƯỚC MẮM" TextWrapping="Wrap" FontSize="35" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
+                                    <TextBlock Text="Kèm xà lách và dưa leo" TextWrapping="Wrap" FontSize="28" FontFamily="Champagne &amp; Limousines" Margin="5"/>
+                                    <TextBlock FontSize="25" FontFamily="Champagne &amp; Limousines" Margin="5" TextWrapping="Wrap">
+                                        Một món bổ dưỡng dành cho mỗi người.
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <Image Grid.Column="1" Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Stretch="UniformToFill" Margin="10,40,40,10"/>
+                        </Grid>
+
+                    </Grid>
+                </StackPanel>
+
+
+            </Grid>
+
         </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

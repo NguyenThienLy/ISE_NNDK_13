@@ -90,7 +90,7 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -124,7 +124,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -157,7 +157,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -190,7 +190,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -260,7 +260,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -293,7 +293,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -326,7 +326,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
@@ -359,7 +359,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
