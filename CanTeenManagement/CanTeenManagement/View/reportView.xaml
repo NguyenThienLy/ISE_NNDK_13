@@ -15,59 +15,126 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
-    <Grid>
-        <ListView x:Name="LV_Report"
-                  ItemsSource="{Binding Items1}"
-                  VerticalAlignment="Top"
-                  Margin="0,62,0,0"
-                  Height="412" 
-                  FontSize="28" FontFamily="Calibri">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Name}"
-                        Header="Báo cáo"
-                        Width="250"/>
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Time}"
-                        Header="Thời gian" 
-                        Width="200"/>
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Note}"
-                        Header="Ghi chú"
-                        Width="150"/>
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Handle}"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <EventSetter Event="PreviewMouseLeftButtonDown" 
-                                 Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid>
+            <Grid Height="40" Width="980"  VerticalAlignment="Top">
+                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF26788A" Offset="1"/>
+                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
 
-        <Button  x:Name="Btn_AddReport"
-                 Width="60"
-                 Height="60"
-                 Content="+"
-                 Click="Btn_AddReport_Click" 
-                 FontSize="45"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Right"
-                 Margin="0,59,20,20"
-                 FontFamily="Arial" 
-                 FontWeight="Light">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Ellipse Fill="#FF456DC3"/>
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-    </Grid>
+            <StackPanel Height="40" Width="980"  VerticalAlignment="Top">
+                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
+                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+                        <Button x:Name="Btn_DeleteReport"
+                                DockPanel.Dock="Right"
+                                Margin="0 -5" 
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Click="Btn_DeleteReport_Click"
+                                ToolTip="Xóa">
+                            <materialDesign:PackIcon Kind="Delete" />
+                        </Button>
+
+                        <Button x:Name="Btn_ExportReport"
+                                DockPanel.Dock="Right" 
+                                Margin="0 -5"
+                                Style="{DynamicResource MaterialDesignToolButton}" 
+                                Click="Btn_ExportReport_Click"
+                                ToolTip="Xuất">
+                            <materialDesign:PackIcon Kind="Export" />
+                        </Button>
+
+                        <Button x:Name="Btn_EditReport"
+                                DockPanel.Dock="Right"
+                                Margin="0 -5" 
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                Click="Btn_EditReport_Click"
+                                ToolTip="Sửa">
+                            <materialDesign:PackIcon Kind="Edit" />
+                        </Button>
+
+                        <Button x:Name="Btn_AddReport"
+                                DockPanel.Dock="Right" 
+                                Margin="0 -5"
+                                Style="{DynamicResource MaterialDesignToolButton}" 
+                                Click="Btn_AddReport_Click"
+                                ToolTip="Tạo">
+                            <materialDesign:PackIcon Kind="Add" />
+                        </Button>
+
+                        <StackPanel  Orientation="Horizontal"
+                                     materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" 
+                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
+                                          ToolTip="Menu chính"/>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+            </StackPanel>
+
+            <ListView x:Name="LV_Report"
+                      ItemsSource="{Binding Items1}"
+                      VerticalAlignment="Top"
+                      Margin="0,40,0,0"
+                      Height="590" 
+                      FontSize="13"
+                      FontFamily="Roboto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Stick}"
+                            Width="40"/>
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Name}"
+                            Header="Báo cáo"
+                            Width="250"/>
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Time}"
+                            Header="Thời gian" 
+                            Width="200"/>
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Note}"
+                            Header="Ghi chú"
+                            Width="150"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" 
+                                     Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <Button  x:Name="Btn_AddReport2"
+                     ToolTip="Tạo mới"
+                     Width="30"
+                     Height="30"
+                     Content="+" 
+                     FontSize="25"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Right"
+                     Margin="0,50,10,0"
+                     FontFamily="Arial" 
+                     FontWeight="Light">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="#FF456DC3"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+
+        </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>

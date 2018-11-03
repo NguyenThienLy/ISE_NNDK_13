@@ -26,9 +26,9 @@ namespace CanTeenManagement.View
             InitializeComponent();
 
             List<User> items = new List<User>();
-            items.Add(new User() { Name = "Nhập kho", Time = "01/01/2011", Note = "abc" });
-            items.Add(new User() { Name = "Trả tiền điện", Time = "03/03/2002", Note = "def" });
-            items.Add(new User() { Name = "Bla bla", Time = "10/10/1111", Note = "mnk"});
+            items.Add(new User() { Name = "Nhập kho", Time = "01/01/2011", Note = "note" });
+            items.Add(new User() { Name = "Trả tiền điện", Time = "03/03/2002", Note = "note" });
+            items.Add(new User() { Name = "Trả lương", Time = "10/10/1111", Note = "note" });
             LV_Report.ItemsSource = items;
         }
 
@@ -39,11 +39,24 @@ namespace CanTeenManagement.View
             public string Time { get; set; }
 
             public string Note { get; set; }
-
-            public Popup Handle { get; set; }
         }
 
         private void Btn_AddReport_Click(object sender, RoutedEventArgs e)
+        {
+            // do something
+        }
+
+        private void Btn_EditReport_Click(object sender, RoutedEventArgs e)
+        {
+            // do something
+        }
+
+        private void Btn_ExportReport_Click(object sender, RoutedEventArgs e)
+        {
+            // do something
+        }
+
+        private void Btn_DeleteReport_Click(object sender, RoutedEventArgs e)
         {
             // do something
         }

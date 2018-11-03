@@ -15,9 +15,187 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
-    <Grid>
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <TextBlock Text="Khoa design" FontSize="50"/>
-        </materialDesign:TransitioningContent>
-    </Grid>
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid>
+            <Grid Height="40" Width="980"  VerticalAlignment="Top">
+                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF26788A" Offset="1"/>
+                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+            <StackPanel Height="40" Width="980"  VerticalAlignment="Top">
+                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
+
+                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+                        <StackPanel  Orientation="Horizontal"
+                                     materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" 
+                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
+                                          ToolTip="Menu chính"/>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+            </StackPanel>
+
+            <TabControl HorizontalAlignment="Center" 
+                        VerticalAlignment="Top"
+                        Height="589"
+                        Width="972"
+                        Margin="0,40,0,0" >
+                <TabItem Header="Doanh thu"
+                         FontSize="25"
+                         FontFamily="Roboto">
+                    <Grid>
+                        <Grid Height="79" 
+                          Width="980" 
+                          Margin="0,0"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Center">
+
+                            <TextBlock Text="Từ ngày"
+                                   FontSize="20"
+                                   FontFamily="Roboto" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" 
+                                   Margin="35,25,0,30" 
+                                   FontWeight="SemiBold"/>
+
+                            <DatePicker Margin="142,18,680,0" VerticalAlignment="Top"/>
+
+                            <TextBlock Text="Đến ngày"
+                                   FontSize="20"
+                                   FontFamily="Roboto" 
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,25,211,30"
+                                   FontWeight="SemiBold"/>
+
+                            <DatePicker  Margin="790,20,30,0" VerticalAlignment="Top"/>
+
+                            <Button Margin="422,22,452,25"
+                                Content="Thống kê">
+                                <Button.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
+                                </Button.Foreground>
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
+                                </Button.Background>
+
+                            </Button>
+                        </Grid>
+
+                        <ListView 
+                                     
+                                      VerticalAlignment="Top"
+                                      Height="376" 
+                                      FontSize="13"
+                                      FontFamily="Roboto" Margin="10,85,74,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="40"/>
+                                    <GridViewColumn                         
+                                        Header="Tiền nguyên liệu"
+                                        Width="200"/>
+                                    <GridViewColumn
+                                        Header="Doanh thu" 
+                                        Width="200"/>
+                                    <GridViewColumn
+                                        Header="Chi phí khác" 
+                                        Width="200"/>
+                                    <GridViewColumn
+                                          Header="Lợi nhuận"
+                                        Width="200"/>
+                                </GridView>
+                            </ListView.View>
+
+                        </ListView>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Món ăn"
+                         FontSize="25"
+                         FontFamily="Roboto">
+                    <Grid>
+                        <Grid Height="79" 
+                          Width="980" 
+                          Margin="0,0"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Center">
+
+                            <TextBlock Text="Từ ngày"
+                                   FontSize="20"
+                                   FontFamily="Roboto" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" 
+                                   Margin="33,28,0,21" 
+                                   FontWeight="SemiBold"/>
+
+                            <DatePicker Margin="142,18,680,0" VerticalAlignment="Top"/>
+
+                            <TextBlock Text="Đến ngày"
+                                   FontSize="20"
+                                   FontFamily="Roboto" 
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,25,211,30"
+                                   FontWeight="SemiBold"/>
+
+                            <DatePicker  Margin="790,20,30,0" VerticalAlignment="Top"/>
+
+                            <Button Margin="422,22,452,25"
+                                Content="Thống kê">
+                                <Button.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
+                                </Button.Foreground>
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
+                                </Button.Background>
+
+                            </Button>
+                        </Grid>
+
+                        <ListView     VerticalAlignment="Top"
+                                      Height="376" 
+                                      FontSize="13"
+                                      FontFamily="Roboto" Margin="10,85,74,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="40"/>
+                                    <GridViewColumn                         
+                                        Header="Món ăn"
+                                        Width="150"/>
+                                    <GridViewColumn
+                                        Header="Số lượng bán" 
+                                        Width="150"/>
+                                    <GridViewColumn
+                                        Header="Số lượng làm" 
+                                        Width="150"/>
+                                    <GridViewColumn
+                                          Header="Tỉ suất"
+                                        Width="150"/>
+                                    <GridViewColumn
+                                          Header="Tổng doanh thu"
+                                        Width="150"/>
+                                </GridView>
+                            </ListView.View>
+
+                        </ListView>
+                    </Grid>
+
+                </TabItem>
+
+
+
+            </TabControl>
+
+        </Grid>
+    </materialDesign:TransitioningContent>
 </UserControl>
