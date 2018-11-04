@@ -96,9 +96,6 @@
     <Compile Include="View\sortFoodView.xaml.cs">
       <DependentUpon>sortFoodView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\usersView.xaml.cs">
-      <DependentUpon>usersView.xaml</DependentUpon>
-    </Compile>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,10 +160,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\sortFoodView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\usersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

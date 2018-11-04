@@ -31,10 +31,10 @@ namespace CanTeenManagement.View
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            //this.Close();
-            MainWindow mainWd = new MainWindow();
+        { 
+            MainWindow mainWd = MainWindow.Instance;    
             mainWd.Show();
+            this.Close();
         }
     }
 }

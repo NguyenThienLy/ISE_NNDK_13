@@ -21,7 +21,16 @@ namespace CanTeenManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private static MainWindow instance;
+
+        public static MainWindow Instance
+        {
+            get { if (instance == null) instance = new MainWindow(); return MainWindow.instance; }
+
+            set { MainWindow.instance = value; }
+        }
+
+        private MainWindow()
         {
             InitializeComponent();
         }
@@ -86,14 +95,23 @@ namespace CanTeenManagement
 
         private void btnUsers_Click(object sender, RoutedEventArgs e)
         {
-            usersView usersV = new usersView();
-            usersV.ShowDialog();
+            this.Opacity = 0.5;
+
+            detailEmployeeView detailEmpV = new detailEmployeeView();
+            detailEmpV.ShowDialog();
+
+            this.Opacity = 100;
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             settingsView settingsV = new settingsView();
             settingsV.ShowDialog();
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

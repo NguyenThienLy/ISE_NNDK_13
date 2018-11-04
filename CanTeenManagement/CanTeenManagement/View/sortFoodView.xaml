@@ -88,7 +88,7 @@
                             <TextBlock FontWeight="Bold" Text="GÀ CHIÊN MẮM" FontSize="40"
                                         HorizontalAlignment="Center"/>
 
-                            <Image Source="E:\Documents\Nhap mon CNPM\ISE_NNDK_13\CanTeenManagement\Gachienmam.jpg" 
+                            <Image 
                                    Height="229" Stretch="UniformToFill" 
                                    VerticalAlignment="Center" Margin="180,90,180,259" />
 

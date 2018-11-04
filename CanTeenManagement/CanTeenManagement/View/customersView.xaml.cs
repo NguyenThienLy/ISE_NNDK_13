@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CanTeenManagement.View;
 
 namespace CanTeenManagement.View
 {
@@ -26,8 +27,8 @@ namespace CanTeenManagement.View
 
             List<customers> items = new List<customers>();
 
-            items.Add(new customers() { ID = "1612365", Name = "Nguyễn Thiên Lý", Gmail = "nguyenmit2012@gmail.com", Phone =  "0344374834", PointSave= "20000", TypeCustomer = "4 sao", Password = "pepo2703", Status ="Sử dụng" });
-            items.Add(new customers() { ID = "1612339", Name = "Trần Khánh Linh", Gmail = "trankhanhlinh98@gmail.com", Phone = "0344374834", PointSave = "20000", TypeCustomer = "3 sao", Password = "duyduy", Status = "Sử dụng" });
+            items.Add(new customers() { ID = "1612365", Name = "Nguyễn Thiên Lý", Gmail = "nguyenmit2012@gmail.com", Phone =  "0344374834", PointSave= "20000", TypeCustomer = "4 sao", Password = "pepo2703", Status ="Đang sử dụng" });
+            items.Add(new customers() { ID = "1612339", Name = "Trần Khánh Linh", Gmail = "trankhanhlinh98@gmail.com", Phone = "0344374834", PointSave = "20000", TypeCustomer = "3 sao", Password = "duyduy", Status = "Đang sử dụng" });
 
             this.lsVCustomer.ItemsSource = items;
 
@@ -56,9 +57,16 @@ namespace CanTeenManagement.View
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWd = MainWindow.Instance;
+            mainWd.Opacity = 0.5;
+            this.Opacity = 0.5;
+
             detailCustomersView detailCusView = new detailCustomersView();
 
             detailCusView.ShowDialog();
+
+            mainWd.Opacity = 100;
+            this.Opacity = 100;
         }
     }
 

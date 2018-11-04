@@ -28,5 +28,22 @@ namespace CanTeenManagement.View
         {
             this.Close();
         }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            this.grVEdit.Height = 350;
+            this.grVInfo.Height = 0;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            this.grVInfo.Height = 350;
+            this.grVEdit.Height = 0;
+        }
+
+        private void gvMain_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
