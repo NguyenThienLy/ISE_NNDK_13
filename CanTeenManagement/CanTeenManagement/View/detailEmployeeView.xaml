@@ -76,9 +76,9 @@
 
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
+                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
 
-                                        <Button x:Name="btnSave" Margin="30 0 0 0" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Click="btnSave_Click">
+                                        <Button x:Name="btnSave" Margin="10 0 0 0" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Click="btnSave_Click">
                                             <materialDesign:PackIcon Kind="ContentSave" Height="30" Width="20" />
                                         </Button>
                                     </DockPanel>
@@ -155,11 +155,11 @@
 
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50">
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="162" Text="Thông tin cá nhân"/>
+                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="160" Margin="10" Text="Thông tin cá nhân"/>
                                         <Button x:Name="btnEdit" Margin="5 0" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Click="btnEdit_Click">
                                             <materialDesign:PackIcon Kind="Edit" Height="30" Width="20" />
                                         </Button>
-                                        <Button Margin="65 0 0 0" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                        <Button Margin="50 0 0 0" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
                                             <materialDesign:PackIcon Kind="ChartArc" Height="30" Width="20" />
                                         </Button>
                                     </DockPanel>

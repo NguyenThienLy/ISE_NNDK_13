@@ -31,51 +31,65 @@
                 <StackPanel>
                     <Grid Height="659">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="198"/>
-                            <RowDefinition Height="422"/>
+                            <RowDefinition Height="190"/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="41"/>
-                                <ColumnDefinition Width="160*"/>
-                                <ColumnDefinition Width="779*"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel  Grid.Column="1" Margin="8 0 8 0" Background="#FFC00000">
+                                <materialDesign:PackIcon Kind="Place" Foreground="White" Height="117" Width="134" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="7,0"/>
+                                <TextBlock TextWrapping="Wrap" FontSize="25" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="0 10"><Run Text="CĂN TIN"/></TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="20" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center"><Run Text="ĐH KHTN"/></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Column="3" Margin="8 0 8 0" Background="#FF00C04F">
+                                <materialDesign:PackIcon Kind="FoodOff" Foreground="White" Height="117" Width="134" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="7,0"/>
+                                <TextBlock TextWrapping="Wrap" FontSize="25" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="0 10"><Run Text="BÁN"/></TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="20" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" ><Run Text="CHẠY NHẤT"/></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Column="5" Margin="8 0 8 0" Background="#FFFFC500">
                                 <materialDesign:PackIcon Kind="FoodForkDrink" Foreground="White" Height="117" Width="134" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="7,0"/>
-                                <TextBlock TextWrapping="Wrap" FontSize="30" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="7,0"><Run Text="CĂN TIN"/></TextBlock>
-                                <TextBlock TextWrapping="Wrap" FontSize="25" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="7,0"><Run Text="ĐH KHTN"/></TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="25" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" Margin="0 10"><Run Text="MÓN"/></TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="20" Foreground="#FFF3E1E1" FontWeight="Bold" FontFamily="Roboto" Width="134" HorizontalAlignment="Center" TextAlignment="Center" ><Run Text="NGON NHẤT"/></TextBlock>
                             </StackPanel>
                         </Grid>
+                        
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="417"/>
+                                <ColumnDefinition Width="420"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40,40,10,0">
-                                    <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
-                                    <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                                        <TextBlock Text="25.000" FontSize="70" FontFamily="Cooper Black" Foreground="#FFC00000" />
-                                        <TextBlock Text="VNĐ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
-                                    </StackPanel>
-                                    <TextBlock Text="CÁNH GÀ CHIÊN NƯỚC MẮM" TextWrapping="Wrap" FontSize="35" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
-                                    <TextBlock Text="Kèm xà lách và dưa leo" TextWrapping="Wrap" FontSize="28" FontFamily="Champagne &amp; Limousines" Margin="5"/>
-                                    <TextBlock FontSize="25" FontFamily="Champagne &amp; Limousines" Margin="5" TextWrapping="Wrap">
-                                        Một món bổ dưỡng dành cho mỗi người.
-                                    </TextBlock>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="40,40,10,0">
+                                <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
+                                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                                    <TextBlock Text="25.000" FontSize="70" FontFamily="Cooper Black" Foreground="#FFC00000" />
+                                    <TextBlock Text="VNĐ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
                                 </StackPanel>
+                                <TextBlock Text="CÁNH GÀ CHIÊN NƯỚC MẮM" TextWrapping="Wrap" FontSize="35" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
+                                <TextBlock Text="Kèm xà lách và dưa leo" TextWrapping="Wrap" FontSize="28" FontFamily="Champagne &amp; Limousines" Margin="5"/>
+                                <TextBlock FontSize="25" FontFamily="Champagne &amp; Limousines" Margin="5" TextWrapping="Wrap">
+                                        Một món bổ dưỡng dành cho mỗi người.
+                                </TextBlock>
+                            </StackPanel>
 
-                                <Image Grid.Column="1" Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Stretch="UniformToFill" Margin="10,40,40,10"/>
+                            <Image Grid.Column="1" Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Stretch="UniformToFill" Margin="10,40,40,10"/>
                         </Grid>
 
                     </Grid>
                 </StackPanel>
-
-
             </Grid>
-
         </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>
