@@ -220,7 +220,7 @@
 
                                         <TextBlock Text="trankhanhlinh98@gmail.com" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                     </StackPanel>
-                                   
+
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Card>

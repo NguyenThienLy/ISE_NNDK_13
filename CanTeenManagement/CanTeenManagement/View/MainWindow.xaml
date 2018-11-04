@@ -145,7 +145,7 @@
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="180" Width="220">
             <Ellipse VerticalAlignment="Top" Height="100" Width="100" Margin="0 10">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\AVT.jpg"/>
+                    <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
             <Grid Height="65" VerticalAlignment="Bottom">

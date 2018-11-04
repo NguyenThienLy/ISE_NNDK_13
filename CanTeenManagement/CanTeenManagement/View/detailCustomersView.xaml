@@ -73,7 +73,7 @@
                                     <RowDefinition Height="50" />
                                     <RowDefinition Height="300" />
                                 </Grid.RowDefinitions>
-                                
+
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
