@@ -61,21 +61,27 @@ namespace CanTeenManagement.View
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWd = MainWindow.Instance;
+            mainWd.Opacity = 0.5;
+            this.Opacity = 0.5;
+
             detailCustomersView detailCusView = new detailCustomersView();
 
             detailCusView.ShowDialog();
+
+            mainWd.Opacity = 100;
+            this.Opacity = 100;
         }
 
-        private void btnPhanca_Click(object sender, RoutedEventArgs e)
-        {
-            GridCursor.Margin = new Thickness(10, 45, 0, 150);
-        }
+        //private void btnPhanca_Click(object sender, RoutedEventArgs e)
+        //{
+        //    GridCursor.Margin = new Thickness(10, 45, 0, 150);
+        //}
 
-        private void btnLuong_Click(object sender, RoutedEventArgs e)
-        {
-            GridCursor.Margin = new Thickness(10 + 150, 45, 0, 150);
-        }
-        
+        //private void btnLuong_Click(object sender, RoutedEventArgs e)
+        //{
+        //    GridCursor.Margin = new Thickness(10 + 150, 45, 0, 150);
+        //}
     }
 
     public class employees

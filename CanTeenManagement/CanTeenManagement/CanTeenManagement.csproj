@@ -96,9 +96,6 @@
     <Compile Include="View\sortFoodView.xaml.cs">
       <DependentUpon>sortFoodView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\usersView.xaml.cs">
-      <DependentUpon>usersView.xaml</DependentUpon>
-    </Compile>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,10 +163,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\usersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -207,6 +200,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\close_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AVT.jpg" />
+    <Resource Include="Images\backgroud.jpg" />
+    <Resource Include="Images\backgroudbeach.jpg" />
+    <Resource Include="Images\Gachienmam.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Pho.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

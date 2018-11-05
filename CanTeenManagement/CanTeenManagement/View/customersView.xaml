@@ -18,6 +18,7 @@
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid x:Name="gvMain" Loaded="gvMain_Loaded">
+            
             <Grid Height="40" Width="980"  VerticalAlignment="Top">
                 <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
                     <Rectangle.Fill>
@@ -34,6 +35,10 @@
                 <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
 
+                        <Button  DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnSave_Click">
+                            <materialDesign:PackIcon Kind="Export" />
+                        </Button>
+                        
                         <Button x:Name="btnSave" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnSave_Click">
                             <materialDesign:PackIcon Kind="ContentSave" />
                         </Button>
@@ -78,21 +83,19 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="35"/>
-                                <ColumnDefinition Width="45"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="120"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBox Grid.Column="1" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Mã số sinh viên" />
@@ -101,8 +104,7 @@
                             <TextBox  Grid.Column="7" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Số điện thoại" />
                             <TextBox  Grid.Column="9" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Điểm tích lũy" />
                             <ComboBox  Grid.Column="11" BorderBrush="#FF28878B" Padding="5 20 -10 0" materialDesign:HintAssist.Hint="Loại" Height="40"/>
-                            <PasswordBox Grid.Column="13" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Mật khẩu" />
-                            <PasswordBox Grid.Column="15" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Trạng thái"/>
+                            <PasswordBox Grid.Column="13" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Trạng thái"/>
                         </Grid>
                     </Grid>
 
@@ -123,7 +125,7 @@
 
                                         <GridViewColumn  Header="Mã số sinh viên" Width="150" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Họ và tên" Width="100" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                        <GridViewColumn Header="Họ và tên" Width="150" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
 
                                         <GridViewColumn Header="Địa chỉ gmail" Width="150" DisplayMemberBinding="{Binding Gmail}"></GridViewColumn>
 
@@ -132,9 +134,7 @@
                                         <GridViewColumn Header="Điểm tích lũy" Width="120" DisplayMemberBinding="{Binding PointSave}"></GridViewColumn>
 
                                         <GridViewColumn Header="Loại" Width="100" DisplayMemberBinding="{Binding TypeCustomer}"></GridViewColumn>
-
-                                        <GridViewColumn Header="Mật khẩu" Width="100" DisplayMemberBinding="{Binding Password}"></GridViewColumn>
-
+                                        
                                         <GridViewColumn Header="Trạng thái" Width="100" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>

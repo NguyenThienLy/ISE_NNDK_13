@@ -29,6 +29,7 @@
                 </Rectangle>
             </Grid>
             <Grid >
+                
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Quản lí căn tin" VerticalAlignment="Center" FontSize="20" FontFamily="Roboto" Margin="20 0"/>
                     <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
@@ -41,6 +42,7 @@
                         <materialDesign:PackIcon Kind="Instagram"/>
                     </Button>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
                         <materialDesign:PackIcon Kind="BellOutline"/>
@@ -51,6 +53,11 @@
                     <Button x:Name="btnSettings" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Margin="0 0 10 0" Click="btnSettings_Click">
                         <materialDesign:PackIcon Kind="Settings"/>
                     </Button>
+
+                    <Button x:Name="btnMinimize" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="btnMinimize_Click">
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    
                     <Button x:Name="btnShutDown" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="btnShutDown_Click">
                         <materialDesign:PackIcon Kind="Power"/>
                     </Button>
@@ -138,7 +145,7 @@
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="180" Width="220">
             <Ellipse VerticalAlignment="Top" Height="100" Width="100" Margin="0 10">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="C:\Users\Administrator\OneDrive - VNU-HCMUS\CanTeenManagement\AVT.jpg"/>
+                    <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
             <Grid Height="65" VerticalAlignment="Bottom">
