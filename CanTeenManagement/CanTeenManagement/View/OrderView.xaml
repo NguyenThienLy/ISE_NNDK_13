@@ -16,10 +16,12 @@
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
 
-    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+    <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" 
+                                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid>
-        <Grid Height="40" Width="980"  VerticalAlignment="Top">
-            <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+            <Rectangle Height="40" 
+                           Width="980" 
+                           VerticalAlignment="Top" >
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF26788A" Offset="1"/>
@@ -28,46 +30,88 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-        </Grid>
 
+            <Rectangle Height="620" 
+                       Width="980" 
+                       VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <StackPanel>
-                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
-                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
-                        <ToggleButton  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"  VerticalAlignment="Center" DockPanel.Dock="Right" />
-                        <materialDesign:Badged Margin="10 5"  Badge="6" Background="White" DockPanel.Dock="Right" BadgeBackground="Red">
-                            <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                <materialDesign:ColorZone Grid.Row="0"
+                                           Mode="PrimaryMid" 
+                                          Padding="16" Background="{x:Null}" 
+                                          VerticalAlignment="Top">
+                    <DockPanel  Height="30" 
+                                VerticalAlignment="Top" 
+                                Margin="0 -11">
+                        <ToggleButton  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"  
+                                       VerticalAlignment="Center" 
+                                       DockPanel.Dock="Right" />
+                        <materialDesign:Badged Margin="10 5"  
+                                               Badge="6" 
+                                               Background="White"
+                                               DockPanel.Dock="Right" 
+                                               BadgeBackground="Red">
+                            <Button x:Name="btnPay"
+                                    Margin="0 -5" 
+                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                    Click="btnPay_Click">
                                 <materialDesign:PackIcon Kind="Cart" />
                             </Button>
                         </materialDesign:Badged>
-                        <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                            <materialDesign:ColorZone  Mode="Standard"  Padding="8 4 8 4"   CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <StackPanel  Orientation="Horizontal" 
+                                     materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" 
+                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                            <materialDesign:ColorZone  Mode="Standard"  
+                                                       Padding="8 4 8 4"   
+                                                       CornerRadius="2" 
+                                                       Panel.ZIndex="1" 
+                                                       Margin="16 0 0 0" 
+                                                       materialDesign:ShadowAssist.ShadowDepth="Depth1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                                    <Button Margin="0 -5" 
+                                            Style="{DynamicResource MaterialDesignToolButton}">
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
                                     </Button>
-                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập tên đồ ăn, thức uống ..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" FontSize="10" />
+                                    <TextBox Grid.Column="1" 
+                                             Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm" 
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
+                                             BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" 
+                                             FontSize="10" />
                                 </Grid>
                             </materialDesign:ColorZone>
-                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                                     Margin="8 0 0 0" Panel.ZIndex="0">
                                 <materialDesign:PackIcon Kind="Send" />
                             </Button>
                         </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
 
-                <Grid Height="620">
+                <Grid Grid.Row="1">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="290"/>
                         <RowDefinition Height="290"/>
-                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" >
@@ -82,30 +126,52 @@
                                 <ColumnDefinition Width="140"/>
                             </Grid.ColumnDefinitions>
 
-                            <materialDesign:Card  Grid.Column="0" Width="200">
+                            <materialDesign:Card  Grid.Column="0" 
+                                                  Width="200">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="130" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    
+
                                     <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
-                                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                                    <Button Grid.Row="0" 
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Bottom"
+                                            Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
-                                    <StackPanel Grid.Row="1"  Margin="8 10 8 0">
-                                        <TextBlock FontWeight="Bold" Text="Gà chiên mắm" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
-                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                    <StackPanel Grid.Row="1" 
+                                                Margin="8 10 8 0">
+                                        <TextBlock FontWeight="Bold" 
+                                                   Text="Gà chiên mắm" />
+                                        <TextBlock Foreground="Red" 
+                                                   FontSize="25"  
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VND" 
+                                                   FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap" 
+                                                   VerticalAlignment="Center" 
+                                                   Text="Một món bổ dưỡng dành cho mỗi người."></TextBlock>
                                     </StackPanel>
-                                    
-                                    <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
-                                        <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
+
+                                    <StackPanel   HorizontalAlignment="Right"  
+                                                  Grid.Row="2"  Orientation="Horizontal" 
+                                                  Margin="8">
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"
+                                                Width="30" Padding="2 0 2 0" 
+                                                materialDesign:RippleAssist.IsCentered="True">
                                             <materialDesign:PackIcon Kind="Update" />
                                         </Button>
-                                        <Button Style="{StaticResource MaterialDesignToolButton}"  Width="125"  Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
-                                            <materialDesign:RatingBar  Value="3" Orientation="Horizontal" Foreground="Gold"  Margin="0" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}"  
+                                                Width="125"  Padding="2 0 2 0"  
+                                                materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:RatingBar  Value="3" 
+                                                                       Orientation="Horizontal" 
+                                                                       Foreground="Gold" 
+                                                                       Margin="0" />
                                         </Button>
                                         <materialDesign:PopupBox Padding="2 0 2 0">
                                             <StackPanel>
@@ -220,13 +286,38 @@
 
                                 <Grid Margin="0 0"  VerticalAlignment="Top" Height="130" Width="140">
                                     <Slider HorizontalAlignment="Left" Width="30"  Height="120"  TickFrequency="5" TickPlacement="Both" Orientation="Vertical" Minimum="1" Maximum="10" Foreground="#FF36AE98"  />
-                                    <TextBlock Text="10.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 5"/>
-                                    <TextBlock Text="30.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center" Margin="0 0 15 15"/>
-                                    <TextBlock Text="50.000 VND" FontSize="13" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="15" FontFamily="Cooper Black" TextAlignment="Center"  Margin="0 2 15 0"/>
+                                    <TextBlock Text="10.000 VND" 
+                                               FontSize="13" 
+                                               Foreground="Red" 
+                                               VerticalAlignment="Bottom" 
+                                               HorizontalAlignment="Right" 
+                                               Width="80" Height="15" 
+                                               FontFamily="Cooper Black" TextAlignment="Center" 
+                                               Margin="0 0 15 5"/>
+                                    <TextBlock Text="30.000 VND" 
+                                               FontSize="13" 
+                                               Foreground="Red" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Right"  
+                                               Width="80" 
+                                               Height="15" 
+                                               FontFamily="Cooper Black" 
+                                               TextAlignment="Center" 
+                                               Margin="0 0 15 15"/>
+                                    <TextBlock Text="50.000 VND" 
+                                               FontSize="13" Foreground="Red" 
+                                               VerticalAlignment="Top" 
+                                               HorizontalAlignment="Right"
+                                               Width="80" Height="15"
+                                               FontFamily="Cooper Black"
+                                               TextAlignment="Center" 
+                                               Margin="0 2 15 0"/>
                                 </Grid>
 
                                 <Grid Margin="0 15" VerticalAlignment="Bottom" Height="120" Width="140" >
-                                    <StackPanel Margin="0 0"  VerticalAlignment="Top" Height="120" Width="140">
+                                    <StackPanel VerticalAlignment="Top" 
+                                                Height="120" 
+                                                Width="140">
                                         <materialDesign:RatingBar Value="1"  Foreground="Gold" />
                                         <materialDesign:RatingBar Value="2"  Foreground="Gold" />
                                         <materialDesign:RatingBar Value="3" Foreground="Gold" />
@@ -387,10 +478,10 @@
 
                             <StackPanel Grid.Column="4" >
                                 <CheckBox Height="20" VerticalAlignment="Top"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn qua chế biến"/>
-                                    <RadioButton Height="20" Margin="20 0"  Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bún, cơm, phở, ..."/>
+                                <RadioButton Height="20" Margin="20 0"  Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bún, cơm, phở, ..."/>
                                 <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước mía, chè, ..."/>
                                 <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Bánh mì, ..."/>
-                                    <CheckBox Height="20"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn có sẵn"/>
+                                <CheckBox Height="20"   Style="{StaticResource MaterialDesignCheckBox}"  FontSize="10" Background="#FF36AE98" Content="Đồ ăn có sẵn"/>
                                 <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Nước ngọt, ..."/>
                                 <RadioButton Height="20" Margin="20 0" Style="{StaticResource MaterialDesignRadioButton}" FontSize="10" Background="#FF36AE98" Content="Hot dog, ..."/>
                             </StackPanel>
@@ -399,48 +490,47 @@
 
                     </Grid>
 
-                    <Grid Grid.Row="2" Height="30">
-                        <Grid Width="300">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"  Kind="PagePrevious"/>
-                            </Button>
-
-                            <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
-                            </Button>
-
-                            <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
-                            </Button>
-
-                            <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
-                            </Button>
-                            <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
-                            </Button>
-                            <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
-                            </Button>
-                            <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
                 </Grid>
 
-            </StackPanel>
-      
-    </Grid>
+                <Grid Grid.Row="2" Height="30">
+                    <Grid Width="300">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"  Kind="PagePrevious"/>
+                        </Button>
+
+                        <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
+                        </Button>
+
+                        <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
+                        </Button>
+
+                        <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
+                        </Button>
+                        <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
+                        </Button>
+                        <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
+                        </Button>
+                        <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

@@ -17,20 +17,40 @@
        Height="660" Width="980">
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid x:Name="gvMain" Loaded="gvMain_Loaded">
-            <Grid Height="40" Width="980"  VerticalAlignment="Top">
-                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF26788A" Offset="1"/>
-                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
-                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Grid>
 
-            <StackPanel>
-                <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
+            <Rectangle Height="40" 
+                           Width="980" 
+                           VerticalAlignment="Top" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF26788A" Offset="1"/>
+                        <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                        <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Height="620" 
+                       Width="980" 
+                       VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <materialDesign:ColorZone Grid.Row="0"
+                    Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
 
                         <Button x:Name="btnSave" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" Click="btnSave_Click">
@@ -61,7 +81,12 @@
                                     <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
                                     </Button>
-                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập thông tin nhân viên ..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" FontSize="10" />
+                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" 
+                                             materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm" 
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
+                                             BorderThickness="0"  MinWidth="200" 
+                                             VerticalAlignment="Center" 
+                                             FontSize="10" />
                                 </Grid>
                             </materialDesign:ColorZone>
                             <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
@@ -71,7 +96,7 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
 
-                <Grid Height="620">
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="rDefTop" Height="40"/>
                         <RowDefinition Height="580"/>
@@ -142,46 +167,48 @@
                     </Grid>
                    
                 </Grid>
-            </StackPanel>
 
-            <Grid Height="30" VerticalAlignment="Bottom" Margin="0 0 0 10">
-                <Grid Width="300">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"  Kind="PagePrevious"/>
-                    </Button>
+                <Grid Grid.Row="2" 
+                      Height="30">
+                    <Grid Width="300">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"  Kind="PagePrevious"/>
+                        </Button>
 
-                    <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
-                    </Button>
+                        <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
+                        </Button>
 
-                    <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
-                    </Button>
+                        <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
+                        </Button>
 
-                    <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
-                    </Button>
-                    <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
-                    </Button>
-                    <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
-                    </Button>
-                    <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
-                    </Button>
+                        <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
+                        </Button>
+                        <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
+                        </Button>
+                        <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
+                        </Button>
+                        <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
 
+           
         </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

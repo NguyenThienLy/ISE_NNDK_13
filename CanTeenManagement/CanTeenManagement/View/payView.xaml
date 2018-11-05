@@ -1,0 +1,70 @@
+﻿<Window x:Class="CanTeenManagement.View.payView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanTeenManagement.View"
+        mc:Ignorable="d" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="LoginView" Height="500" Width="920" WindowStyle="None" WindowStartupLocation ="CenterScreen" ResizeMode="NoResize">
+    <Grid x:Name="gvMain" 
+          MouseDown="gvMain_MouseDown">
+
+        <Rectangle Height="500" Width="920" >
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                    <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="150"
+                             Width="150"
+                             VerticalAlignment="Top"
+                             HorizontalAlignment="Left">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <materialDesign:RatingBar Value="1"  Foreground="Gold" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </materialDesign:TransitioningContent>
+
+        <Button x:Name="btnClose" 
+                        Style="{StaticResource MaterialDesignToolButton}" 
+                        Height="25"
+                        Width="25"
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Right" 
+                        Click="btnClose_Click">
+            <materialDesign:PackIcon Kind="Close"/>
+        </Button>
+    </Grid>
+</Window>

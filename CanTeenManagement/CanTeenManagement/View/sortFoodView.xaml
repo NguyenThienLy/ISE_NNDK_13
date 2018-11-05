@@ -16,257 +16,295 @@
           DataContext="{StaticResource MainVM}"
        Height="660" Width="980">
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+
         <Grid x:Name="gvMain" Loaded="gvMain_Loaded">
-            <StackPanel>
 
-                <Grid Height="660">
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="490"/>
-                            <ColumnDefinition Width="490"/>
-                        </Grid.ColumnDefinitions>
+            <Rectangle Height="40" 
+                           Width="980" 
+                           VerticalAlignment="Top" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF26788A" Offset="1"/>
+                        <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                        <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
 
-                        <materialDesign:Card Grid.Column="0" Width="470" Margin="10,10,10,10" VerticalAlignment="Center">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="300"/>
-                                    <RowDefinition Height="56"/>
-                                    <RowDefinition Height="60"/>
-                                    <RowDefinition Height="60"/>
-                                    <RowDefinition Height="74"/>
-                                </Grid.RowDefinitions>
+            <Rectangle Height="620" 
+                       Width="980" 
+                       VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
 
-                                <Image Grid.Row="0" Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Stretch="Fill"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-                                <TextBlock x:Name="Name1"
+                <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
+                    <DockPanel VerticalAlignment="Top" Margin="0 -11"  
+                               Height="30">
+                        <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="490"/>
+                        <ColumnDefinition Width="490"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:Card Grid.Column="0"
+                                         Width="470" 
+                                         Margin="10,10,10,10" 
+                                         VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="300"/>
+                                <RowDefinition Height="56"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="74"/>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Row="0" Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Stretch="Fill"/>
+
+                            <TextBlock x:Name="Name1"
                                            Grid.Row="1" FontWeight="Bold" FontSize="30" 
                                            HorizontalAlignment="Center" Margin="10,10,10,10" 
                                            Text = "GÀ CHIÊN MẮM"/>
 
-                                <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
+                            <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                                Margin="5,35,5,50" Grid.Row="1" Grid.RowSpan="2"/>
 
-                                <Grid Grid.Row="2">
+                            <Grid Grid.Row="2">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                                    <materialDesign:Chip x:Name="CQuantity1" Grid.Column="0" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                       
+                                <materialDesign:Chip x:Name="CQuantity1" Grid.Column="0" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                       
                                         Content="Số lượng: 1"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="Numeric1BoxesOutline"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                    <materialDesign:Chip x:Name="CTime1" Grid.Column="1" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"
+                                <materialDesign:Chip x:Name="CTime1" Grid.Column="1" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"
                                         Content="Thời gian: 09:50"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="Clock"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                </Grid>
+                            </Grid>
 
-                                <Grid Grid.Row="3">
+                            <Grid Grid.Row="3">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="170"/>
-                                        <ColumnDefinition Width="10"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
 
 
-                                    <materialDesign:Chip  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                        
+                                <materialDesign:Chip  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                        
                                         Content="Nguyễn Hà Hoàng Long"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="User"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                    <materialDesign:Chip Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <materialDesign:RatingBar  HorizontalAlignment="Center" VerticalAlignment="Center" Value="5"  Foreground="Gold" />
+                                <materialDesign:Chip Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <materialDesign:RatingBar  HorizontalAlignment="Center" VerticalAlignment="Center" Value="5"  Foreground="Gold" />
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="ChessKing"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
-                                </Grid>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
+                            </Grid>
 
-                                <Grid Grid.Row="4">
-                                    <Separator Style="{StaticResource MaterialDesignDarkSeparator}" 
+                            <Grid Grid.Row="4">
+                                <Separator Style="{StaticResource MaterialDesignDarkSeparator}" 
                                                Margin="5,-12.5,5,58.5"/>
 
-                                    <Button x:Name="btnSoldOut1"
+                                <Button x:Name="btnSoldOut1"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left" Margin="5"
                                         Width="130" Height="40"
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="18" FontWeight="SemiBold" Background="#D50000" BorderBrush="#D50000">
-                                        HẾT MÓN
-                                    </Button>
+                                    HẾT MÓN
+                                </Button>
 
-                                    <Button x:Name="btnSkip1"
+                                <Button x:Name="btnSkip1"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="130" Height="40"                                            
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="20" FontWeight="SemiBold" Background="#212121" BorderBrush="#212121">
-                                        BỎ QUA
-                                    </Button>
+                                    BỎ QUA
+                                </Button>
 
-                                    <Button x:Name="btnNext1"
+                                <Button x:Name="btnNext1"
                                         HorizontalAlignment="Right" Margin="5"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="130" Height="40"                                            
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="20" FontWeight="SemiBold" Background="#43A047" BorderBrush="#43A047">
-                                        TIẾP THEO
-                                    </Button>
-                                </Grid>
+                                    TIẾP THEO
+                                </Button>
                             </Grid>
-                        </materialDesign:Card>
+                        </Grid>
+                    </materialDesign:Card>
 
-                        <materialDesign:Card Grid.Column="1" Width="470" Margin="10,10,10,10" VerticalAlignment="Center">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="300"/>
-                                    <RowDefinition Height="56"/>
-                                    <RowDefinition Height="60"/>
-                                    <RowDefinition Height="60"/>
-                                    <RowDefinition Height="74"/>
-                                </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Column="1" Width="470" Margin="10,10,10,10" VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="300"/>
+                                <RowDefinition Height="56"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="74"/>
+                            </Grid.RowDefinitions>
 
-                                <Image Grid.Row="0" Source="/CanTeenManagement;component/Images/Pho.jpg" Stretch="Fill"/>
+                            <Image Grid.Row="0" Source="/CanTeenManagement;component/Images/Pho.jpg" Stretch="Fill"/>
 
-                                <TextBlock x:Name="Name2"
+                            <TextBlock x:Name="Name2"
                                            Grid.Row="1" FontWeight="Bold" FontSize="30" 
                                            HorizontalAlignment="Center" Margin="10,10,10,10" 
                                            Text = "Phở"/>
 
-                                <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
+                            <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                                Margin="5,35,5,50" Grid.Row="1" Grid.RowSpan="2"/>
 
-                                <Grid Grid.Row="2">
+                            <Grid Grid.Row="2">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                                    <materialDesign:Chip x:Name="CQuantity2" Grid.Column="0" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                       
+                                <materialDesign:Chip x:Name="CQuantity2" Grid.Column="0" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                       
                                         Content="Số lượng: 1"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="Numeric1BoxesOutline"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                    <materialDesign:Chip x:Name="CTime2" Grid.Column="1" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"
+                                <materialDesign:Chip x:Name="CTime2" Grid.Column="1" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"
                                         Content="Thời gian: 09:50"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="Clock"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                </Grid>
+                            </Grid>
 
-                                <Grid Grid.Row="3">
+                            <Grid Grid.Row="3">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="170"/>
-                                        <ColumnDefinition Width="10"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
 
 
-                                    <materialDesign:Chip  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                        
+                                <materialDesign:Chip  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"                                        
                                         Content="Nguyễn Hà Hoàng Long"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="{DynamicResource PrimaryHueDarkBrush}"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="User"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
 
-                                    <materialDesign:Chip Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <materialDesign:RatingBar  HorizontalAlignment="Center" VerticalAlignment="Center" Value="5"  Foreground="Gold" />
+                                <materialDesign:Chip Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <materialDesign:RatingBar  HorizontalAlignment="Center" VerticalAlignment="Center" Value="5"  Foreground="Gold" />
 
-                                        <materialDesign:Chip.Icon>
-                                            <materialDesign:PackIcon
+                                    <materialDesign:Chip.Icon>
+                                        <materialDesign:PackIcon
                                                 Kind="ChessKing"></materialDesign:PackIcon>
-                                        </materialDesign:Chip.Icon>
-                                    </materialDesign:Chip>
-                                </Grid>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
+                            </Grid>
 
-                                <Grid Grid.Row="4">
-                                    <Separator Style="{StaticResource MaterialDesignDarkSeparator}" 
+                            <Grid Grid.Row="4">
+                                <Separator Style="{StaticResource MaterialDesignDarkSeparator}" 
                                                Margin="5,-12.5,5,58.5"/>
 
-                                    <Button x:Name="btnSoldOut2"
+                                <Button x:Name="btnSoldOut2"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left" Margin="5"
                                         Width="130" Height="40"
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="18" FontWeight="SemiBold" Background="#D50000" BorderBrush="#D50000">
-                                        HẾT MÓN
-                                    </Button>
+                                    HẾT MÓN
+                                </Button>
 
-                                    <Button x:Name="btnSkip2"
+                                <Button x:Name="btnSkip2"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="130" Height="40"                                            
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="20" FontWeight="SemiBold" Background="#212121" BorderBrush="#212121">
-                                        BỎ QUA
-                                    </Button>
+                                    BỎ QUA
+                                </Button>
 
-                                    <Button x:Name="btnNext2"
+                                <Button x:Name="btnNext2"
                                         HorizontalAlignment="Right" Margin="5"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="130" Height="40"                                            
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                         FontSize="20" FontWeight="SemiBold" Background="#43A047" BorderBrush="#43A047">
-                                        TIẾP THEO
-                                    </Button>
-                                </Grid>
+                                    TIẾP THEO
+                                </Button>
                             </Grid>
-                        </materialDesign:Card>
-
-                    </Grid>
-
+                        </Grid>
+                    </materialDesign:Card>
 
                 </Grid>
-            </StackPanel>
+            </Grid>
         </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

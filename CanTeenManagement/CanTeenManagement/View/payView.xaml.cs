@@ -10,33 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CanTeenManagement.View
 {
     /// <summary>
-    /// Interaction logic for OrderView.xaml
+    /// Interaction logic for payView.xaml
     /// </summary>
-    public partial class OrderView : UserControl
+    public partial class payView : Window
     {
-        public OrderView()
+        public payView()
         {
             InitializeComponent();
         }
 
-        private void btnPay_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWd = MainWindow.Instance;
+            this.Close();
+        }
 
-            mainWd.Opacity = 0.5;
-            this.Opacity = 0.5;
-
-            payView payV = new payView();
-            payV.ShowDialog();
-
-            mainWd.Opacity = 100;
-            this.Opacity = 100;
+        private void gvMain_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
