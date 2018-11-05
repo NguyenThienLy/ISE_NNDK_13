@@ -30,8 +30,7 @@ namespace CanTeenManagement.View
             items.Add(new sortFood() { ID = "GCM", Name = "Gà chiên mắm", Quantity = "2", Time = "12:05", Status = "Hết"});
             items.Add(new sortFood() { ID = "P", Name = "Phở", Quantity = "1", Time = "12:06", Status = "Còn"});
 
-            this.lsVSortFood.ItemsSource = items;
-            //this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+
         }
 
         private void gvMain_Loaded(object sender, RoutedEventArgs e)
@@ -67,17 +66,7 @@ namespace CanTeenManagement.View
         private void btnSkip2_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-        
-        private void btnQueue_Click (object sender, RoutedEventArgs e)
-        {
-            GridCursor.Margin = new Thickness(10, 0, 0, 175);
-        }
-
-        private void btnDone_Click (object sender, RoutedEventArgs e)
-        {
-            GridCursor.Margin = new Thickness(10 + 150, 0, 0, 175);
-        }
+        }       
     }
 
     public class sortFood
