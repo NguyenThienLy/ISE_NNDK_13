@@ -127,15 +127,18 @@
                             </Grid.ColumnDefinitions>
 
                             <materialDesign:Card  Grid.Column="0" 
-                                                  Width="200">
+                                                  Width="200"
+                                                  Height="280">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg"
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" 
                                             Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                                             HorizontalAlignment="Right" 
@@ -148,9 +151,9 @@
                                         <TextBlock FontWeight="Bold" 
                                                    Text="Gà chiên mắm" />
                                         <TextBlock Foreground="Red" 
-                                                   FontSize="25"  
+                                                   FontSize="15"  
                                                    FontWeight="Bold" 
-                                                   Text="25.000 VND" 
+                                                   Text="25.000 VNĐ" 
                                                    FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap" 
                                                    VerticalAlignment="Center" 
@@ -183,21 +186,31 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="1" Width="200">
+                            <materialDesign:Card  Grid.Column="1" 
+                                                  Width="200"
+                                                  Height="280">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg"
+                                           Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
-                                        <TextBlock FontWeight="Bold" Text="Đậu ve xào thịt" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
-                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                        <TextBlock FontWeight="Bold" 
+                                                   Text="Đậu ve xào thịt" />
+                                        <TextBlock Foreground="Red" 
+                                                   FontSize="15"  
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VNĐ"
+                                                   FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap"  
+                                                   VerticalAlignment="Center"><Run 
+                                                   Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
@@ -216,20 +229,28 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="2" Width="200">
+                            <materialDesign:Card  Grid.Column="2" 
+                                                  Width="200"
+                                                  Height="280">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" 
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Ba rọi nướng" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock Foreground="Red" 
+                                                   FontSize="15"  
+                                                   FontWeight="Bold"
+                                                   Text="25.000 VNĐ"
+                                                   FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
@@ -249,21 +270,31 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="3" Width="200">
+                            <materialDesign:Card  Grid.Column="3" 
+                                                  Width="200"
+                                                   Height="280">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" 
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Hoa thiên lý xào thịt bò" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
-                                        <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
+                                        <TextBlock Foreground="Red"
+                                                   FontSize="15"  
+                                                   FontWeight="Bold"
+                                                   Text="25.000 VNĐ" 
+                                                   FontFamily="Cooper Black" />
+                                        <TextBlock TextWrapping="Wrap" 
+                                                   VerticalAlignment="Center"><Run
+                                                       Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
                                         <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"  materialDesign:RippleAssist.IsCentered="True">
@@ -286,7 +317,7 @@
 
                                 <Grid Margin="0 0"  VerticalAlignment="Top" Height="130" Width="140">
                                     <Slider HorizontalAlignment="Left" Width="30"  Height="120"  TickFrequency="5" TickPlacement="Both" Orientation="Vertical" Minimum="1" Maximum="10" Foreground="#FF36AE98"  />
-                                    <TextBlock Text="10.000 VND" 
+                                    <TextBlock Text="10.000 VNĐ" 
                                                FontSize="13" 
                                                Foreground="Red" 
                                                VerticalAlignment="Bottom" 
@@ -304,7 +335,7 @@
                                                FontFamily="Cooper Black" 
                                                TextAlignment="Center" 
                                                Margin="0 0 15 15"/>
-                                    <TextBlock Text="50.000 VND" 
+                                    <TextBlock Text="50.000 VNĐ" 
                                                FontSize="13" Foreground="Red" 
                                                VerticalAlignment="Top" 
                                                HorizontalAlignment="Right"
@@ -344,20 +375,29 @@
                                 <ColumnDefinition Width="140"/>
                             </Grid.ColumnDefinitions>
 
-                            <materialDesign:Card  Grid.Column="0" Width="200">
+                            <materialDesign:Card  Grid.Column="0"
+                                                  Width="200"
+                                                   Height="280">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg"
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
-                                        <TextBlock FontWeight="Bold" Text="Gà chiên mắm" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock FontWeight="Bold" 
+                                                   Text="Gà chiên mắm" />
+                                        <TextBlock Foreground="Red" 
+                                                   FontSize="15" 
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VNĐ" 
+                                                   FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
@@ -377,20 +417,28 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="1" Width="200">
+                            <materialDesign:Card  Grid.Column="1"
+                                                  Width="200"
+                                                   Height="270">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" 
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Đậu ve xào thịt" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock Foreground="Red"
+                                                   FontSize="15" 
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VNĐ"
+                                                   FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
@@ -410,20 +458,28 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="2" Width="200">
+                            <materialDesign:Card  Grid.Column="2" 
+                                                  Width="200"
+                                                   Height="270">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" 
+                                           Width="196" 
+                                           Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Ba rọi nướng" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock Foreground="Red"
+                                                   FontSize="15"
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VNĐ"
+                                                   FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
@@ -443,20 +499,27 @@
                                 </Grid>
                             </materialDesign:Card>
 
-                            <materialDesign:Card  Grid.Column="3" Width="200">
+                            <materialDesign:Card  Grid.Column="3"
+                                                  Width="200"
+                                                   Height="270">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="130" />
+                                        <RowDefinition Height="140" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" Height="140"   Width="196" Stretch="UniformToFill" />
+                                    <Image Source="/CanTeenManagement;component/Images/Gachienmam.jpg" 
+                                           Width="196" Stretch="UniformToFill" />
                                     <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
                                         <materialDesign:PackIcon  Kind="Cart" />
                                     </Button>
                                     <StackPanel Grid.Row="1"  Margin="8 10 8 0">
                                         <TextBlock FontWeight="Bold" Text="Hoa thiên lý xào thịt bò" />
-                                        <TextBlock Foreground="Red" FontSize="25"  FontWeight="Bold" Text="25.000 VND" FontFamily="Cooper Black" />
+                                        <TextBlock Foreground="Red" 
+                                                   FontSize="15" 
+                                                   FontWeight="Bold" 
+                                                   Text="25.000 VND" 
+                                                   FontFamily="Cooper Black" />
                                         <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"><Run Text="Một món bổ dưỡng dành cho mỗi người."/></TextBlock>
                                     </StackPanel>
                                     <StackPanel   HorizontalAlignment="Right"  Grid.Row="2"  Orientation="Horizontal"  Margin="8">
