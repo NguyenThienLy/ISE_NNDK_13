@@ -23,6 +23,25 @@ namespace CanTeenManagement.View
         public listView()
         {
             InitializeComponent();
+            ShowChart();
+        }
+
+        private void ShowChart()
+        {
+            List<KeyValuePair<string, int>> MyValue = new List<KeyValuePair<string, int>>();
+            MyValue.Add(new KeyValuePair<string, int>("Tháng 6", 20));
+            MyValue.Add(new KeyValuePair<string, int>("Tháng 7", 36));
+            MyValue.Add(new KeyValuePair<string, int>("Tháng 8", 89));
+            MyValue.Add(new KeyValuePair<string, int>("Tháng 9", 170));
+            MyValue.Add(new KeyValuePair<string, int>("Tháng 10", 140));
+
+            lineChart.DataContext = MyValue;
+
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
