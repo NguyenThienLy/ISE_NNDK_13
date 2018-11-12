@@ -19,9 +19,9 @@ namespace CanTeenManagement.View
     /// <summary>
     /// Interaction logic for reportView.xaml
     /// </summary>
-    public partial class reportView : UserControl
+    public partial class ReportView : UserControl
     {
-        public reportView()
+        public ReportView()
         {
             InitializeComponent();
 

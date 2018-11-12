@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CanTeenManagement.View"
              mc:Ignorable="d" 
+             x:Name="oderView"
+             
+              xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
@@ -13,7 +16,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-          DataContext="{StaticResource MainVM}"
+          DataContext="{StaticResource oderVM}"
        Height="660" Width="980">
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" 

@@ -17,9 +17,9 @@ namespace CanTeenManagement.View
     /// <summary>
     /// Interaction logic for payView.xaml
     /// </summary>
-    public partial class payView : Window
+    public partial class PayView : Window
     {
-        public payView()
+        public PayView()
         {
             InitializeComponent();
         }

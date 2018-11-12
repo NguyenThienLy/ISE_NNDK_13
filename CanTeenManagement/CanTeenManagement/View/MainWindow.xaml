@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement"
+        x:Name="mainWindow"
         mc:Ignorable="d"
+        
           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
@@ -14,7 +17,26 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource MainVM}"
-        Title="MainWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" 
+        Height="700" 
+        Width="1200" 
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Normal"
+        WindowStyle="None" 
+        ResizeMode="NoResize">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <i:InvokeCommandAction Command="{Binding iCm_MouseDownCommand_g}" 
+                                   CommandParameter="{Binding ElementName = mainWindow}"/>
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding iCm_LoadedCommand_g}" 
+                                   CommandParameter="{Binding ElementName = mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="#FFEEEEEE">
         <StackPanel VerticalAlignment="Top" Height="40">
             <Grid Background="#FF2281D1" Height="10">
@@ -30,35 +52,89 @@
             </Grid>
             <Grid >
                 
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="Quản lí căn tin" VerticalAlignment="Center" FontSize="20" FontFamily="Roboto" Margin="20 0"/>
-                    <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
+                <StackPanel HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                    <TextBlock Text="Quản lí căn tin" 
+                               VerticalAlignment="Center" 
+                               FontSize="20" 
+                               FontFamily="Roboto" 
+                               Margin="20 0"/>
+                    <Button Width="30"
+                            Height="30"
+                            Padding="0"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Foreground="Gray">
                         <materialDesign:PackIcon Kind="FacebookBox"/>
                     </Button>
-                    <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
+                    <Button Width="30" 
+                            Height="30"
+                            Padding="0"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray">
                         <materialDesign:PackIcon Kind="TwitterBox"/>
                     </Button>
-                    <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
+                    <Button Width="30" 
+                            Height="30"
+                            Padding="0" 
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray">
                         <materialDesign:PackIcon Kind="Instagram"/>
                     </Button>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray">
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+                    <Button Width="30" 
+                            Height="30" 
+                            Padding="0" 
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray">
                         <materialDesign:PackIcon Kind="BellOutline"/>
                     </Button>
-                    <Button x:Name="btnUsers" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="btnUsers_Click">
+                    <Button Command="{Binding iCm_ClickUserViewCommand_g}" 
+                            CommandParameter="{Binding ElementName = mainWindow}"
+                            x:Name="btnUsers"
+                            Width="30" 
+                            Height="30" 
+                            Padding="0"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray">
                         <materialDesign:PackIcon Kind="Account"  />
                     </Button>
-                    <Button x:Name="btnSettings" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Margin="0 0 10 0" Click="btnSettings_Click">
+                    <Button Command="{Binding iCm_ClickSettingViewCommand_g}" 
+                            CommandParameter="{Binding ElementName = mainWindow}" 
+                            Width="30" Height="30" 
+                            Padding="0" Background="{x:Null}"
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray" 
+                            Margin="0 0 10 0" >
                         <materialDesign:PackIcon Kind="Settings"/>
                     </Button>
 
-                    <Button x:Name="btnMinimize" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="btnMinimize_Click">
+                    <Button Command="{Binding iCm_ClickMinimizeWindowCommand_g}" 
+                            CommandParameter="{Binding ElementName = mainWindow}" 
+                            Width="30" 
+                            Height="30" 
+                            Padding="0" 
+                            Background="{x:Null}" 
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray" >
                         <materialDesign:PackIcon Kind="WindowMinimize"/>
                     </Button>
-                    
-                    <Button x:Name="btnShutDown" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="btnShutDown_Click">
+
+                    <Button Command="{Binding iCm_ClickCloseWindowCommand_g}" 
+                            CommandParameter="{Binding ElementName = mainWindow}"
+                            Width="30" 
+                            Height="30" 
+                            Padding="0"
+                            Background="{x:Null}" 
+                            BorderBrush="{x:Null}" 
+                            Foreground="Gray"  >
                         <materialDesign:PackIcon Kind="Power"/>
                     </Button>
                 </StackPanel>
@@ -68,30 +144,62 @@
             <Grid x:Name="GridMainWindow" HorizontalAlignment="Left" VerticalAlignment="Top">
             </Grid>
         </Grid>
-        <Grid Width="220" HorizontalAlignment="Left" Background="#FF222222">
-            <Rectangle Width="220" HorizontalAlignment="Left" >
+        <Grid Width="220" HorizontalAlignment="Left" 
+              Background="#FF222222">
+            <Rectangle Width="220"
+                       HorizontalAlignment="Left" >
                 <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush EndPoint="0.5,1" 
+                                         StartPoint="0.5,0">
                         <GradientStop Color="#FF4B4747"/>
-                        <GradientStop Color="#FF302D2D" Offset="1"/>
-                        <GradientStop Color="#FF302D2D" Offset="0.5"/>
+                        <GradientStop Color="#FF302D2D" 
+                                      Offset="1"/>
+                        <GradientStop Color="#FF302D2D"
+                                      Offset="0.5"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
-                <Grid x:Name="GridCusor" Margin="0 190 0 0" Background="#FF2281D1" Width="10" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Rectangle Width="10" Height="60" HorizontalAlignment="Left" >
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" 
+                                                 OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                <Grid x:Name="GridCusor"
+                      Margin="0 190 0 0"
+                      Background="#FF2281D1"
+                      Width="10" 
+                      Height="60" 
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top">
+                    <Rectangle Width="10" 
+                               Height="60" 
+                               HorizontalAlignment="Left" >
                         <Rectangle.Fill>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF26788A" Offset="1"/>
-                                <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
-                                <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                            <LinearGradientBrush EndPoint="0.5,1" 
+                                                 StartPoint="0.5,0">
+                                <GradientStop Color="#FF26788A" 
+                                              Offset="1"/>
+                                <GradientStop Color="#FF8DC1CD"
+                                              Offset="0.5"/>
+                                <GradientStop Color="#FF8DB3C5"
+                                              Offset="0.068"/>
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Grid>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListViewMenu" VerticalAlignment="Bottom" Margin="0 30" Foreground="LightGray" FontFamily="Roboto" Height="480" SelectionChanged="ListViewMenu_SelectionChanged">
+            <ListView 
+                      x:Name="ListViewMenu" 
+                      VerticalAlignment="Bottom" 
+                      Margin="0 30"
+                      Foreground="LightGray" 
+                      FontFamily="Roboto" 
+                      Height="480">
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding iCm_SelectedIndexListViewCommand_g}" 
+                                   CommandParameter="{Binding ElementName = mainWindow}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" VerticalAlignment="Center" Margin="10" />
@@ -142,15 +250,40 @@
                 </ListViewItem>
             </ListView>
         </Grid>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="180" Width="220">
-            <Ellipse VerticalAlignment="Top" Height="100" Width="100" Margin="0 10">
+        <Grid HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Height="180"
+              Width="220">
+            <Ellipse VerticalAlignment="Top"
+                     Height="100"
+                     Width="100" 
+                     Margin="0 10">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
             <Grid Height="65" VerticalAlignment="Bottom">
-                <TextBox Text="Xin chào," Width="70" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0" FontSize="15" FontFamily="Roboto" Foreground="LightGray" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBox Text="Nguyễn Thiên Lý" Height="35" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" FontSize="20" FontFamily="Roboto" TextAlignment="Center" Foreground="LightGray" Background="{x:Null}" BorderBrush="{x:Null}" />
+                <TextBox Text="Xin chào," 
+                         Width="70" 
+                         Height="25" 
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top" 
+                         Margin="10 0" 
+                         FontSize="15"
+                         FontFamily="Roboto" 
+                         Foreground="LightGray" 
+                         BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBox Text="Nguyễn Thiên Lý" 
+                         Height="35" Width="200"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Bottom"
+                         Margin="10" 
+                         FontSize="20"
+                         FontFamily="Roboto" 
+                         TextAlignment="Center" 
+                         Foreground="LightGray"
+                         Background="{x:Null}" 
+                         BorderBrush="{x:Null}" />
             </Grid>
         </Grid>
     </Grid>

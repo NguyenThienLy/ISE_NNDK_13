@@ -32,7 +32,7 @@ namespace CanTeenManagement.View
             mainWd.Opacity = 0.5;
             this.Opacity = 0.5;
 
-            payView payV = new payView();
+            PayView payV = new PayView();
             payV.ShowDialog();
 
             mainWd.Opacity = 100;

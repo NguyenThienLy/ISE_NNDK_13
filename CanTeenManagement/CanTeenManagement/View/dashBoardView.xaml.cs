@@ -18,9 +18,9 @@ namespace CanTeenManagement.View
     /// <summary>
     /// Interaction logic for dashBoardView.xaml
     /// </summary>
-    public partial class dashBoardView : UserControl
+    public partial class DashBoardView : UserControl
     {
-        public dashBoardView()
+        public DashBoardView()
         {
             InitializeComponent();
         }

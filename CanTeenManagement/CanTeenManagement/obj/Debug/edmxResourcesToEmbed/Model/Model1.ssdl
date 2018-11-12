@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLCanTinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="PIN" Type="nchar" MaxLength="30" />
+    <Property Name="FULLNAME" Type="nchar" MaxLength="50" />
+    <Property Name="GENDER" Type="nchar" MaxLength="10" />
+    <Property Name="YEAROFBIRTH" Type="int" />
+    <Property Name="PHONE" Type="nchar" MaxLength="15" />
+    <Property Name="EMAIL" Type="nchar" MaxLength="50" />
+    <Property Name="CASH" Type="int" />
+    <Property Name="POINT" Type="int" />
+    <Property Name="RANK" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="EMPLOYEE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="PASSWORD" Type="nchar" MaxLength="20" />
+    <Property Name="FULLNAME" Type="nchar" MaxLength="50" />
+    <Property Name="GENDER" Type="nchar" MaxLength="10" />
+    <Property Name="YEAROFBIRTH" Type="int" />
+    <Property Name="PHONE" Type="nchar" MaxLength="15" />
+    <Property Name="EMAIL" Type="nchar" MaxLength="50" />
+    <Property Name="POSITION" Type="nchar" MaxLength="50" />
+    <Property Name="ROLE" Type="nchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FOOD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="FOODNAME" Type="nchar" MaxLength="200" />
+    <Property Name="FOODTYPE" Type="nchar" MaxLength="20" />
+    <Property Name="FOODDESCRIPTION" Type="nchar" MaxLength="200" />
+    <Property Name="PRICE" Type="int" />
+    <Property Name="SALE" Type="int" />
+    <Property Name="STATUS" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ORDERDETAIL">
+    <Key>
+      <PropertyRef Name="ORDERID" />
+      <PropertyRef Name="FOODID" />
+    </Key>
+    <Property Name="ORDERID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="FOODID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="QUANTITY" Type="int" />
+    <Property Name="TOTALMONEY" Type="int" />
+  </EntityType>
+  <EntityType Name="ORDERINFO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="CUSTOMERID" Type="nchar" MaxLength="20" />
+    <Property Name="EMPLOYEEID" Type="nchar" MaxLength="20" />
+    <Property Name="ORDERDATE" Type="datetime" />
+    <Property Name="TOTALMONEY" Type="int" />
+    <Property Name="STATUS" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__ORDERDETA__FOODI__4222D4EF">
+    <End Role="FOOD" Type="Self.FOOD" Multiplicity="1" />
+    <End Role="ORDERDETAIL" Type="Self.ORDERDETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FOOD">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDERDETAIL">
+        <PropertyRef Name="FOODID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDERDETA__ORDER__412EB0B6">
+    <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="1" />
+    <End Role="ORDERDETAIL" Type="Self.ORDERDETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDERINFO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDERDETAIL">
+        <PropertyRef Name="ORDERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDERINFO__CUSTO__3D5E1FD2">
+    <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1" />
+    <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDERINFO">
+        <PropertyRef Name="CUSTOMERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDERINFO__EMPLO__3E52440B">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+    <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDERINFO">
+        <PropertyRef Name="EMPLOYEEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLCanTinModelStoreContainer">
+    <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FOOD" EntityType="Self.FOOD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDERDETAIL" EntityType="Self.ORDERDETAIL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDERINFO" EntityType="Self.ORDERINFO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ORDERDETA__FOODI__4222D4EF" Association="Self.FK__ORDERDETA__FOODI__4222D4EF">
+      <End Role="FOOD" EntitySet="FOOD" />
+      <End Role="ORDERDETAIL" EntitySet="ORDERDETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDERDETA__ORDER__412EB0B6" Association="Self.FK__ORDERDETA__ORDER__412EB0B6">
+      <End Role="ORDERINFO" EntitySet="ORDERINFO" />
+      <End Role="ORDERDETAIL" EntitySet="ORDERDETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDERINFO__CUSTO__3D5E1FD2" Association="Self.FK__ORDERINFO__CUSTO__3D5E1FD2">
+      <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+      <End Role="ORDERINFO" EntitySet="ORDERINFO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDERINFO__EMPLO__3E52440B" Association="Self.FK__ORDERINFO__EMPLO__3E52440B">
+      <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+      <End Role="ORDERINFO" EntitySet="ORDERINFO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
