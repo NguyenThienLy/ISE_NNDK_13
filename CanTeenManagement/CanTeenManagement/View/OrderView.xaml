@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CanTeenManagement.View"
              mc:Ignorable="d" 
-             x:Name="oderView"
+             x:Name="orderView"
              
               xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -16,7 +16,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-          DataContext="{StaticResource oderVM}"
+             DataContext="{StaticResource orderVM}"
        Height="660" Width="980">
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" 
@@ -68,10 +68,11 @@
                                                Background="White"
                                                DockPanel.Dock="Right" 
                                                BadgeBackground="Red">
-                            <Button x:Name="btnPay"
+                            <Button Command="{ Binding g_iCm_ClickPayViewCommand}"
+                                    CommandParameter="{Binding ElementName = orderView}"
+                                    x:Name="btnPay"
                                     Margin="0 -5" 
-                                    Style="{DynamicResource MaterialDesignToolButton}"
-                                    Click="btnPay_Click">
+                                    Style="{DynamicResource MaterialDesignToolButton}">
                                 <materialDesign:PackIcon Kind="Cart" />
                             </Button>
                         </materialDesign:Badged>

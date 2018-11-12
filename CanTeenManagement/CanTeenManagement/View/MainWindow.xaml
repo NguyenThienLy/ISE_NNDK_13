@@ -27,12 +27,12 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding iCm_MouseDownCommand_g}" 
+            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDownCommand}" 
                                    CommandParameter="{Binding ElementName = mainWindow}"/>
         </i:EventTrigger>
 
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding iCm_LoadedCommand_g}" 
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
                                    CommandParameter="{Binding ElementName = mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -95,7 +95,7 @@
                             Foreground="Gray">
                         <materialDesign:PackIcon Kind="BellOutline"/>
                     </Button>
-                    <Button Command="{Binding iCm_ClickUserViewCommand_g}" 
+                    <Button Command="{Binding g_iCm_ClickUserViewCommand}" 
                             CommandParameter="{Binding ElementName = mainWindow}"
                             x:Name="btnUsers"
                             Width="30" 
@@ -106,7 +106,7 @@
                             Foreground="Gray">
                         <materialDesign:PackIcon Kind="Account"  />
                     </Button>
-                    <Button Command="{Binding iCm_ClickSettingViewCommand_g}" 
+                    <Button Command="{Binding g_iCm_ClickSettingViewCommand}" 
                             CommandParameter="{Binding ElementName = mainWindow}" 
                             Width="30" Height="30" 
                             Padding="0" Background="{x:Null}"
@@ -116,7 +116,7 @@
                         <materialDesign:PackIcon Kind="Settings"/>
                     </Button>
 
-                    <Button Command="{Binding iCm_ClickMinimizeWindowCommand_g}" 
+                    <Button Command="{Binding g_iCm_ClickMinimizeWindowCommand}" 
                             CommandParameter="{Binding ElementName = mainWindow}" 
                             Width="30" 
                             Height="30" 
@@ -127,7 +127,7 @@
                         <materialDesign:PackIcon Kind="WindowMinimize"/>
                     </Button>
 
-                    <Button Command="{Binding iCm_ClickCloseWindowCommand_g}" 
+                    <Button Command="{Binding g_iCm_ClickCloseWindowCommand}" 
                             CommandParameter="{Binding ElementName = mainWindow}"
                             Width="30" 
                             Height="30" 
@@ -195,15 +195,22 @@
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding iCm_SelectedIndexListViewCommand_g}" 
+                        <i:InvokeCommandAction Command="{Binding g_iCm_SelectedIndexListViewCommand}" 
                                    CommandParameter="{Binding ElementName = mainWindow}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" VerticalAlignment="Center" Margin="10" />
-                        <TextBlock Text="Tổng quan" FontSize="17" VerticalAlignment="Center" Margin="25 0"/>
+                        <materialDesign:PackIcon Kind="ViewDashboard"
+                                                 Height="30" 
+                                                 Width="30" 
+                                                 VerticalAlignment="Center"
+                                                 Margin="10" />
+                        <TextBlock Text="Tổng quan" 
+                                   FontSize="17"
+                                   VerticalAlignment="Center"
+                                   Margin="25 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">

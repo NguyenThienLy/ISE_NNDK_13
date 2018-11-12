@@ -26,7 +26,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding iCm_MouseDownCommand_g}" 
+            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDownCommand}" 
                                    CommandParameter="{Binding ElementName = detailEmployeesView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -101,7 +101,7 @@
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
 
-                                        <Button Command="{Binding iCm_ClickSaveInfoCommand_g}" 
+                                        <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}"
                                                 Margin="10 0 0 0" 
                                                 DockPanel.Dock="Right" 
@@ -188,7 +188,7 @@
                                     <DockPanel  Height="40" 
                                                 VerticalAlignment="Center" >
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="160" Margin="10" Text="Thông tin cá nhân"/>
-                                        <Button  Command="{Binding iCm_ClickEditInfoCommand_g}" 
+                                        <Button  Command="{Binding g_iCm_ClickEditInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="5 0" 
                                                 DockPanel.Dock="Right" 
@@ -406,7 +406,7 @@
             </Grid>
         </materialDesign:TransitioningContent>
 
-        <Button Command="{Binding iCm_ClickCloseCommand_g}" 
+        <Button Command="{Binding g_iCm_ClickCloseCommand}" 
                 CommandParameter="{Binding ElementName = detailEmployeesView}"
                 Style="{StaticResource MaterialDesignToolButton}"
                 Height="25" Width="25" VerticalAlignment="Top" 

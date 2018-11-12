@@ -13,44 +13,44 @@ namespace CanTeenManagement.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
-        public bool b_isLogin_g { get; set; }
+        public bool g_b_isLogin { get; set; }
 
-        private string _str_userName_g;
-        public string str_userName_g { get => _str_userName_g; set { _str_userName_g = value; OnPropertyChanged(); } }
+        private string _g_str_userName;
+        public string g_str_userName { get => _g_str_userName; set { _g_str_userName = value; OnPropertyChanged(); } }
 
-        private string _str_password_g;
-        public string str_password_g { get => _str_password_g; set { _str_password_g = value; OnPropertyChanged(); } }
+        private string _g_str_password;
+        public string g_str_password { get => _g_str_password; set { _g_str_password = value; OnPropertyChanged(); } }
 
         #region commands.
-        public ICommand iCm_ClickCloseCommand_g { get; set; }
+        public ICommand g_iCm_ClickCloseCommand { get; set; }
 
-        public ICommand iCm_ClickLoginCommand_g { get; set; }
+        public ICommand g_iCm_ClickLoginCommand { get; set; }
 
-        public ICommand iCm_PasswordChangedCommand_g { get; set; }
+        public ICommand g_iCm_PasswordChangedCommand { get; set; }
 
-        public ICommand iCm_MouseDownCommand_g { get; set; }
+        public ICommand g_iCm_MouseDownCommand { get; set; }
         #endregion
 
         public LoginViewModel()
         {
-            this.b_isLogin_g = false;
+            this.g_b_isLogin = false;
 
-            iCm_ClickCloseCommand_g = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
+            g_iCm_ClickCloseCommand = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
             {
                 this.clickClose(p);
             });
 
-            iCm_ClickLoginCommand_g = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
+            g_iCm_ClickLoginCommand = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
             {
                 this.clickLogin(p);
             });
 
-            iCm_PasswordChangedCommand_g = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            g_iCm_PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 this.passwordChanged(p);
             });
 
-            iCm_MouseDownCommand_g = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
+            g_iCm_MouseDownCommand = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
             {
                 this.mouseDown(p);
             });
@@ -59,12 +59,15 @@ namespace CanTeenManagement.ViewModel
 
         private void clickClose(LoginView p)
         {
+            if (p == null)
+                return;
+
             p.Close();
         }
 
         private void passwordChanged(PasswordBox p)
         {
-            this.str_password_g = p.Password;
+            this.g_str_password = p.Password;
         }
 
         // Hàm hỗ trợ cho iCm_LoginWindowCommand_g. 
@@ -73,11 +76,11 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            var quatityAccount_l = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.str_userName_g && employee.PASSWORD == this.str_password_g).Count();
+            var quatityAccount_l = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_userName && employee.PASSWORD == this.g_str_password).Count();
 
             if (quatityAccount_l > 0)
             {
-                this.b_isLogin_g = true;
+                this.g_b_isLogin = true;
                 p.Close();
             }
             else
@@ -88,6 +91,9 @@ namespace CanTeenManagement.ViewModel
 
         private void mouseDown(LoginView p)
         {
+            if (p == null)
+                return;
+
             p.DragMove();
         }
     }

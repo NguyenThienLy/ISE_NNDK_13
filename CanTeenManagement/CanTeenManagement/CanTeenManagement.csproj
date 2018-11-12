@@ -112,7 +112,7 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CallFoodViewModel.cs" />
-    <Compile Include="ViewModel\CustomersViewModel.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\DetailCustomersViewModel.cs" />
     <Compile Include="ViewModel\DetailEmployeesViewModel.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\OderViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PayViewModel.cs" />
     <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />

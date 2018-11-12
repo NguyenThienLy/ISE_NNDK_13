@@ -14,25 +14,27 @@ namespace CanTeenManagement.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region commands.
-        public ICommand iCm_ClickCloseWindowCommand_g { get; set; }
+        public ICommand g_iCm_ClickCloseWindowCommand { get; set; }
 
-        public ICommand iCm_ClickMinimizeWindowCommand_g { get; set; }
+        public ICommand g_iCm_ClickMinimizeWindowCommand { get; set; }
 
-        public ICommand iCm_MouseDownCommand_g { get; set; }
+        public ICommand g_iCm_MouseDownCommand { get; set; }
 
-        public ICommand iCm_LoadedCommand_g{ get; set; }
+        public ICommand g_iCm_LoadedCommand { get; set; }
 
-        public ICommand iCm_SelectedIndexListViewCommand_g { get; set; }
+        public ICommand g_iCm_SelectedIndexListViewCommand { get; set; }
 
-        public ICommand iCm_ClickSettingViewCommand_g { get; set; }
+        public ICommand g_iCm_ClickSettingViewCommand { get; set; }
 
-        public ICommand iCm_ClickUserViewCommand_g { get; set; }
+        public ICommand g_iCm_ClickUserViewCommand { get; set; }
         #endregion
 
-        bool b_isLoaded_g = false;
+        bool g_b_isLoaded { get; set; }
 
         public MainViewModel()
         {
+            this.g_b_isLoaded = false;
+
             //CloseWindowCommand = new RelayCommand<MainWindow>((p) => { return p == null ? false : true; }, (p) =>
             //{
             //    FrameworkElement window = this.getWindowParent(p);
@@ -43,37 +45,37 @@ namespace CanTeenManagement.ViewModel
             //    }
             //} );
 
-            iCm_ClickCloseWindowCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_ClickCloseWindowCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.clickCloseWindow(p);
             });
 
-            iCm_ClickMinimizeWindowCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_ClickMinimizeWindowCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.clickMinimizeWindow(p);
             });
 
-            iCm_MouseDownCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_MouseDownCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.mouseDown(p);
             });
 
-            iCm_LoadedCommand_g= new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_LoadedCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.loaded(p);
             });
 
-            iCm_SelectedIndexListViewCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_SelectedIndexListViewCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.selectedChange(p);
             });
 
-            iCm_ClickSettingViewCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_ClickSettingViewCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.clickSettingsView(p);
             });
 
-            iCm_ClickUserViewCommand_g = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_ClickUserViewCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.clickUserView(p);
             });
@@ -93,23 +95,35 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(MainWindow p)
         {
+            if (p == null)
+                return;
+
             p.Close();
         }
 
         private void clickMinimizeWindow(MainWindow p)
         {
+            if (p == null)
+                return;
+
             p.WindowState = WindowState.Minimized;
         }
 
         private void mouseDown(MainWindow p)
         {
+            if (p == null)
+                return;
+
             p.DragMove();
         }
 
         private void selectedChange(MainWindow p)
         {
+            if (p == null)
+                return;
+
             int i_Index = p.ListViewMenu.SelectedIndex;
-            p.moveCusorMenu(i_Index);
+            this.moveCusorMenu(i_Index, p);
 
             switch (i_Index)
             {
@@ -120,7 +134,6 @@ namespace CanTeenManagement.ViewModel
                 case 1:
                     p.GridMainWindow.Children.Clear();
                     p.GridMainWindow.Children.Add(new OrderView());
-
                     break;
                 case 2:
                     p.GridMainWindow.Children.Clear();
@@ -153,7 +166,10 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            this.b_isLoaded_g = true;
+            if (this.g_b_isLoaded == true)
+                return;
+
+            this.g_b_isLoaded = true;
 
             p.Hide();
 
@@ -165,7 +181,7 @@ namespace CanTeenManagement.ViewModel
 
             var loginVM = loginV.DataContext as LoginViewModel;
 
-            if (loginVM.b_isLogin_g)
+            if (loginVM.g_b_isLogin)
             {
                 p.Show();
             }
@@ -177,6 +193,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSettingsView(MainWindow p)
         {
+            if (p == null)
+                return;
+
             p.Opacity = 0.5;
             var settingV = new SettingsView();
             settingV.ShowDialog();
@@ -185,10 +204,22 @@ namespace CanTeenManagement.ViewModel
 
         private void clickUserView(MainWindow p)
         {
+            if (p == null)
+                return;
+
             p.Opacity = 0.5;
             var detailEmployee = new DetailEmployeesView();
             detailEmployee.ShowDialog();
             p.Opacity = 100;
+        }
+
+        public void moveCusorMenu(int index, MainWindow p)
+        {
+            if (p == null)
+                return;
+
+            p.TransittionigContentSlide.OnApplyTemplate();
+            p.GridCusor.Margin = new Thickness(0, (190 + index * 60), 0, 0);
         }
     }
 }

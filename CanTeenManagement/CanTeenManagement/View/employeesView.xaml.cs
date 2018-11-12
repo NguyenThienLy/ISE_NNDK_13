@@ -22,9 +22,7 @@ namespace CanTeenManagement.View
     {
         public EmployeesView()
         {
-            InitializeComponent();
-           
-            this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            InitializeComponent();         
         }      
     }
 }

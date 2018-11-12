@@ -34,11 +34,5 @@ namespace CanTeenManagement
         {
             InitializeComponent();
         }
-
-        public void moveCusorMenu(int index)
-        {
-            this.TransittionigContentSlide.OnApplyTemplate();
-            this.GridCusor.Margin = new Thickness(0 , (190 + index * 60), 0,0 );
-        }
     }
 }

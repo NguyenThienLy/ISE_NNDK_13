@@ -24,19 +24,5 @@ namespace CanTeenManagement.View
         {
             InitializeComponent();
         }
-
-        private void btnPay_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWd = MainWindow.Instance;
-
-            mainWd.Opacity = 0.5;
-            this.Opacity = 0.5;
-
-            PayView payV = new PayView();
-            payV.ShowDialog();
-
-            mainWd.Opacity = 100;
-            this.Opacity = 100;
-        }
     }
 }

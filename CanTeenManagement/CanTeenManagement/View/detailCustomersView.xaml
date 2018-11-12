@@ -26,7 +26,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding iCm_MouseDownCommand_g}" 
+            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDownCommand}" 
                                    CommandParameter="{Binding ElementName = detailCustomersView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -98,7 +98,7 @@
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" Margin="10 0"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
 
-                                        <Button Command="{Binding iCm_ClickSaveInfoCommand_g}" 
+                                        <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailCustomersView}"
                                                 Margin="10 0 0 0"
                                                 DockPanel.Dock="Right"  
@@ -183,7 +183,7 @@
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50">
                                     <DockPanel  Height="40" VerticalAlignment="Center" >
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10 0" Width="160" Text="Thông tin cá nhân"/>
-                                        <Button  Command="{Binding iCm_ClickEditInfoCommand_g}" 
+                                        <Button  Command="{Binding g_iCm_ClickEditInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailCustomersView}"
                                                  x:Name="btnEdit"
                                                 Margin="5 0" 
@@ -422,7 +422,7 @@
             </Grid>
         </materialDesign:TransitioningContent>
 
-        <Button Command="{Binding iCm_ClickCloseCommand_g}" 
+        <Button Command="{Binding g_iCm_ClickCloseCommand}" 
                 CommandParameter="{Binding ElementName = detailCustomersView}"
                 x:Name="btnClose" 
                 Style="{StaticResource MaterialDesignToolButton}" 

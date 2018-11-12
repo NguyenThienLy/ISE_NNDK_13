@@ -16,19 +16,19 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-          DataContext="{StaticResource customersVM}"
+       DataContext="{StaticResource customersVM}"
        Height="660"
        Width="980">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding iCm_LoadedCommand_g}" 
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
                                    CommandParameter="{Binding ElementName = customersView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-        <Grid x:Name="gvMain" >
+        <Grid x:Name="gvMain">
 
             <Rectangle Height="40" 
                            Width="980" 
@@ -62,15 +62,18 @@
                 </Grid.RowDefinitions>
                 
                 <materialDesign:ColorZone Grid.Row="0"
-                    Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
-                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+                    Mode="PrimaryMid" Padding="16" Background="{x:Null}" 
+                                          VerticalAlignment="Top">
+                    <DockPanel  Height="30" 
+                                VerticalAlignment="Top"
+                                Margin="0 -11">
 
                         <Button  DockPanel.Dock="Right"
                                  Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
                             <materialDesign:PackIcon Kind="Export" />
                         </Button>
 
-                        <Button Command="{Binding iCm_ClickSaveCommand_g}" 
+                        <Button Command="{Binding g_iCm_ClickSaveCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
                                 DockPanel.Dock="Right" 
                                 Margin="0 -5"
@@ -78,7 +81,7 @@
                             <materialDesign:PackIcon Kind="ContentSave" />
                         </Button>
 
-                        <Button Command="{Binding iCm_ClickAddCommand_g}" 
+                        <Button Command="{Binding g_iCm_ClickAddCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5" 
@@ -86,7 +89,7 @@
                             <materialDesign:PackIcon Kind="Add" />
                         </Button>
 
-                        <Button Command="{Binding iCm_ClickEditCommand_g}" 
+                        <Button Command="{Binding g_iCm_ClickEditCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5" 
@@ -124,11 +127,14 @@
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition x:Name="rDefTop" Height="40"/>
+                        <RowDefinition x:Name="rDefTop" 
+                                       Height="40"/>
                         <RowDefinition Height="580"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grvTop" Grid.Row="0" VerticalAlignment="Stretch">
+                    <Grid x:Name="grvTop" 
+                          Grid.Row="0" 
+                          VerticalAlignment="Stretch">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="65"/>
@@ -179,11 +185,12 @@
                         </Grid>
                     </Grid>
 
-                    <Grid Grid.Row="1" VerticalAlignment="Stretch">
+                    <Grid Grid.Row="1" 
+                          VerticalAlignment="Stretch">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ListView 
-                                      ItemsSource="{Binding listCustomer_g}" 
-                                      SelectedItem="{Binding SelectedItem, Mode =OneWayToSource}">
+                                      ItemsSource="{Binding g_listCustomer}" 
+                                      >
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="50">

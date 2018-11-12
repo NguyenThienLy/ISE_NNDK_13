@@ -12,45 +12,45 @@ namespace CanTeenManagement.ViewModel
     public class DetailEmployeesViewModel : BaseViewModel
     {
         #region commands.
-        public ICommand iCm_ClickCloseCommand_g { get; set; }
+        public ICommand g_iCm_ClickCloseCommand { get; set; }
 
-        public ICommand iCm_ClickEditInfoCommand_g { get; set; }
+        public ICommand g_iCm_ClickEditInfoCommand { get; set; }
 
-        public ICommand iCm_ClickSaveInfoCommand_g { get; set; }
+        public ICommand g_iCm_ClickSaveInfoCommand { get; set; }
 
-        public ICommand iCm_ClickExportCommand_g { get; set; }
+        public ICommand g_iCm_ClickExportCommand { get; set; }
 
-        public ICommand iCm_ClickSendMailCommand_g { get; set; }
+        public ICommand g_iCm_ClickSendMailCommand { get; set; }
 
-        public ICommand iCm_MouseDownCommand_g { get; set; }
+        public ICommand g_iCm_MouseDownCommand { get; set; }
         #endregion
 
         public DetailEmployeesViewModel()
         {
-            iCm_ClickCloseCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickCloseCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 this.clickCloseWindow(p);
             });
 
-            iCm_ClickEditInfoCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 this.clickEditInfo(p);
             });
 
-            iCm_ClickSaveInfoCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickSaveInfoCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 this.clickSaveInfo(p);
             });
 
-            iCm_ClickExportCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickExportCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
             });
 
-            iCm_ClickSendMailCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickSendMailCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
             });
 
-            iCm_MouseDownCommand_g = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_MouseDownCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 p.DragMove();
             });

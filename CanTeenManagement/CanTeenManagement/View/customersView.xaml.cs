@@ -24,8 +24,6 @@ namespace CanTeenManagement.View
         public CustomersView()
         {
             InitializeComponent();
-
-            this.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
     }
 }
