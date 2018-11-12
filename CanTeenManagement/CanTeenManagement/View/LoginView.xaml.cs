@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CanTeenManagement.View;
 
 namespace CanTeenManagement.View
 {
@@ -23,18 +22,6 @@ namespace CanTeenManagement.View
         public LoginView()
         {
             InitializeComponent();
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        { 
-            MainWindow mainWd = MainWindow.Instance;    
-            mainWd.Show();
-            this.Close();
         }
     }
 }

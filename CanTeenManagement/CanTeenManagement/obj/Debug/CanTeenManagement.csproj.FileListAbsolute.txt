@@ -139,8 +139,6 @@ C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManageme
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
 C:\Users\Tran Khanh Linh\Documents\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
-G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.g.cs
-G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
@@ -190,3 +188,16 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\payView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\payView.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.xml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml

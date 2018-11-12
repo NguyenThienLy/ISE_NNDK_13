@@ -2,5 +2,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CanTeenManagement.ViewModel"
                     xmlns:local="clr-namespace:CanTeenManagement.ResourceXAML">
+    <viewmodel:CallFoodViewModel x:Key="callFoodVM"></viewmodel:CallFoodViewModel>
+    <viewmodel:CustomersViewModel x:Key="customersVM"></viewmodel:CustomersViewModel>
+    <viewmodel:OrderViewModel x:Key="orderVM"></viewmodel:OrderViewModel>
+    <viewmodel:DashboardViewModel x:Key="dashboardVM"></viewmodel:DashboardViewModel>
+    <viewmodel:DetailCustomersViewModel x:Key="detailCustomersVM"></viewmodel:DetailCustomersViewModel>
+    <viewmodel:DetailEmployeesViewModel x:Key="detailEmployeesVM"></viewmodel:DetailEmployeesViewModel>
+    <viewmodel:EmployeesViewModel x:Key="employeesVM"></viewmodel:EmployeesViewModel>
+    <viewmodel:ListViewModel x:Key="listViewVM"></viewmodel:ListViewModel>
+    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+    <viewmodel:PayViewModel x:Key="payVM"></viewmodel:PayViewModel>
+    <viewmodel:ReportViewModel x:Key="reportVM"></viewmodel:ReportViewModel>
+    <viewmodel:SettingsViewModel x:Key="settingsVM"></viewmodel:SettingsViewModel>
+    <viewmodel:SortFoodViewModel x:Key="sortFoodVM"></viewmodel:SortFoodViewModel>
 </ResourceDictionary>

@@ -17,9 +17,9 @@ namespace CanTeenManagement.View
     /// <summary>
     /// Interaction logic for settingsView.xaml
     /// </summary>
-    public partial class settingsView : Window
+    public partial class SettingsView : Window
     {
-        public settingsView()
+        public SettingsView()
         {
             InitializeComponent();
         }

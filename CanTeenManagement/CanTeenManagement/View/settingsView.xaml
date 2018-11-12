@@ -1,10 +1,13 @@
-﻿<Window x:Class="CanTeenManagement.View.settingsView"
+﻿<Window x:Class="CanTeenManagement.View.SettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement.View"
         mc:Ignorable="d"
+        x:Name="settingsView"
+             
+              xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="settingsView" Height="450" Width="800">
     <Grid>
         <TextBlock Text="Linh design" FontSize="50"/>
