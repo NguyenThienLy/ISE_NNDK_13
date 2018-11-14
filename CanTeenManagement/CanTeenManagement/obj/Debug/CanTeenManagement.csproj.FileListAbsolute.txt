@@ -151,7 +151,6 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailCustomersView.g.cs
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
@@ -160,7 +159,6 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.g.cs
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
@@ -171,7 +169,6 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\customersView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\dashBoardView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailCustomersView.baml
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\detailEmployeeView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\employeesView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\listView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
@@ -180,7 +177,6 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\reportView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\settingsView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\sortFoodView.baml
-C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\usersView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
@@ -201,3 +197,20 @@ G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\b
 G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
 G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.g.cs
 G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\WPFToolkit.dll
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.xml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.g.cs
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.g.cs
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml
+C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.baml

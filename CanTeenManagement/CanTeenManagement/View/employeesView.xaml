@@ -128,29 +128,34 @@
                     <Grid x:Name="grvTop" Grid.Row="0" VerticalAlignment="Stretch">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="105"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="78"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="190"/>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="140"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="100"/>                                                         
+                                <ColumnDefinition Width="70"/>                                                    
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="1" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Mã nhân viên" />
-                            <TextBox  Grid.Column="3" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Họ và tên" />
-                            <TextBox Grid.Column="5" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Số điện thoại" />
-                            <TextBox  Grid.Column="7" BorderBrush="#FF28878B"  materialDesign:HintAssist.Hint="Giới tính" />
-                            <TextBox  Grid.Column="9" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Ngày sinh" />
-                            <TextBox  Grid.Column="11" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Trạng thái làm việc" />
-                            <TextBox  Grid.Column="13" BorderBrush="#FF28878B"   materialDesign:HintAssist.Hint="Tổng lương" />
+                            <TextBox Grid.Column="1" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Mã nhân viên" 
+                                     Text="{Binding g_ID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên" />
+                            <TextBox Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" />
+                            <TextBox Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh" />
+                            <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại" />
+                            <TextBox Grid.Column="11" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Email" />
+                            <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ" />
+                            <TextBox Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền"
+                                    Text="{Binding g_Role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
 
@@ -158,7 +163,7 @@
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ListView x:Name="lsVEmployees" 
                                       ItemsSource="{Binding g_listEmloyee}" 
-                                      SelectedItem="{Binding SelectedItem, Mode =OneWayToSource}">
+                                      SelectedItem="{Binding g_selectedItem, Mode =OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="50">
@@ -173,19 +178,21 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn  Header="Mã nhân viên" Width="120" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                                        <GridViewColumn Header="Mã nhân viên" Width="115" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Họ và tên" Width="200" DisplayMemberBinding="{Binding FULLNAME}"></GridViewColumn>
+                                        <GridViewColumn Header="Họ và tên" Width="140" DisplayMemberBinding="{Binding FULLNAME}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Giới tính" Width="85" DisplayMemberBinding="{Binding GENDER}"></GridViewColumn>
+
+                                        <GridViewColumn Header="Năm sinh" Width="88" DisplayMemberBinding="{Binding YEAROFBIRTH}"></GridViewColumn>
 
                                         <GridViewColumn Header="Số điện thoại" Width="110" DisplayMemberBinding="{Binding PHONE}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Giới tính" Width="90" DisplayMemberBinding="{Binding GENDER}"></GridViewColumn>
+                                        <GridViewColumn Header="Email" Width="200" DisplayMemberBinding="{Binding EMAIL}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Ngày sinh" Width="100" DisplayMemberBinding="{Binding BIRDAY}"></GridViewColumn>
+                                        <GridViewColumn Header="Chức vụ" Width="80" DisplayMemberBinding="{Binding POSITION}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Trạng thái làm việc" Width="150" DisplayMemberBinding="{Binding STATUS}"></GridViewColumn>
-
-                                        <GridViewColumn Header="Tổng lương" Width="100" DisplayMemberBinding="{Binding SALARY}"></GridViewColumn>
+                                        <GridViewColumn Header="Quyền" Width="70" DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
 
                                     </GridView>
                                 </ListView.View>
