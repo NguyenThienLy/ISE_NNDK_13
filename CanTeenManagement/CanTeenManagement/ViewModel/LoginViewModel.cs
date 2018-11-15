@@ -28,7 +28,7 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_PasswordChangedCommand { get; set; }
 
-        public ICommand g_iCm_MouseDownCommand { get; set; }
+        public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
         #endregion
 
         public LoginViewModel()
@@ -50,9 +50,9 @@ namespace CanTeenManagement.ViewModel
                 this.passwordChanged(p);
             });
 
-            g_iCm_MouseDownCommand = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
+            g_iCm_MouseLeftButtonDownCommand = new RelayCommand<LoginView>((p) => { return true; }, (p) =>
             {
-                this.mouseDown(p);
+                this.mouseLeftButtonDown(p);
             });
 
         }
@@ -89,7 +89,7 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private void mouseDown(LoginView p)
+        private void mouseLeftButtonDown(LoginView p)
         {
             if (p == null)
                 return;

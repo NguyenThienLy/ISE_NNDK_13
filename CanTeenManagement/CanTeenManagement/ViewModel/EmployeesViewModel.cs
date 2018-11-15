@@ -17,16 +17,70 @@ namespace CanTeenManagement.ViewModel
         public ObservableCollection<EMPLOYEE> g_listEmloyee { get => _g_listEmloyee; set { _g_listEmloyee = value; OnPropertyChanged(); } }
 
         private EMPLOYEE _g_selectedItem;
-        private EMPLOYEE g_selectedItem { get => _g_selectedItem; set { _g_selectedItem = value; OnPropertyChanged(); } }
+        public EMPLOYEE g_selectedItem
+        {
+            get => _g_selectedItem;
+            set
+            {
+                _g_selectedItem = value;
+                OnPropertyChanged();
+                if (g_selectedItem != null)
+                {
+                    // Binding giá trị đang chọn lên text box.
+                    g_str_id = g_selectedItem.ID.Trim();
 
-        private string _g_ID;
-        public string g_ID { get => _g_ID; set { _g_ID = value; OnPropertyChanged(); } }
+                    if (g_selectedItem.FULLNAME == null)
+                        g_str_fullName = string.Empty;
+                    else g_str_fullName = g_selectedItem.FULLNAME.Trim();
 
-        private string _g_Role;
-        public string g_Role { get => _g_Role; set { _g_Role = value; OnPropertyChanged(); } }
+                    g_str_gender = g_selectedItem.GENDER.Trim();
+                    g_i_yearOfBirth = g_selectedItem.YEAROFBIRTH;
+
+                    if (g_selectedItem.PHONE == null)
+                        g_str_phone = string.Empty;
+                    else g_str_phone = g_selectedItem.PHONE.Trim();
+
+                    if (g_selectedItem.EMAIL == null)
+                        g_str_email = string.Empty;
+                    else g_str_email = g_selectedItem.EMAIL.Trim();
+
+                    if (g_selectedItem.POSITION == null)
+                        g_str_position = string.Empty;
+                    else g_str_position = g_selectedItem.POSITION.Trim();
+
+                    g_str_role = g_selectedItem.ROLE.Trim();
+                }
+            }
+        }
+
+        #region Các thuộc tính của employee.
+        private string _g_str_id;
+        public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
+
+        private string _g_str_fullName;
+        public string g_str_fullName { get => _g_str_fullName; set { _g_str_fullName = value; OnPropertyChanged(); } }
+
+        private string _g_str_gender;
+        public string g_str_gender { get => _g_str_gender; set { _g_str_gender = value; OnPropertyChanged(); } }
+
+        private int _g_i_yearOfBirth;
+        public int g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
+
+        private string _g_str_phone;
+        public string g_str_phone { get => _g_str_phone; set { _g_str_phone = value; OnPropertyChanged(); } }
+
+        private string _g_str_email;
+        public string g_str_email { get => _g_str_email; set { _g_str_email = value; OnPropertyChanged(); } }
+
+        private string _g_str_position;
+        public string g_str_position { get => _g_str_position; set { _g_str_position = value; OnPropertyChanged(); } }
+
+        private string _g_str_role;
+        public string g_str_role { get => _g_str_role; set { _g_str_role = value; OnPropertyChanged(); } }
+        #endregion
 
         #region commands.
-        public ICommand g_iCm_LoadingCommand { get; set; }
+        public ICommand g_iCm_LoadedCommand { get; set; }
 
         public ICommand g_iCm_ClickAddInfoCommand { get; set; }
 
@@ -41,9 +95,9 @@ namespace CanTeenManagement.ViewModel
         {
             this.loadData();
 
-            g_iCm_LoadingCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_LoadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
-                this.loading(p);
+                this.loaded(p);
             });
 
             g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(p); }, (p) =>
@@ -51,7 +105,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickAdd(p);
             });
 
-            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkEdit(p); }, (p) =>
             {
                 this.clickEdit(p);
             });
@@ -72,12 +126,12 @@ namespace CanTeenManagement.ViewModel
             this.g_listEmloyee = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
         }
 
-        private void loading(EmployeesView p)
+        private void loaded(EmployeesView p)
         {
             if (p == null)
                 return;
 
-            p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
 
         private bool checkAdd(EmployeesView p)
@@ -85,16 +139,12 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return false;
 
-            if (string.IsNullOrEmpty(g_ID))
+            if (string.IsNullOrEmpty(g_str_id))
                 return false;
 
             // check id.
-            var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_ID);
-            if (l_IDList == null || l_IDList.Count() != 0)
-                return false;
-
-            // check role.
-            if (g_Role != "Admin" && g_Role != "Member")
+            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
+            if (l_employee == null || l_employee.Count() != 0)
                 return false;
 
             return true;
@@ -102,22 +152,74 @@ namespace CanTeenManagement.ViewModel
 
         private void clickAdd(EmployeesView p)
         {
-            p.rDefTop.Height = new GridLength(40, GridUnitType.Star);
+            //p.rDefTop.Height = new GridLength(40, GridUnitType.Star);
 
-            var employee = new EMPLOYEE() { ID = g_ID, ROLE = g_Role };
+            var l_employee = new EMPLOYEE()
+            {
+                ID = g_str_id,
+                PASSWORD = "123",
+                FULLNAME = g_str_fullName,
+                GENDER = g_str_gender,
+                YEAROFBIRTH = g_i_yearOfBirth,
+                PHONE = g_str_phone,
+                EMAIL = g_str_email,
+                POSITION = g_str_position,
+                ROLE = g_str_role
+            };
 
-            dataProvider.Instance.DB.EMPLOYEEs.Add(employee);
+            dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
             dataProvider.Instance.DB.SaveChanges();
 
-            g_listEmloyee.Add(employee);
+            g_listEmloyee.Add(l_employee);
+        }
+
+        private bool checkEdit(EmployeesView p)
+        {
+            if (p == null)
+                return false;
+
+            if (string.IsNullOrEmpty(g_str_id) || g_selectedItem == null)
+                return false;
+
+            // check id.
+            var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
+            if (l_IDList == null || l_IDList.Count() == 0)
+                return false;
+
+            return true;
         }
 
         private void clickEdit(EmployeesView p)
         {
-            if (p == null)
-                return;
+            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_selectedItem.ID).SingleOrDefault();
+            l_employee.FULLNAME = g_str_fullName;
+            l_employee.GENDER = g_str_gender;
+            l_employee.YEAROFBIRTH = g_i_yearOfBirth;
+            l_employee.PHONE = g_str_phone;
+            l_employee.EMAIL = g_str_email;
+            l_employee.POSITION = g_str_position;
+            l_employee.ROLE = g_str_role;
 
-            p.rDefTop.Height = new GridLength(40, GridUnitType.Star);
+            dataProvider.Instance.DB.SaveChanges();
+
+            for (int i = 0; i < g_listEmloyee.Count(); i++)
+            {
+                if (g_listEmloyee[i].ID == g_selectedItem.ID)
+                {
+                    g_listEmloyee[i] = new EMPLOYEE()
+                    {
+                        ID = g_selectedItem.ID,
+                        FULLNAME = g_str_fullName,
+                        GENDER = g_str_gender,
+                        YEAROFBIRTH = g_i_yearOfBirth,
+                        PHONE = g_str_phone,
+                        EMAIL = g_str_email,
+                        POSITION = g_str_position,
+                        ROLE = g_str_role
+                    };
+                    break;
+                }
+            }
         }
 
         private void clickSave(EmployeesView p)
@@ -125,7 +227,7 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
 
         private void clickDetail(EmployeesView p)

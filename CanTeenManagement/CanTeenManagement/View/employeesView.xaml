@@ -139,23 +139,30 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="170"/>
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="70"/>                                                    
+                                <ColumnDefinition Width="90"/>                                                  
                             </Grid.ColumnDefinitions>
 
+
                             <TextBox Grid.Column="1" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Mã nhân viên" 
-                                     Text="{Binding g_ID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên" />
-                            <TextBox Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" />
-                            <TextBox Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh" />
-                            <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại" />
-                            <TextBox Grid.Column="11" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Email" />
-                            <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ" />
-                            <TextBox Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền"
-                                    Text="{Binding g_Role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                     Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên"
+                                     Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <ComboBox Name="cbbGender" Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" VerticalAlignment="Bottom"
+                                     Text="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <ComboBox Name="cbbYearOfBirth" Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh"  VerticalAlignment="Bottom"                                     
+                                      Text="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại"
+                                      Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="11" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Email"
+                                      Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ"
+                                    Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <ComboBox Name="cbbRole" Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền" VerticalAlignment="Bottom"
+                                    Text="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
 
@@ -166,7 +173,7 @@
                                       SelectedItem="{Binding g_selectedItem, Mode =OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="50">
+                                        <GridViewColumn Width="40">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button Command="{Binding g_iCm_ClickDetailCommand}" 
@@ -188,11 +195,11 @@
 
                                         <GridViewColumn Header="Số điện thoại" Width="110" DisplayMemberBinding="{Binding PHONE}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Email" Width="200" DisplayMemberBinding="{Binding EMAIL}"></GridViewColumn>
+                                        <GridViewColumn Header="Email" Width="180" DisplayMemberBinding="{Binding EMAIL}"></GridViewColumn>
 
                                         <GridViewColumn Header="Chức vụ" Width="80" DisplayMemberBinding="{Binding POSITION}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Quyền" Width="70" DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
+                                        <GridViewColumn Header="Quyền" Width="90" DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
 
                                     </GridView>
                                 </ListView.View>

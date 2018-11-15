@@ -26,8 +26,8 @@
 
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDownCommand}" 
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
                                    CommandParameter="{Binding ElementName = loginView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
