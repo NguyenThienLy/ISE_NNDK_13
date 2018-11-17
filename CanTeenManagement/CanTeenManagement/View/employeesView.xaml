@@ -99,22 +99,28 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
+                                        
                                     </Grid.ColumnDefinitions>
                                     <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
                                     </Button>
-                                    <TextBox Grid.Column="1"  Margin="8 0 0 0" 
-                                             materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm" 
+                                    <TextBox Name="txtFilter" Grid.Column="1"  Margin="8 0 0 0" 
+                                             materialDesign:HintAssist.Hint="Nhập mã nhân viên để tìm kiếm" 
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
                                              BorderThickness="0"  MinWidth="200" 
                                              VerticalAlignment="Center" 
-                                             FontSize="10" />
+                                             FontSize="13"
+                                             Text="{Binding g_str_filter, UpdateSourceTrigger=PropertyChanged}" >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFilterCommand}" 
+                                                                       CommandParameter="{Binding ElementName = employeesView}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                 </Grid>
                             </materialDesign:ColorZone>
-                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
-                                <materialDesign:PackIcon Kind="Send" />
-                            </Button>
+                            
                         </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
@@ -152,17 +158,17 @@
                             <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên"
                                      Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbGender" Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" VerticalAlignment="Bottom"
-                                     Text="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbYearOfBirth" Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh"  VerticalAlignment="Bottom"                                     
-                                      Text="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại"
-                                      Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                     Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="11" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Email"
-                                      Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                     Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ"
-                                    Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                     Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbRole" Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền" VerticalAlignment="Bottom"
-                                    Text="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
 

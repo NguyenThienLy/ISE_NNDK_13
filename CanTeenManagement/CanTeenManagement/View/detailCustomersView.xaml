@@ -54,14 +54,14 @@
 
                 <Rectangle Height="150" VerticalAlignment="Top" Grid.RowSpan="1">
                     <Rectangle.Fill>
-                        <ImageBrush  ImageSource ="G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\backgroudbeach.jpg" Stretch="Fill"/>
+                        <ImageBrush  ImageSource ="/CanTeenManagement;component/Images/backgroudbeach.jpg" Stretch="Fill"/>
                     </Rectangle.Fill>
                 </Rectangle>
 
                 <Grid Grid.Row="0">
                     <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="140" Width="140" Margin="10 5 0 5">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\AVT.jpg" Stretch="Fill"/>
+                            <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg" Stretch="Fill"/>
                         </Ellipse.Fill>
                     </Ellipse>
 
@@ -70,9 +70,13 @@
                                     Nguyễn Thiên Lý
                         </TextBlock>
 
-                        <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
-                                    Customer ID: 1612365
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
+                                    Customer ID:
+                            </TextBlock>
+                            <TextBox FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold"
+                                     Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 

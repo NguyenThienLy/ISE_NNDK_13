@@ -18,7 +18,7 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickMinimizeWindowCommand { get; set; }
 
-        public ICommand g_iCm_MouseDownCommand { get; set; }
+        public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
 
         public ICommand g_iCm_LoadedCommand { get; set; }
 
@@ -55,9 +55,9 @@ namespace CanTeenManagement.ViewModel
                 this.clickMinimizeWindow(p);
             });
 
-            g_iCm_MouseDownCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            g_iCm_MouseLeftButtonDownCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
-                this.mouseDown(p);
+                this.mouseLeftButtonDown(p);
             });
 
             g_iCm_LoadedCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
@@ -109,7 +109,7 @@ namespace CanTeenManagement.ViewModel
             p.WindowState = WindowState.Minimized;
         }
 
-        private void mouseDown(MainWindow p)
+        private void mouseLeftButtonDown(MainWindow p)
         {
             if (p == null)
                 return;

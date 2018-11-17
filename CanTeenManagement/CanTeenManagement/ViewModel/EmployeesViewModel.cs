@@ -3,10 +3,12 @@ using CanTeenManagement.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CanTeenManagement.ViewModel
@@ -15,6 +17,21 @@ namespace CanTeenManagement.ViewModel
     {
         private ObservableCollection<EMPLOYEE> _g_listEmloyee;
         public ObservableCollection<EMPLOYEE> g_listEmloyee { get => _g_listEmloyee; set { _g_listEmloyee = value; OnPropertyChanged(); } }
+
+        private string _g_str_filter;
+
+        public string g_str_filter
+        {
+            get { return _g_str_filter; }
+            set
+            {
+                _g_str_filter = value;
+                OnPropertyChanged();
+
+                ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(_g_listEmloyee);
+                view.Filter = filterIDEmployee;
+            }
+        }
 
         private EMPLOYEE _g_selectedItem;
         public EMPLOYEE g_selectedItem
@@ -88,6 +105,8 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickSaveInfoCommand { get; set; }
 
+        public ICommand g_iCm_TextChangedFilterCommand { get; set; }
+
         public ICommand g_iCm_ClickDetailCommand { get; set; }
         #endregion
 
@@ -113,6 +132,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickSaveInfoCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
                 this.clickSave(p);
+            });
+
+            g_iCm_TextChangedFilterCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.filterIDEmployee(p);
             });
 
             g_iCm_ClickDetailCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
@@ -228,6 +252,22 @@ namespace CanTeenManagement.ViewModel
                 return;
 
             //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+        }
+
+        private bool filterIDEmployee(object item)
+        {
+            if (string.IsNullOrEmpty(_g_str_filter))
+                return true;
+            else
+                return ((item as EMPLOYEE).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private void filterIDEmployee(EmployeesView p)
+        {
+            if (p == null)
+                return;
+
+            CollectionViewSource.GetDefaultView(g_listEmloyee).Refresh();
         }
 
         private void clickDetail(EmployeesView p)
