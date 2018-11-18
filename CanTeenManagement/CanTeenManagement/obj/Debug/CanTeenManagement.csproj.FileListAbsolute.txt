@@ -214,3 +214,7 @@ C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenM
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml
 C:\Users\Tran Khanh Linh\Documents\GitHub\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.baml
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\WPFToolkit.dll

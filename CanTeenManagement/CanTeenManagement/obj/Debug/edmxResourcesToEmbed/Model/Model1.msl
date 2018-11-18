@@ -4,66 +4,70 @@
     <EntitySetMapping Name="CUSTOMERs">
       <EntityTypeMapping TypeName="QLCanTinModel.CUSTOMER">
         <MappingFragment StoreEntitySet="CUSTOMER">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="PIN" ColumnName="PIN" />
-          <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
-          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
-          <ScalarProperty Name="YEAROFBIRTH" ColumnName="YEAROFBIRTH" />
-          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-          <ScalarProperty Name="CASH" ColumnName="CASH" />
+          <ScalarProperty Name="STAR" ColumnName="STAR" />
+          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
           <ScalarProperty Name="POINT" ColumnName="POINT" />
-          <ScalarProperty Name="RANK" ColumnName="RANK" />
+          <ScalarProperty Name="CASH" ColumnName="CASH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="YEAROFBIRTH" ColumnName="YEAROFBIRTH" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+          <ScalarProperty Name="PIN" ColumnName="PIN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="EMPLOYEEs">
       <EntityTypeMapping TypeName="QLCanTinModel.EMPLOYEE">
         <MappingFragment StoreEntitySet="EMPLOYEE">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-          <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
-          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
-          <ScalarProperty Name="YEAROFBIRTH" ColumnName="YEAROFBIRTH" />
-          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
           <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="YEAROFBIRTH" ColumnName="YEAROFBIRTH" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="FOODs">
       <EntityTypeMapping TypeName="QLCanTinModel.FOOD">
         <MappingFragment StoreEntitySet="FOOD">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="FOODNAME" ColumnName="FOODNAME" />
-          <ScalarProperty Name="FOODTYPE" ColumnName="FOODTYPE" />
-          <ScalarProperty Name="FOODDESCRIPTION" ColumnName="FOODDESCRIPTION" />
-          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
-          <ScalarProperty Name="SALE" ColumnName="SALE" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="STAR" ColumnName="STAR" />
+          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="SALE" ColumnName="SALE" />
+          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+          <ScalarProperty Name="FOODDESCRIPTION" ColumnName="FOODDESCRIPTION" />
+          <ScalarProperty Name="FOODTYPE" ColumnName="FOODTYPE" />
+          <ScalarProperty Name="FOODNAME" ColumnName="FOODNAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ORDERDETAILs">
       <EntityTypeMapping TypeName="QLCanTinModel.ORDERDETAIL">
         <MappingFragment StoreEntitySet="ORDERDETAIL">
-          <ScalarProperty Name="ORDERID" ColumnName="ORDERID" />
-          <ScalarProperty Name="FOODID" ColumnName="FOODID" />
-          <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
           <ScalarProperty Name="TOTALMONEY" ColumnName="TOTALMONEY" />
+          <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+          <ScalarProperty Name="FOODID" ColumnName="FOODID" />
+          <ScalarProperty Name="ORDERID" ColumnName="ORDERID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ORDERINFOes">
       <EntityTypeMapping TypeName="QLCanTinModel.ORDERINFO">
         <MappingFragment StoreEntitySet="ORDERINFO">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
-          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
-          <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
-          <ScalarProperty Name="TOTALMONEY" ColumnName="TOTALMONEY" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="TOTALMONEY" ColumnName="TOTALMONEY" />
+          <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+          <ScalarProperty Name="EMPLOYEEID" ColumnName="EMPLOYEEID" />
+          <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

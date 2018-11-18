@@ -19,7 +19,6 @@ namespace CanTeenManagement.ViewModel
         public ObservableCollection<EMPLOYEE> g_listEmloyee { get => _g_listEmloyee; set { _g_listEmloyee = value; OnPropertyChanged(); } }
 
         private string _g_str_filter;
-
         public string g_str_filter
         {
             get { return _g_str_filter; }
@@ -80,8 +79,8 @@ namespace CanTeenManagement.ViewModel
         private string _g_str_gender;
         public string g_str_gender { get => _g_str_gender; set { _g_str_gender = value; OnPropertyChanged(); } }
 
-        private int _g_i_yearOfBirth;
-        public int g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
+        private Nullable<int> _g_i_yearOfBirth;
+        public Nullable<int> g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
 
         private string _g_str_phone;
         public string g_str_phone { get => _g_str_phone; set { _g_str_phone = value; OnPropertyChanged(); } }

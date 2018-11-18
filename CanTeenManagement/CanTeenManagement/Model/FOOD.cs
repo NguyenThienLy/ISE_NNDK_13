@@ -22,10 +22,12 @@ namespace CanTeenManagement.Model
     
         public string ID { get; set; }
         public string FOODNAME { get; set; }
-        public string FOODTYPE { get; set; }
+        public Nullable<int> FOODTYPE { get; set; }
         public string FOODDESCRIPTION { get; set; }
         public Nullable<int> PRICE { get; set; }
         public Nullable<int> SALE { get; set; }
+        public string AVATAR { get; set; }
+        public Nullable<int> STAR { get; set; }
         public string STATUS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

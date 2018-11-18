@@ -10,92 +10,77 @@ namespace CanTeenManagement.CO
     class staticVarClass
     {
         #region time
-        public static int timeAutoOff = 5 * 1000;
+        public static int time_autoOff = 5 * 1000;
 
-        public static int timeAutoOffFormLogIn = 1 * 1000;
+        public static int time_autoOffLogIn = 1 * 1000;
         #endregion
 
         #region Link file server IP.
-        public static string linkFile_ServerIP = "Server.txt";
-        public static string linkFile_Account = "Account.txt";
+        public static string linkFile_serverIP = "Server.txt";
+        public static string linkFile_account = "Account.txt";
         #endregion
 
         #region server.
-        public static string server_Host = getHost();
+        public static string server_Host = "127.0.0.1";
 
-        public static string server_ServerDirectory = @"\\" + server_Host + @"\Server\";
+        public static string server_serverDirectory = @"\\" + server_Host + @"\CanteenManagement\";
 
-        public static string server_ConnectSQLServer = server_Host;
+        public static string server_connectSQLServer = server_Host;
 
-        public static string sever_ConnectSQLServerCatalog = "QLCanTin";
+        public static string sever_connectSQLServerCatalog = "QLCanTin";
 
-        public static string server_ConnectSQLServerUser = "THIENLY";
+        public static string server_connectSQLServerUser = "THIENLY";
 
-        public static string server_ConnectSQLServerPass = "HOANGHANH2703";
+        public static string server_connectSQLServerPass = "HOANGHANH2703";
+        #endregion
+
+        #region food type.
+        public static int foodType_one= 1;
+        public static int foodType_two = 2;
+        public static int foodType_three = 3;
         #endregion
 
         #region account.
-        public static string account_Username = string.Empty;
+        public static string account_userName = string.Empty;
 
-        public static string account_Password = string.Empty;
+        public static string account_password = string.Empty;
         #endregion
 
         #region ftp.
-        public static string ftp_Username = "ly";
+        public static string ftp_userName = "CanteenManagement";
 
-        public static string ftp_Password = "1";
+        public static string ftp_password = "123456aA123456";
 
         public static string ftp_Server = @"ftp://" + server_Host + "/";
         #endregion
 
         #region Role
-        public static string role_Admin = "Admin";
-        public static string role_Member = "Member";
-        public static string role_Staff = "Staff";
+        public static string role_admin = "Admin";
+        public static string role_member = "Member";
+        public static string role_staff = "Staff";
         #endregion
 
         #region status.
-        public static string status_Waiting = "Đang chờ";
-        public static string status_NotComplete = "Hết món";
-        public static string status_Overdue = "Xong";
-        public static string status_Active = "Đang hoạt đông";
-        public static string status_NotActive = "Không hoạt động";
+        public static string status_waiting = "Đang chờ";
+        public static string status_notComplete = "Hết món";
+        public static string status_done = "Xong";
         #endregion
-
-        #region type.
-        public static string type_Normal = "Normal";
-        public static string type_AdminApproval = "Admin approval";
-        #endregion
-
-        #region POSMProject.
-        public static string POSM_POSMProject = "Yes";
-
-        public static string POSM_NotPOSMProject = "No";
-        #endregion
-
-        #region other.
-        public static int maxStage = 20;
-
-        public static int numberOfDept = 8;
-
-        public static string completeProgress = "100";
-        #endregion
-
+    
         #region email.
-        public static int email_PortEmail = 587;
+        public static int email_portEmail = 587;
 
-        public static string email_HostEmail = "smtp.gmail.com";
+        public static string email_hostEmail = "smtp.gmail.com";
         #endregion
 
         #region gmail.
-        public static string gmail_User = "ISE.NNDK.13@gmail.com";
-        public static string gmail_Password = "123456aA123456";
+        public static string gmail_user = "ISE.NNDK.13@gmail.com";
+        public static string gmail_password = "123456aA123456";
         #endregion
 
         // Hàm lấy host.
         public static string getHost()
         {
-            string str_FilePathLocal = staticVarClass.linkFile_ServerIP;
+            string str_FilePathLocal = staticVarClass.linkFile_serverIP;
             string str_HostLocal = string.Empty;
 
             if (System.IO.File.Exists(str_FilePathLocal))

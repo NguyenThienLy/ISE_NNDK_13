@@ -29,7 +29,8 @@ namespace CanTeenManagement.Model
         public string EMAIL { get; set; }
         public Nullable<int> CASH { get; set; }
         public Nullable<int> POINT { get; set; }
-        public string RANK { get; set; }
+        public string AVATAR { get; set; }
+        public Nullable<int> STAR { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDERINFO> ORDERINFOes { get; set; }
