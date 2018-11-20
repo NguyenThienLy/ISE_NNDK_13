@@ -13,7 +13,7 @@
     <Property Name="EMAIL" Type="nchar" MaxLength="50" />
     <Property Name="CASH" Type="int" />
     <Property Name="POINT" Type="int" />
-    <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+    <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
     <Property Name="STAR" Type="int" />
   </EntityType>
   <EntityType Name="EMPLOYEE">
@@ -28,8 +28,9 @@
     <Property Name="PHONE" Type="nchar" MaxLength="15" />
     <Property Name="EMAIL" Type="nchar" MaxLength="50" />
     <Property Name="POSITION" Type="nchar" MaxLength="50" />
-    <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+    <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
     <Property Name="ROLE" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="STATUS" Type="nchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="FOOD">
     <Key>
@@ -41,7 +42,7 @@
     <Property Name="FOODDESCRIPTION" Type="nchar" MaxLength="200" />
     <Property Name="PRICE" Type="int" />
     <Property Name="SALE" Type="int" />
-    <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+    <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
     <Property Name="STAR" Type="int" />
     <Property Name="STATUS" Type="nchar" MaxLength="50" />
   </EntityType>
@@ -62,7 +63,7 @@
     <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="CUSTOMERID" Type="nchar" MaxLength="20" />
     <Property Name="EMPLOYEEID" Type="nchar" MaxLength="20" />
-    <Property Name="ORDERDATE" Type="datetime" />
+    <Property Name="ORDERDATE" Type="date" />
     <Property Name="TOTALMONEY" Type="int" />
     <Property Name="STATUS" Type="nchar" MaxLength="20" />
   </EntityType>

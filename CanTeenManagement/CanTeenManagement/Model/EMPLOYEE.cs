@@ -28,8 +28,9 @@ namespace CanTeenManagement.Model
         public string PHONE { get; set; }
         public string EMAIL { get; set; }
         public string POSITION { get; set; }
-        public string AVATAR { get; set; }
+        public string IMAGELINK { get; set; }
         public string ROLE { get; set; }
+        public string STATUS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDERINFO> ORDERINFOes { get; set; }

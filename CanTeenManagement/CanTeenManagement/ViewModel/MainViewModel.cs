@@ -141,7 +141,7 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 3:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new listView());
+                    p.GridMainWindow.Children.Add(new StatisticView());
                     break;
                 case 4:
                     p.GridMainWindow.Children.Clear();

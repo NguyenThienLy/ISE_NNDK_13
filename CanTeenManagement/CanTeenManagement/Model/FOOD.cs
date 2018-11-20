@@ -26,7 +26,7 @@ namespace CanTeenManagement.Model
         public string FOODDESCRIPTION { get; set; }
         public Nullable<int> PRICE { get; set; }
         public Nullable<int> SALE { get; set; }
-        public string AVATAR { get; set; }
+        public string IMAGELINK { get; set; }
         public Nullable<int> STAR { get; set; }
         public string STATUS { get; set; }
     

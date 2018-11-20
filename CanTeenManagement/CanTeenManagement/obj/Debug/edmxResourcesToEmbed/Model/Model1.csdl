@@ -36,7 +36,7 @@
     <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="CASH" Type="Int32" />
     <Property Name="POINT" Type="Int32" />
-    <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="STAR" Type="Int32" />
     <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="CUSTOMER" ToRole="ORDERINFO" />
   </EntityType>
@@ -52,8 +52,9 @@
     <Property Name="PHONE" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
     <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="POSITION" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-    <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="ROLE" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B" FromRole="EMPLOYEE" ToRole="ORDERINFO" />
   </EntityType>
   <EntityType Name="FOOD">
@@ -66,7 +67,7 @@
     <Property Name="FOODDESCRIPTION" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
     <Property Name="PRICE" Type="Int32" />
     <Property Name="SALE" Type="Int32" />
-    <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="STAR" Type="Int32" />
     <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__4222D4EF" FromRole="FOOD" ToRole="ORDERDETAIL" />
@@ -90,7 +91,7 @@
     <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="CUSTOMERID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="EMPLOYEEID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="ORDERDATE" Type="DateTime" Precision="3" />
+    <Property Name="ORDERDATE" Type="DateTime" Precision="0" />
     <Property Name="TOTALMONEY" Type="Int32" />
     <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="CUSTOMER" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="ORDERINFO" ToRole="CUSTOMER" />

@@ -158,7 +158,7 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
-                                            <Image Source="{Binding AVATAR}"
+                                            <Image Source="{Binding IMAGELINK}"
                                             Stretch="Fill" />
 
                                             <Button Grid.Row="0" 

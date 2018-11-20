@@ -5,7 +5,7 @@
       <EntityTypeMapping TypeName="QLCanTinModel.CUSTOMER">
         <MappingFragment StoreEntitySet="CUSTOMER">
           <ScalarProperty Name="STAR" ColumnName="STAR" />
-          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
           <ScalarProperty Name="POINT" ColumnName="POINT" />
           <ScalarProperty Name="CASH" ColumnName="CASH" />
           <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
@@ -21,8 +21,9 @@
     <EntitySetMapping Name="EMPLOYEEs">
       <EntityTypeMapping TypeName="QLCanTinModel.EMPLOYEE">
         <MappingFragment StoreEntitySet="EMPLOYEE">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
           <ScalarProperty Name="POSITION" ColumnName="POSITION" />
           <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
           <ScalarProperty Name="PHONE" ColumnName="PHONE" />
@@ -39,7 +40,7 @@
         <MappingFragment StoreEntitySet="FOOD">
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="STAR" ColumnName="STAR" />
-          <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+          <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
           <ScalarProperty Name="SALE" ColumnName="SALE" />
           <ScalarProperty Name="PRICE" ColumnName="PRICE" />
           <ScalarProperty Name="FOODDESCRIPTION" ColumnName="FOODDESCRIPTION" />

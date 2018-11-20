@@ -18,7 +18,7 @@
           <Property Name="EMAIL" Type="nchar" MaxLength="50" />
           <Property Name="CASH" Type="int" />
           <Property Name="POINT" Type="int" />
-          <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+          <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
           <Property Name="STAR" Type="int" />
         </EntityType>
         <EntityType Name="EMPLOYEE">
@@ -33,8 +33,9 @@
           <Property Name="PHONE" Type="nchar" MaxLength="15" />
           <Property Name="EMAIL" Type="nchar" MaxLength="50" />
           <Property Name="POSITION" Type="nchar" MaxLength="50" />
-          <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+          <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
           <Property Name="ROLE" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATUS" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="FOOD">
           <Key>
@@ -46,7 +47,7 @@
           <Property Name="FOODDESCRIPTION" Type="nchar" MaxLength="200" />
           <Property Name="PRICE" Type="int" />
           <Property Name="SALE" Type="int" />
-          <Property Name="AVATAR" Type="nchar" MaxLength="100" />
+          <Property Name="IMAGELINK" Type="nchar" MaxLength="100" />
           <Property Name="STAR" Type="int" />
           <Property Name="STATUS" Type="nchar" MaxLength="50" />
         </EntityType>
@@ -67,7 +68,7 @@
           <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="CUSTOMERID" Type="nchar" MaxLength="20" />
           <Property Name="EMPLOYEEID" Type="nchar" MaxLength="20" />
-          <Property Name="ORDERDATE" Type="datetime" />
+          <Property Name="ORDERDATE" Type="date" />
           <Property Name="TOTALMONEY" Type="int" />
           <Property Name="STATUS" Type="nchar" MaxLength="20" />
         </EntityType>
@@ -182,7 +183,7 @@
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="CASH" Type="Int32" />
           <Property Name="POINT" Type="Int32" />
-          <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="STAR" Type="Int32" />
           <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="CUSTOMER" ToRole="ORDERINFO" />
         </EntityType>
@@ -198,8 +199,9 @@
           <Property Name="PHONE" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="POSITION" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="ROLE" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B" FromRole="EMPLOYEE" ToRole="ORDERINFO" />
         </EntityType>
         <EntityType Name="FOOD">
@@ -212,7 +214,7 @@
           <Property Name="FOODDESCRIPTION" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
           <Property Name="PRICE" Type="Int32" />
           <Property Name="SALE" Type="Int32" />
-          <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="STAR" Type="Int32" />
           <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__4222D4EF" FromRole="FOOD" ToRole="ORDERDETAIL" />
@@ -236,7 +238,7 @@
           <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="CUSTOMERID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="EMPLOYEEID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="ORDERDATE" Type="DateTime" Precision="3" />
+          <Property Name="ORDERDATE" Type="DateTime" Precision="0" />
           <Property Name="TOTALMONEY" Type="Int32" />
           <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="CUSTOMER" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="ORDERINFO" ToRole="CUSTOMER" />
@@ -301,7 +303,7 @@
             <EntityTypeMapping TypeName="QLCanTinModel.CUSTOMER">
               <MappingFragment StoreEntitySet="CUSTOMER">
                 <ScalarProperty Name="STAR" ColumnName="STAR" />
-                <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+                <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
                 <ScalarProperty Name="POINT" ColumnName="POINT" />
                 <ScalarProperty Name="CASH" ColumnName="CASH" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
@@ -317,8 +319,9 @@
           <EntitySetMapping Name="EMPLOYEEs">
             <EntityTypeMapping TypeName="QLCanTinModel.EMPLOYEE">
               <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-                <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+                <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
                 <ScalarProperty Name="POSITION" ColumnName="POSITION" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="PHONE" ColumnName="PHONE" />
@@ -335,7 +338,7 @@
               <MappingFragment StoreEntitySet="FOOD">
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="STAR" ColumnName="STAR" />
-                <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+                <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
                 <ScalarProperty Name="SALE" ColumnName="SALE" />
                 <ScalarProperty Name="PRICE" ColumnName="PRICE" />
                 <ScalarProperty Name="FOODDESCRIPTION" ColumnName="FOODDESCRIPTION" />

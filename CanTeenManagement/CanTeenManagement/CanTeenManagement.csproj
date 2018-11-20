@@ -129,7 +129,6 @@
     <Compile Include="ViewModel\DetailCustomersViewModel.cs" />
     <Compile Include="ViewModel\DetailEmployeesViewModel.cs" />
     <Compile Include="ViewModel\EmployeesViewModel.cs" />
-    <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
@@ -137,6 +136,7 @@
     <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SortFoodViewModel.cs" />
+    <Compile Include="ViewModel\StatisticViewModel.cs" />
     <Compile Include="View\CallFoodView.xaml.cs">
       <DependentUpon>CallFoodView.xaml</DependentUpon>
     </Compile>
@@ -155,9 +155,6 @@
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ListView.xaml.cs">
-      <DependentUpon>ListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -175,6 +172,9 @@
     </Compile>
     <Compile Include="View\SortFoodView.xaml.cs">
       <DependentUpon>SortFoodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticView.xaml.cs">
+      <DependentUpon>StatisticView.xaml</DependentUpon>
     </Compile>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
@@ -201,10 +201,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EmployeesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +239,10 @@
     <Page Include="View\SortFoodView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
