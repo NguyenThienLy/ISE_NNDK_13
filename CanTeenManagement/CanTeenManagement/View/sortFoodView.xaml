@@ -83,15 +83,16 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            
+
                             <materialDesign:Badged Grid.Column="0"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    Badge="3"
                                                    BadgeBackground="#FF8DC1CD">
-                                <Button  Background="#D50000" 
-                                         BorderBrush="#D50000"
-                                         Width="100">
+                                <Button Command="{Binding g_iCm_ClickSoldOutAllCommand1}"
+                                    Background="#D50000" 
+                                    BorderBrush="#D50000"
+                                    Width="100">
                                     HẾT MÓN
                                 </Button>
                             </materialDesign:Badged>
@@ -101,9 +102,10 @@
                                                    VerticalAlignment="Center"
                                                     Badge="3"
                                                     BadgeBackground="#FF8DC1CD">
-                                <Button Background="#212121" 
-                                        BorderBrush="#212121"
-                                        Width="100">
+                                <Button Command="{Binding g_iCm_ClickSkipAllCommand1}"
+                                    Background="#212121" 
+                                    BorderBrush="#212121"
+                                    Width="100">
                                     BỎ QUA
                                 </Button>
                             </materialDesign:Badged>
@@ -113,9 +115,10 @@
                                                    VerticalAlignment="Center"
                                                     Badge="3"
                                                     BadgeBackground="#FF8DC1CD">
-                                <Button   Background="#43A047" 
-                                        BorderBrush="#43A047"
-                                          Width="100">
+                                <Button Command="{Binding g_iCm_ClickDoneAllCommand1}"
+                                    Background="#43A047" 
+                                    BorderBrush="#43A047"
+                                    Width="100">
                                     XONG
                                 </Button>
                             </materialDesign:Badged>
@@ -135,13 +138,13 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock
+                                <TextBlock x:Name="lbName1"
                                            Grid.Row="0" 
                                            FontWeight="Bold" 
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "GÀ CHIÊN MẮM"/>
+                                           Text = "{Binding g_str_foodName1}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -161,7 +164,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity1}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                         IconBackground="#FF26788A"
@@ -178,7 +181,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time1}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -203,7 +206,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                                            Content="Nguyễn Hà Hoàng Long"
+                                                            Content="{Binding g_str_customerName1}"
                                                              HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -218,7 +221,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price1}"
                                                          HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -233,7 +236,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand1}"                      
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -244,7 +247,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand1}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -254,7 +257,8 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand1}"
+                                        x:Name="btnDone1"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
@@ -287,7 +291,7 @@
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "ĐẬU HỦ NHỒI THỊT"/>
+                                           Text = "{Binding g_str_foodName2}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -307,7 +311,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity2}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -324,7 +328,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time2}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -349,7 +353,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                        Content="Nguyễn Hà Hoàng Long"
+                                        Content="{Binding g_str_customerName2}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -364,7 +368,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price2}"
                                                          HorizontalContentAlignment="Center"
                                                          FontSize="20" FontWeight="DemiBold"
                                                    IconBackground="#FF26788A"
@@ -379,7 +383,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand2}"
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -390,7 +394,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand2}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -400,7 +404,7 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand2}"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
@@ -433,7 +437,7 @@
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "ĐẬU VE XÀO THỊT"/>
+                                           Text = "{Binding g_str_foodName3}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -453,7 +457,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity3}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -470,7 +474,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time3}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -495,7 +499,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                        Content="Nguyễn Hà Hoàng Long"
+                                        Content="{Binding g_str_customerName3}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -510,7 +514,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price3}"
                                                          HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -525,7 +529,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand3}"
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -536,7 +540,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand3}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -546,7 +550,7 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand3}"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
@@ -567,7 +571,7 @@
                                     IsIndeterminate="True" 
                                     Background="#FF8DC1CD" Foreground="#FF26788A"
                                    />
-                    
+
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"></RowDefinition>
@@ -641,7 +645,7 @@
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "PHỞ"/>
+                                           Text = "{Binding g_str_foodName4}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -661,7 +665,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity4}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -678,7 +682,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time4}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -703,7 +707,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                        Content="Nguyễn Hà Hoàng Long"
+                                        Content="{Binding g_str_customerName4}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -719,7 +723,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price4}"
                                                          HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -734,7 +738,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand4}"
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -745,7 +749,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand4}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -755,7 +759,7 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand4}"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
@@ -788,7 +792,7 @@
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "HỦ TIẾU"/>
+                                           Text = "{Binding g_str_foodName5}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -808,7 +812,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity5}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -825,7 +829,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time5}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -850,7 +854,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                        Content="Nguyễn Hà Hoàng Long"
+                                        Content="{Binding g_str_customerName5}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -866,7 +870,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price5}"
                                                          HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -881,7 +885,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand5}"
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -892,7 +896,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand5}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -902,7 +906,7 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand5}"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
@@ -935,7 +939,7 @@
                                            FontSize="30" 
                                            HorizontalAlignment="Center" 
                                            Margin="10,10,10,10" 
-                                           Text = "BÁNH CANH"/>
+                                           Text = "{Binding g_str_foodName6}"/>
 
                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
                                            Margin="5,35,5,50" 
@@ -955,7 +959,7 @@
                                                          HorizontalAlignment="Left" 
                                                          VerticalAlignment="Center" 
                                                          Margin="10 0"                                       
-                                        Content="Số lượng: 1"
+                                        Content="{Binding g_str_quantity6}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -972,7 +976,7 @@
                                                           HorizontalAlignment="Right" 
                                                           VerticalAlignment="Center"
                                                           Margin="0 0 10 0"
-                                        Content="Thời gian: 09:50"
+                                        Content="{Binding g_str_time6}"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
                                         IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -997,7 +1001,7 @@
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center" 
                                                           Margin="10 0"                                        
-                                        Content="Nguyễn Hà Hoàng Long"
+                                        Content="{Binding g_str_customerName6}"
                                         HorizontalContentAlignment="Center"
                                         FontSize="20" FontWeight="DemiBold"
                                   IconBackground="#FF26788A"
@@ -1013,7 +1017,7 @@
                                     <materialDesign:Chip Grid.Column="1" 
                                                          HorizontalAlignment="Right" 
                                                          VerticalAlignment="Center"
-                                                         Content="25.000 VNĐ"
+                                                         Content="{Binding g_str_price6}"
                                                          HorizontalContentAlignment="Center"
                                                         FontSize="20" FontWeight="DemiBold"
                                                   IconBackground="#FF26788A"
@@ -1028,7 +1032,7 @@
                                 </Grid>
 
                                 <Grid Grid.Row="5">
-                                    <Button                            
+                                    <Button Command="{Binding g_iCm_ClickSoldOutCommand6}"
                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         HorizontalAlignment="Left"
                                         Width="120" Height="30"                                            
@@ -1039,7 +1043,7 @@
                                         HẾT MÓN
                                     </Button>
 
-                                    <Button
+                                    <Button Command="{Binding g_iCm_ClickSkipCommand6}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                        Width="120" Height="30"                                         
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -1049,7 +1053,7 @@
                                         BỎ QUA
                                     </Button>
 
-                                    <Button 
+                                    <Button Command="{Binding g_iCm_ClickDoneCommand6}"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         Width="120" Height="30"                                            
