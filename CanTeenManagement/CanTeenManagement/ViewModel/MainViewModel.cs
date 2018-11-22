@@ -133,7 +133,7 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 1:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new OrderView());
+                    p.GridMainWindow.Children.Add(OrderView.Instance);
                     break;
                 case 2:
                     p.GridMainWindow.Children.Clear();

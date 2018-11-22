@@ -20,7 +20,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class OrderView : UserControl
     {
-        public OrderView()
+        private static OrderView instance;
+
+        public static OrderView Instance
+        {
+            get { if (instance == null) instance = new OrderView(); return OrderView.instance; }
+
+            set { OrderView.instance = value; }
+        }
+
+        private OrderView()
         {
             InitializeComponent();
         }

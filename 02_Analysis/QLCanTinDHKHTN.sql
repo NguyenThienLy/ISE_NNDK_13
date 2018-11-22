@@ -67,7 +67,7 @@ CREATE TABLE ORDERINFO
 	
 	CUSTOMERID nchar(20),
 	EMPLOYEEID nchar(20),
-	ORDERDATE date,
+	ORDERDATE datetime,
 	TOTALMONEY int,
 	STATUS nchar(20),
 	
@@ -116,10 +116,25 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STA
 
 INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALUES
 ('ORD01', 'long.nguyen', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
-('ORD02', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ')
-
+('ORD02', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD03', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD04', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD05', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD06', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD07', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD08', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD09', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD10', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ')
+ 
 INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY) VALUES
 ('ORD01', 'FOOD01', 2, 45000),
-('ORD01', 'FOOD02', 1, 10000),
-('ORD02', 'FOOD01', 1, 22500)
+('ORD02', 'FOOD02', 1, 10000),
+('ORD03', 'FOOD03', 2, 10000),
+('ORD04', 'FOOD04', 1, 10000),
+('ORD05', 'FOOD05', 1, 10000),
+('ORD06', 'FOOD06', 3, 10000),
+('ORD07', 'FOOD07', 1, 10000),
+('ORD08', 'FOOD08', 1, 10000),
+('ORD09', 'FOOD09', 2, 10000),
+('ORD10', 'FOOD10', 1, 10000)
 

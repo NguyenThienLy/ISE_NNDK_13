@@ -64,7 +64,7 @@
                                        VerticalAlignment="Center" 
                                        DockPanel.Dock="Right" />
                         <materialDesign:Badged Margin="10 5"  
-                                               Badge="6" 
+                                               Badge="{Binding g_i_currOrderFood}" 
                                                Background="White"
                                                DockPanel.Dock="Right" 
                                                BadgeBackground="Red">
@@ -130,7 +130,7 @@
                           x:Name="gvHaveFood">
 
                         <ItemsControl x:Name="itemControlHaveFood"
-                                      ItemsSource="{Binding g_listFood}">
+                                      ItemsSource="{Binding g_lst_Food}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -138,7 +138,7 @@
                                    CommandParameter="{Binding ElementName = itemControlHaveFood}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            
+
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal"
@@ -161,12 +161,16 @@
                                             <Image Source="{Binding IMAGELINK}"
                                             Stretch="Fill" />
 
-                                            <Button Grid.Row="0" 
-                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                            HorizontalAlignment="Right" 
-                                            VerticalAlignment="Bottom"
-                                            Margin="0 0 16 -20">
+                                            <Button x:Name="btnCart" 
+                                                    Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="0" 
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                                    HorizontalAlignment="Right" 
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="0 0 16 -20">
                                                 <materialDesign:PackIcon  Kind="Cart" />
+
                                             </Button>
 
                                             <StackPanel Grid.Row="1" 
@@ -223,8 +227,6 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-
-
                     </Grid>
 
                     <Grid Grid.Column="1" >
@@ -360,7 +362,8 @@
                                       Height="20" 
                                       VerticalAlignment="Top"   
                                       Style="{StaticResource MaterialDesignCheckBox}" 
-                                      FontSize="10" Background="#FF36AE98" 
+                                      FontSize="10" 
+                                      Background="#FF36AE98" 
                                       IsChecked="True"
                                       Content="Đồ ăn qua chế biến"/>
 
