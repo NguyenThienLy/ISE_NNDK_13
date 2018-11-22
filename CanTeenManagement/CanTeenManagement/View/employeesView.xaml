@@ -26,7 +26,7 @@
                                    CommandParameter="{Binding ElementName = employeesView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid x:Name="gvMain">
 
@@ -53,14 +53,14 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
-                
+
                 <materialDesign:ColorZone Grid.Row="0"
                     Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
@@ -99,7 +99,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        
+
                                     </Grid.ColumnDefinitions>
                                     <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
@@ -120,7 +120,7 @@
                                     </TextBox>
                                 </Grid>
                             </materialDesign:ColorZone>
-                            
+
                         </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
@@ -149,7 +149,9 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="90"/>                                                  
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
 
 
@@ -169,6 +171,8 @@
                                      Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbRole" Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền" VerticalAlignment="Bottom"
                                       SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <ComboBox Name="cbbStatus" Grid.Column="17" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Trạng thái" VerticalAlignment="Bottom"
+                                      SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </Grid>
                     </Grid>
 
@@ -205,14 +209,15 @@
 
                                         <GridViewColumn Header="Chức vụ" Width="80" DisplayMemberBinding="{Binding POSITION}"></GridViewColumn>
 
-                                        <GridViewColumn Header="Quyền" Width="90" DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
+                                        <GridViewColumn Header="Quyền" Width="70" DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
 
+                                        <GridViewColumn Header="Trạng thái" Width="80" DisplayMemberBinding="{Binding STATUS}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                         </ScrollViewer>
                     </Grid>
-                   
+
                 </Grid>
 
                 <Grid Grid.Row="2" 
@@ -255,7 +260,7 @@
                 </Grid>
             </Grid>
 
-           
+
         </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

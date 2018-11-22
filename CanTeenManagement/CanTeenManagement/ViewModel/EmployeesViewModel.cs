@@ -65,6 +65,7 @@ namespace CanTeenManagement.ViewModel
                     else g_str_position = g_selectedItem.POSITION.Trim();
 
                     g_str_role = g_selectedItem.ROLE.Trim();
+                    g_str_status = g_selectedItem.STATUS.Trim();
                 }
             }
         }
@@ -93,6 +94,9 @@ namespace CanTeenManagement.ViewModel
 
         private string _g_str_role;
         public string g_str_role { get => _g_str_role; set { _g_str_role = value; OnPropertyChanged(); } }
+
+        private string _g_str_status;
+        public string g_str_status { get => _g_str_status; set { _g_str_status = value; OnPropertyChanged(); } }
         #endregion
 
         #region commands.
@@ -141,7 +145,7 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickDetailCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
-            });      
+            });
         }
 
         private void loadData()
@@ -187,7 +191,9 @@ namespace CanTeenManagement.ViewModel
                 PHONE = g_str_phone,
                 EMAIL = g_str_email,
                 POSITION = g_str_position,
-                ROLE = g_str_role
+                IMAGELINK = String.Empty,
+                ROLE = g_str_role,
+                STATUS = g_str_status
             };
 
             dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
@@ -222,6 +228,7 @@ namespace CanTeenManagement.ViewModel
             l_employee.EMAIL = g_str_email;
             l_employee.POSITION = g_str_position;
             l_employee.ROLE = g_str_role;
+            l_employee.STATUS = g_str_status;
 
             dataProvider.Instance.DB.SaveChanges();
 
@@ -238,7 +245,8 @@ namespace CanTeenManagement.ViewModel
                         PHONE = g_str_phone,
                         EMAIL = g_str_email,
                         POSITION = g_str_position,
-                        ROLE = g_str_role
+                        ROLE = g_str_role,
+                        STATUS = g_str_status
                     };
                     break;
                 }
