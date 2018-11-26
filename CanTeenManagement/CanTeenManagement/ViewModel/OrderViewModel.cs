@@ -16,11 +16,21 @@ namespace CanTeenManagement.ViewModel
 {
     class OrderViewModel : BaseViewModel
     {
-        private ObservableCollection<FOOD> _g_lst_Food;
-        public ObservableCollection<FOOD> g_lst_Food
+        private ObservableCollection<ORDERFOOD> _g_obCl_orderFoodShow ;
+        public ObservableCollection<ORDERFOOD> g_obCl_orderFoodShow
         {
-            get => _g_lst_Food;
-            set { _g_lst_Food = value; OnPropertyChanged(); }
+            get => _g_obCl_orderFoodShow;
+            set { _g_obCl_orderFoodShow = value; OnPropertyChanged(); }
+        }
+
+        //Get list food from database.
+        private ObservableCollection<FOOD> _g_obCl_food { get; set; }
+        public ObservableCollection<FOOD> g_obCl_food
+        {
+            get => _g_obCl_food;
+            set { _g_obCl_food = value;
+                OnPropertyChanged();
+            }
         }
 
         // Curr page.
@@ -28,7 +38,9 @@ namespace CanTeenManagement.ViewModel
         public int g_i_currPage
         {
             get => _g_i_currPage;
-            set { _g_i_currPage = value; OnPropertyChanged(); }
+            set { _g_i_currPage = value;
+                OnPropertyChanged();
+            }
         }
 
         // total food in page.
@@ -36,7 +48,10 @@ namespace CanTeenManagement.ViewModel
         public int g_i_totalFood
         {
             get => _g_i_totalFood;
-            set { _g_i_totalFood = value; }
+            set
+            { _g_i_totalFood = value;
+              
+            }
         }
 
         // total food in page.
@@ -52,7 +67,8 @@ namespace CanTeenManagement.ViewModel
         public int g_i_currPrice
         {
             get => _g_i_currPrice;
-            set { _g_i_currPrice = value; } }
+            set { _g_i_currPrice = value; }
+        }
 
         // curr star in rating bar.
         private int _g_i_currStar;
@@ -64,7 +80,8 @@ namespace CanTeenManagement.ViewModel
 
         // curr star in rating bar.
         private bool _g_b_isCheckedFoodCooked;
-        public bool g_b_isCheckedFoodCooked {
+        public bool g_b_isCheckedFoodCooked
+        {
             get => _g_b_isCheckedFoodCooked;
             set { _g_b_isCheckedFoodCooked = value; }
         }
@@ -80,7 +97,7 @@ namespace CanTeenManagement.ViewModel
         private string _g_str_contentSearch;
         public string g_str_contentSearch
         {
-            get =>  _g_str_contentSearch; 
+            get => _g_str_contentSearch;
             set
             {
                 _g_str_contentSearch = value;
@@ -91,7 +108,7 @@ namespace CanTeenManagement.ViewModel
         private int _g_i_currOrderFood;
         public int g_i_currOrderFood
         {
-            get =>_g_i_currOrderFood; 
+            get => _g_i_currOrderFood;
             set
             {
                 _g_i_currOrderFood = value;
@@ -100,11 +117,11 @@ namespace CanTeenManagement.ViewModel
         }
 
         //List order food.
-        private List<QUANTITYFOOD> _g_lst_orderFood;
-        public List<QUANTITYFOOD> g_lst_orderFood
+        private ObservableCollection<PAYFOOD> _g_obCl_orderFood;
+        public ObservableCollection<PAYFOOD> g_obCl_orderFood
         {
-            get =>  _g_lst_orderFood; 
-            set { _g_lst_orderFood = value; }
+            get => _g_obCl_orderFood;
+            set { _g_obCl_orderFood = value; }
         }
 
         //#region Các thuộc tính của food.
@@ -239,10 +256,10 @@ namespace CanTeenManagement.ViewModel
                 this.keyUpTextSearch(p);
             });
 
-            g_iCm_ClickCartCommand = new RelayCommand<FOOD>((p) => { return true; }, (p) =>
+            g_iCm_ClickCartCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
             {
                 this.clickCart(p);
-            });           
+            });
         }
 
         FrameworkElement getWindowParent(UserControl p)
@@ -267,7 +284,8 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isCheckedNotFoodCooked = false;
             this.g_str_contentSearch = string.Empty;
             this.g_i_currOrderFood = 0;
-            this.g_lst_orderFood = new List<QUANTITYFOOD>();
+            this.g_obCl_orderFood = new ObservableCollection<PAYFOOD>();
+            this.g_obCl_orderFoodShow = new ObservableCollection<ORDERFOOD>();
         }
 
         private void loaded(ItemsControl p)
@@ -277,18 +295,26 @@ namespace CanTeenManagement.ViewModel
 
         private void loadData()
         {
-            if (this.g_lst_Food != null)
-                this.g_lst_Food.Clear();
+            if (this.g_obCl_orderFoodShow != null)
+                this.g_obCl_orderFoodShow.Clear();
+            if (this.g_obCl_food != null)
+                this.g_obCl_food.Clear();
 
             // Food type is 1 or 2 not 3.
             if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
-                this.g_lst_Food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && (food.FOODTYPE == 1 || food.FOODTYPE == 2)).OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
+                g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && (food.FOODTYPE == 1 || food.FOODTYPE == 2)).OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
             // Food type is 3 not 2 and 3.
             else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
-                this.g_lst_Food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && food.FOODTYPE == 3).OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
+                g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && food.FOODTYPE == 3).OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
             // Food type is 1 or 2 or 3.
             else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
-                this.g_lst_Food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)) .OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
+                g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs.Where(food => food.PRICE <= this.g_i_currPrice && food.FOODNAME.Contains(this.g_str_contentSearch) && food.STAR == this.g_i_currStar && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)).OrderByDescending(food => food.PRICE).Skip(this.g_i_skipFood).Take(this.g_i_totalFood));
+
+            foreach (FOOD food in g_obCl_food)
+            {
+                ORDERFOOD t_orderFood = new ORDERFOOD(food);
+                g_obCl_orderFoodShow.Add(t_orderFood);               
+            }
         }
 
         private void clickPayView(OrderView p)
@@ -392,7 +418,7 @@ namespace CanTeenManagement.ViewModel
 
         private void mouseDoubleClickRatingBar(RatingBar p)
         {
-              if (p == null)
+            if (p == null)
                 return;
 
             this.g_i_currStar = p.Value;
@@ -442,13 +468,13 @@ namespace CanTeenManagement.ViewModel
             this.loadData();
         }
 
-        private void clickCart(FOOD p)
+        private void clickCart(ORDERFOOD p)
         {
             // Init quantity food.
-            QUANTITYFOOD l_quantityFood = new QUANTITYFOOD(p);
+            PAYFOOD l_payFood = new PAYFOOD(p);
 
             // Add new quantity food.
-            this.g_lst_orderFood.Add(l_quantityFood);
+            this.g_obCl_orderFood.Add(l_payFood);
 
             // Add quantity order food.
             this.g_i_currOrderFood++;
@@ -456,7 +482,7 @@ namespace CanTeenManagement.ViewModel
 
         private void groupByFollowID()
         {
-           // this.g_lst_orderFood = (QUANTITYFOOD)(this.g_lst_orderFood.GroupBy(id => id.ID).ToList());
+            // this.g_obCl_orderFood = (QUANTITYFOOD)(this.g_obCl_orderFood.GroupBy(id => id.ID).ToList());
         }
     }
 }

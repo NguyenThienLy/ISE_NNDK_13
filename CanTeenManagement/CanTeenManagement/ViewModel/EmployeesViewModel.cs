@@ -16,7 +16,15 @@ namespace CanTeenManagement.ViewModel
     public class EmployeesViewModel : BaseViewModel
     {
         private ObservableCollection<EMPLOYEE> _g_listEmloyee;
-        public ObservableCollection<EMPLOYEE> g_listEmloyee { get => _g_listEmloyee; set { _g_listEmloyee = value; OnPropertyChanged(); } }
+        public ObservableCollection<EMPLOYEE> g_listEmloyee
+        {
+            get => _g_listEmloyee;
+            set
+            {
+                _g_listEmloyee = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_filter;
         public string g_str_filter
@@ -142,7 +150,7 @@ namespace CanTeenManagement.ViewModel
                 this.filterIDEmployee(p);
             });
 
-            g_iCm_ClickDetailCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickDetailCommand = new RelayCommand<EMPLOYEE>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
             });
@@ -277,21 +285,24 @@ namespace CanTeenManagement.ViewModel
             CollectionViewSource.GetDefaultView(g_listEmloyee).Refresh();
         }
 
-        private void clickDetail(EmployeesView p)
+        private void clickDetail(EMPLOYEE p)
         {
+            // Lấy cái p này chính là dòng đang được chọn.
+            // Tui có làm ở trong order view truyền vào pay view bà tham khảo đó nha.
             if (p == null)
                 return;
 
             MainWindow mainWd = MainWindow.Instance;
-            mainWd.Opacity = 0.5;
-            p.Opacity = 0.5;
+            EmployeesView employeesV = EmployeesView.Instance;
 
-            DetailEmployeesView detailEmpView = new DetailEmployeesView();
+            mainWd.Opacity = .2;
+            employeesV.Opacity = .2;
 
+            DetailEmployeesView detailEmpView= new DetailEmployeesView();
             detailEmpView.ShowDialog();
 
             mainWd.Opacity = 100;
-            p.Opacity = 100;
+            employeesV.Opacity = 100;
         }
     }
 }

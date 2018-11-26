@@ -42,7 +42,7 @@
                 <Grid Grid.Column="0">
                     <ScrollViewer  VerticalScrollBarVisibility="Auto">
                         <ItemsControl x:Name="itemControlHaveFood"
-                                  ItemsSource="{Binding g_lst_OrderFood}">
+                                  ItemsSource="{Binding g_obCl_payFood}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -91,7 +91,9 @@
                                             <Grid Grid.Column="2">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition></RowDefinition>
-                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="20"></RowDefinition>
+                                                    <RowDefinition Height="20">
+                                                    </RowDefinition>
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock Margin="10 0"
@@ -103,46 +105,68 @@
                                                            VerticalAlignment="Center" 
                                                            Text = "{Binding FOODNAME}"/>
 
-                                                <materialDesign:Chip   Grid.Row="1" 
-                                                                       HorizontalAlignment="Center" 
-                                                                       VerticalAlignment="Center"
-                                                                       Content="{Binding PRICE}"
-                                                                       HorizontalContentAlignment="Center"
-                                                                       FontSize="20" FontWeight="DemiBold"
-     
-                                                                       IconBackground="#FF26788A"
-                                                                       IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" >
-                                                    <materialDesign:Chip.Icon>
-                                                        <materialDesign:PackIcon
-                                                Kind="AttachMoney"
-                                               ></materialDesign:PackIcon>
-                                                    </materialDesign:Chip.Icon>
-                                                </materialDesign:Chip>
+                                                <TextBlock Margin="10 0"  
+                                                           Foreground="Red"
+                                                            Grid.Row="1" 
+                                                             HorizontalAlignment="Left" 
+                                                             VerticalAlignment="Center"
+                                                             Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
+                                                             FontSize="20"
+                                                             FontWeight="DemiBold">
+                                                </TextBlock>
+
+                                                <StackPanel Grid.Row="2" 
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Margin="10 0" 
+                                                             HorizontalAlignment="Left" 
+                                                             VerticalAlignment="Center"
+                                                             Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
+                                                             FontSize="16"
+                                                             FontWeight="DemiBold">
+                                                        <TextBlock.TextDecorations>
+                                                            <TextDecoration Location="Strikethrough">
+                                                                <TextDecoration.Pen>
+                                                                    <Pen Brush="Black" />
+                                                                </TextDecoration.Pen>
+                                                            </TextDecoration>
+                                                        </TextBlock.TextDecorations>
+
+                                                    </TextBlock>
+
+                                                    <TextBlock Height="15" Width="35"
+                                                               Margin="5 0" Foreground="#FFFFF4F4"
+                                                            FontStyle="Italic" 
+                                                            Background="Red"
+                                                            TextAlignment="Center"
+                                                            Text="{Binding SALE, StringFormat='-{0}%'}" 
+                                                            ></TextBlock>
+                                                </StackPanel>
+                                                
                                             </Grid>
 
                                             <Button  Grid.Column="3"
                                      Height="30"
                                      Width="30"
-                                      Background="#FF26788A"
+                                     Background="#FF26788A"
                                      BorderBrush="#FF26788A"
                                      Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                     ToolTip="MaterialDesignFloatingActionDarkButton">
-                                                <materialDesign:PackIcon
+                                     ToolTip="Delete">
+                                              <materialDesign:PackIcon
                                                           Kind="Delete"
                                                           Height="24"
                                                           Width="24" />
                                             </Button>
 
                                             <Button  Grid.Column="5"
-                                     Height="30"
-                                     Width="30"
+                                                      Height="30"
+                                                      Width="30"
                                      
-                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                     ToolTip="MaterialDesignFloatingActionDarkButton"
-                                     Background="#FF8DC1CD"
-                                     BorderBrush="#FF8DC1CD">
+                                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                     ToolTip="Remove"
+                                                     Background="#FF8DC1CD"
+                                                     BorderBrush="#FF8DC1CD">
 
-                                                <materialDesign:PackIcon
+                                            <materialDesign:PackIcon
                                                           Kind="Remove"
                                                           Height="24"
                                                           Width="24" />
@@ -151,15 +175,16 @@
                                             <TextBox Text="{Binding QUANTITY}"
                                                      Grid.Column="6"
                                                      Style="{StaticResource MaterialDesignTextBox}"
-                                                     Height="30"/>
+                                                     Height="30"
+                                                     TextAlignment="Center"/>
 
                                             <Button  Grid.Column="7"
-                                     Height="30"
-                                     Width="30"
-                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                     ToolTip="MaterialDesignFloatingActionDarkButton"
-                                      Background="#FF8DC1CD"
-                                     BorderBrush="#FF8DC1CD">
+                                                    Height="30"
+                                                    Width="30"
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Add"
+                                                    Background="#FF8DC1CD"
+                                                    BorderBrush="#FF8DC1CD">
                                                 <materialDesign:PackIcon
                                                           Kind="Add"
                                                           Height="24"
@@ -172,6 +197,8 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
+
+                   
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -234,21 +261,14 @@
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"/>
 
-                        <materialDesign:Chip Grid.Row="2" 
+                        <TextBlock Grid.Row="2" 
                                              HorizontalAlignment="Center" 
                                              VerticalAlignment="Center"
-                                             Content="{Binding g_str_sumPrice}"
-                                             FontFamily="Cooper Black"
-                                             HorizontalContentAlignment="Center"
+                                             Text="{Binding g_d_sumPrice, StringFormat='{}{0:#,#} đ'}"
+                                             FontFamily="Cooper Black"  
                                              FontSize="40"
-                                             FontWeight="DemiBold"                      
-                                             IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
-                            <materialDesign:Chip.Icon>
-                                <materialDesign:PackIcon
-                                                Kind="AttachMoney"></materialDesign:PackIcon>
-                            </materialDesign:Chip.Icon>
-                        </materialDesign:Chip>
+                                             FontWeight="DemiBold" >
+                        </TextBlock>
 
                         <Button x:Name="btnPay" 
                                 Command="{Binding g_iCm_ClickPayButtonCommand}"  
@@ -279,7 +299,9 @@
             </Grid>
         </materialDesign:TransitioningContent>
 
-        <Button x:Name="btnClose" 
+        <Button Command="{Binding g_iCm_ClickCloseCommand}"
+                CommandParameter="{Binding ElementName=payView}" 
+                x:Name="btnClose" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         Height="25"
                         Width="25"

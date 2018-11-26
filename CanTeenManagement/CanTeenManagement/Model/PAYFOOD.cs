@@ -6,26 +6,28 @@ using System.Threading.Tasks;
 
 namespace CanTeenManagement.Model
 {
-    class QUANTITYFOOD
+    class PAYFOOD
     {
         public string ID { get; set; }
         public string FOODNAME { get; set; }
         public int FOODTYPE { get; set; }
         public int PRICE { get; set; }
+        public int PRICESALE { get; set; }
         public int SALE { get; set; }
         public string IMAGELINK { get; set; }
         public int QUANTITY { get; set; }
 
-        public QUANTITYFOOD() { }
+        public PAYFOOD() { }
             
-        public QUANTITYFOOD(FOOD food)
+        public PAYFOOD(ORDERFOOD orderFood)
         {
-            this.ID = food.ID;
-            this.FOODNAME = food.FOODNAME;
-            this.FOODTYPE =  (int)food.FOODTYPE;
-            this.PRICE = (int)food.PRICE;
-            this.SALE = (int)food.SALE;
-            this.IMAGELINK = food.IMAGELINK;
+            this.ID = orderFood.ID;
+            this.FOODNAME = orderFood.FOODNAME;
+            this.FOODTYPE = orderFood.FOODTYPE;
+            this.PRICE = orderFood.PRICE;
+            this.PRICESALE = orderFood.PRICESALE;
+            this.SALE = orderFood.SALE;
+            this.IMAGELINK = orderFood.IMAGELINK;
 
             // Default quantity  = 1.
             this.QUANTITY = 1;

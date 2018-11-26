@@ -97,7 +97,7 @@
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
                                     </Button>
                                     <TextBox x:Name="txtSearch" Grid.Column="1" 
-                                             Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm" 
+                                             Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập tên món ăn để tìm kiếm" 
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
                                              BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" 
                                              FontSize="10">
@@ -130,7 +130,7 @@
                           x:Name="gvHaveFood">
 
                         <ItemsControl x:Name="itemControlHaveFood"
-                                      ItemsSource="{Binding g_lst_Food}">
+                                      ItemsSource="{Binding g_obCl_orderFoodShow}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -158,19 +158,46 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
-                                            <Image Source="{Binding IMAGELINK}"
+                                            <Grid Grid.Row="0">
+                                                <Image  Source="{Binding IMAGELINK}"
                                             Stretch="Fill" />
 
-                                            <Button x:Name="btnCart" 
-                                                    Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    Grid.Row="0" 
-                                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                                    HorizontalAlignment="Right" 
-                                                    VerticalAlignment="Bottom"
-                                                    Margin="0 0 16 -20">
-                                                <materialDesign:PackIcon  Kind="Cart" />
+                                                <Ellipse Height="40"
+                                                         Width= "40"
+                                                         VerticalAlignment="Top"
+                                                         HorizontalAlignment="Left" 
+                                                         Fill="#FFF32121"
+                                                             >
+                                                </Ellipse>
 
+                                                <Ellipse  Height="36"
+                                                          Width="36"
+                                                          VerticalAlignment="Top"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="2 2" 
+                                                          Stroke="#FFFFF4F4">
+                                                </Ellipse>
+
+                                                <TextBlock Height="16" 
+                                                           Width="36"
+                                                           VerticalAlignment="Top"
+                                                           HorizontalAlignment="Left" 
+                                                           Margin="2 12"
+                                                           Text="{Binding SALE, StringFormat='-{0}%'}"
+                                                           Foreground="#FFFFF4F4" FontStyle="Italic" 
+                                                           TextAlignment="Center"
+                                               />
+                                            </Grid>
+
+                                            <Button x:Name="btnCart" 
+                                        Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Row="0" 
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Bottom"
+                                         Margin="0 0 16 -20">
+                                                <materialDesign:PackIcon  Kind="Cart" />
                                             </Button>
 
                                             <StackPanel Grid.Row="1" 
@@ -178,16 +205,25 @@
                                                 <TextBlock FontWeight="Bold" 
                                                            Text="{Binding FOODNAME}"/>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Foreground="Red" 
-                                                           Text="{Binding PRICE}"
+                                                    <TextBlock Foreground="Red"
+                                                           Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
                                                            FontSize="15"  
-                                                           FontWeight="Bold" 
-                                                           FontFamily="Cooper Black" />
-                                                    <TextBlock Foreground="Red" 
-                                                           Text="  VNĐ"
-                                                           FontSize="15"  
-                                                           FontWeight="Bold" 
-                                                           FontFamily="Cooper Black" />
+                                                           FontWeight="DemiBold"/>
+                                                    <TextBlock  
+                                                           Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
+                                                           FontSize="13"  
+                                                           FontWeight="DemiBold"
+                                                           Margin="5 0"
+                                                           VerticalAlignment="Bottom"
+                                                           >
+                                                        <TextBlock.TextDecorations>
+                                                            <TextDecoration Location="Strikethrough">
+                                                                <TextDecoration.Pen>
+                                                                    <Pen Brush="Black" />
+                                                                </TextDecoration.Pen>
+                                                            </TextDecoration>
+                                                        </TextBlock.TextDecorations>
+                                                    </TextBlock>
                                                 </StackPanel>
 
                                                 <TextBlock TextWrapping="Wrap" 
@@ -227,6 +263,8 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+
+                     
                     </Grid>
 
                     <Grid Grid.Column="1" >
@@ -256,7 +294,7 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </Slider>
-                                
+
                                 <TextBlock Text="0 VNĐ          " 
                                                FontSize="13" 
                                                Foreground="Red" 
@@ -289,7 +327,7 @@
                                 <StackPanel VerticalAlignment="Top" 
                                                 Height="120" 
                                                 Width="140">
-                                    
+
                                     <materialDesign:RatingBar x:Name="ratingBarOne"
                                                               Value="1"  
                                                               Foreground="Gold" >
@@ -374,7 +412,7 @@
                                       FontSize="10" 
                                       Background="#FF36AE98" 
                                       Content="Đồ ăn có sẵn"/>
-                           
+
                         </StackPanel>
                     </Grid>
 
@@ -432,9 +470,9 @@
                                  FontSize="20" 
                                  Foreground="DarkGray"  
                                  Style="{StaticResource MaterialDesignRaisedLightButton}">
-                            
-        
-                        
+
+
+
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
                         </Button>
 
