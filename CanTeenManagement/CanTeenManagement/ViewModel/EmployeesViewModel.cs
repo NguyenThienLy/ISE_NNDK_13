@@ -242,7 +242,7 @@ namespace CanTeenManagement.ViewModel
 
             for (int i = 0; i < g_listEmloyee.Count(); i++)
             {
-                if (g_listEmloyee[i].ID == g_selectedItem.ID)
+                if (g_listEmloyee[i].ID.Trim() == g_selectedItem.ID.Trim())
                 {
                     g_listEmloyee[i] = new EMPLOYEE()
                     {
@@ -292,11 +292,13 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            g_selectedItem = p;
+
             MainWindow mainWd = MainWindow.Instance;
             EmployeesView employeesV = EmployeesView.Instance;
 
-            mainWd.Opacity = .2;
-            employeesV.Opacity = .2;
+            mainWd.Opacity = 0.5;
+            employeesV.Opacity = 0.5;
 
             DetailEmployeesView detailEmpView= new DetailEmployeesView();
             detailEmpView.ShowDialog();
