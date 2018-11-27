@@ -42,6 +42,14 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickPayButtonCommand { get; set; }
 
         public ICommand g_iCm_ClickCloseWindowCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonDeleteCommand { get; set; }
+
+        public ICommand g_iCm_ClickCheckBoxCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRemoveCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonAddCommand { get; set; }
         #endregion
 
         public PayViewModel()
@@ -62,12 +70,31 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickCloseWindow(p);
             });
+
+            g_iCm_ClickButtonDeleteCommand = new RelayCommand<PAYFOOD>((p) => { return true; }, (p) =>
+            {
+                this.clickButtonDelete(p);
+            });
+
+            g_iCm_ClickCheckBoxCommand = new RelayCommand<PAYFOOD>((p) => { return true; }, (p) =>
+            {
+                this.clickCheckBox(p);
+            });
+
+            g_iCm_ClickButtonRemoveCommand = new RelayCommand<PAYFOOD>((p) => { return checkButtonRemove(p); }, (p) =>
+            {
+                this.clickButtonRemove(p);
+            });
+
+            g_iCm_ClickButtonAddCommand = new RelayCommand<PAYFOOD>((p) => { return true; }, (p) =>
+            {
+                this.clickButtonAdd(p);
+            });
         }
 
         private void initSupport()
         {
             this.g_d_sumPrice = 0.0;
-            this.g_obCl_payFood = new ObservableCollection<PAYFOOD>();
         }
 
         private void loaded(ItemsControl p)
@@ -79,7 +106,7 @@ namespace CanTeenManagement.ViewModel
 
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
-            this.g_obCl_payFood = l_orderVM.g_obCl_orderFood;
+            this.g_obCl_payFood = new ObservableCollection<PAYFOOD>(l_orderVM.g_lst_orderFood);
             // Sum price in order food.
             this.g_d_sumPrice = this.getSumPrice();
         }
@@ -107,13 +134,68 @@ namespace CanTeenManagement.ViewModel
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
             // Reset affter pay in orderView.
-            l_orderVM.g_obCl_orderFood.Clear();
-            l_orderVM.g_i_currOrderFood = 0;           
+            l_orderVM.g_lst_orderFood.Clear();
+            l_orderVM.g_i_currOrderFood = 0;
         }
 
         private void clickCloseWindow(PayView p)
         {
+            OrderView orderView = OrderView.Instance;
+
+            if (orderView.DataContext == null)
+                return;
+
+            var l_orderVM = orderView.DataContext as OrderViewModel;
+
+            // Reset affter pay in orderView.
+            l_orderVM.g_lst_orderFood.Clear();
+            l_orderVM.g_i_currOrderFood = 0;
+
             p.Close();
+        }
+
+        private void clickButtonDelete(PAYFOOD p)
+        {
+            OrderView orderView = OrderView.Instance;
+
+            if (orderView.DataContext == null)
+                return;
+
+            var l_orderVM = orderView.DataContext as OrderViewModel;
+
+            l_orderVM.g_i_currOrderFood--;
+
+            // sud price this in sum price.
+            this.g_d_sumPrice -= p.QUANTITY * p.PRICESALE;
+
+            this.g_obCl_payFood.Remove(p);
+        }
+
+        private void clickCheckBox(PAYFOOD p)
+        {
+            //p.IsChecked = false;
+            //sud price this in sum price.
+            this.g_d_sumPrice -= p.QUANTITY * p.PRICESALE;
+        }
+
+        private bool checkButtonRemove(PAYFOOD p)
+        {
+            if (p.QUANTITY == 1)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRemove(PAYFOOD p)
+        {
+            this.g_d_sumPrice -= p.PRICESALE;
+            p.QUANTITY--;
+        }
+
+        private void clickButtonAdd(PAYFOOD p)
+        {
+            this.g_d_sumPrice += p.PRICESALE;
+            p.QUANTITY++;
         }
     }
 }

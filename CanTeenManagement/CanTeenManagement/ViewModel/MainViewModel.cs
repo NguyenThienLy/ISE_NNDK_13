@@ -98,6 +98,9 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            MainWindow mainWD = MainWindow.Instance;
+            mainWD.Close();
+
             p.Close();
         }
 

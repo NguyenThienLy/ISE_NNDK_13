@@ -97,10 +97,13 @@
                                         <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
                                     </Button>
                                     <TextBox x:Name="txtSearch" Grid.Column="1" 
-                                             Margin="8 0 0 0" materialDesign:HintAssist.Hint="Nhập tên món ăn để tìm kiếm" 
+                                             Margin="8 0 0 0"
+                                             materialDesign:HintAssist.Hint="Nhập tên món ăn để tìm kiếm" 
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
-                                             BorderThickness="0"  MinWidth="200" VerticalAlignment="Center" 
-                                             FontSize="10">
+                                             BorderThickness="0" 
+                                             MinWidth="200"
+                                             VerticalAlignment="Center" 
+                                             FontSize="13">
 
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="KeyUp">
@@ -264,7 +267,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                     
+
                     </Grid>
 
                     <Grid Grid.Column="1" >

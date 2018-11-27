@@ -16,7 +16,7 @@ namespace CanTeenManagement.ViewModel
 {
     class OrderViewModel : BaseViewModel
     {
-        private ObservableCollection<ORDERFOOD> _g_obCl_orderFoodShow ;
+        private ObservableCollection<ORDERFOOD> _g_obCl_orderFoodShow;
         public ObservableCollection<ORDERFOOD> g_obCl_orderFoodShow
         {
             get => _g_obCl_orderFoodShow;
@@ -28,7 +28,9 @@ namespace CanTeenManagement.ViewModel
         public ObservableCollection<FOOD> g_obCl_food
         {
             get => _g_obCl_food;
-            set { _g_obCl_food = value;
+            set
+            {
+                _g_obCl_food = value;
                 OnPropertyChanged();
             }
         }
@@ -38,7 +40,9 @@ namespace CanTeenManagement.ViewModel
         public int g_i_currPage
         {
             get => _g_i_currPage;
-            set { _g_i_currPage = value;
+            set
+            {
+                _g_i_currPage = value;
                 OnPropertyChanged();
             }
         }
@@ -49,8 +53,9 @@ namespace CanTeenManagement.ViewModel
         {
             get => _g_i_totalFood;
             set
-            { _g_i_totalFood = value;
-              
+            {
+                _g_i_totalFood = value;
+
             }
         }
 
@@ -117,11 +122,11 @@ namespace CanTeenManagement.ViewModel
         }
 
         //List order food.
-        private ObservableCollection<PAYFOOD> _g_obCl_orderFood;
-        public ObservableCollection<PAYFOOD> g_obCl_orderFood
+        private List<PAYFOOD> _g_lst_orderFood;
+        public List<PAYFOOD> g_lst_orderFood
         {
-            get => _g_obCl_orderFood;
-            set { _g_obCl_orderFood = value; }
+            get => _g_lst_orderFood;
+            set { _g_lst_orderFood = value; }
         }
 
         //#region Các thuộc tính của food.
@@ -284,7 +289,7 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isCheckedNotFoodCooked = false;
             this.g_str_contentSearch = string.Empty;
             this.g_i_currOrderFood = 0;
-            this.g_obCl_orderFood = new ObservableCollection<PAYFOOD>();
+            this.g_lst_orderFood = new List<PAYFOOD>();
             this.g_obCl_orderFoodShow = new ObservableCollection<ORDERFOOD>();
         }
 
@@ -313,7 +318,7 @@ namespace CanTeenManagement.ViewModel
             foreach (FOOD food in g_obCl_food)
             {
                 ORDERFOOD t_orderFood = new ORDERFOOD(food);
-                g_obCl_orderFoodShow.Add(t_orderFood);               
+                g_obCl_orderFoodShow.Add(t_orderFood);
             }
         }
 
@@ -462,10 +467,26 @@ namespace CanTeenManagement.ViewModel
 
             this.g_str_contentSearch = p.Text.Trim();
 
-            // reset curr page when value slider changed.
+            // Reset curr page when value slider changed.
             this.g_i_currPage = 1;
 
             this.loadData();
+        }
+
+        // group quantity food.
+        private void groupByFollowID(PAYFOOD p)
+        {
+            int l_i_index = this.g_lst_orderFood.FindIndex(food => food.ID == p.ID);
+
+            if (l_i_index != -1)
+            {
+                this.g_lst_orderFood[l_i_index].QUANTITY++;
+            }
+            else
+            {
+                // Add quantity order food.
+                this.g_lst_orderFood.Add(p);
+            }
         }
 
         private void clickCart(ORDERFOOD p)
@@ -473,16 +494,11 @@ namespace CanTeenManagement.ViewModel
             // Init quantity food.
             PAYFOOD l_payFood = new PAYFOOD(p);
 
-            // Add new quantity food.
-            this.g_obCl_orderFood.Add(l_payFood);
+            // Add quantity food.
+            this.groupByFollowID(l_payFood);
 
-            // Add quantity order food.
+            // Quantity order food.
             this.g_i_currOrderFood++;
-        }
-
-        private void groupByFollowID()
-        {
-            // this.g_obCl_orderFood = (QUANTITYFOOD)(this.g_obCl_orderFood.GroupBy(id => id.ID).ToList());
         }
     }
 }

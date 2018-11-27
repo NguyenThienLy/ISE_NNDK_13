@@ -42,7 +42,7 @@
                 <Grid Grid.Column="0">
                     <ScrollViewer  VerticalScrollBarVisibility="Auto">
                         <ItemsControl x:Name="itemControlHaveFood"
-                                  ItemsSource="{Binding g_obCl_payFood}">
+                                  ItemsSource="{Binding g_obCl_payFood , UpdateSourceTrigger=PropertyChanged}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -76,7 +76,9 @@
                                                 <ColumnDefinition Width="40"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <CheckBox Grid.Column="0"
+                                            <CheckBox Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCheckBoxCommand}"
+                                                      CommandParameter="{Binding}" 
+                                                      Grid.Column="0"
                                                       HorizontalAlignment="Center"
                                                       IsChecked="True"
                                                       Background="#FF36AE98" 
@@ -107,12 +109,12 @@
 
                                                 <TextBlock Margin="10 0"  
                                                            Foreground="Red"
-                                                            Grid.Row="1" 
-                                                             HorizontalAlignment="Left" 
-                                                             VerticalAlignment="Center"
-                                                             Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
-                                                             FontSize="20"
-                                                             FontWeight="DemiBold">
+                                                           Grid.Row="1" 
+                                                           HorizontalAlignment="Left" 
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
+                                                           FontSize="20"
+                                                           FontWeight="DemiBold">
                                                 </TextBlock>
 
                                                 <StackPanel Grid.Row="2" 
@@ -135,38 +137,41 @@
 
                                                     <TextBlock Height="15" Width="35"
                                                                Margin="5 0" Foreground="#FFFFF4F4"
-                                                            FontStyle="Italic" 
-                                                            Background="Red"
-                                                            TextAlignment="Center"
-                                                            Text="{Binding SALE, StringFormat='-{0}%'}" 
-                                                            ></TextBlock>
+                                                               FontStyle="Italic" 
+                                                               Background="Red"
+                                                               TextAlignment="Center"
+                                                               Text="{Binding SALE, StringFormat='-{0}%'}"/>
                                                 </StackPanel>
-                                                
+
                                             </Grid>
 
-                                            <Button  Grid.Column="3"
-                                     Height="30"
-                                     Width="30"
-                                     Background="#FF26788A"
-                                     BorderBrush="#FF26788A"
-                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                     ToolTip="Delete">
-                                              <materialDesign:PackIcon
+                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
+                                                    CommandParameter="{Binding}" 
+                                                    Grid.Column="3"
+                                                    Height="30"
+                                                    Width="30"
+                                                    Background="#FF26788A"
+                                                    BorderBrush="#FF26788A"
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon
                                                           Kind="Delete"
                                                           Height="24"
                                                           Width="24" />
                                             </Button>
 
-                                            <Button  Grid.Column="5"
-                                                      Height="30"
-                                                      Width="30"
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Column="5"
+                                                    Height="30"
+                                                    Width="30"
                                      
-                                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                     ToolTip="Remove"
-                                                     Background="#FF8DC1CD"
-                                                     BorderBrush="#FF8DC1CD">
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Remove"
+                                                    Background="#FF26788A"
+                                                    BorderBrush="#FF26788A">
 
-                                            <materialDesign:PackIcon
+                                                <materialDesign:PackIcon
                                                           Kind="Remove"
                                                           Height="24"
                                                           Width="24" />
@@ -174,17 +179,20 @@
 
                                             <TextBox Text="{Binding QUANTITY}"
                                                      Grid.Column="6"
-                                                     Style="{StaticResource MaterialDesignTextBox}"
+                                                     BorderBrush="#FF28878B"
                                                      Height="30"
+                                                     BorderThickness="2"
                                                      TextAlignment="Center"/>
 
-                                            <Button  Grid.Column="7"
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Column="7"
                                                     Height="30"
                                                     Width="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                                     ToolTip="Add"
-                                                    Background="#FF8DC1CD"
-                                                    BorderBrush="#FF8DC1CD">
+                                                    Background="#FF26788A"
+                                                    BorderBrush="#FF26788A">
                                                 <materialDesign:PackIcon
                                                           Kind="Add"
                                                           Height="24"
@@ -198,7 +206,7 @@
                         </ItemsControl>
                     </ScrollViewer>
 
-                   
+
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -299,7 +307,7 @@
             </Grid>
         </materialDesign:TransitioningContent>
 
-        <Button Command="{Binding g_iCm_ClickCloseCommand}"
+        <Button Command="{Binding g_iCm_ClickCloseWindowCommand}"
                 CommandParameter="{Binding ElementName=payView}" 
                 x:Name="btnClose" 
                         Style="{StaticResource MaterialDesignToolButton}" 
