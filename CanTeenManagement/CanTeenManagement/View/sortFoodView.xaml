@@ -250,7 +250,9 @@
                                                 </Grid>
 
                                                 <Grid Grid.Row="5">
-                                                    <Button                       
+                                                    <Button
+                                                        Command="{Binding ElementName=itemControlOrderQueue, Path=DataContext.g_iCm_ClickSoldOutCommand}"
+                                                        CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         HorizontalAlignment="Left"
                                                         Width="120" Height="30"                                            
@@ -262,6 +264,8 @@
                                                     </Button>
 
                                                     <Button
+                                                        Command="{Binding ElementName=itemControlOrderQueue, Path=DataContext.g_iCm_ClickSkipCommand}"
+                                                        CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         Width="120" Height="30"                                         
                                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
@@ -274,6 +278,7 @@
                                                     <Button
                                                         x:Name="btnDone"
                                                         Command="{Binding ElementName=itemControlOrderQueue, Path=DataContext.g_iCm_ClickDoneCommand}"
+                                                        CommandParameter="{Binding}"
                                                         HorizontalAlignment="Right"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         Width="120" Height="30"                                            
