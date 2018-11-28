@@ -98,6 +98,9 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            MainWindow mainWD = MainWindow.Instance;
+            mainWD.Close();
+
             p.Close();
         }
 
@@ -129,7 +132,7 @@ namespace CanTeenManagement.ViewModel
             {
                 case 0:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new DashBoardView());
+                    p.GridMainWindow.Children.Add(DashBoardView.Instance);
                     break;
                 case 1:
                     p.GridMainWindow.Children.Clear();
@@ -137,7 +140,7 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 2:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new CustomersView());
+                    p.GridMainWindow.Children.Add(CustomersView.Instance);
                     break;
                 case 3:
                     p.GridMainWindow.Children.Clear();
@@ -153,7 +156,7 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 6:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new EmployeesView());
+                    p.GridMainWindow.Children.Add(EmployeesView.Instance);
                     break;
                 default:
                     p.GridMainWindow.Children.Add(new SortFoodView());

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
 CanTeenManagement
 none
 false
 DEBUG;TRACE
-G:\Nam3ki1\NhapmonCNPM\project\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
 151317261250
 2-1556844510
-46-1501368
-261706929404
+47-400181908
+26843256550
 ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;
 
 False

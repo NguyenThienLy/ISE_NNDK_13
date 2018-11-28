@@ -20,7 +20,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class DashBoardView : UserControl
     {
-        public DashBoardView()
+        private static DashBoardView instance;
+
+        public static DashBoardView Instance
+        {
+            get { if (instance == null) instance = new DashBoardView(); return DashBoardView.instance; }
+
+            set { DashBoardView.instance = value; }
+        }
+
+        private DashBoardView()
         {
             InitializeComponent();
         }

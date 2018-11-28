@@ -10,13 +10,21 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Controls;
+using System.Windows.Media.Effects;
 
 namespace CanTeenManagement.ViewModel
 {
     public class CustomersViewModel : BaseViewModel
     {
         private ObservableCollection<CUSTOMER> _g_listCustomer;
-        public ObservableCollection<CUSTOMER> g_listCustomer { get => _g_listCustomer; set { _g_listCustomer = value; OnPropertyChanged(); } }
+        public ObservableCollection<CUSTOMER> g_listCustomer
+        { get => _g_listCustomer;
+            set
+            { _g_listCustomer = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_filter;
 
@@ -141,7 +149,7 @@ namespace CanTeenManagement.ViewModel
                 this.filterIDCustomer(p);
             });
 
-            g_iCm_ClickDetailCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
+            g_iCm_ClickDetailCommand = new RelayCommand<CUSTOMER>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
             });
@@ -277,21 +285,24 @@ namespace CanTeenManagement.ViewModel
             CollectionViewSource.GetDefaultView(g_listCustomer).Refresh();
         }
 
-        private void clickDetail(CustomersView p)
+        private void clickDetail(CUSTOMER p)
         {
+            // Lấy cái p này chính là dòng đang được chọn.
+            // Tui có làm ở trong order view truyền vào pay view bà tham khảo đó nha.
             if (p == null)
                 return;
 
             MainWindow mainWd = MainWindow.Instance;
-            mainWd.Opacity = 0.5;
-            p.Opacity = 0.5;
+            CustomersView customersV = CustomersView.Instance;
+
+            mainWd.Opacity = .2;
+            customersV.Opacity = .2;
 
             DetailCustomersView detailCusView = new DetailCustomersView();
-
             detailCusView.ShowDialog();
 
             mainWd.Opacity = 100;
-            p.Opacity = 100;
+            customersV.Opacity = 100;
         }
     }
 }

@@ -21,7 +21,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class CustomersView : UserControl
     {
-        public CustomersView()
+        private static CustomersView instance;
+
+        public static CustomersView Instance
+        {
+            get { if (instance == null) instance = new CustomersView(); return CustomersView.instance; }
+
+            set { CustomersView.instance = value; }
+        }
+
+        private CustomersView()
         {
             InitializeComponent();
             this.fillComboboxGender();

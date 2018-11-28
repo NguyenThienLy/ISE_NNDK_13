@@ -20,7 +20,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class EmployeesView : UserControl
     {
-        public EmployeesView()
+        private static EmployeesView instance;
+
+        public static EmployeesView Instance
+        {
+            get { if (instance == null) instance = new EmployeesView(); return EmployeesView.instance; }
+
+            set { EmployeesView.instance = value; }
+        }
+
+        private EmployeesView()
         {
             InitializeComponent();
 

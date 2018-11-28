@@ -25,8 +25,13 @@
         ResizeMode="NoResize">
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDownCommand}" 
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                   CommandParameter="{Binding ElementName = detailEmployeesView}"/>
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
                                    CommandParameter="{Binding ElementName = detailEmployeesView}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -68,16 +73,16 @@
                     </Ellipse>
 
                     <StackPanel Margin="150 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                        <TextBlock  FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold">
-                                    Trần Khánh Linh
-                        </TextBlock>
+                        <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold"
+                            Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
                                     Employee ID:
                             </TextBlock>
-                            <TextBox FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold"
-                                     Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                            <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10 0 0 0"
+                                Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -102,77 +107,57 @@
                                 </Grid.RowDefinitions>
 
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
-                                    <DockPanel  Height="40" VerticalAlignment="Center" >
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Width="240" Text=" Chỉnh sửa thông tin"/>
+                                    <DockPanel  Height="40">
+                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Text="Chỉnh sửa thông tin"/>
 
                                         <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}"
-                                                Margin="10 0 0 0" 
+                                                Margin="80 0 0 0" 
                                                 DockPanel.Dock="Right" 
-                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F"
                                                 BorderBrush="#FF28878B">
-                                            <materialDesign:PackIcon Kind="ContentSave" Height="30" Width="20" />
+                                            <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="20" />
                                         </Button>
                                     </DockPanel>
                                 </materialDesign:ColorZone>
 
                                 <StackPanel Grid.Row="1" Margin="10 0 10 10" >
-                                    <materialDesign:RatingBar HorizontalAlignment="Center" Value="5"  Foreground="Gold" />
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                         <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Họ và tên: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
 
-                                        <TextBlock Text="Trang thái: " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <ComboBox Width="100" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                     </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="ChessQueen" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Chức vụ : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBox Text="Thu ngân" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Place" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Nơi công tác : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBox Text="Khoa Học Tự Nhiên" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                         <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Giới tính: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
 
-                                        <TextBlock Text="Giới tính : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <ComboBox Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <materialDesign:PackIcon Margin="8 0 0 0" Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Sinh nhật : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <DatePicker Text="16/10/1998" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                     </StackPanel>
+                                    <ComboBox Name="cbbGender" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                                        <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Năm sinh: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                    </StackPanel>
+                                    <ComboBox Name="cbbYearOfBirth" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            SelectedItem="{Binding g_str_yearOfBirth, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                         <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Số điện thoại: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
 
-                                        <TextBlock Text="Điện thoại : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBox Text="0344374834" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                     </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                         <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Email: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
 
-                                        <TextBlock Text="Gmail : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBox Text="trankhanhlinh98@gmail.com" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                     </StackPanel>
-
+                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Card>
@@ -186,93 +171,78 @@
                                     <RowDefinition Height="300" />
                                 </Grid.RowDefinitions>
 
-                                <materialDesign:ColorZone Grid.Row="0"  
-                                                          Background="#FF28878B" 
-                                                          Height="50">
-                                    <DockPanel  Height="40" 
-                                                VerticalAlignment="Center" >
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Width="160" Margin="10" Text="Thông tin cá nhân"/>
-                                        <Button  Command="{Binding g_iCm_ClickEditInfoCommand}" 
+                                <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
+                                    <DockPanel  Height="40">
+                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thông tin cá nhân"/>
+
+                                        <Button Command="{Binding g_iCm_ClickEditInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
-                                                Margin="5 0" 
+                                                Margin="90 0 0 0" 
                                                 DockPanel.Dock="Right" 
-                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F"
-                                                 BorderBrush="#FF28878B" 
-                                               >
-                                            <materialDesign:PackIcon Kind="Edit" Height="30" Width="20" />
-                                        </Button>
-                                        <Button Margin="50 0 0 0" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
-                                            <materialDesign:PackIcon Kind="ChartArc" Height="30" Width="20" />
+                                                BorderBrush="#FF28878B">
+                                            <materialDesign:PackIcon Kind="Edit" Height="22" Width="20" />
                                         </Button>
                                     </DockPanel>
                                 </materialDesign:ColorZone>
 
-                                <StackPanel Grid.Row="1" Margin="10 0 10 10" Grid.RowSpan="2">
-                                    <materialDesign:RatingBar HorizontalAlignment="Center" Value="5"  Foreground="Gold" />
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                <StackPanel Grid.Row="1" Margin="10 0 10 10">
+                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                                         <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Trang thái: " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Đang sử dụng" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon 
-                                            Kind="ChessQueen" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Chức vụ : " Height="25" 
-                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Thu ngân" 
-                                                   Height="25" 
-                                                   FontFamily="Roboto"
-                                                   FontSize="15"
-                                                   HorizontalAlignment="Left"
-                                                   Foreground="#FF28878B"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Place" 
-                                                                 FontSize="100" 
-                                                                 Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Nơi công tác : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Khoa Học Tự Nhiên" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Họ và tên: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                         <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Giới tính: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
 
-                                        <TextBlock Text="Giới tính : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Nữ" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <materialDesign:PackIcon Margin="8 0 0 0" Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Sinh nhật : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="16/10/1998" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Năm sinh: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                         <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Điện thoại : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="0344374834" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock Text="Số điện thoại: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                         <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="Gmail : " Height="25" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-
-                                        <TextBlock Text="trankhanhlinh98@gmail.com" Height="25" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Email: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <materialDesign:PackIcon Kind="Briefcase" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Chức vụ: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <materialDesign:PackIcon Kind="DiamondStone" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Quyền: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <materialDesign:PackIcon Kind="CommentText" FontSize="100" Foreground="#FF28878B"/>
+                                        <TextBlock Text=" Trạng thái: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                            Text="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Card>
