@@ -23,26 +23,6 @@ namespace CanTeenManagement.View
         public StatisticView()
         {
             InitializeComponent();
-            ShowChart();
-        }
-
-        private void ShowChart()
-        {
-            List<KeyValuePair<string, int>> MyValue = new List<KeyValuePair<string, int>>
-            {
-                new KeyValuePair<string, int>("Tháng 6", 20),
-                new KeyValuePair<string, int>("Tháng 7", 36),
-                new KeyValuePair<string, int>("Tháng 8", 89),
-                new KeyValuePair<string, int>("Tháng 9", 170),
-                new KeyValuePair<string, int>("Tháng 10", 140)
-            };
- 
-            lineChart.DataContext = MyValue;
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

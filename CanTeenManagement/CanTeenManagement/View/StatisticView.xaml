@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:local="clr-namespace:CanTeenManagement.View"
              mc:Ignorable="d" 
@@ -53,7 +54,7 @@
                         VerticalAlignment="Top"
                         Height="591"
                         Width="972"
-                        Margin="0,40,0,-2" Grid.RowSpan="2" SelectionChanged="TabControl_SelectionChanged">
+                        Margin="0,40,0,-2" Grid.RowSpan="2">
                 <TabItem Header="Doanh thu" FontSize="22" FontFamily="Roboto">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -197,7 +198,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Đặt món" FontSize="22" FontFamily="Roboto">
+                <TabItem Header="Biểu đồ" FontSize="22" FontFamily="Roboto">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -230,80 +231,14 @@
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
                                 </Button.Background>
                             </Button>
-
-                            <Button x:Name="btn_FoodO" Content="{Binding g_name}" Margin="26,148,60,-112" Height="Auto">
-                                <Button.Foreground>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
-                                </Button.Foreground>
-                                <Button.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
-                                </Button.Background>
-                            </Button>
                         </Grid>
 
                         <Border Height="1" Margin="0,80,0,0" VerticalAlignment="Top" Background="#8888" Grid.ColumnSpan="2"/>
 
+                        <TextBlock Text ="Chọn thống kê" FontSize="20" FontFamily="Roboto" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="20,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-                        <chartingToolkit:Chart x:Name="lineChart_FoodOrder" Grid.Column="1" Title="Thống kê" FontSize="10" HorizontalAlignment="Left" Height="402" Margin="29,114,0,0" VerticalAlignment="Top" Width="784">
-                            <chartingToolkit:LineSeries HorizontalAlignment="Left" Title="Số lượng" Height="294" VerticalAlignment="Top" Width="580"
-                                                        DependentValuePath="Value"                                  
-	                                                	IndependentValuePath="Key" ItemsSource="{Binding g_dc_ChartOrderFood}" 
-		                                                IsSelectionEnabled="True" Margin="3,0,0,0">
-                            </chartingToolkit:LineSeries>
-                        </chartingToolkit:Chart>
-
-
-
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Biểu đồ" FontSize="22" FontFamily="Roboto">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="13*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Height="80" 
-                          Width="980" 
-                          Margin="-7,0"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Center" Grid.ColumnSpan="2">
-
-                            <TextBlock Text="Từ ngày"
-                                   FontSize="15"
-                                   FontFamily="Roboto" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Center" 
-                                   Margin="71,26,0,35" 
-                                   FontWeight="SemiBold"/>
-
-                            <DatePicker Margin="142,18,680,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-
-                            <TextBlock Text="Đến ngày"
-                                   FontSize="15"
-                                   FontFamily="Roboto" 
-                                   HorizontalAlignment="Right" 
-                                   VerticalAlignment="Center" 
-                                   Margin="0,25,210,30"
-                                   FontWeight="SemiBold" Grid.Column="1"/>
-
-                            <DatePicker  Margin="790,20,30,0" VerticalAlignment="Top"/>
-
-                            <Button Margin="422,22,452,25"
-                                Content="Thống kê">
-                                <Button.Foreground>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
-                                </Button.Foreground>
-                                <Button.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
-                                </Button.Background>
-                            </Button>
-                        </Grid>
-
-                        <Border Height="1" Margin="0,80,0,0" VerticalAlignment="Top" Background="#8888" Grid.ColumnSpan="2"/>
-
-                        <ComboBox Grid.ColumnSpan="2" Margin="24,136,820,371"
-                                  Text="Chọn thống kê"
+                        <ComboBox Grid.ColumnSpan="2" Margin="27,171,817,353"
+                                  Text="{Binding g_sv_StatisticChoice}"
                                   FontSize="14"
                                   FontFamily="Roboto"
                                   IsEditable="True"
@@ -315,18 +250,15 @@
                                 <TextBlock Text="Doanh thu"/>
                             </ComboBoxItem>
                             <ComboBoxItem>
-                                <TextBlock Text="Món ăn"/>
+                                <TextBlock Text="Đặt món"/>
                             </ComboBoxItem>
                         </ComboBox>
 
-
-                        <chartingToolkit:Chart x:Name="lineChart" Grid.Column="1" Title="Thống kê" FontSize="10" HorizontalAlignment="Left" Height="402" Margin="103,136,0,0" VerticalAlignment="Top" Width="784">
-                            <chartingToolkit:LineSeries x:Name="ls_Chart" HorizontalAlignment="Left" Title="Doanh số" Height="294" VerticalAlignment="Top" Width="580"
-                                                        DependentValuePath="Value"                                                    
-	                                                	IndependentValuePath="Key" ItemsSource="{Binding}" 
-		                                                IsSelectionEnabled="True" Margin="3,0,0,0">
-                            </chartingToolkit:LineSeries>
-                            
+                        <chartingToolkit:Chart x:Name="lineChart_FoodOrder" Grid.Column="1" Title="Thống kê" FontSize="10" HorizontalAlignment="Left" Height="402" Margin="112,114,0,0" VerticalAlignment="Top" Width="701">
+                            <chartingToolkit:LineSeries HorizontalAlignment="Left" Title="Số lượng" Height="305" VerticalAlignment="Top" Width="570"
+                                                        DependentValuePath="Value"                                  
+	                                                	IndependentValuePath="Key" ItemsSource="{Binding g_dc_ChartOrderFood}" 
+		                                                IsSelectionEnabled="True"/>
                         </chartingToolkit:Chart>
 
                     </Grid>
