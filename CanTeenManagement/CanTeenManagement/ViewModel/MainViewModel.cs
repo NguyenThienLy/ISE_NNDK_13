@@ -125,7 +125,9 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            int i_Index = p.ListViewMenu.SelectedIndex;
+            int i_Index = 0;
+
+            i_Index = p.ListViewMenu.SelectedIndex;
             this.moveCusorMenu(i_Index, p);
 
             switch (i_Index)
@@ -187,6 +189,10 @@ namespace CanTeenManagement.ViewModel
             if (loginVM.g_b_isLogin)
             {
                 p.Show();
+
+                // Load dash board.
+                p.GridMainWindow.Children.Clear();
+                p.GridMainWindow.Children.Add(DashBoardView.Instance);
             }
             else
             {

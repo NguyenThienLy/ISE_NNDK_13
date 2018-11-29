@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
 CanTeenManagement
 none
 false
 DEBUG;TRACE
-D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
-151317261250
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
+16-768639288
 2-1556844510
-482030698768
-26843256550
-ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;
+501751480619
+26378739675
+ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderDoneView.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;
 
 False
 
