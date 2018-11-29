@@ -18,6 +18,7 @@ namespace CanTeenManagement.Model
         public string FOODID { get; set; }
         public Nullable<int> QUANTITY { get; set; }
         public Nullable<int> TOTALMONEY { get; set; }
+        public string STATUS { get; set; }
     
         public virtual FOOD FOOD { get; set; }
         public virtual ORDERINFO ORDERINFO { get; set; }

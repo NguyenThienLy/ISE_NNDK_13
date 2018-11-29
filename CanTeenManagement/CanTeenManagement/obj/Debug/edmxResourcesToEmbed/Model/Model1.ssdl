@@ -55,6 +55,7 @@
     <Property Name="FOODID" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="QUANTITY" Type="int" />
     <Property Name="TOTALMONEY" Type="int" />
+    <Property Name="STATUS" Type="nchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="ORDERINFO">
     <Key>
@@ -63,7 +64,7 @@
     <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="CUSTOMERID" Type="nchar" MaxLength="20" />
     <Property Name="EMPLOYEEID" Type="nchar" MaxLength="20" />
-    <Property Name="ORDERDATE" Type="date" />
+    <Property Name="ORDERDATE" Type="datetime" />
     <Property Name="TOTALMONEY" Type="int" />
     <Property Name="STATUS" Type="nchar" MaxLength="20" />
   </EntityType>
