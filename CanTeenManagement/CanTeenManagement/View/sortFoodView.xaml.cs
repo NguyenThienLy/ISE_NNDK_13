@@ -20,6 +20,15 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class SortFoodView : UserControl
     {
+        private static SortFoodView instance;
+
+        public static SortFoodView Instance
+        {
+            get { if (instance == null) instance = new SortFoodView(); return SortFoodView.instance; }
+
+            set { SortFoodView.instance = value; }
+        }
+
         public SortFoodView()
         {
             InitializeComponent();
