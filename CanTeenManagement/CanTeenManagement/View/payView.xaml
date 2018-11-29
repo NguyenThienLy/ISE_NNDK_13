@@ -42,7 +42,7 @@
                 <Grid Grid.Column="0">
                     <ScrollViewer  VerticalScrollBarVisibility="Auto">
                         <ItemsControl x:Name="itemControlHaveFood"
-                                  ItemsSource="{Binding g_obCl_payFood , UpdateSourceTrigger=PropertyChanged}">
+                                  ItemsSource="{Binding g_obCl_payFood ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -177,7 +177,7 @@
                                                           Width="24" />
                                             </Button>
 
-                                            <TextBox Text="{Binding QUANTITY}"
+                                            <TextBox Text="{Binding QUANTITY,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                      Grid.Column="6"
                                                      BorderBrush="#FF28878B"
                                                      Height="30"
@@ -228,26 +228,44 @@
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg"/>
+                                <ImageBrush ImageSource="{Binding g_str_customerImageLink}"/>
                             </Ellipse.Fill>
                         </Ellipse>
 
                         <StackPanel Grid.Column="1"
                                         Orientation="Vertical">
-                            <materialDesign:RatingBar Value="1"  
+                            <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
                                                       Foreground="Gold" />
-                            <TextBlock          TextWrapping="Wrap"
-                                               FontFamily="Roboto" 
-                                               FontSize="30"
-                                               FontWeight="Bold">
-                                    Nguyễn Thiên Lý
+                            <TextBlock TextWrapping="Wrap"
+                                        Text="{Binding g_str_customerfullName}"   
+                                        FontSize="30"
+                                       FontWeight="Bold">
+                                    
                             </TextBlock>
 
-                            <TextBlock FontFamily="Roboto"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                       Text="Customer ID: " 
                                        FontSize="15"
-                                              FontWeight="Bold">
-                                    Customer ID: 1612365
-                            </TextBlock>
+                                       FontWeight="Bold"  VerticalAlignment="Center" >
+             
+                                </TextBlock>
+                                <TextBox x:Name="txtCustomerID" 
+                                       Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       CaretBrush="#FF36AE98" >
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCommand}" 
+                                   CommandParameter="{Binding ElementName = txtCustomerID}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </StackPanel>
+
+                      
                         </StackPanel>
                     </Grid>
 
@@ -272,34 +290,38 @@
                         <TextBlock Grid.Row="2" 
                                              HorizontalAlignment="Center" 
                                              VerticalAlignment="Center"
-                                             Text="{Binding g_d_sumPrice, StringFormat='{}{0:#,#} đ'}"
+                                             Text="{Binding g_i_sumPrice, StringFormat='{}{0:#,#} đ'}"
                                              FontFamily="Cooper Black"  
                                              FontSize="40"
                                              FontWeight="DemiBold" >
                         </TextBlock>
 
                         <Button x:Name="btnPay" 
-                                Command="{Binding g_iCm_ClickPayButtonCommand}"  
-                                CommandParameter="{Binding ElementName=btnPay}" Grid.Row="4"                          
+                                Command="{Binding g_iCm_ClickButtonPayCommand}"  
+                                CommandParameter="{Binding ElementName=btnPay}" 
+                                Grid.Row="4"                          
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                 HorizontalAlignment="Center"
                                 Width="160" Height="50"                                            
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                 FontSize="20" FontWeight="SemiBold" 
                                 Background="#43A047" 
-                                BorderBrush="#43A047">
-                            Thanh toán
+                                BorderBrush="#43A047"
+                                Content="Thanh toán">
                         </Button>
 
-                        <Button  Grid.Row="5"                          
+                        <Button x:Name="btnUndo" 
+                                Command="{Binding g_iCm_ClickButtonUndoCommand}"  
+                                CommandParameter="{Binding ElementName=btnUndo}" 
+                                 Grid.Row="5"                          
                                  Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                  HorizontalAlignment="Center"
                                  Width="160" Height="50"                                            
-                                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
                                  FontSize="20" FontWeight="SemiBold" 
                                  Background="#D50000" 
-                                 BorderBrush="#D50000">
-                            Hoàn tác
+                                 BorderBrush="#D50000" 
+                                 Content="Hoàn tác"
+                                 IsEnabled="False">
+
                         </Button>
 
                     </Grid>

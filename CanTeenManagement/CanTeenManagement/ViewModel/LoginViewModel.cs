@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
+using CanTeenManagement.CO;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -81,6 +82,9 @@ namespace CanTeenManagement.ViewModel
             if (quatityAccount_l > 0)
             {
                 this.g_b_isLogin = true;
+
+                staticVarClass.account_userName = this.g_str_userName;
+
                 p.Close();
             }
             else
