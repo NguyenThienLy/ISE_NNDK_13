@@ -22,12 +22,12 @@ namespace CanTeenManagement.CO
         public myFTP(string hostIP, string userName, string password) { host = hostIP; user = userName; pass = password; }
 
         /* Download File */
-        public bool download(string userFolder, string remoteFile, string localFile)
+        public bool download(string remoteFile, string localFile)
         {
             try
             {
                 /* Create an FTP Request */
-                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + userFolder + "/" + remoteFile);
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
@@ -72,12 +72,12 @@ namespace CanTeenManagement.CO
         }
 
         /* Upload File */
-        public bool upload(string userFolder, string remoteFile, string localFile)
+        public bool upload(string remoteFile, string localFile)
         {
             try
             {
                 /* Create an FTP Request */
-                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + userFolder + "/" + remoteFile);
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
@@ -120,18 +120,18 @@ namespace CanTeenManagement.CO
         }
 
         /* Delete File */
-        public bool delete(string userFolder, string deleteFile)
+        public bool delete(string deleteFile)
         {
             try
             {
                 /* Create an FTP Request */
-                ftpRequest = (FtpWebRequest)WebRequest.Create(host + userFolder + "/" + deleteFile);
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + deleteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
-                ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
-                ftpRequest.KeepAlive = true;
+                //ftpRequest.UseBinary = true;
+                //ftpRequest.UsePassive = true;
+                //ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
                 /* Establish Return Communication with the FTP Server */
