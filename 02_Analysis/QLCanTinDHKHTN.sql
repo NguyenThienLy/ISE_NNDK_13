@@ -91,9 +91,16 @@ CREATE TABLE ORDERDETAIL
 )
 GO
 
+<<<<<<< Updated upstream
 INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,POSITION, IMAGELINK, ROLE, STATUS) VALUES
 ('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam',1998, '0947161098', 'nguyenmit@gmail.com', N'Thu ngân', '\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', 'Thành viên', 'Đang làm'),
 ('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ',1998, '0947161098', 'trankhanhlinh98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin', 'Đang làm')
+=======
+INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,POSITION, AVATAR, ROLE) VALUES
+('khoa.thai', 'khoa', N'Thái Đăng Khoa', N'Nam',1998, '0947161098', 'dktp98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin'),
+('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam',1998, '0947161098', 'nguyenmit@gmail.com', N'Thu ngân', '\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', 'Member'),
+('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ',1998, '0947161098', 'trankhanhlinh98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin')
+>>>>>>> Stashed changes
 
 INSERT INTO CUSTOMER(ID,PIN,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,CASH,POINT, IMAGELINK,STAR) VALUES
 ('long.nguyen', 'long', N'Nguyễn Hà Hoàng Long', N'Nam',1998, '0947161098', 'long@gmail.com', 100000, 20,'\\127.0.0.1\CanteenManagement\long.nguyen.jpg', 3),
@@ -116,6 +123,10 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STA
 ('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
 
 INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALUES
+('ORD06', 'long.nguyen', 'ly.nguyen', '10/7/2018', 20000, N'Đang chờ'),
+('ORD03', 'long.nguyen', 'ly.nguyen', '10/1/2018', 50000, N'Đang chờ'),
+('ORD04', 'long.nguyen', 'ly.nguyen', '10/7/2018', 25000, N'Đang chờ'),
+('ORD05', 'long.nguyen', 'ly.nguyen', '10/13/2018', 30000, N'Đang chờ'),
 ('ORD01', 'long.nguyen', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
 ('ORD02', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
 ('ORD03', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
@@ -138,4 +149,5 @@ INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY,STATUS) VALUES
 ('ORD08', 'FOOD08', 1, 10000, N'Đang chờ'),
 ('ORD09', 'FOOD09', 2, 10000, N'Đang chờ'),
 ('ORD10', 'FOOD10', 1, 10000, N'Đang chờ')
+
 

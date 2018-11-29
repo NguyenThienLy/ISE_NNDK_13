@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿CanTeenManagement
 
 
@@ -18,3 +19,25 @@ ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;Vi
 
 True
 
+=======
+﻿CanTeenManagement
+
+
+winexe
+C#
+.cs
+C:\Users\Khoa Thai\Desktop\abc\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\
+CanTeenManagement
+none
+false
+DEBUG;TRACE
+C:\Users\Khoa Thai\Desktop\abc\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
+151317261250
+
+431325630595
+26-1673459539
+ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;
+
+False
+
+>>>>>>> Stashed changes
