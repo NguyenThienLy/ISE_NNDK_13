@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bb28b7b61b3b479e87662d63997c9d43" Name="Diagram1">
-        <EntityTypeShape EntityType="QLCanTinModel.CUSTOMER" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="QLCanTinModel.EMPLOYEE" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="QLCanTinModel.CUSTOMER" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="QLCanTinModel.EMPLOYEE" Width="1.5" PointX="0.75" PointY="6" />
         <EntityTypeShape EntityType="QLCanTinModel.FOOD" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="QLCanTinModel.ORDERDETAIL" Width="1.5" PointX="5.25" PointY="1.625" />
+        <EntityTypeShape EntityType="QLCanTinModel.ORDERDETAIL" Width="1.5" PointX="5.25" PointY="1.5" />
         <EntityTypeShape EntityType="QLCanTinModel.ORDERINFO" Width="1.5" PointX="3" PointY="1.25" />
         <AssociationConnector Association="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" />
         <AssociationConnector Association="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B" />

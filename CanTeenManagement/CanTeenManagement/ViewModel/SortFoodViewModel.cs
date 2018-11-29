@@ -20,26 +20,6 @@ namespace CanTeenManagement.ViewModel
             set { _g_list_OrderQueue = value; OnPropertyChanged(); }
         }
 
-        #region Thuộc tính card 1
-        private string _g_str_orderID1;
-        public string g_str_orderID1 { get => _g_str_orderID1; set { _g_str_orderID1 = value; OnPropertyChanged(); } }
-
-        private string _g_str_foodName1;
-        public string g_str_foodName1 { get => _g_str_foodName1; set { _g_str_foodName1 = value; OnPropertyChanged(); } }
-
-        private string _g_str_quantity1;
-        public string g_str_quantity1 { get => _g_str_quantity1; set { _g_str_quantity1 = value; OnPropertyChanged(); } }
-
-        private string _g_str_customerName1;
-        public string g_str_customerName1 { get => _g_str_customerName1; set { _g_str_customerName1 = value; OnPropertyChanged(); } }
-
-        private string _g_str_time1;
-        public string g_str_time1 { get => _g_str_time1; set { _g_str_time1 = value; OnPropertyChanged(); } }
-
-        private string _g_str_price1;
-        public string g_str_price1 { get => _g_str_price1; set { _g_str_price1 = value; OnPropertyChanged(); } }
-        #endregion
-
         #region commands.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
 
@@ -108,46 +88,54 @@ namespace CanTeenManagement.ViewModel
 
             this.g_list_OrderQueue = new ObservableCollection<ORDERQUEUE>();
 
-            var l_orderInfoList = dataProvider.Instance.DB.ORDERINFOes.Where(order => order.STATUS == "Đang chờ").ToList();
+            //Lấy danh sách các món có trạng thái đang chờ
+            var l_orderQueue = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Đang chờ").ToList();
 
-            int l_i_count = l_orderInfoList.Count();
+            int l_i_count = l_orderQueue.Count(); //lấy số lượng các món trong danh sách các món đang chờ
 
-            if (l_i_count > 3)
+            if (l_i_count > 3) //nếu danh sách nhiều hơn 3 phần tử thì đưa biến số lượng món về 3 để ItemControl chỉ hiển thị tối đa 3 món
                 l_i_count = 3;
+
             for (int i = 0; i < l_i_count; i++)
             {
                 ORDERQUEUE order = new ORDERQUEUE
                 {
-                    orderID = l_orderInfoList.ElementAt(i).ID
+                    ORDERID = l_orderQueue.ElementAt(i).ORDERID //lấy mã ORDER
                 };
 
-                string t_customerID = l_orderInfoList.ElementAt(i).CUSTOMERID; //Biến tạm lưu customerID
+                //Lấy thông tin của order(mã khách, mã nhân viên, thời gian, ...)
+                var l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == order.ORDERID);
 
-                var l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs.First(ord => ord.ORDERID == order.orderID);
-                var l_food = dataProvider.Instance.DB.FOODs.First(ord => ord.ID == l_orderDetail.FOODID);
-                var l_customer = dataProvider.Instance.DB.CUSTOMERs.First(ord => ord.ID == t_customerID);
+                //Lấy thông tin khách hàng
+                var l_customer = dataProvider.Instance.DB.CUSTOMERs.First(cus => cus.ID == l_orderInfo.CUSTOMERID);
 
-                order.foodName = l_food.FOODNAME.Trim();
-                order.quantity = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim();
-                order.customerName = l_customer.FULLNAME.Trim();
-                order.price = l_orderInfoList.ElementAt(0).TOTALMONEY.ToString() + " VND";
-                order.time = "Thời gian: ";
-                order.foodType = 1;
-                order.status = "Đang lấy";
+                //Lấy thông tin món ăn
+                string t_foodID = l_orderQueue.ElementAt(i).FOODID; //Lấy mã món ăn
+                var l_food = dataProvider.Instance.DB.FOODs.First(f => f.ID == t_foodID);
 
+                //Thiết lập giá trị cho biến order
+                order.FOODNAME = l_food.FOODNAME.Trim();
+                order.QUANTITY = "Số lượng: " + l_orderQueue.ElementAt(i).QUANTITY.ToString().Trim();
+                order.CUSTOMERNAME = l_customer.FULLNAME.Trim();
+                order.PRICE = l_orderQueue.ElementAt(i).TOTALMONEY.ToString() + " VND";
+                order.TIME = "Thời gian: ";
+                order.FOODTYPE = 1;
+                order.STATUS = "Đang lấy";
+
+                //Thêm biến order vào dnah sách g_list_OrderQueue để hiển thị lên màn hình
                 g_list_OrderQueue.Add(order);
 
-                l_orderInfoList.ElementAt(i).STATUS = order.status;
+                //Cập nhật thuộc tính STATUS trong bảng ORDERDETAIL thành "Đang lấy"
+                l_orderQueue.ElementAt(i).STATUS = order.STATUS;
             }
 
-            //dataProvider.Instance.DB.SaveChanges();
-
+            dataProvider.Instance.DB.SaveChanges(); //Lưu thay đổi vào cơ sở dữ liệu
         }
 
         #region Click card
         private void clickDone(ORDERQUEUE p)
         {
-            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.orderID);
+            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.ORDERID);
             l_orderIsTaking.STATUS = "Xong";
             dataProvider.Instance.DB.SaveChanges();
 
@@ -161,7 +149,7 @@ namespace CanTeenManagement.ViewModel
             var l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.STATUS == "Đang chờ");
 
             l_orderInfo.STATUS = "Đang lấy";
-            dataProvider.Instance.DB.SaveChanges();
+            //dataProvider.Instance.DB.SaveChanges();
 
 
             var l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs.First(ord => ord.ORDERID == l_orderInfo.ID);
@@ -174,21 +162,21 @@ namespace CanTeenManagement.ViewModel
 
             ORDERQUEUE order = new ORDERQUEUE
             {
-                orderID = l_orderDetail.ORDERID,
+                ORDERID = l_orderDetail.ORDERID,
 
-                foodName = l_food.FOODNAME.Trim(),
+                FOODNAME = l_food.FOODNAME.Trim(),
 
-                quantity = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
+                QUANTITY = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
 
-                customerName = l_customer.FULLNAME.Trim(),
+                CUSTOMERNAME = l_customer.FULLNAME.Trim(),
 
-                price = l_orderInfo.TOTALMONEY.ToString() + " VND",
+                PRICE = l_orderInfo.TOTALMONEY.ToString() + " VND",
 
-                time = "Thời gian: ",
+                TIME = "Thời gian: ",
 
-                foodType = 1,
+                FOODTYPE = 1,
 
-                status = "Đang lấy"
+                STATUS = "Đang lấy"
             };
 
             g_list_OrderQueue[index] = order;
@@ -196,7 +184,7 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSkip(ORDERQUEUE p)
         {
-            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.orderID);
+            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.ORDERID);
             l_orderIsTaking.STATUS = "Hết món";
             dataProvider.Instance.DB.SaveChanges();
 
@@ -223,21 +211,21 @@ namespace CanTeenManagement.ViewModel
 
             ORDERQUEUE order = new ORDERQUEUE
             {
-                orderID = l_orderDetail.ORDERID,
+                ORDERID = l_orderDetail.ORDERID,
 
-                foodName = l_food.FOODNAME.Trim(),
+                FOODNAME = l_food.FOODNAME.Trim(),
 
-                quantity = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
+                QUANTITY = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
 
-                customerName = l_customer.FULLNAME.Trim(),
+                CUSTOMERNAME = l_customer.FULLNAME.Trim(),
 
-                price = l_orderInfo.TOTALMONEY.ToString() + " VND",
+                PRICE = l_orderInfo.TOTALMONEY.ToString() + " VND",
 
-                time = "Thời gian: ",
+                TIME = "Thời gian: ",
 
-                foodType = 1,
+                FOODTYPE = 1,
 
-                status = "Đang lấy"
+                STATUS = "Đang lấy"
             };
 
             g_list_OrderQueue[index] = order;
@@ -245,7 +233,7 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSoldOut(ORDERQUEUE p)
         {
-            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.orderID);
+            var l_orderIsTaking = dataProvider.Instance.DB.ORDERINFOes.First(ord => ord.ID == p.ORDERID);
             l_orderIsTaking.STATUS = "Xong";
             dataProvider.Instance.DB.SaveChanges();
 
@@ -272,21 +260,21 @@ namespace CanTeenManagement.ViewModel
 
             ORDERQUEUE order = new ORDERQUEUE
             {
-                orderID = l_orderDetail.ORDERID,
+                ORDERID = l_orderDetail.ORDERID,
 
-                foodName = l_food.FOODNAME.Trim(),
+                FOODNAME = l_food.FOODNAME.Trim(),
 
-                quantity = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
+                QUANTITY = "Số lượng: " + l_orderDetail.QUANTITY.ToString().Trim(),
 
-                customerName = l_customer.FULLNAME.Trim(),
+                CUSTOMERNAME = l_customer.FULLNAME.Trim(),
 
-                price = l_orderInfo.TOTALMONEY.ToString() + " VND",
+                PRICE = l_orderInfo.TOTALMONEY.ToString() + " VND",
 
-                time = "Thời gian: ",
+                TIME = "Thời gian: ",
 
-                foodType = 1,
+                FOODTYPE = 1,
 
-                status = "Đang lấy"
+                STATUS = "Đang lấy"
             };
 
             g_list_OrderQueue[index] = order;
