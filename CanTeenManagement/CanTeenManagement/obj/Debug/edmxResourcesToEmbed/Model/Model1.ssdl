@@ -68,7 +68,7 @@
     <Property Name="TOTALMONEY" Type="int" />
     <Property Name="STATUS" Type="nchar" MaxLength="20" />
   </EntityType>
-  <Association Name="FK__ORDERDETA__FOODI__4222D4EF">
+  <Association Name="FK__ORDERDETA__FOODI__1367E606">
     <End Role="FOOD" Type="Self.FOOD" Multiplicity="1" />
     <End Role="ORDERDETAIL" Type="Self.ORDERDETAIL" Multiplicity="*" />
     <ReferentialConstraint>
@@ -80,7 +80,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERDETA__ORDER__412EB0B6">
+  <Association Name="FK__ORDERDETA__ORDER__1273C1CD">
     <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="1" />
     <End Role="ORDERDETAIL" Type="Self.ORDERDETAIL" Multiplicity="*" />
     <ReferentialConstraint>
@@ -92,7 +92,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERINFO__CUSTO__3D5E1FD2">
+  <Association Name="FK__ORDERINFO__CUSTO__0CBAE877">
     <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1" />
     <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="*" />
     <ReferentialConstraint>
@@ -104,7 +104,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERINFO__EMPLO__3E52440B">
+  <Association Name="FK__ORDERINFO__EMPLO__0DAF0CB0">
     <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
     <End Role="ORDERINFO" Type="Self.ORDERINFO" Multiplicity="*" />
     <ReferentialConstraint>
@@ -122,19 +122,19 @@
     <EntitySet Name="FOOD" EntityType="Self.FOOD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDERDETAIL" EntityType="Self.ORDERDETAIL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDERINFO" EntityType="Self.ORDERINFO" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__ORDERDETA__FOODI__4222D4EF" Association="Self.FK__ORDERDETA__FOODI__4222D4EF">
+    <AssociationSet Name="FK__ORDERDETA__FOODI__1367E606" Association="Self.FK__ORDERDETA__FOODI__1367E606">
       <End Role="FOOD" EntitySet="FOOD" />
       <End Role="ORDERDETAIL" EntitySet="ORDERDETAIL" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERDETA__ORDER__412EB0B6" Association="Self.FK__ORDERDETA__ORDER__412EB0B6">
+    <AssociationSet Name="FK__ORDERDETA__ORDER__1273C1CD" Association="Self.FK__ORDERDETA__ORDER__1273C1CD">
       <End Role="ORDERINFO" EntitySet="ORDERINFO" />
       <End Role="ORDERDETAIL" EntitySet="ORDERDETAIL" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERINFO__CUSTO__3D5E1FD2" Association="Self.FK__ORDERINFO__CUSTO__3D5E1FD2">
+    <AssociationSet Name="FK__ORDERINFO__CUSTO__0CBAE877" Association="Self.FK__ORDERINFO__CUSTO__0CBAE877">
       <End Role="CUSTOMER" EntitySet="CUSTOMER" />
       <End Role="ORDERINFO" EntitySet="ORDERINFO" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERINFO__EMPLO__3E52440B" Association="Self.FK__ORDERINFO__EMPLO__3E52440B">
+    <AssociationSet Name="FK__ORDERINFO__EMPLO__0DAF0CB0" Association="Self.FK__ORDERINFO__EMPLO__0DAF0CB0">
       <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
       <End Role="ORDERINFO" EntitySet="ORDERINFO" />
     </AssociationSet>

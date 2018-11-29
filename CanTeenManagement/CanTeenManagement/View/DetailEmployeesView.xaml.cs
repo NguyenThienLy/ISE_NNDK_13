@@ -22,7 +22,7 @@ namespace CanTeenManagement.View
         public DetailEmployeesView()
         {
             InitializeComponent();
-            this.fillComboboxGender();
+            //this.fillComboboxGender();
             this.fillComboboxYear();
         }
 

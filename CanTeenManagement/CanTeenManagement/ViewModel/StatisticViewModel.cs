@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
+using System.Windows;
+using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -68,20 +70,18 @@ namespace CanTeenManagement.ViewModel
 
 
             this.ValueList = new ObservableCollection<KeyValuePair<string, int>>();
-            string[] strFirstDay = _g_sd_StaticOrderFood_FromTime.ToString().Split(' ');
-            ValueList.Add(new KeyValuePair<string, int>(strFirstDay[0], countFirstDay));
+            ValueList.Add(new KeyValuePair<string, int>(_g_sd_StaticOrderFood_FromTime.ToString(), countFirstDay));
 
             foreach (var i in otherDay)
             {
-                string day = i.Date.ToString();
-                string[] str = day.Split(' ');
-                ValueList.Add(new KeyValuePair<string, int>(str[0], i.Count));
+                ValueList.Add(new KeyValuePair<string, int>(i.Date.ToString(), i.Count));
             }
 
-            string[] strLastDay = _g_sd_StaticOrderFood_ToTime.ToString().Split(' ');
-            ValueList.Add(new KeyValuePair<string, int>(strLastDay[0], countLastDay));
-
             g_dc_ChartOrderFood = ValueList;
+
+            ValueList.Add(new KeyValuePair<string, int>(_g_sd_StaticOrderFood_ToTime.ToString(), countLastDay));
+
         }
     }
 }
+

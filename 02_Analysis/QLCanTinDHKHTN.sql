@@ -1,16 +1,16 @@
 ﻿drop database QLCanTin
 CREATE DATABASE QLCanTin
 GO
-
+ 
 USE QLCanTin
 GO
-
+ 
 set dateformat dmy;
-
+ 
 SET ANSI_WARNINGS  ON;
 -- Your insert TSQL here.
 --SET ANSI_WARNINGS ON;
-
+ 
 CREATE TABLE EMPLOYEE
 (
     ID nchar(20) PRIMARY KEY,
@@ -27,7 +27,7 @@ CREATE TABLE EMPLOYEE
 	STATUS nchar(20)
 )
 GO
-
+ 
 CREATE TABLE CUSTOMER
 (
 	ID nchar(20) PRIMARY KEY,
@@ -44,8 +44,8 @@ CREATE TABLE CUSTOMER
     STAR int
 )
 GO
-
-
+ 
+ 
 CREATE TABLE FOOD
 (	
 	ID nchar(20) PRIMARY KEY,
@@ -60,7 +60,7 @@ CREATE TABLE FOOD
 	STATUS nchar(50)
 )
 GO
-
+ 
 CREATE TABLE ORDERINFO
 (
 	ID	nchar(20) PRIMARY KEY,
@@ -75,7 +75,7 @@ CREATE TABLE ORDERINFO
 	FOREIGN KEY(EMPLOYEEID) REFERENCES EMPLOYEE(ID)
 )
 GO
-
+ 
 CREATE TABLE ORDERDETAIL
 (	
 	ORDERID nchar(20),
@@ -84,53 +84,48 @@ CREATE TABLE ORDERDETAIL
 	QUANTITY int,
 	TOTALMONEY int,
 	STATUS nchar(20),
-
+ 
 	PRIMARY KEY (ORDERID, FOODID),
 	FOREIGN KEY(ORDERID) REFERENCES ORDERINFO(ID),
 	FOREIGN KEY(FOODID) REFERENCES FOOD(ID),
 )
 GO
-
-INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,POSITION, IMAGELINK, ROLE) VALUES
-('khoa.thai', 'khoa', N'Thái Đăng Khoa', N'Nam',1998, '0947161098', 'dktp98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin'),
-('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam',1998, '0947161098', 'nguyenmit@gmail.com', N'Thu ngân', '\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', 'Member'),
-('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ',1998, '0947161098', 'trankhanhlinh98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin')
-
-INSERT INTO CUSTOMER(ID,PIN,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,CASH,POINT, IMAGELINK,STAR) VALUES
+ 
+INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,POSITION, IMAGELINK, ROLE, STATUS) VALUES
+('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam',1998, '0947161098', 'nguyenmit@gmail.com', N'Thu ngân', '\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', 'Thành viên', 'Đang làm'),
+('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ',1998, '0947161098', 'trankhanhlinh98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin', 'Đang làm')
+ 
+INSERT INTO CUSTOMER(ID, PIN, FULLNAME, GENDER, YEAROFBIRTH, PHONE, EMAIL, CASH, POINT, IMAGELINK, STAR) VALUES
 ('long.nguyen', 'long', N'Nguyễn Hà Hoàng Long', N'Nam',1998, '0947161098', 'long@gmail.com', 100000, 20,'\\127.0.0.1\CanteenManagement\long.nguyen.jpg', 3),
 ('khoa.thai', 'khoa', N'Thái Đăng Khoa', N'Nam',1998, '0947161098', 'khoa@gmail.com', 200000, 100, '\\127.0.0.1\CanteenManagement\khoa.thai.jpg',3)
-
+ 
 INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STAR ,STATUS) VALUES
 ('FOOD01', N'Gà chiên nước mắm', 1, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD01.jpg',1, N'Còn'),
-('FOOD02', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 8,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
+('FOOD02', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
 ('FOOD03', N'Đậu ve xào thịt', 1, N'Thịt heo xào cùng đâu ve tươi',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD03.jpg',3, N'Còn'),
-('FOOD04', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 12,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
-('FOOD05', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 13,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
-('FOOD06', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 15,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
+('FOOD04', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
+('FOOD05', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
+('FOOD06', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
 ('FOOD07', N'Nước string', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
-('FOOD08', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 3,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
+('FOOD08', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
 ('FOOD09', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
-('FOOD10', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 22,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
+('FOOD10', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
 ('FOOD11', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD011.jpg',3, N'Còn'),
-('FOOD12', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 18,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
-('FOOD13', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 15,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
-('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 12,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
-
+('FOOD12', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
+('FOOD13', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
+('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
+ 
 INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALUES
-('ORD01', 'long.nguyen', 'ly.nguyen', '7/10/2018', 20000, N'Đang chờ'),
-('ORD02', 'long.nguyen', 'ly.nguyen', '3/10/2018', 50000, N'Đang chờ'),
-('ORD03', 'long.nguyen', 'ly.nguyen', '12/10/2018', 25000, N'Đang chờ'),
-('ORD04', 'long.nguyen', 'ly.nguyen', '14/10/2018', 30000, N'Đang chờ'),
-('ORD05', 'long.nguyen', 'ly.nguyen', '15/10/2018', 55000, N'Đang chờ'),
-('ORD06', 'khoa.thai', 'ly.nguyen', '16/10/2018', 22500, N'Đang chờ'),
-('ORD07', 'long.nguyen', 'ly.nguyen', '20/10/2018', 22500, N'Đang chờ'),
-('ORD08', 'khoa.thai', 'ly.nguyen', '27/10/2018', 22500, N'Đang chờ'),
-('ORD09', 'long.nguyen', 'ly.nguyen', '28/10/2018', 22500, N'Đang chờ'),
-('ORD10', 'khoa.thai', 'ly.nguyen', '22/10/2018', 22500, N'Đang chờ'),
-('ORD11', 'long.nguyen', 'ly.nguyen', '29/10/2018', 22500, N'Đang chờ'),
-('ORD12', 'long.nguyen', 'ly.nguyen', '26/10/2018', 22500, N'Đang chờ'),
-('ORD13', 'khoa.thai', 'ly.nguyen','25/10/2018', 22500, N'Đang chờ'),
-('ORD14', 'long.nguyen', 'ly.nguyen', '19/10/2018', 22500, N'Đang chờ')
+('ORD01', 'long.nguyen', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
+('ORD02', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD03', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD04', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD05', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD06', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD07', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD08', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD09', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD10', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ')
  
 INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY,STATUS) VALUES
 ('ORD01', 'FOOD01', 2, 45000, N'Đang chờ'),
@@ -143,5 +138,3 @@ INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY,STATUS) VALUES
 ('ORD08', 'FOOD08', 1, 10000, N'Đang chờ'),
 ('ORD09', 'FOOD09', 2, 10000, N'Đang chờ'),
 ('ORD10', 'FOOD10', 1, 10000, N'Đang chờ')
-
-

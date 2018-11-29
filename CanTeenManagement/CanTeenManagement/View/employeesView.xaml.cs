@@ -33,9 +33,9 @@ namespace CanTeenManagement.View
         {
             InitializeComponent();
 
-            this.fillComboboxGender();
+            //this.fillComboboxGender();
             this.fillComboboxYear();
-            this.fillComboboxRole();
+            //this.fillComboboxRole();
         }
 
         private void fillComboboxYear()

@@ -74,11 +74,15 @@ namespace CanTeenManagement.ViewModel
 
                     g_str_role = g_selectedItem.ROLE.Trim();
                     g_str_status = g_selectedItem.STATUS.Trim();
+                    g_str_imageLink = g_selectedItem.IMAGELINK.Trim();
                 }
             }
         }
 
         #region Các thuộc tính của employee.
+        private string _g_str_imageLink;
+        public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+
         private string _g_str_id;
         public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
 
@@ -235,6 +239,7 @@ namespace CanTeenManagement.ViewModel
             l_employee.PHONE = g_str_phone;
             l_employee.EMAIL = g_str_email;
             l_employee.POSITION = g_str_position;
+            l_employee.IMAGELINK = g_str_imageLink;
             l_employee.ROLE = g_str_role;
             l_employee.STATUS = g_str_status;
 
@@ -253,6 +258,7 @@ namespace CanTeenManagement.ViewModel
                         PHONE = g_str_phone,
                         EMAIL = g_str_email,
                         POSITION = g_str_position,
+                        IMAGELINK = g_str_imageLink,
                         ROLE = g_str_role,
                         STATUS = g_str_status
                     };
@@ -300,7 +306,7 @@ namespace CanTeenManagement.ViewModel
             mainWd.Opacity = 0.5;
             employeesV.Opacity = 0.5;
 
-            DetailEmployeesView detailEmpView= new DetailEmployeesView();
+            DetailEmployeesView detailEmpView = new DetailEmployeesView();
             detailEmpView.ShowDialog();
 
             mainWd.Opacity = 100;

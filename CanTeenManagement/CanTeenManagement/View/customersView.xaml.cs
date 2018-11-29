@@ -33,7 +33,7 @@ namespace CanTeenManagement.View
         private CustomersView()
         {
             InitializeComponent();
-            this.fillComboboxGender();
+            //this.fillComboboxGender();
             this.fillComboboxYear();
         }
 

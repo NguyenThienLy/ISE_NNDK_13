@@ -66,15 +66,22 @@
                 </Rectangle>
 
                 <Grid Grid.Row="0">
-                    <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="140" Width="140" Margin="10 5 0 5">
+                    <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="140" Width="155" Margin="10,5,0,0">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/CanTeenManagement;component/Images/AVT.jpg" Stretch="Fill"/>
+                            <ImageBrush ImageSource="{Binding g_str_imageLink, UpdateSourceTrigger=PropertyChanged}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-
-                    <StackPanel Margin="150 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
+                                                CommandParameter="{Binding ElementName = detailEmployeesView}" 
+                                                Margin="127,119,764,5" 
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                Foreground="White" Background="#FFFF9C00"
+                                                BorderBrush="#FF28878B" Height="Auto" Width="Auto" RenderTransformOrigin="-0.444,0.593">
+                        <materialDesign:PackIcon Kind="Brush" Height="22" Width="17" />
+                    </Button>
+                    <StackPanel Margin="170 0 0 10" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold"
-                            Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                            Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged}" Width="398"></TextBlock>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
@@ -136,7 +143,11 @@
 
                                     </StackPanel>
                                     <ComboBox Name="cbbGender" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged}"/>
+                                            SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged}">
+                                        <ComboBoxItem Content="Nữ" IsSelected="True"></ComboBoxItem>
+                                        <ComboBoxItem Content="Nam"></ComboBoxItem>
+                                        <ComboBoxItem Content="Khác"></ComboBoxItem>
+                                    </ComboBox>
                                     <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                         <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
                                         <TextBlock Text=" Năm sinh: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>

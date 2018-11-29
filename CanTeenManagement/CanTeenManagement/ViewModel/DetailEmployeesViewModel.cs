@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
+using CanTeenManagement.CO;
+using Microsoft.Win32;
 
 namespace CanTeenManagement.ViewModel
 {
     public class DetailEmployeesViewModel : BaseViewModel
     {
         #region Các thuộc tính của employee.
+        private string _g_str_imageLink;
+        public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+
         private string _g_str_id;
         public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
 
@@ -54,6 +59,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickSendMailCommand { get; set; }
 
         public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
+
+        public ICommand g_iCm_ClickChangeImageCommand { get; set; }
         #endregion
 
         public DetailEmployeesViewModel()
@@ -90,6 +97,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.mouseLeftButtonDown(p);
             });
+
+            g_iCm_ClickChangeImageCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.clickChangeImage(p);
+            });
         }
 
         private void loaded(DetailEmployeesView p)
@@ -114,6 +126,7 @@ namespace CanTeenManagement.ViewModel
             g_str_position = l_employeesVM.g_str_position;
             g_str_role = l_employeesVM.g_str_role;
             g_str_status = l_employeesVM.g_str_status;
+            g_str_imageLink = l_employeesVM.g_str_imageLink;
             #endregion
         }
 
@@ -141,6 +154,7 @@ namespace CanTeenManagement.ViewModel
                         PHONE = g_str_phone,
                         EMAIL = g_str_email,
                         POSITION = g_str_position,
+                        IMAGELINK = g_str_imageLink,
                         ROLE = g_str_role,
                         STATUS = g_str_status
                     };
@@ -194,6 +208,54 @@ namespace CanTeenManagement.ViewModel
         private void mouseLeftButtonDown(DetailEmployeesView p)
         {
             p.DragMove();
+        }
+
+        private void clickChangeImage(DetailEmployeesView p)
+        {
+            //    myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
+            //    OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //    //openFileDialog.DefaultExt = ".png";
+            //    openFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
+
+            //    // Display OpenFileDialog by calling ShowDialog method.
+            //    Nullable<bool> b_result = openFileDialog.ShowDialog();
+
+            //    // Get the selected file name and display in a TextBox. 
+            //    if (b_result == true)
+            //    {
+            //        // Open document 
+            //        string str_fullNameChosen = openFileDialog.FileName; // full name.
+
+            //        // delete old image.
+            //        var path = g_str_imageLink;
+            //        if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+            //        {
+            //            const string BackSlash = @"\";
+            //            var foundPos = path.LastIndexOf(BackSlash);
+            //            var fileNameCurrent = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+            //            g_str_imageLink = string.Empty;
+            //            ftp.delete(fileNameCurrent);
+            //        }
+
+            //        // upload new image.
+            //        path = str_fullNameChosen;
+            //        if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+            //        {
+            //            const string Dot = ".";
+            //            var foundPos = path.LastIndexOf(Dot);
+            //            var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+            //            var newfileName = g_str_id + Dot + extension;
+            //            ftp.upload(newfileName, str_fullNameChosen);
+
+            //            // update image link in database.
+            //            g_str_imageLink = staticVarClass.server_serverDirectory + newfileName;
+            //            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id).SingleOrDefault();
+            //            l_employee.IMAGELINK = g_str_imageLink;
+
+            //            dataProvider.Instance.DB.SaveChanges();
+            //        }                
+            //    }
         }
     }
 }

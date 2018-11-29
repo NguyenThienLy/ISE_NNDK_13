@@ -160,7 +160,11 @@
                             <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên"
                                      Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbGender" Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ComboBoxItem Content="Nữ" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Nam"></ComboBoxItem>
+                                <ComboBoxItem Content="Khác"></ComboBoxItem>
+                            </ComboBox>
                             <ComboBox Name="cbbYearOfBirth" Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh"  VerticalAlignment="Bottom"                                     
                                       SelectedItem="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại"
@@ -170,9 +174,15 @@
                             <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ"
                                      Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbRole" Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ComboBoxItem Content="Thành viên" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Admin"></ComboBoxItem>
+                            </ComboBox>
                             <ComboBox Name="cbbStatus" Grid.Column="17" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Trạng thái" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ComboBoxItem Content="Đang làm" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Đã nghỉ"></ComboBoxItem>
+                            </ComboBox>
                         </Grid>
                     </Grid>
 

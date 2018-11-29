@@ -164,7 +164,11 @@
                             <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên"
                                      Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbGender" Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" VerticalAlignment="Bottom"
-                                     SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                     SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ComboBoxItem Content="Nữ" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Nam"></ComboBoxItem>
+                                <ComboBoxItem Content="Khác"></ComboBoxItem>
+                            </ComboBox>
                             <ComboBox Name="cbbYearOfBirth" Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh"  VerticalAlignment="Bottom"                                     
                                       SelectedItem="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại"

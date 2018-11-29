@@ -13,6 +13,7 @@ namespace CanTeenManagement.Model
         public int FOODTYPE { get; set; }
         public string QUANTITY { get; set; }
         public string CUSTOMERNAME { get; set; }
+        public string CUSTOMERID { get; set; }
         public string TIME { get; set; }
         public string PRICE { get; set; }
         public string STATUS { get; set; }
