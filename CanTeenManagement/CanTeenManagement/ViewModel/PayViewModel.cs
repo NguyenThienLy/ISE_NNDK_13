@@ -108,6 +108,18 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_isEnableQuantity;
+        public bool g_b_isEnableQuantity
+        {
+            get => _g_b_isEnableQuantity;
+
+            set
+            {
+                _g_b_isEnableQuantity = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #region command.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
@@ -126,7 +138,9 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickButtonAddCommand { get; set; }
 
-        public ICommand g_iCm_TextChangedTextBoxCommand { get; set; }
+        public ICommand g_iCm_TextChangedTextBoxCustomerIDCommand { get; set; }
+
+        public ICommand g_iCm_TextChangedTextBoxQuantityCommand { get; set; }
 
         #endregion
 
@@ -164,30 +178,42 @@ namespace CanTeenManagement.ViewModel
                 this.clickCheckBox(p);
             });
 
-            g_iCm_ClickButtonRemoveCommand = new RelayCommand<PAYFOOD>((p) => { return checkButtonRemove(p); }, (p) =>
+            g_iCm_ClickButtonRemoveCommand = new RelayCommand<PAYFOOD>((p) => { return this.checkButtonRemove(p); }, (p) =>
             {
                 this.clickButtonRemove(p);
             });
 
-            g_iCm_ClickButtonAddCommand = new RelayCommand<PAYFOOD>((p) => { return checkButtonAdd(); }, (p) =>
+            g_iCm_ClickButtonAddCommand = new RelayCommand<PAYFOOD>((p) => { return this.checkButtonAdd(p); }, (p) =>
             {
                 this.clickButtonAdd(p);
             });
 
-            g_iCm_TextChangedTextBoxCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            g_iCm_TextChangedTextBoxCustomerIDCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                this.textChangedTextBox(p);
+                this.textChangedTextBoxCustomerID(p);
+            });
+
+            g_iCm_TextChangedTextBoxQuantityCommand = new RelayCommand<PAYFOOD>((p) => { return this.checkTextChangedTextBoxQuantity(); }, (p) =>
+            {
+                this.textChangedTextBoxQuantity(p);
             });
         }
 
         private void initSupport()
         {
             this.g_i_sumPrice = 0;
-            this.g_str_customerID = "Empty";
-            this.g_str_customerfullName = "Empty";
-            this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
             this.g_i_customerStar = 0;
             this.g_b_isPay = false;
+            this.g_b_isEnableQuantity = true;
+
+            this.resetCustomer();
+        }
+
+        private void resetCustomer()
+        {
+            this.g_str_customerID = "Empty id";
+            this.g_str_customerfullName = "Empty full name";
+            this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
         }
 
         private void loaded(ItemsControl p)
@@ -211,7 +237,10 @@ namespace CanTeenManagement.ViewModel
 
             for (i = 0; i < this.g_obCl_payFood.Count; i++)
             {
-                l_i_sumPrice += this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE;
+                if (this.g_obCl_payFood[i].ISCHECKED == true)
+                {
+                    l_i_sumPrice += this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE;
+                }
             }
 
             return l_i_sumPrice;
@@ -220,7 +249,7 @@ namespace CanTeenManagement.ViewModel
         #region Click pay.
         private bool checkButtonPay()
         {
-            if (dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).Count() == 0 
+            if (dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).Count() == 0
                 || this.g_b_isPay == true)
                 return false;
 
@@ -247,6 +276,7 @@ namespace CanTeenManagement.ViewModel
                 this.addPointForCustomer();
 
                 this.g_b_isPay = true;
+                this.g_b_isEnableQuantity = false;
             }
         }
 
@@ -332,19 +362,46 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonUndo(Button p)
         {
-            
+            this.deleteOrderInfo();
+            this.deleteOrderDetail();
+            this.subPointCustomer();
         }
 
         private void deleteOrderInfo()
         {
 
-           // ORDERINFO l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.Where(orderInfo => orderInfo.ID == this.g_str_orderID).SingleOrDefault();
+            ORDERINFO l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.Where(orderInfo => orderInfo.ID == this.g_str_orderID).SingleOrDefault();
 
-           //  dataProvider.Instance.DB.ORDERINFOes.DeleteObject(l_orderInfo);
+            dataProvider.Instance.DB.ORDERINFOes.Remove(l_orderInfo);
+            dataProvider.Instance.DB.SaveChanges();
+        }
+
+        private void deleteOrderDetail()
+        {
+            int i = 0;
+            for (i = 0; i < this.g_obCl_payFood.Count(); i++)
+            {
+                ORDERDETAIL l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs.Where(orderDetail => orderDetail.ORDERID == this.g_str_orderID && orderDetail.FOODID == this.g_obCl_payFood[i].ID).SingleOrDefault();
+
+                dataProvider.Instance.DB.ORDERDETAILs.Remove(l_orderDetail);
+                dataProvider.Instance.DB.SaveChanges();
+            }
+        }
+
+        private void subPointCustomer()
+        {
+            int l_i_addPoint = this.g_i_sumPrice / 10;
+
+            int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
+               .Where(customer => customer.ID == this.g_str_customerID)
+               .Select(customer => customer.POINT).FirstOrDefault();
+
+            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+                                              .ForEach(customer => customer.POINT = l_str_currPoint - l_i_addPoint);
+            dataProvider.Instance.DB.SaveChanges();
         }
         #endregion
 
-    
         private void clickCloseWindow(PayView p)
         {
             OrderView orderView = OrderView.Instance;
@@ -358,9 +415,12 @@ namespace CanTeenManagement.ViewModel
             l_orderVM.g_lst_orderFood.Clear();
             l_orderVM.g_i_currOrderFood = 0;
 
+            this.resetCustomer();
+
             p.Close();
         }
 
+        #region Check button delete.
         private bool checkButtonDelete()
         {
             if (this.g_b_isPay == true)
@@ -385,7 +445,9 @@ namespace CanTeenManagement.ViewModel
 
             this.g_obCl_payFood.Remove(p);
         }
+        #endregion
 
+        #region Check check box.
         private bool checkCheckBox()
         {
             if (this.g_b_isPay == true)
@@ -398,12 +460,14 @@ namespace CanTeenManagement.ViewModel
         {
             //p.IsChecked = false;
             //sud price this in sum price.
-            this.g_i_sumPrice -= p.QUANTITY * p.PRICESALE;
+            this.g_i_sumPrice = this.getSumPrice();
         }
+        #endregion.
 
+        #region Check button remove.
         private bool checkButtonRemove(PAYFOOD p)
         {
-            if (p.QUANTITY == 1 || this.g_b_isPay == true)
+            if (p.QUANTITY == 1 || this.g_b_isPay == true || p.ISCHECKED == false)
                 return false;
 
             return true;
@@ -411,13 +475,22 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonRemove(PAYFOOD p)
         {
-            this.g_i_sumPrice -= p.PRICESALE;
-            p.QUANTITY--;
-        }
+            int i_Index = this.g_obCl_payFood.IndexOf(p);
 
-        private bool checkButtonAdd()
+            p.QUANTITY--;
+            this.g_i_sumPrice -= p.PRICESALE;
+
+            PAYFOOD l_payFood = new PAYFOOD(p);
+
+            this.g_obCl_payFood[i_Index] = l_payFood;
+
+        }
+        #endregion
+
+        #region Check button add.
+        private bool checkButtonAdd(PAYFOOD p)
         {
-            if (this.g_b_isPay == true)
+            if (this.g_b_isPay == true || p.ISCHECKED == false)
                 return false;
 
             return true;
@@ -425,11 +498,18 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonAdd(PAYFOOD p)
         {
-            this.g_i_sumPrice += p.PRICESALE;
-            p.QUANTITY++;
-        }
+            int i_Index = this.g_obCl_payFood.IndexOf(p);
 
-        private void textChangedTextBox(TextBox p)
+            p.QUANTITY++;
+            this.g_i_sumPrice += p.PRICESALE;
+
+            PAYFOOD l_payFood = new PAYFOOD(p);
+
+            this.g_obCl_payFood[i_Index] = l_payFood;
+        }
+        #endregion
+
+        private void textChangedTextBoxCustomerID(TextBox p)
         {
             CUSTOMER l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
 
@@ -440,5 +520,20 @@ namespace CanTeenManagement.ViewModel
                 this.g_i_customerStar = (int)l_customer.STAR;
             }
         }
+
+        #region textChangedTextBoxQuantity.
+        private bool checkTextChangedTextBoxQuantity()
+        {
+            if (this.g_b_isPay == true)
+                return false;
+
+            return true;
+        }
+
+        private void textChangedTextBoxQuantity(PAYFOOD p)
+        {
+            this.g_i_sumPrice = this.getSumPrice();
+        }
+        #endregion
     }
 }

@@ -16,9 +16,10 @@ namespace CanTeenManagement.Model
         public int SALE { get; set; }
         public string IMAGELINK { get; set; }
         public int QUANTITY { get; set; }
+        public bool ISCHECKED { get; set; }
 
         public PAYFOOD() { }
-            
+
         public PAYFOOD(ORDERFOOD orderFood)
         {
             this.ID = orderFood.ID;
@@ -31,6 +32,20 @@ namespace CanTeenManagement.Model
 
             // Default quantity  = 1.
             this.QUANTITY = 1;
+            this.ISCHECKED = true;
+        }
+
+        public PAYFOOD(PAYFOOD payFood)
+        {
+            this.ID = payFood.ID;
+            this.FOODNAME = payFood.FOODNAME;
+            this.FOODTYPE = payFood.FOODTYPE;
+            this.PRICE = payFood.PRICE;
+            this.PRICESALE = payFood.PRICESALE;
+            this.SALE = payFood.SALE;
+            this.IMAGELINK = payFood.IMAGELINK;
+            this.QUANTITY = payFood.QUANTITY;
+            this.ISCHECKED = payFood.ISCHECKED;
         }
     }
 }

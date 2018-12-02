@@ -41,7 +41,7 @@
 
                 <Grid Grid.Column="0">
                     <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                        <ItemsControl x:Name="itemControlHaveFood"
+                        <ItemsControl x:Name="itemControlHaveFood" 
                                   ItemsSource="{Binding g_obCl_payFood ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
                             <i:Interaction.Triggers>
@@ -80,7 +80,7 @@
                                                       CommandParameter="{Binding}" 
                                                       Grid.Column="0"
                                                       HorizontalAlignment="Center"
-                                                      IsChecked="True"
+                                                      IsChecked= "{Binding ISCHECKED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                       Background="#FF36AE98" 
                                                       Style="{StaticResource MaterialDesignCheckBox}">
                                             </CheckBox>
@@ -177,12 +177,21 @@
                                                           Width="24" />
                                             </Button>
 
-                                            <TextBox Text="{Binding QUANTITY,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            <TextBox Text="{Binding QUANTITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                      Grid.Column="6"
                                                      BorderBrush="#FF28878B"
                                                      Height="30"
                                                      BorderThickness="2"
-                                                     TextAlignment="Center"/>
+                                                     TextAlignment="Center"
+                                                     IsEnabled="{Binding g_b_isEnableQuantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, IsAsync=True}">
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
+                                                                          CommandParameter="{Binding}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
 
                                             <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
                                                     CommandParameter="{Binding}"
@@ -240,7 +249,7 @@
                                         Text="{Binding g_str_customerfullName}"   
                                         FontSize="30"
                                        FontWeight="Bold">
-                                    
+
                             </TextBlock>
 
                             <StackPanel Orientation="Horizontal">
@@ -248,8 +257,9 @@
                                        Text="Customer ID: " 
                                        FontSize="15"
                                        FontWeight="Bold"  VerticalAlignment="Center" >
-             
+
                                 </TextBlock>
+
                                 <TextBox x:Name="txtCustomerID" 
                                        Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                        FontSize="15"
@@ -258,14 +268,14 @@
 
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCommand}" 
-                                   CommandParameter="{Binding ElementName = txtCustomerID}"/>
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}" 
+                                                                   CommandParameter="{Binding ElementName = txtCustomerID}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
                             </StackPanel>
 
-                      
+
                         </StackPanel>
                     </Grid>
 
@@ -319,8 +329,7 @@
                                  FontSize="20" FontWeight="SemiBold" 
                                  Background="#D50000" 
                                  BorderBrush="#D50000" 
-                                 Content="Hoàn tác"
-                                 IsEnabled="False">
+                                 Content="Hoàn tác">
 
                         </Button>
 

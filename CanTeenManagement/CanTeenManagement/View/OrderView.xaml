@@ -298,7 +298,7 @@
                                     </i:Interaction.Triggers>
                                 </Slider>
 
-                                <TextBlock Text="0 VNĐ          " 
+                                <TextBlock Text="0 đ          " 
                                                FontSize="13" 
                                                Foreground="Red" 
                                                VerticalAlignment="Bottom" 
@@ -306,7 +306,7 @@
                                                Width="80" Height="15" 
                                                FontFamily="Cooper Black" TextAlignment="Center" 
                                                Margin="0 0 15 5"/>
-                                <TextBlock Text="30.000 VND" 
+                                <TextBlock Text="30.000 đ" 
                                                FontSize="13" 
                                                Foreground="Red" 
                                                VerticalAlignment="Center" 
@@ -316,7 +316,7 @@
                                                FontFamily="Cooper Black" 
                                                TextAlignment="Center" 
                                                Margin="0 0 15 15"/>
-                                <TextBlock Text="50.000 VNĐ" 
+                                <TextBlock Text="50.000 đ" 
                                                FontSize="13" Foreground="Red" 
                                                VerticalAlignment="Top" 
                                                HorizontalAlignment="Right"
