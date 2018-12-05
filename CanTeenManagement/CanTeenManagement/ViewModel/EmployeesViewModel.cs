@@ -1,5 +1,6 @@
 ﻿using CanTeenManagement.Model;
 using CanTeenManagement.View;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,18 +11,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace CanTeenManagement.ViewModel
 {
     public class EmployeesViewModel : BaseViewModel
     {
-        private ObservableCollection<EMPLOYEE> _g_listEmloyee;
-        public ObservableCollection<EMPLOYEE> g_listEmloyee
+        private ObservableCollection<EMPLOYEE> _g_listEmployees;
+        public ObservableCollection<EMPLOYEE> g_listEmployees
         {
-            get => _g_listEmloyee;
+            get => _g_listEmployees;
             set
             {
-                _g_listEmloyee = value;
+                _g_listEmployees = value;
                 OnPropertyChanged();
             }
         }
@@ -35,7 +39,7 @@ namespace CanTeenManagement.ViewModel
                 _g_str_filter = value;
                 OnPropertyChanged();
 
-                ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(_g_listEmloyee);
+                ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(_g_listEmployees);
                 view.Filter = filterIDEmployee;
             }
         }
@@ -74,8 +78,55 @@ namespace CanTeenManagement.ViewModel
 
                     g_str_role = g_selectedItem.ROLE.Trim();
                     g_str_status = g_selectedItem.STATUS.Trim();
-                    g_str_imageLink = g_selectedItem.IMAGELINK.Trim();
+
+                    if (g_selectedItem.IMAGELINK == null)
+                        g_str_imageLink = string.Empty;
+                    else g_str_imageLink = g_selectedItem.IMAGELINK.Trim();
                 }
+            }
+        }
+
+        private List<string> _g_listGenders;
+        public List<string> g_listGenders
+        {
+            get => _g_listGenders;
+            set
+            {
+                _g_listGenders = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<string> _g_listRoles;
+        public List<string> g_listRoles
+        {
+            get => _g_listRoles;
+            set
+            {
+                _g_listRoles = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<string> _g_listStatus;
+        public List<string> g_listStatus
+        {
+            get => _g_listStatus;
+            set
+            {
+                _g_listStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<int> _g_listYearOfBirth;
+        public List<int> g_listYearOfBirth
+        {
+            get => _g_listYearOfBirth;
+            set
+            {
+                _g_listYearOfBirth = value;
+                OnPropertyChanged();
             }
         }
 
@@ -120,6 +171,8 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickSaveInfoCommand { get; set; }
 
+        public ICommand g_iCm_ClickExportCommand { get; set; }
+
         public ICommand g_iCm_TextChangedFilterCommand { get; set; }
 
         public ICommand g_iCm_ClickDetailCommand { get; set; }
@@ -149,6 +202,11 @@ namespace CanTeenManagement.ViewModel
                 this.clickSave(p);
             });
 
+            g_iCm_ClickExportCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.clickExport(p);
+            });
+
             g_iCm_TextChangedFilterCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
                 this.filterIDEmployee(p);
@@ -162,7 +220,40 @@ namespace CanTeenManagement.ViewModel
 
         private void loadData()
         {
-            this.g_listEmloyee = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+            this.g_listEmployees = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+
+            // Thêm danh sách gender.
+            List<string> l_listGenders = new List<string>();
+            l_listGenders.Add("Nữ");
+            l_listGenders.Add("Nam");
+            l_listGenders.Add("Khác");
+            g_listGenders = l_listGenders;
+            g_str_gender = "Nữ"; // mặc định.
+
+            // Thêm danh sách role.
+            List<string> l_listRoles = new List<string>();
+            l_listRoles.Add("Thành viên");
+            l_listRoles.Add("Admin");
+            g_listRoles = l_listRoles;
+            g_str_role = l_listRoles[0]; // mặc định.
+
+            // Thêm danh sách status.
+            List<string> l_listStatus = new List<string>();
+            l_listStatus.Add("Đang làm");
+            l_listStatus.Add("Đã nghỉ");
+            g_listStatus = l_listStatus;
+            g_str_status = l_listStatus[0]; // mặc định.
+
+            // Thêm danh sách năm sinh.
+            List<int> l_listYearOfBirth = new List<int>();
+            int l_i_EighteenYearLocal = DateTime.Now.Year - 2018 + 2000;
+
+            for (int i = l_i_EighteenYearLocal; i >= l_i_EighteenYearLocal - (42 + DateTime.Now.Year - 2018); i--)
+            {
+                l_listYearOfBirth.Add(i);
+            }
+            g_listYearOfBirth = l_listYearOfBirth;
+            g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
         private void loaded(EmployeesView p)
@@ -211,7 +302,7 @@ namespace CanTeenManagement.ViewModel
             dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
             dataProvider.Instance.DB.SaveChanges();
 
-            g_listEmloyee.Add(l_employee);
+            g_listEmployees.Add(l_employee);
         }
 
         private bool checkEdit(EmployeesView p)
@@ -245,11 +336,11 @@ namespace CanTeenManagement.ViewModel
 
             dataProvider.Instance.DB.SaveChanges();
 
-            for (int i = 0; i < g_listEmloyee.Count(); i++)
+            for (int i = 0; i < g_listEmployees.Count(); i++)
             {
-                if (g_listEmloyee[i].ID.Trim() == g_selectedItem.ID.Trim())
+                if (g_listEmployees[i].ID.Trim() == g_selectedItem.ID.Trim())
                 {
-                    g_listEmloyee[i] = new EMPLOYEE()
+                    g_listEmployees[i] = new EMPLOYEE()
                     {
                         ID = g_selectedItem.ID,
                         FULLNAME = g_str_fullName,
@@ -275,6 +366,61 @@ namespace CanTeenManagement.ViewModel
             //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
         }
 
+        private void clickExport(EmployeesView p)
+        {
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                Title = "Choose a place to save",
+                ValidateNames = true,
+                Filter = "Excel (*.xlsx) | *.xlsx"
+            };
+
+            Nullable<bool> b_result = sfd.ShowDialog();
+
+            // Nếu người dùng đã chọn được file excel.
+            if (b_result == true)
+            {
+                string str_fullNameChosen = sfd.FileName;
+
+                Excel.Application excel = new Excel.Application();
+                //excel.Visible = true; 
+                Excel.Workbook workBook = excel.Workbooks.Add(1);
+                Excel.Worksheet workSheet = (Excel.Worksheet)workBook.Worksheets[1];
+                List<string> l_listHeaders = new List<string> { "Mã nhân viên", "Họ và tên", "Giới tính", "Năm sinh", "Số điện thoại", "Email", "Chức vụ", "Quyền", "Trạng thái" };
+
+                for (int x = 1; x < l_listHeaders.Count() + 1; x++)
+                {
+                    workSheet.Cells[1, x] = l_listHeaders[x - 1];
+                    workSheet.Cells[1, x].Font.Bold = true;
+                }
+
+                for (int x = 2; x < g_listEmployees.Count() + 2; x++)
+                {
+                    workSheet.Cells[x, 1] = g_listEmployees[x - 2].ID.ToString().Trim();
+                    workSheet.Cells[x, 2] = g_listEmployees[x - 2].FULLNAME.ToString().Trim();
+                    workSheet.Cells[x, 3] = g_listEmployees[x - 2].GENDER.ToString().Trim();
+                    workSheet.Cells[x, 4] = g_listEmployees[x - 2].YEAROFBIRTH.ToString().Trim();
+                    workSheet.Cells[x, 5] = g_listEmployees[x - 2].PHONE.ToString().Trim();
+                    workSheet.Cells[x, 6] = g_listEmployees[x - 2].EMAIL.ToString().Trim();
+                    workSheet.Cells[x, 7] = g_listEmployees[x - 2].POSITION.ToString().Trim();
+                    workSheet.Cells[x, 8] = g_listEmployees[x - 2].ROLE.ToString().Trim();
+                    workSheet.Cells[x, 9] = g_listEmployees[x - 2].STATUS.ToString().Trim();
+                }
+
+                // AutoSet Cell Widths to Content Size
+                workSheet.Cells.Select();
+                workSheet.Cells.EntireColumn.AutoFit();
+
+                workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                            Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                            Excel.XlSaveConflictResolution.xlUserResolution, true,
+                            Missing.Value, Missing.Value, Missing.Value);
+                workBook.Close();
+                excel.Quit();
+            }
+
+        }
+
         private bool filterIDEmployee(object item)
         {
             if (string.IsNullOrEmpty(_g_str_filter))
@@ -288,7 +434,7 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            CollectionViewSource.GetDefaultView(g_listEmloyee).Refresh();
+            CollectionViewSource.GetDefaultView(g_listEmployees).Refresh();
         }
 
         private void clickDetail(EMPLOYEE p)

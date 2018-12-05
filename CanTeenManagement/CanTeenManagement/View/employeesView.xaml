@@ -30,9 +30,7 @@
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid x:Name="gvMain">
 
-            <Rectangle Height="40" 
-                           Width="980" 
-                           VerticalAlignment="Top" >
+            <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF26788A" Offset="1"/>
@@ -42,9 +40,7 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Rectangle Height="620" 
-                       Width="980" 
-                       VerticalAlignment="Bottom">
+            <Rectangle Height="620" Width="980" VerticalAlignment="Bottom">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
                         <GradientStop Color="White" Offset="1"/>
@@ -61,35 +57,30 @@
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <materialDesign:ColorZone Grid.Row="0"
-                    Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
+                <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="15" Background="{x:Null}" VerticalAlignment="Top">
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
-
-                        <Button x:Name="btnSave" DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" >
-                            <materialDesign:PackIcon Kind="Export" />
+                        <Button Command="{Binding g_iCm_ClickExportCommand}"
+                                CommandParameter="{Binding ElementName=employeesView}"
+                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}" >
+                            <materialDesign:PackIcon Kind="FileExport" Height="22" Width="23" />
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickSaveInfoCommand}"
                                 CommandParameter="{Binding ElementName=employeesView}"
-                                DockPanel.Dock="Right" 
-                                Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="ContentSave" />
+                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="23" />
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickAddInfoCommand}"
                                 CommandParameter="{Binding ElementName=employeesView}"
-                                DockPanel.Dock="Right" 
-                                Margin="0 -5"
-                                Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="Add" />
+                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Add" Height="22" Width="23" />
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickEditInfoCommand}"
                                 CommandParameter="{Binding ElementName=employeesView}"
-                                DockPanel.Dock="Right"
-                                Margin="0 -5" 
-                                Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="Edit" />
+                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Edit" Height="22" Width="23" />
                         </Button>
 
                         <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
@@ -99,28 +90,29 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-
                                     </Grid.ColumnDefinitions>
+
                                     <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".56"/>
+                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".70" Height="22" Width="23" />
                                     </Button>
                                     <TextBox Name="txtFilter" Grid.Column="1"  Margin="8 0 0 0" 
                                              materialDesign:HintAssist.Hint="Nhập mã nhân viên để tìm kiếm" 
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
-                                             BorderThickness="0"  MinWidth="200" 
-                                             VerticalAlignment="Center" 
-                                             FontSize="13"
+                                             BorderThickness="0" MinWidth="200" VerticalAlignment="Center" FontSize="12"
                                              Text="{Binding g_str_filter, UpdateSourceTrigger=PropertyChanged}" >
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="TextChanged">
                                                 <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFilterCommand}" 
-                                                                       CommandParameter="{Binding ElementName = employeesView}"/>
+                                                                           CommandParameter="{Binding ElementName = employeesView}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
                                 </Grid>
                             </materialDesign:ColorZone>
 
+                            <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                                <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
+                            </Button>
                         </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
@@ -154,50 +146,39 @@
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
 
-
                             <TextBox Grid.Column="1" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Mã nhân viên" 
-                                     Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                Text="{Binding g_str_id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="3" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Họ và tên"
-                                     Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbGender" Grid.Column="5" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Giới tính" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                <ComboBoxItem Content="Nữ" IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem Content="Nam"></ComboBoxItem>
-                                <ComboBoxItem Content="Khác"></ComboBoxItem>
-                            </ComboBox>
+                                ItemsSource="{Binding g_listGenders}" SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             <ComboBox Name="cbbYearOfBirth" Grid.Column="7" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Năm sinh"  VerticalAlignment="Bottom"                                     
-                                      SelectedItem="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                ItemsSource="{Binding g_listYearOfBirth}" SelectedItem="{Binding g_i_yearOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             <TextBox Grid.Column="9" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Số điện thoại"
-                                     Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                Text="{Binding g_str_phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="11" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Email"
-                                     Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <TextBox Grid.Column="13" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Chức vụ"
-                                     Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <ComboBox Name="cbbRole" Grid.Column="15" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Quyền" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                <ComboBoxItem Content="Thành viên" IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem Content="Admin"></ComboBoxItem>
-                            </ComboBox>
+                                ItemsSource="{Binding g_listRoles}" SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             <ComboBox Name="cbbStatus" Grid.Column="17" BorderBrush="#FF28878B" materialDesign:HintAssist.Hint="Trạng thái" VerticalAlignment="Bottom"
-                                      SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                <ComboBoxItem Content="Đang làm" IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem Content="Đã nghỉ"></ComboBoxItem>
-                            </ComboBox>
+                                ItemsSource="{Binding g_listStatus}" SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                         </Grid>
                     </Grid>
 
                     <Grid Grid.Row="1" VerticalAlignment="Stretch">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ListView x:Name="lsVEmployees" 
-                                      ItemsSource="{Binding g_listEmloyee}" 
-                                      SelectedItem="{Binding g_selectedItem, Mode =OneWayToSource}">
+                                      ItemsSource="{Binding g_listEmployees}" 
+                                      SelectedItem="{Binding g_selectedItem, Mode=OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="40">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button Command="{Binding ElementName=lsVEmployees,Path=DataContext.g_iCm_ClickDetailCommand}" 
-                                                             CommandParameter="{Binding}"
+                                                            CommandParameter="{Binding}"
                                                             Margin="0 -10" Style="{DynamicResource MaterialDesignToolButton}">
                                                         <materialDesign:PackIcon Kind="Details"/>
                                                     </Button>
@@ -230,8 +211,7 @@
 
                 </Grid>
 
-                <Grid Grid.Row="2" 
-                      Height="30">
+                <Grid Grid.Row="2" Height="30">
                     <Grid Width="300">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -242,6 +222,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
+
                         <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"  Kind="PagePrevious"/>
                         </Button>
@@ -257,20 +238,21 @@
                         <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
                         </Button>
+
                         <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
                         </Button>
+
                         <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
                         </Button>
+
                         <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
                         </Button>
                     </Grid>
                 </Grid>
             </Grid>
-
-
         </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>
