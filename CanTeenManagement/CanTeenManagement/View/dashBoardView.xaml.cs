@@ -24,7 +24,11 @@ namespace CanTeenManagement.View
 
         public static DashBoardView Instance
         {
-            get { if (instance == null) instance = new DashBoardView(); return DashBoardView.instance; }
+            get
+            {
+                if (instance == null) instance = new DashBoardView();
+                return DashBoardView.instance;
+            }
 
             set { DashBoardView.instance = value; }
         }

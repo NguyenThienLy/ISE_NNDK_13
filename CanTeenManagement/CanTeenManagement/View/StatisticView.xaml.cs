@@ -20,7 +20,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class StatisticView : UserControl
     {
-        public StatisticView()
+        private static StatisticView instance;
+
+        public static StatisticView Instance
+        {
+            get { if (instance == null) instance = new StatisticView(); return StatisticView.instance; }
+
+            set { StatisticView.instance = value; }
+        }
+
+        private StatisticView()
         {
             InitializeComponent();
         }

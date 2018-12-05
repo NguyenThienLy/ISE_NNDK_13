@@ -160,12 +160,12 @@ namespace CanTeenManagement.ViewModel
 
         private void loaded(DetailEmployeesView p)
         {
-            p.grVInfo.Height = 350;
-            p.grVEdit.Height = 0;
-            p.grVSendMail.Height = 0;
-
             if (p == null)
                 return;
+
+            p.grVInfo.Height = 350;
+            p.grVEdit.Height = 0;
+            p.grVSendMail.Height = 0;     
 
             EmployeesView employeesView = EmployeesView.Instance;
 
@@ -196,6 +196,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             p.Close();
 
             EmployeesView employeesView = EmployeesView.Instance;
@@ -247,6 +250,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickEditInfo(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 350;
             p.grVSendMail.Height = 0;
@@ -254,6 +260,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSaveInfo(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
@@ -273,11 +282,17 @@ namespace CanTeenManagement.ViewModel
 
         private void mouseLeftButtonDown(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             p.DragMove();
         }
 
         private void clickChangeImage(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             //myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -330,6 +345,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickOpenMail(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 350;
@@ -337,6 +355,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSendMail(DetailEmployeesView p)
         {
+            if (p == null)
+                return;
+
             try // Its a good practice to write your code in a try catch block 
             {
                 SmtpClient client = new SmtpClient(staticVarClass.email_hostEmail, staticVarClass.email_portEmail);      //Connection Object.

@@ -24,7 +24,11 @@ namespace CanTeenManagement.View
 
         public static OrderView Instance
         {
-            get { if (instance == null) instance = new OrderView(); return OrderView.instance; }
+            get
+            {
+                if (instance == null) instance = new OrderView();
+                return OrderView.instance;
+            }
 
             set { OrderView.instance = value; }
         }

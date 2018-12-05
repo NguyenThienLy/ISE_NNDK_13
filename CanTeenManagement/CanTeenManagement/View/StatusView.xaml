@@ -1,0 +1,71 @@
+﻿<Window x:Class="CanTeenManagement.View.StatusView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanTeenManagement.View"
+        mc:Ignorable="d"
+        x:Name="statusView"
+        Title="StatusView" 
+        
+            xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+     DataContext="{StaticResource statusVM}"
+        
+        Height="75" 
+        Width="250"
+        WindowStartupLocation ="Manual"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="{Binding g_str_borderBrushWindow}"
+        BorderThickness="1">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
+                                   CommandParameter="{Binding ElementName = statusView}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Height="50" 
+                    Width="50"
+                    Background="White"
+                    BorderBrush="{Binding g_str_borderBrushButton}">
+
+
+
+                <materialDesign:PackIcon
+                    Margin="-10 0 -10 0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Padding="0"
+                    Kind= "{Binding g_str_icon}"
+                    Height="24"
+                    Width="24"
+                    Foreground="{Binding g_str_foregroundIcon}"/>
+            </Button>
+
+
+            <TextBlock TextAlignment="Center" Grid.Column="1"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       Text="{Binding g_str_text}"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>

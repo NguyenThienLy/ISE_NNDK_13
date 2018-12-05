@@ -25,7 +25,11 @@ namespace CanTeenManagement.View
 
         public static CustomersView Instance
         {
-            get { if (instance == null) instance = new CustomersView(); return CustomersView.instance; }
+            get
+            {
+                if (instance == null) instance = new CustomersView();
+                return CustomersView.instance;
+            }
 
             set { CustomersView.instance = value; }
         }

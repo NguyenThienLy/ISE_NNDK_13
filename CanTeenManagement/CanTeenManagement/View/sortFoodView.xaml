@@ -17,7 +17,8 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
           DataContext="{StaticResource sortFoodVM}"
-       Height="660" Width="980">
+       Height="660" 
+             Width="980">
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
 
         <Grid x:Name="gvMain">
@@ -96,7 +97,22 @@
                                 </Button>
                             </materialDesign:Badged>
 
+
                             <materialDesign:Badged Grid.Column="1"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Badge="3"
+                                                   BadgeBackground="#FF8DC1CD">
+                                <Button Command="{Binding g_iCm_ClickDoneAllCommand1}"
+                                        CommandParameter="{Binding ElementName = sortFoodView}"
+                                    Background="#43A047" 
+                                    BorderBrush="#43A047"
+                                    Width="100">
+                                    XONG
+                                </Button>
+                            </materialDesign:Badged>
+
+                            <materialDesign:Badged Grid.Column="2"
                                                     HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                     Badge="3"
@@ -110,19 +126,6 @@
                                 </Button>
                             </materialDesign:Badged>
 
-                            <materialDesign:Badged Grid.Column="2"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Badge="3"
-                                                   BadgeBackground="#FF8DC1CD">
-                                <Button Command="{Binding g_iCm_ClickDoneAllCommand1}"
-                                        CommandParameter="{Binding ElementName = sortFoodView}"
-                                    Background="#43A047" 
-                                    BorderBrush="#43A047"
-                                    Width="100">
-                                    XONG
-                                </Button>
-                            </materialDesign:Badged>
 
                         </Grid>
 
@@ -144,48 +147,52 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
+                                        
                                         <materialDesign:Card Grid.Row="1" Width="470" Margin="10,5,3,5">
                                             <Grid>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="60"/>
-                                                    <RowDefinition />
+                                                    <RowDefinition Height="70"/>
+                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="5"/>
+                                                    <RowDefinition Height="30"/>
                                                     <RowDefinition Height="5"/>
                                                     <RowDefinition />
                                                     <RowDefinition Height="5"/>
-                                                    <RowDefinition />
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock x:Name="lbName1"
                                                     Grid.Row="0" 
                                                     FontWeight="Bold" 
-                                                    FontSize="30" 
+                                                    FontSize="40" 
                                                     HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
                                                     Margin="10,10,10,10" 
                                                     Text = "{Binding FOODNAME}"/>
 
                                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
-                                                    Margin="5,35,5,50" 
+                                                    Margin="5,50" 
                                                     Grid.Row="0"
                                                     Grid.RowSpan="2"/>
 
                                                 <Grid Grid.Row="1">
 
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition />
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
 
                                                     <materialDesign:Chip 
                                                         Grid.Column="0" 
-                                                        Width="170"
                                                         HorizontalAlignment="Left" 
                                                         VerticalAlignment="Center" 
-                                                        Margin="10 0"                                       
-                                                        Content="{Binding QUANTITY}"
                                                         HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
+                                                        Margin="10 0"                                       
+                                                        Content="{Binding ORDERDATE}"
+                                                        FontSize="15" 
+                                                        FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"  
+                                                        IconForeground="#FF26788A"
+                                                        Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
@@ -193,20 +200,23 @@
                                                         </materialDesign:Chip.Icon>
                                                     </materialDesign:Chip>
 
-                                                    <materialDesign:Chip  Grid.Column="1"
-                                                        Width="200"
-                                                        HorizontalAlignment="Right" 
-                                                        VerticalAlignment="Center"
-                                                        Margin="0 0 10 0"
-                                                        Content="{Binding TIME}"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                                    <materialDesign:Chip   Grid.Column= "1" 
+                                                                          HorizontalAlignment="Left" 
+                                                                           VerticalAlignment="Center"
+                                                                             HorizontalContentAlignment="Center"
+                                                                             Margin="10 0 0 0"
+                                                                            Content="{Binding STRQUANTITY}"
+                                                        FontSize="15" 
+                                                        FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"
+                                                        IconForeground="#FF26788A" 
+                                                        Height="Auto">
+
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
-                                                                Kind="Clock"></materialDesign:PackIcon>
+                                                                Kind="Numeric1BoxesOutline"></materialDesign:PackIcon>
                                                         </materialDesign:Chip.Icon>
-                                                    </materialDesign:Chip>
+                                                    </materialDesign:Chip >
 
                                                 </Grid>
 
@@ -214,20 +224,21 @@
 
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition />
-                                                        <ColumnDefinition Width="170"/>
-                                                        <ColumnDefinition Width="10"/>
+                                                        <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
 
 
                                                     <materialDesign:Chip  Grid.Column="0" 
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center" 
+                                                        HorizontalContentAlignment="Center"
                                                         Margin="10 0"                                        
                                                         Content="{Binding CUSTOMERNAME}"
-                                                        HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
+                                                        FontSize="15" 
+                                                              FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"
+                                                        IconForeground="#FF26788A" 
+                                                                          Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
@@ -236,19 +247,22 @@
                                                     </materialDesign:Chip>
 
                                                     <materialDesign:Chip Grid.Column="1" 
-                                                        HorizontalAlignment="Right" 
-                                                        VerticalAlignment="Center"
-                                                        Content="{Binding PRICE}"
-                                                        HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
-
+                                                                         HorizontalAlignment="Left" 
+                                                                         VerticalAlignment="Center"
+                                                                         HorizontalContentAlignment="Center"
+                                                                         Content="{Binding STRTOTALMONEY}"
+                                                                         FontSize="15" 
+                                                                         Margin="10 0 0 0"
+                                                                         FontWeight="DemiBold"
+                                                                         IconBackground="{x:Null}"
+                                                                         IconForeground="#FF26788A"
+                                                                         Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
-                                                                Kind="AttachMoney"></materialDesign:PackIcon>
+                                                                Kind="MoneyOff"></materialDesign:PackIcon>
                                                         </materialDesign:Chip.Icon>
+
                                                     </materialDesign:Chip>
                                                 </Grid>
 
@@ -258,38 +272,48 @@
                                                         CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         HorizontalAlignment="Left"
+                                                        Margin="5 0 0 0"
                                                         Width="120" Height="30"                                            
                                                         ToolTip="Báo hết món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#D50000" 
+                                                        FontSize="20" 
+                                                        FontWeight="SemiBold" 
+                                                        Background= "{x:Null}"
+                                                        Foreground="#D50000"
                                                         BorderBrush="#D50000">
                                                         HẾT MÓN
+                                                    </Button>
+
+                                                    <Button
+                                                      
+                                                        Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickDoneCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalAlignment="Center"
+                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                        Width="120" Height="30"                                            
+                                                        ToolTip="Hoàn thành món đang chọn" 
+                                                        FontSize="20" 
+                                                        FontWeight="SemiBold" 
+                                                         Background= "{x:Null}"
+                                                        Foreground="#43A047"
+                                                        BorderBrush="#43A047">
+                                                        XONG
                                                     </Button>
 
                                                     <Button
                                                         Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickSkipCommand}"
                                                         CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                                        Width="120" Height="30"                                         
+                                                        Width="120"
+                                                        Height="30"   
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0 0 5 0"
                                                         ToolTip="Bỏ qua món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#212121" 
+                                                        FontSize="20"
+                                                        FontWeight="SemiBold" 
+                                                        Background= "{x:Null}"
+                                                         Foreground="#212121"
                                                         BorderBrush="#212121">
                                                         BỎ QUA
-                                                    </Button>
-
-                                                    <Button
-                                                        x:Name="btnDone"
-                                                        Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickDoneCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Right"
-                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                                        Width="120" Height="30"                                            
-                                                        ToolTip="Hoàn thành món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#43A047" 
-                                                        BorderBrush="#43A047">
-                                                        XONG
                                                     </Button>
                                                 </Grid>
                                             </Grid>
@@ -298,6 +322,7 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
+
                         </Grid>
                     </Grid>
 
@@ -330,20 +355,6 @@
                             </materialDesign:Badged>
 
                             <materialDesign:Badged Grid.Column="1"
-                                                    HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                    Badge="3"
-                                                    BadgeBackground="#FF8DC1CD">
-                                <Button Command="{Binding g_iCm_ClickSkipAllCommand2}"
-                                        CommandParameter="{Binding ElementName = sortFoodView}"
-                                    Background="#212121" 
-                                    BorderBrush="#212121"
-                                    Width="100">
-                                    BỎ QUA
-                                </Button>
-                            </materialDesign:Badged>
-
-                            <materialDesign:Badged Grid.Column="2"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    Badge="3"
@@ -354,6 +365,20 @@
                                     BorderBrush="#43A047"
                                     Width="100">
                                     XONG
+                                </Button>
+                            </materialDesign:Badged>
+
+                            <materialDesign:Badged Grid.Column="2"
+                                                    HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                    Badge="3"
+                                                    BadgeBackground="#FF8DC1CD">
+                                <Button Command="{Binding g_iCm_ClickSkipAllCommand2}"
+                                        CommandParameter="{Binding ElementName = sortFoodView}"
+                                    Background="#212121" 
+                                    BorderBrush="#212121"
+                                    Width="100">
+                                    BỎ QUA
                                 </Button>
                             </materialDesign:Badged>
 
@@ -377,48 +402,52 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
+
                                         <materialDesign:Card Grid.Row="1" Width="470" Margin="10,5,3,5">
                                             <Grid>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="60"/>
-                                                    <RowDefinition />
+                                                    <RowDefinition Height="70"/>
+                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="5"/>
+                                                    <RowDefinition Height="30"/>
                                                     <RowDefinition Height="5"/>
                                                     <RowDefinition />
                                                     <RowDefinition Height="5"/>
-                                                    <RowDefinition />
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock x:Name="lbName1"
                                                     Grid.Row="0" 
                                                     FontWeight="Bold" 
-                                                    FontSize="30" 
+                                                    FontSize="40" 
                                                     HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
                                                     Margin="10,10,10,10" 
                                                     Text = "{Binding FOODNAME}"/>
 
                                                 <Separator Style="{StaticResource MaterialDesignDarkSeparator}"
-                                                    Margin="5,35,5,50" 
+                                                    Margin="5,50" 
                                                     Grid.Row="0"
                                                     Grid.RowSpan="2"/>
 
                                                 <Grid Grid.Row="1">
 
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition />
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
 
                                                     <materialDesign:Chip 
                                                         Grid.Column="0" 
-                                                        Width="170"
                                                         HorizontalAlignment="Left" 
                                                         VerticalAlignment="Center" 
-                                                        Margin="10 0"                                       
-                                                        Content="{Binding QUANTITY}"
                                                         HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
+                                                        Margin="10 0"                                       
+                                                        Content="{Binding ORDERDATE}"
+                                                        FontSize="15" 
+                                                        FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"  
+                                                        IconForeground="#FF26788A"
+                                                        Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
@@ -426,20 +455,23 @@
                                                         </materialDesign:Chip.Icon>
                                                     </materialDesign:Chip>
 
-                                                    <materialDesign:Chip  Grid.Column="1"
-                                                        Width="200"
-                                                        HorizontalAlignment="Right" 
-                                                        VerticalAlignment="Center"
-                                                        Margin="0 0 10 0"
-                                                        Content="{Binding TIME}"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                                    <materialDesign:Chip   Grid.Column= "1" 
+                                                                          HorizontalAlignment="Left" 
+                                                                           VerticalAlignment="Center"
+                                                                             HorizontalContentAlignment="Center"
+                                                                             Margin="10 0 0 0"
+                                                                            Content="{Binding STRQUANTITY}"
+                                                        FontSize="15" 
+                                                        FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"
+                                                        IconForeground="#FF26788A" 
+                                                        Height="Auto">
+
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
-                                                                Kind="Clock"></materialDesign:PackIcon>
+                                                                Kind="Numeric1BoxesOutline"></materialDesign:PackIcon>
                                                         </materialDesign:Chip.Icon>
-                                                    </materialDesign:Chip>
+                                                    </materialDesign:Chip >
 
                                                 </Grid>
 
@@ -447,20 +479,21 @@
 
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition />
-                                                        <ColumnDefinition Width="170"/>
-                                                        <ColumnDefinition Width="10"/>
+                                                        <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
 
 
                                                     <materialDesign:Chip  Grid.Column="0" 
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center" 
+                                                        HorizontalContentAlignment="Center"
                                                         Margin="10 0"                                        
                                                         Content="{Binding CUSTOMERNAME}"
-                                                        HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
+                                                        FontSize="15" 
+                                                              FontWeight="DemiBold"
+                                                        IconBackground="{x:Null}"
+                                                        IconForeground="#FF26788A" 
+                                                                          Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
@@ -469,60 +502,73 @@
                                                     </materialDesign:Chip>
 
                                                     <materialDesign:Chip Grid.Column="1" 
-                                                        HorizontalAlignment="Right" 
-                                                        VerticalAlignment="Center"
-                                                        Content="{Binding PRICE}"
-                                                        HorizontalContentAlignment="Center"
-                                                        FontSize="20" FontWeight="DemiBold"
-                                                        IconBackground="#FF26788A"
-                                                        IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" Height="Auto">
-
+                                                                         HorizontalAlignment="Left" 
+                                                                         VerticalAlignment="Center"
+                                                                         HorizontalContentAlignment="Center"
+                                                                         Content="{Binding STRTOTALMONEY}"
+                                                                         FontSize="15" 
+                                                                         Margin="10 0 0 0"
+                                                                         FontWeight="DemiBold"
+                                                                         IconBackground="{x:Null}"
+                                                                         IconForeground="#FF26788A"
+                                                                         Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
-                                                                Kind="AttachMoney"></materialDesign:PackIcon>
+                                                                Kind="MoneyOff"></materialDesign:PackIcon>
                                                         </materialDesign:Chip.Icon>
+
                                                     </materialDesign:Chip>
                                                 </Grid>
 
                                                 <Grid Grid.Row="5">
                                                     <Button
-                                                        Command="{Binding ElementName=itemControlOrderQueue2, Path=DataContext.g_iCm_ClickSoldOutCommand}"
+                                                        Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickSoldOutCommand}"
                                                         CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         HorizontalAlignment="Left"
+                                                        Margin="5 0 0 0"
                                                         Width="120" Height="30"                                            
                                                         ToolTip="Báo hết món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#D50000" 
+                                                        FontSize="20" 
+                                                        FontWeight="SemiBold" 
+                                                        Background= "{x:Null}"
+                                                        Foreground="#D50000"
                                                         BorderBrush="#D50000">
                                                         HẾT MÓN
                                                     </Button>
 
                                                     <Button
-                                                        Command="{Binding ElementName=itemControlOrderQueue2, Path=DataContext.g_iCm_ClickSkipCommand}"
+                                                      
+                                                        Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickDoneCommand}"
                                                         CommandParameter="{Binding}"
-                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                                        Width="120" Height="30"                                         
-                                                        ToolTip="Bỏ qua món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#212121" 
-                                                        BorderBrush="#212121">
-                                                        BỎ QUA
-                                                    </Button>
-
-                                                    <Button
-                                                        x:Name="btnDone"
-                                                        Command="{Binding ElementName=itemControlOrderQueue2, Path=DataContext.g_iCm_ClickDoneCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Right"
+                                                        HorizontalAlignment="Center"
                                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                         Width="120" Height="30"                                            
                                                         ToolTip="Hoàn thành món đang chọn" 
-                                                        FontSize="20" FontWeight="SemiBold" 
-                                                        Background="#43A047" 
+                                                        FontSize="20" 
+                                                        FontWeight="SemiBold" 
+                                                         Background= "{x:Null}"
+                                                        Foreground="#43A047"
                                                         BorderBrush="#43A047">
                                                         XONG
+                                                    </Button>
+
+                                                    <Button
+                                                        Command="{Binding ElementName=itemControlOrderQueue1, Path=DataContext.g_iCm_ClickSkipCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                        Width="120"
+                                                        Height="30"   
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0 0 5 0"
+                                                        ToolTip="Bỏ qua món đang chọn" 
+                                                        FontSize="20"
+                                                        FontWeight="SemiBold" 
+                                                        Background= "{x:Null}"
+                                                         Foreground="#212121"
+                                                        BorderBrush="#212121">
+                                                        BỎ QUA
                                                     </Button>
                                                 </Grid>
                                             </Grid>

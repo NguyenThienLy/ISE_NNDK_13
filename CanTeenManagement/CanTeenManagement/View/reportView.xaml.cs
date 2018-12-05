@@ -21,7 +21,16 @@ namespace CanTeenManagement.View
     /// </summary>
     public partial class ReportView : UserControl
     {
-        public ReportView()
+        private static ReportView instance;
+
+        public static ReportView Instance
+        {
+            get { if (instance == null) instance = new ReportView(); return ReportView.instance; }
+
+            set { ReportView.instance = value; }
+        }
+
+        private ReportView()
         {
             InitializeComponent();
 

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement.View"
         mc:Ignorable="d" 
-        x:Name="payView"
+        x:Name="payView"     
+        Title="PayView" 
             
               xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,11 +18,14 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
      DataContext="{StaticResource payVM}"
-        
-        Title="LoginView" Height="500" Width="920" WindowStyle="None" WindowStartupLocation ="CenterScreen" ResizeMode="NoResize">
-    <Grid x:Name="gvMain" 
-          MouseDown="gvMain_MouseDown">
+       
+        Height="500"
+        Width="920"
+        WindowStyle="None"
+        WindowStartupLocation ="CenterScreen"
+        ResizeMode="NoResize">
 
+    <Grid x:Name="gvMain" >
         <Rectangle Height="500" Width="920" >
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
@@ -34,71 +38,93 @@
 
         <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="350"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0">
-                    <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                        <ItemsControl x:Name="itemControlHaveFood" 
+                    <Grid Height=" 10" 
+                  Width=" 100"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Center"
+                  Background="IndianRed"
+                  Cursor="ScrollAll">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                   CommandParameter="{Binding ElementName = payView}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="itemControlHaveFood" 
                                   ItemsSource="{Binding g_obCl_payFood ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}" 
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Loaded">
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}" 
                                    CommandParameter="{Binding ElementName = itemControlHaveFood}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
 
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"
                                                />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <materialDesign:Card Grid.Row="0"
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <materialDesign:Card Grid.Row="0"
                                          Width="550"    
                                          Height="140"
                                          VerticalAlignment="Center"
                                          Margin="5 5 0 5">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="30"/>
-                                                <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="30"/>
-                                                <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="50"/>
-                                                <ColumnDefinition Width="40"/>
-                                            </Grid.ColumnDefinitions>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30"/>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="40"/>
+                                                        <ColumnDefinition Width="30"/>
+                                                        <ColumnDefinition Width="40"/>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="40"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                            <CheckBox Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCheckBoxCommand}"
+                                                    <CheckBox Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCheckBoxCommand}"
                                                       CommandParameter="{Binding}" 
                                                       Grid.Column="0"
                                                       HorizontalAlignment="Center"
                                                       IsChecked= "{Binding ISCHECKED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                       Background="#FF36AE98" 
                                                       Style="{StaticResource MaterialDesignCheckBox}">
-                                            </CheckBox>
+                                                    </CheckBox>
 
-                                            <Image  Grid.Column="1"   
+                                                    <Image  Grid.Column="1"   
                                                     Source="{Binding IMAGELINK}" 
                                                     Height="100"
                                                     Stretch="Fill" />
 
-                                            <Grid Grid.Column="2">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition></RowDefinition>
-                                                    <RowDefinition Height="20"></RowDefinition>
-                                                    <RowDefinition Height="20">
-                                                    </RowDefinition>
-                                                </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="2">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition Height="20"></RowDefinition>
+                                                            <RowDefinition Height="20">
+                                                            </RowDefinition>
+                                                        </Grid.RowDefinitions>
 
-                                                <TextBlock Margin="10 0"
+                                                        <TextBlock Margin="10 0"
                                                            Grid.Row="0" 
                                                            FontWeight="Bold" 
                                                            FontSize="30" 
@@ -107,7 +133,7 @@
                                                            VerticalAlignment="Center" 
                                                            Text = "{Binding FOODNAME}"/>
 
-                                                <TextBlock Margin="10 0"  
+                                                        <TextBlock Margin="10 0"  
                                                            Foreground="Red"
                                                            Grid.Row="1" 
                                                            HorizontalAlignment="Left" 
@@ -115,198 +141,220 @@
                                                            Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
                                                            FontSize="20"
                                                            FontWeight="DemiBold">
-                                                </TextBlock>
+                                                        </TextBlock>
 
-                                                <StackPanel Grid.Row="2" 
+                                                        <StackPanel Grid.Row="2" 
                                                             Orientation="Horizontal">
-                                                    <TextBlock Margin="10 0" 
+                                                            <TextBlock Margin="10 0" 
                                                              HorizontalAlignment="Left" 
                                                              VerticalAlignment="Center"
                                                              Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
                                                              FontSize="16"
                                                              FontWeight="DemiBold">
-                                                        <TextBlock.TextDecorations>
-                                                            <TextDecoration Location="Strikethrough">
-                                                                <TextDecoration.Pen>
-                                                                    <Pen Brush="Black" />
-                                                                </TextDecoration.Pen>
-                                                            </TextDecoration>
-                                                        </TextBlock.TextDecorations>
+                                                                <TextBlock.TextDecorations>
+                                                                    <TextDecoration Location="Strikethrough">
+                                                                        <TextDecoration.Pen>
+                                                                            <Pen Brush="Black" />
+                                                                        </TextDecoration.Pen>
+                                                                    </TextDecoration>
+                                                                </TextBlock.TextDecorations>
 
-                                                    </TextBlock>
+                                                            </TextBlock>
 
-                                                    <TextBlock Height="15" Width="35"
+                                                            <TextBlock Height="15" Width="35"
                                                                Margin="5 0" Foreground="#FFFFF4F4"
                                                                FontStyle="Italic" 
                                                                Background="Red"
                                                                TextAlignment="Center"
                                                                Text="{Binding SALE, StringFormat='-{0}%'}"/>
-                                                </StackPanel>
+                                                        </StackPanel>
 
-                                            </Grid>
+                                                    </Grid>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
+                                                    <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
                                                     CommandParameter="{Binding}" 
                                                     Grid.Column="3"
                                                     Height="30"
                                                     Width="30"
-                                                    Background="#FF26788A"
+                                                    Background="{x:Null}"
                                                     BorderBrush="#FF26788A"
+                                                    BorderThickness="2"
                                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    ToolTip="Delete">
-                                                <materialDesign:PackIcon
+                                                    ToolTip="Xóa món ra khỏi danh sách">
+                                                        <materialDesign:PackIcon
+                                                          Background="{x:Null}"
+                                                          Foreground="#FF26788A"  
                                                           Kind="Delete"
                                                           Height="24"
                                                           Width="24" />
-                                            </Button>
+                                                    </Button>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
+                                                    <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
                                                     CommandParameter="{Binding}"
                                                     Grid.Column="5"
                                                     Height="30"
                                                     Width="30"
-                                     
-                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    ToolTip="Remove"
-                                                    Background="#FF26788A"
-                                                    BorderBrush="#FF26788A">
+                                                    ToolTip="Giảm đi 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                    Margin="0 0 -2 0"
+                                    BorderThickness="2"
+                                    HorizontalAlignment="Right">
 
-                                                <materialDesign:PackIcon
-                                                          Kind="Remove"
-                                                          Height="24"
-                                                          Width="24" />
-                                            </Button>
+                                                        <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                           Background="{x:Null}"
+                                                           Foreground="#FF26788A"    
+                                                           Kind="Remove" 
+                                                           Height="30"
+                                                           Width="30"/>
+                                                    </Button>
 
-                                            <TextBox Text="{Binding QUANTITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                    <TextBox Text="{Binding QUANTITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                      Grid.Column="6"
                                                      BorderBrush="#FF28878B"
                                                      Height="30"
+                                                     Width="50"
+                                                     FontWeight="DemiBold"
+                                                     FontSize="18"
                                                      BorderThickness="2"
+                                                     
                                                      TextAlignment="Center"
                                                      IsEnabled="{Binding g_b_isEnableQuantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, IsAsync=True}">
 
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="TextChanged">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="TextChanged">
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
                                                                           CommandParameter="{Binding}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </TextBox>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
+                                                    <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
                                                     CommandParameter="{Binding}"
                                                     Grid.Column="7"
                                                     Height="30"
                                                     Width="30"
-                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    ToolTip="Add"
-                                                    Background="#FF26788A"
-                                                    BorderBrush="#FF26788A">
-                                                <materialDesign:PackIcon
-                                                          Kind="Add"
-                                                          Height="24"
-                                                          Width="24" />
-                                            </Button>
-
-                                        </Grid>
-                                    </materialDesign:Card>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                                                    HorizontalAlignment="Left"
+                                                    Margin="-2 0 0 0"
+                                                    BorderThickness="2"
+                                                    ToolTip="Tăng thêm 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                  >
 
 
-                </Grid>
+                                                        <materialDesign:PackIcon
+                                                     Margin="-17 0 -15 0"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Background="{x:Null}"
+                                                     Foreground="#FF26788A"
+                                                     Kind="Add"
+                                                     Height="30"
+                                                     Width="30" />
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="150"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+                                                    </Button>
 
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </materialDesign:Card>
 
-                        <Ellipse   Grid.Column="0"
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Ellipse   Grid.Column="0"
                                    Height="150"
                                    Width="150"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding g_str_customerImageLink}"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding g_str_customerImageLink}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
 
-                        <StackPanel Grid.Column="1"
+                                <StackPanel Grid.Column="1"
                                         Orientation="Vertical">
-                            <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
+                                    <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
                                                       Foreground="Gold" />
-                            <TextBlock TextWrapping="Wrap"
+                                    <TextBlock TextWrapping="Wrap"
                                         Text="{Binding g_str_customerfullName}"   
                                         FontSize="30"
                                        FontWeight="Bold">
 
-                            </TextBlock>
+                                    </TextBlock>
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock 
                                        Text="Customer ID: " 
                                        FontSize="15"
                                        FontWeight="Bold"  VerticalAlignment="Center" >
+                                        </TextBlock>
 
-                                </TextBlock>
-
-                                <TextBox x:Name="txtCustomerID" 
+                                        <TextBox x:Name="txtCustomerID" 
                                        Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                        FontSize="15"
                                        FontWeight="Bold"
                                        CaretBrush="#FF36AE98" >
 
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}" 
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}" 
                                                                    CommandParameter="{Binding ElementName = txtCustomerID}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBox>
-                            </StackPanel>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
 
 
-                        </StackPanel>
-                    </Grid>
+                                </StackPanel>
+                            </Grid>
 
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"></RowDefinition>
-                            <RowDefinition Height="20"></RowDefinition>
-                            <RowDefinition Height="60"></RowDefinition>
-                            <RowDefinition Height="20"></RowDefinition>
-                            <RowDefinition Height="70"></RowDefinition>
-                            <RowDefinition Height="70"></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="1"
+                                <TextBlock Grid.Row="1"
                                    Text="Tổng số tiền"
                                    FontFamily="Roboto" 
                                    FontSize="15"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Row="2" 
+                                <TextBlock Grid.Row="2" 
                                              HorizontalAlignment="Center" 
                                              VerticalAlignment="Center"
                                              Text="{Binding g_i_sumPrice, StringFormat='{}{0:#,#} đ'}"
                                              FontFamily="Cooper Black"  
                                              FontSize="40"
                                              FontWeight="DemiBold" >
-                        </TextBlock>
+                                </TextBlock>
 
-                        <Button x:Name="btnPay" 
+                                <Button x:Name="btnPay" 
                                 Command="{Binding g_iCm_ClickButtonPayCommand}"  
                                 CommandParameter="{Binding ElementName=btnPay}" 
                                 Grid.Row="4"                          
@@ -317,9 +365,9 @@
                                 Background="#43A047" 
                                 BorderBrush="#43A047"
                                 Content="Thanh toán">
-                        </Button>
+                                </Button>
 
-                        <Button x:Name="btnUndo" 
+                                <Button x:Name="btnUndo" 
                                 Command="{Binding g_iCm_ClickButtonUndoCommand}"  
                                 CommandParameter="{Binding ElementName=btnUndo}" 
                                  Grid.Row="5"                          
@@ -331,23 +379,31 @@
                                  BorderBrush="#D50000" 
                                  Content="Hoàn tác">
 
-                        </Button>
+                                </Button>
 
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </materialDesign:TransitioningContent>
 
-        <Button Command="{Binding g_iCm_ClickCloseWindowCommand}"
-                CommandParameter="{Binding ElementName=payView}" 
-                x:Name="btnClose" 
-                        Style="{StaticResource MaterialDesignToolButton}" 
-                        Height="25"
-                        Width="25"
-                        VerticalAlignment="Top" 
-                        HorizontalAlignment="Right" 
-                        Click="btnClose_Click">
-            <materialDesign:PackIcon Kind="Close"/>
-        </Button>
+                <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
+                         CommandParameter="{Binding ElementName=payView}" 
+                         x:Name="btnClose" 
+                         
+                         Height="25"
+                         Width="25"
+                         VerticalAlignment="Top" 
+                         HorizontalAlignment="Right"
+                         Background="IndianRed" 
+                         Foreground="Black" BorderBrush="#FF8D5BE6" 
+                         >
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Margin="-11 0 -5 0" Kind="Close"
+                                             Height="25" Width="25"/>
+                </Button>
+            </Grid>
+
+        </materialDesign:TransitioningContent>
     </Grid>
 </Window>

@@ -16,16 +16,18 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              DataContext="{StaticResource statisticVM}"
-             Height="660" Width="980">
+             Height="660" 
+             Width="980">
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="14*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid Height="40" Width="980"  VerticalAlignment="Top" Margin="0,0,-8,0">
-                <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
+            
+            <Grid Grid.Row="0">
+                <Rectangle>
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF26788A" Offset="1"/>
@@ -50,11 +52,8 @@
                 </materialDesign:ColorZone>
             </StackPanel>
 
-            <TabControl HorizontalAlignment="Center" 
-                        VerticalAlignment="Top"
-                        Height="591"
-                        Width="972"
-                        Margin="0,40,0,-2" Grid.RowSpan="2">
+            <TabControl Grid.Row="1">
+                
                 <TabItem Header="Doanh thu" FontSize="22" FontFamily="Roboto">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -263,7 +262,6 @@
 
                     </Grid>
                 </TabItem>
-
             </TabControl>
         </Grid>
     </materialDesign:TransitioningContent>

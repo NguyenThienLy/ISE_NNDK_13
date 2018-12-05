@@ -23,15 +23,5 @@ namespace CanTeenManagement.View
         {
             InitializeComponent();
         }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void gvMain_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
     }
 }

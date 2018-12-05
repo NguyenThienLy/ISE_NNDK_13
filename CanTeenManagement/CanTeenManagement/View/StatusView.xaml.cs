@@ -10,25 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CanTeenManagement.View
 {
     /// <summary>
-    /// Interaction logic for callFoodView.xaml
+    /// Interaction logic for statusView.xaml
     /// </summary>
-    public partial class CallFoodView : UserControl
+    public partial class StatusView : Window
     {
-        private static CallFoodView instance;
-
-        public static CallFoodView Instance
-        {
-            get { if (instance == null) instance = new CallFoodView(); return CallFoodView.instance; }
-
-            set { CallFoodView.instance = value; }
-        }
-        private CallFoodView()
+        public StatusView()
         {
             InitializeComponent();
         }

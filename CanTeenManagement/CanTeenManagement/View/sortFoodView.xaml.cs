@@ -24,12 +24,17 @@ namespace CanTeenManagement.View
 
         public static SortFoodView Instance
         {
-            get { if (instance == null) instance = new SortFoodView(); return SortFoodView.instance; }
+            get
+            {
+                if (instance == null)
+                    instance = new SortFoodView();
+                return SortFoodView.instance;
+            }
 
             set { SortFoodView.instance = value; }
         }
 
-        public SortFoodView()
+        private SortFoodView()
         {
             InitializeComponent();
         }   

@@ -346,3 +346,5 @@ G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.baml
 D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.g.cs
 D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.baml
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.g.cs
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.baml

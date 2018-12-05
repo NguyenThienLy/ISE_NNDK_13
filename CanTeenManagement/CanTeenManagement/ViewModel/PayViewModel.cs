@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CanTeenManagement.CO;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -142,6 +143,8 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_TextChangedTextBoxQuantityCommand { get; set; }
 
+        public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
+
         #endregion
 
         public PayViewModel()
@@ -197,6 +200,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.textChangedTextBoxQuantity(p);
             });
+
+            g_iCm_MouseLeftButtonDownCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                this.mouseLeftButtonDown(p);
+            });
         }
 
         private void initSupport()
@@ -211,6 +219,8 @@ namespace CanTeenManagement.ViewModel
 
         private void resetCustomer()
         {
+            this.g_b_isPay = false;
+
             this.g_str_customerID = "Empty id";
             this.g_str_customerfullName = "Empty full name";
             this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
@@ -277,6 +287,16 @@ namespace CanTeenManagement.ViewModel
 
                 this.g_b_isPay = true;
                 this.g_b_isEnableQuantity = false;
+          
+                staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                    + " phụ trách bởi " + staticVarClass.account_userName);
+            }
+            else
+            {
+                staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                   + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                   + " phụ trách bởi " + staticVarClass.account_userName);
             }
         }
 
@@ -341,15 +361,14 @@ namespace CanTeenManagement.ViewModel
         {
             int l_i_addPoint = this.g_i_sumPrice / 10;
 
-            int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
-               .Where(customer => customer.ID == this.g_str_customerID)
-               .Select(customer => customer.POINT).FirstOrDefault();
+            //int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
+            //   .Where(customer => customer.ID == this.g_str_customerID)
+            //   .Select(customer => customer.POINT).FirstOrDefault();
 
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.POINT = l_str_currPoint + l_i_addPoint);
+                                              .ForEach(customer => customer.POINT += l_i_addPoint);
             dataProvider.Instance.DB.SaveChanges();
         }
-
         #endregion
 
         #region Click undo.
@@ -392,12 +411,12 @@ namespace CanTeenManagement.ViewModel
         {
             int l_i_addPoint = this.g_i_sumPrice / 10;
 
-            int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
-               .Where(customer => customer.ID == this.g_str_customerID)
-               .Select(customer => customer.POINT).FirstOrDefault();
+            //int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
+            //   .Where(customer => customer.ID == this.g_str_customerID)
+            //   .Select(customer => customer.POINT).FirstOrDefault();
 
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.POINT = l_str_currPoint - l_i_addPoint);
+                                              .ForEach(customer => customer.POINT -= l_i_addPoint);
             dataProvider.Instance.DB.SaveChanges();
         }
         #endregion
@@ -535,5 +554,13 @@ namespace CanTeenManagement.ViewModel
             this.g_i_sumPrice = this.getSumPrice();
         }
         #endregion
+
+        private void mouseLeftButtonDown(Window p)
+        {
+            if (p == null)
+                return;
+
+            p.DragMove();
+        }
     }
 }

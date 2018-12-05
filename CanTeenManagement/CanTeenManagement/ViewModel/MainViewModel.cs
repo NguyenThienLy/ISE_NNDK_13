@@ -8,11 +8,35 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
+using CanTeenManagement.CO;
 
 namespace CanTeenManagement.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        private string _g_str_imageLink;
+        public string g_str_imageLink
+        {
+            get => _g_str_imageLink;
+            set
+            { _g_str_imageLink = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_fullName;
+        public string g_str_fullName
+        {
+            get => _g_str_fullName;
+            set
+            {
+                _g_str_fullName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool g_b_isLoaded { get; set; }
+
         #region commands.
         public ICommand g_iCm_ClickCloseWindowCommand { get; set; }
 
@@ -28,8 +52,6 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickUserViewCommand { get; set; }
         #endregion
-
-        bool g_b_isLoaded { get; set; }
 
         public MainViewModel()
         {
@@ -118,6 +140,9 @@ namespace CanTeenManagement.ViewModel
                 return;
 
             p.DragMove();
+
+            staticVarClass.screen_Top = (int)p.Top;
+            staticVarClass.screen_Left = (int)p.Left + 220;
         }
 
         private void selectedChange(MainWindow p)
@@ -146,22 +171,23 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 3:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new StatisticView());
+                    p.GridMainWindow.Children.Add(StatisticView.Instance);
                     break;
                 case 4:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new ReportView());
+                    p.GridMainWindow.Children.Add(ReportView.Instance);
                     break;
                 case 5:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(new callFoodView());
+                    p.GridMainWindow.Children.Add(CallFoodView.Instance);
                     break;
                 case 6:
                     p.GridMainWindow.Children.Clear();
                     p.GridMainWindow.Children.Add(EmployeesView.Instance);
                     break;
                 default:
-                    p.GridMainWindow.Children.Add(new SortFoodView());
+                    p.GridMainWindow.Children.Clear();
+                    p.GridMainWindow.Children.Add(SortFoodView.Instance);
                     break;
             }
         }
@@ -190,13 +216,32 @@ namespace CanTeenManagement.ViewModel
             {
                 p.Show();
 
+                this.loadUserInfo();
+
                 // Load dash board.
                 p.GridMainWindow.Children.Clear();
                 p.GridMainWindow.Children.Add(DashBoardView.Instance);
+
+                staticVarClass.screen_Top = (int)p.Top;
+                staticVarClass.screen_Left = (int)p.Left + 220;
             }
             else
             {
                 p.Close();
+            }
+        }
+
+        // Load image link and full name.
+        private void loadUserInfo()
+        {
+            var l_userInfo = dataProvider.Instance.DB.EMPLOYEEs
+               .Where(user => user.ID == staticVarClass.account_userName)
+               .Select(user => new { user.FULLNAME, user.IMAGELINK }).SingleOrDefault();
+
+            if (l_userInfo != null)
+            {
+                this.g_str_fullName = l_userInfo.FULLNAME.Trim();
+                this.g_str_imageLink = l_userInfo.IMAGELINK.Trim();
             }
         }
 
@@ -228,7 +273,7 @@ namespace CanTeenManagement.ViewModel
                 return;
 
             p.TransittionigContentSlide.OnApplyTemplate();
-            p.GridCusor.Margin = new Thickness(0, (190 + index * 60), 0, 0);
+            p.GridCusor.Margin = new Thickness(0, (index * 60), 0, 0);
         }
     }
 }

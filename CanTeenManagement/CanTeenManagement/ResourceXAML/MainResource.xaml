@@ -17,4 +17,5 @@
     <viewmodel:SettingsViewModel x:Key="settingsVM"></viewmodel:SettingsViewModel>
     <viewmodel:SortFoodViewModel x:Key="sortFoodVM"></viewmodel:SortFoodViewModel>
     <viewmodel:OrderDoneViewModel x:Key="orderDoneVM"></viewmodel:OrderDoneViewModel>
+    <viewmodel:StatusViewModel x:Key="statusVM"></viewmodel:StatusViewModel>
 </ResourceDictionary>

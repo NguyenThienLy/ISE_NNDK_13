@@ -196,7 +196,7 @@ namespace CanTeenManagement.ViewModel
                 this.loaded(p);
             });
 
-            g_iCm_ClickPayViewCommand = new RelayCommand<OrderView>((p) => { return true; }, (p) =>
+            g_iCm_ClickPayViewCommand = new RelayCommand<OrderView>((p) => { return this.checkButtonPay(); }, (p) =>
             {
                 this.clickPayView(p);
             });
@@ -320,6 +320,14 @@ namespace CanTeenManagement.ViewModel
                 ORDERFOOD t_orderFood = new ORDERFOOD(food);
                 g_obCl_orderFoodShow.Add(t_orderFood);
             }
+        }
+
+        private bool checkButtonPay()
+        {
+            if (this._g_i_currOrderFood == 0)
+                return false;
+
+            return true;
         }
 
         private void clickPayView(OrderView p)

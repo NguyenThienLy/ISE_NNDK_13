@@ -62,10 +62,11 @@ namespace CanTeenManagement.CO
 
         #region status.
         public static string status_waiting = "Đang chờ";
-        public static string status_notComplete = "Hết món";
+        public static string status_soldOut = "Hết món";
         public static string status_done = "Xong";
+        public static string status_skip = "Bỏ qua";
         #endregion
-    
+
         #region email.
         public static int email_portEmail = 587;
 
@@ -75,6 +76,20 @@ namespace CanTeenManagement.CO
         #region gmail.
         public static string gmail_user = "ISE.NNDK.13@gmail.com";
         public static string gmail_password = "123456aA123456";
+        #endregion
+
+        //#region screen.
+        //public static int screen_width = (int)System.Windows.SystemParameters.WorkArea.Width;
+        //public static int screen_height = (int)System.Windows.SystemParameters.WorkArea.Height;
+        //#endregion
+
+        #region screen.
+        public static int screen_Top = 0;
+        public static int screen_Left = 0;
+        #endregion
+
+        #region quantity
+        public static int quantity_statusView = 2;
         #endregion
 
         // Hàm lấy host.

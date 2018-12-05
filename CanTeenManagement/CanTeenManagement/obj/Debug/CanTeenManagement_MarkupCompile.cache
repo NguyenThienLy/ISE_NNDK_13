@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\View\App.xaml
-16-768639288
+17-921845608
 2-1556844510
-501751480619
+52-1598640241
 26378739675
-ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderDoneView.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;
+ResourceXAML\MainResource.xaml;View\CallFoodView.xaml;View\CustomersView.xaml;View\DashBoardView.xaml;View\DetailCustomersView.xaml;View\DetailEmployeesView.xaml;View\EmployeesView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\OrderDoneView.xaml;View\OrderView.xaml;View\PayView.xaml;View\ReportView.xaml;View\SettingsView.xaml;View\SortFoodView.xaml;View\StatisticView.xaml;View\StatusView.xaml;
 
 False
 

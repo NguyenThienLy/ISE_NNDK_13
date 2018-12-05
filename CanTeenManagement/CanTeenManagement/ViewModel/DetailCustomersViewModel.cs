@@ -22,7 +22,7 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickSendMailCommand { get; set; }
 
-        public ICommand g_iCm_MouseDownCommand { get; set; }
+       public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
         #endregion
 
         public DetailCustomersViewModel()
@@ -50,31 +50,52 @@ namespace CanTeenManagement.ViewModel
             {
             });
 
-            g_iCm_MouseDownCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
+            g_iCm_MouseLeftButtonDownCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                p.DragMove();
+                this.mouseLeftButtonDown(p);
             });
         }
 
         private void clickCloseWindow(DetailCustomersView p)
         {
+            if (p == null)
+                return;
+
             p.Close();
         }
 
         private void clickEditInfo(DetailCustomersView p)
         {
+            if (p == null)
+                return;
+
             p.grVEdit.Height = 350;
             p.grVInfo.Height = 0;
         }
 
         private void clickSaveInfo(DetailCustomersView p)
         {
+            if (p == null)
+                return;
+
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
         }
 
         private void mouseDown(DetailCustomersView p)
         {
+            if (p == null)
+                return;
+
+            p.DragMove();
+        }
+
+
+        private void mouseLeftButtonDown(Window p)
+        {
+            if (p == null)
+                return;
+
             p.DragMove();
         }
     }
