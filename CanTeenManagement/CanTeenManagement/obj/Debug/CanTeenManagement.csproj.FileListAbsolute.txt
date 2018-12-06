@@ -368,6 +368,7 @@ D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Mate
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.xml
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.xml
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.g.cs
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CustomersView.g.cs
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DashBoardView.g.cs
@@ -414,4 +415,3 @@ D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanT
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache

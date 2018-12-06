@@ -26,11 +26,6 @@
         ResizeMode="NoResize">
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
-                                   CommandParameter="{Binding ElementName = detailEmployeesView}"/>
-        </i:EventTrigger>
-
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
                                    CommandParameter="{Binding ElementName = detailEmployeesView}"/>
@@ -56,14 +51,14 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Rectangle Height="150" VerticalAlignment="Top" Grid.RowSpan="1">
-                    <Rectangle.Fill>
-                        <ImageBrush  ImageSource ="/CanTeenManagement;component/Images/backgroudbeach.jpg" Stretch="Fill"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-
                 <Grid Grid.Row="0">
-                    <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="140" Width="155" Margin="10,5,0,0">
+                    <Rectangle Height="150" VerticalAlignment="Bottom">
+                        <Rectangle.Fill>
+                            <ImageBrush  ImageSource ="/CanTeenManagement;component/Images/backgroudbeach.jpg" Stretch="Fill"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="155" Margin="10,10,0,0">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding g_str_imageLink, UpdateSourceTrigger=PropertyChanged}"/>
                         </Ellipse.Fill>
@@ -427,12 +422,22 @@
             </Grid>
         </materialDesign:TransitioningContent>
 
+        <Grid Height="10" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center"
+                    Background="IndianRed" Cursor="ScrollAll">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                           CommandParameter="{Binding ElementName=detailEmployeesView}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Grid>
+
         <Button Command="{Binding g_iCm_ClickCloseCommand}" 
-                CommandParameter="{Binding ElementName = detailEmployeesView}"
-                Style="{StaticResource MaterialDesignToolButton}"
-                Height="25" Width="25" VerticalAlignment="Top" 
-                HorizontalAlignment="Right" >
-            <materialDesign:PackIcon Kind="Close"/>
+                CommandParameter="{Binding ElementName=detailEmployeesView}"
+                Height="25" Width="25" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Background="IndianRed" Foreground="Black" BorderBrush="#FF8D5BE6" >
+            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center"
+                Margin="-11 0 -5 0" Kind="Close" Height="25" Width="25"/>
         </Button>
     </Grid>
 </Window>
