@@ -103,12 +103,19 @@
 
                                 <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
                                     <DockPanel  Height="40">
+                                        <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
+                                                CommandParameter="{Binding ElementName = detailEmployeesView}" 
+                                                Margin="0 0 0 0" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
+                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                            <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
+                                        </Button>
+                                        
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Text="Chỉnh sửa thông tin"/>
 
                                         <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}"
-                                                Margin="80 0 0 0" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
-                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                                Margin="45 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
+                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
                                             <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="23" />
                                         </Button>
                                     </DockPanel>
@@ -168,8 +175,8 @@
 
                                         <Button Command="{Binding g_iCm_ClickEditInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
-                                                Margin="90 0 0 0" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
-                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                                Margin="90 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
+                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
                                             <materialDesign:PackIcon Kind="Edit" Height="22" Width="23" />
                                         </Button>
                                     </DockPanel>
@@ -246,12 +253,19 @@
 
                                 <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
                                     <DockPanel  Height="40">
+                                        <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
+                                                CommandParameter="{Binding ElementName = detailEmployeesView}" 
+                                                Margin="0 0 0 0" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
+                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                            <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
+                                        </Button>
+                                        
                                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thư mới"/>
 
                                         <Button Command="{Binding g_iCm_ClickSendMailCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
-                                                Margin="170 0 0 0" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
-                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                                Margin="145 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
+                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
                                             <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
                                         </Button>
                                     </DockPanel>

@@ -126,6 +126,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickChangeImageCommand { get; set; }
 
         public ICommand g_iCm_TextChangedFilterCommand { get; set; }
+
+        public ICommand g_iCm_ClickGoBackCommand { get; set; }
         #endregion
 
         public DetailCustomersViewModel()
@@ -168,6 +170,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_TextChangedFilterCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
                 this.filterIDOrder(p);
+            });
+
+            g_iCm_ClickGoBackCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
+            {
+                this.clickGoBack(p);
             });
         }
 
@@ -217,7 +224,7 @@ namespace CanTeenManagement.ViewModel
             #endregion
 
             #region đổ dữ liệu vào listview
-            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == "Đã xong" && orderinfo.CUSTOMERID == g_str_id));
+            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == g_str_id));
             #endregion
         }
 
@@ -413,6 +420,12 @@ namespace CanTeenManagement.ViewModel
                     dataProvider.Instance.DB.SaveChanges();
                 }
             }
+        }
+
+        private void clickGoBack(DetailCustomersView p)
+        {
+            p.grVInfo.Height = 350;
+            p.grVEdit.Height = 0;
         }
 
         private bool filterIDOrder(object item)
