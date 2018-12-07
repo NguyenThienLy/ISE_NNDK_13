@@ -11,19 +11,20 @@
         xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
      
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
-       DataContext="{StaticResource detailEmployeesVM}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource detailEmployeesVM}"
         Title="DetailEmployeesView"
-        Height="500"
-        Width="920" 
-        WindowStyle="None"
+        Height="520"
+        Width="940" 
         WindowStartupLocation ="CenterScreen" 
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -32,426 +33,436 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid x:Name="gvMain">
+    <Grid Margin="0 0 20 20" Background="White"  >
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" 
+                              Direction="-90"
+                              RenderingBias="Quality"
+                              ShadowDepth="2"/>
+        </Grid.Effect>
 
-        <Rectangle Height="500" Width="920"  VerticalAlignment="Bottom">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
-                    <GradientStop Color="White" Offset="1"/>
-                    <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
-                    <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Grid x:Name="gvMain">
 
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="150"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <Rectangle Height="500" Width="920"  VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
 
-                <Grid Grid.Row="0">
-                    <Rectangle Height="150" VerticalAlignment="Bottom">
-                        <Rectangle.Fill>
-                            <ImageBrush  ImageSource ="/CanTeenManagement;component/Images/backgroudbeach.jpg" Stretch="Fill"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                    <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="155" Margin="10,10,0,0">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding g_str_imageLink, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
+                    <Grid Grid.Row="0">
+                        <Rectangle Height="150" VerticalAlignment="Bottom">
+                            <Rectangle.Fill>
+                                <ImageBrush  ImageSource ="/CanTeenManagement;component/Images/backgroudbeach.jpg" Stretch="Fill"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="155" Margin="10,10,0,0">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding g_str_imageLink, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="127,119,764,5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Foreground="White" Background="#FFFF9C00" BorderBrush="#FF28878B" Height="Auto" Width="Auto" RenderTransformOrigin="-0.444,0.593">
-                        <materialDesign:PackIcon Kind="Brush" Height="22" Width="17" />
-                    </Button>
-                    <StackPanel Margin="170 0 0 10" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                        <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold"
+                            <materialDesign:PackIcon Kind="Brush" Height="22" Width="17" />
+                        </Button>
+                        <StackPanel Margin="170 0 0 10" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                            <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold"
                             Text="{Binding g_str_fullName}" Width="398"></TextBlock>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
                                     Mã nhân viên:
-                            </TextBlock>
+                                </TextBlock>
 
-                            <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10 0 0 0"
+                                <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10 0 0 0"
                                 Text="{Binding g_str_id}"></TextBlock>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Grid>
+                    </Grid>
 
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="320"></ColumnDefinition>
-                        <ColumnDefinition Width="1"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="320"></ColumnDefinition>
+                            <ColumnDefinition Width="1"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
 
-                    <Grid x:Name="grVEdit" Grid.Column="0" >
-                        <materialDesign:Card  Background="White">
-                            <Grid Margin="0 10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="300" />
-                                </Grid.RowDefinitions>
+                        <Grid x:Name="grVEdit" Grid.Column="0" >
+                            <materialDesign:Card  Background="White">
+                                <Grid Margin="0 10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="300" />
+                                    </Grid.RowDefinitions>
 
-                                <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
-                                    <DockPanel  Height="40">
-                                        <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
+                                    <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
+                                        <DockPanel  Height="40">
+                                            <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="0 0 0 0" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
-                                            <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
-                                        </Button>
-                                        
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Text="Chỉnh sửa thông tin"/>
+                                                <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
+                                            </Button>
 
-                                        <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
+                                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Text="Chỉnh sửa thông tin"/>
+
+                                            <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}"
                                                 Margin="45 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
-                                            <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="23" />
-                                        </Button>
-                                    </DockPanel>
-                                </materialDesign:ColorZone>
+                                                <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="23" />
+                                            </Button>
+                                        </DockPanel>
+                                    </materialDesign:ColorZone>
 
-                                <StackPanel Grid.Row="1" Margin="10 0 10 10" >
-                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                                        <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Họ và tên: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                    <StackPanel Grid.Row="1" Margin="10 0 10 10" >
+                                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                            <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Họ và tên: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        </StackPanel>
+                                        <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_fullName}"/>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
-                                        <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Giới tính: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-                                    <ComboBox Name="cbbGender" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                                            <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Giới tính: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        </StackPanel>
+                                        <ComboBox Name="cbbGender" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             ItemsSource="{Binding g_listGenders}" SelectedItem="{Binding g_str_gender}" />
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
-                                        <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Năm sinh: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-                                    <ComboBox Name="cbbYearOfBirth" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                                            <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Năm sinh: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        </StackPanel>
+                                        <ComboBox Name="cbbYearOfBirth" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             ItemsSource="{Binding g_listYearOfBirth}" SelectedItem="{Binding g_i_yearOfBirth}"/>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
-                                        <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Số điện thoại: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                                            <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Số điện thoại: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        </StackPanel>
+                                        <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_phone}"/>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
-                                        <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Email: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                    </StackPanel>
-                                    <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                                            <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Email: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                        </StackPanel>
+                                        <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_email}"/>
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:Card>
-                    </Grid>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
 
-                    <Grid x:Name="grVInfo" Grid.Column="0" >
-                        <materialDesign:Card  Background="White">
-                            <Grid Margin="0 10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="300" />
-                                </Grid.RowDefinitions>
+                        <Grid x:Name="grVInfo" Grid.Column="0" >
+                            <materialDesign:Card  Background="White">
+                                <Grid Margin="0 10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="300" />
+                                    </Grid.RowDefinitions>
 
-                                <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
-                                    <DockPanel  Height="40">
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thông tin cá nhân"/>
+                                    <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
+                                        <DockPanel  Height="40">
+                                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thông tin cá nhân"/>
 
-                                        <Button Command="{Binding g_iCm_ClickEditInfoCommand}" 
+                                            <Button Command="{Binding g_iCm_ClickEditInfoCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="90 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
-                                            <materialDesign:PackIcon Kind="Edit" Height="22" Width="23" />
-                                        </Button>
-                                    </DockPanel>
-                                </materialDesign:ColorZone>
+                                                <materialDesign:PackIcon Kind="Edit" Height="22" Width="23" />
+                                            </Button>
+                                        </DockPanel>
+                                    </materialDesign:ColorZone>
 
-                                <StackPanel Grid.Row="1" Margin="10 0 10 10">
-                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                                        <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Họ và tên: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                    <StackPanel Grid.Row="1" Margin="10 0 10 10">
+                                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                            <materialDesign:PackIcon Kind="User" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Họ và tên: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_fullName}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Giới tính: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Giới tính: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_gender}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Năm sinh: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Năm sinh: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_i_yearOfBirth}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text="Số điện thoại: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text="Số điện thoại: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_phone}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Email: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Email: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_email}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="Briefcase" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Chức vụ: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="Briefcase" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Chức vụ: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_position}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="DiamondStone" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Quyền: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="DiamondStone" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Quyền: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_role}"/>
-                                    </StackPanel>
+                                        </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Kind="CommentText" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBlock Text=" Trạng thái: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
-                                        <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="CommentText" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Trạng thái: " Height="30" Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
+                                            <TextBlock FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
                                             Text="{Binding g_str_status}"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:Card>
-                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
 
-                    <Grid x:Name="grVSendMail" Grid.Column="0" >
-                        <materialDesign:Card  Background="White">
-                            <Grid Margin="0 5 0 0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="300" />
-                                </Grid.RowDefinitions>
+                        <Grid x:Name="grVSendMail" Grid.Column="0" >
+                            <materialDesign:Card  Background="White">
+                                <Grid Margin="0 5 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="300" />
+                                    </Grid.RowDefinitions>
 
-                                <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
-                                    <DockPanel  Height="40">
-                                        <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
+                                    <materialDesign:ColorZone Grid.Row="0" Background="#FF28878B" Height="50">
+                                        <DockPanel  Height="40">
+                                            <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="0 0 0 0" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
-                                            <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
-                                        </Button>
-                                        
-                                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thư mới"/>
+                                                <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
+                                            </Button>
 
-                                        <Button Command="{Binding g_iCm_ClickSendMailCommand}" 
+                                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" FontStyle="Italic" FontFamily="Roboto" FontSize="20" Foreground="White" Margin="10, 0" Text="Thư mới"/>
+
+                                            <Button Command="{Binding g_iCm_ClickSendMailCommand}" 
                                                 CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                                 Margin="145 4 0 4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
                                                 Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
-                                            <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
-                                        </Button>
-                                    </DockPanel>
-                                </materialDesign:ColorZone>
+                                                <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
+                                            </Button>
+                                        </DockPanel>
+                                    </materialDesign:ColorZone>
 
-                                <StackPanel Grid.Row="1" Margin="10 0 10 10">
-                                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                                        <materialDesign:PackIcon Margin="0 18 5 0" Kind="Email" Foreground="#FF28878B" Height="17" Width="19"/>
-                                        <ComboBox Name="cbbSendEmail" Margin="0 0 0 0" DisplayMemberPath="EMAIL" ItemsSource="{Binding g_listEmployees}" SelectedItem="{Binding g_selectedEmployee}" FontFamily="Roboto" FontSize="14"  Foreground="#FF28878B" materialDesign:HintAssist.Hint="Email cần gửi tới" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="39" Width="275"/>
+                                    <StackPanel Grid.Row="1" Margin="10 0 10 10">
+                                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                            <materialDesign:PackIcon Margin="0 18 5 0" Kind="Email" Foreground="#FF28878B" Height="17" Width="19"/>
+                                            <ComboBox Name="cbbSendEmail" Margin="0 0 0 0" DisplayMemberPath="EMAIL" ItemsSource="{Binding g_listEmployees}" SelectedItem="{Binding g_selectedEmployee}" FontFamily="Roboto" FontSize="14"  Foreground="#FF28878B" materialDesign:HintAssist.Hint="Email cần gửi tới" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="39" Width="275"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Margin="0 14 5 0" Kind="CommentText" FontSize="100" Foreground="#FF28878B"/>
+                                            <TextBox Text="{Binding g_str_titleMail}" materialDesign:HintAssist.Hint="Chủ đề" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="278" FontSize="14" />
+                                        </StackPanel>
+
+                                        <StackPanel Height="192">
+                                            <TextBox Text="{Binding g_str_contentMail}" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top" Height="188" AcceptsReturn="True" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Nhập nội dung mail"/>
+                                        </StackPanel>
+
                                     </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <materialDesign:PackIcon Margin="0 14 5 0" Kind="CommentText" FontSize="100" Foreground="#FF28878B"/>
-                                        <TextBox Text="{Binding g_str_titleMail}" materialDesign:HintAssist.Hint="Chủ đề" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="278" FontSize="14" />
-                                    </StackPanel>
-
-                                    <StackPanel Height="192">
-                                        <TextBox Text="{Binding g_str_contentMail}" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top" Height="188" AcceptsReturn="True" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Nhập nội dung mail"/>
-                                    </StackPanel>
-
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:Card>
-                    </Grid>
-
-                    <Grid Grid.Column="2" Margin="5 5 0 0">
-
-                        <Grid Height="40" Width="Auto" VerticalAlignment="Top">
-                            <Rectangle Height="40" VerticalAlignment="Top" >
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF26788A" Offset="1"/>
-                                        <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
-                                        <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-
-                            <Rectangle Height="305" Width="594" VerticalAlignment="Bottom" Margin="0,0,0,-305">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0.5,4" StartPoint="0.5,4">
-                                        <GradientStop Color="White" Offset="1"/>
-                                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
-                                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
+                                </Grid>
+                            </materialDesign:Card>
                         </Grid>
 
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40"></RowDefinition>
-                                <RowDefinition Height="*" ></RowDefinition>
-                                <RowDefinition Height="40"></RowDefinition>
-                            </Grid.RowDefinitions>
+                        <Grid Grid.Column="2" Margin="5 5 0 0">
 
-                            <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="15" Background="{x:Null}">
-                                <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
-                                    <Button Command="{Binding g_iCm_ClickOpenMailCommand}" 
+                            <Grid Height="40" Width="Auto" VerticalAlignment="Top">
+                                <Rectangle Height="40" VerticalAlignment="Top" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF26788A" Offset="1"/>
+                                            <GradientStop Color="#FF8DC1CD" Offset="0.5"/>
+                                            <GradientStop Color="#FF8DB3C5" Offset="0.068"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <Rectangle Height="305" Width="594" VerticalAlignment="Bottom" Margin="0,0,0,-305">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,4" StartPoint="0.5,4">
+                                            <GradientStop Color="White" Offset="1"/>
+                                            <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                                            <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="*" ></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="15" Background="{x:Null}">
+                                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
+                                        <Button Command="{Binding g_iCm_ClickOpenMailCommand}" 
                                             CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                             DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon Kind="Email" Height="22" Width="23" />
-                                    </Button>
+                                            <materialDesign:PackIcon Kind="Email" Height="22" Width="23" />
+                                        </Button>
 
-                                    <Button Command="{Binding g_iCm_ClickExportCommand}" 
+                                        <Button Command="{Binding g_iCm_ClickExportCommand}" 
                                             CommandParameter="{Binding ElementName = detailEmployeesView}" 
                                             DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon Kind="FileExport" Height="22" Width="23" />
-                                    </Button>
+                                            <materialDesign:PackIcon Kind="FileExport" Height="22" Width="23" />
+                                        </Button>
 
-                                    <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
-                                        <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
+                                        <StackPanel  Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
+                                            <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
 
-                                                <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".70" Height="22" Width="23" />
-                                                </Button>
-                                                <TextBox Grid.Column="1" Margin="8 0 0 0" 
+                                                    <Button Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".70" Height="22" Width="23" />
+                                                    </Button>
+                                                    <TextBox Grid.Column="1" Margin="8 0 0 0" 
                                                          materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm" 
                                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"  
                                                          BorderThickness="0" MinWidth="200" VerticalAlignment="Center" FontSize="11"
                                                          Text="{Binding g_str_filter, UpdateSourceTrigger=PropertyChanged}" >
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFilterCommand}" 
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="TextChanged">
+                                                                <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFilterCommand}" 
                                                                                       CommandParameter="{Binding ElementName=detailEmployeesView}"/>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </TextBox>
-                                            </Grid>
-                                        </materialDesign:ColorZone>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </TextBox>
+                                                </Grid>
+                                            </materialDesign:ColorZone>
 
-                                        <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
-                                            <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
-                                        </Button>
-                                    </StackPanel>
-                                </DockPanel>
-                            </materialDesign:ColorZone>
+                                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                                                <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
 
-                            <Grid Grid.Row="1">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <ListView x:Name="lsVCustomer"  
+                                <Grid Grid.Row="1">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ListView x:Name="lsVCustomer"  
                                               ItemsSource="{Binding g_listOrders}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Header="Thời gian" Width="90" DisplayMemberBinding="{Binding ORDERDATE, StringFormat={}{0:dd/MM/yyyy}}"></GridViewColumn>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Thời gian" Width="90" DisplayMemberBinding="{Binding ORDERDATE, StringFormat={}{0:dd/MM/yyyy}}"></GridViewColumn>
 
-                                                <GridViewColumn Header="Mã đơn hàng" Width="110" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                                                    <GridViewColumn Header="Mã đơn hàng" Width="110" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
 
-                                                <GridViewColumn Header="Mã số khách hàng" Width="140" DisplayMemberBinding="{Binding CUSTOMERID}"></GridViewColumn>
+                                                    <GridViewColumn Header="Mã số khách hàng" Width="140" DisplayMemberBinding="{Binding CUSTOMERID}"></GridViewColumn>
 
-                                                <GridViewColumn Header="Tổng tiền" Width="90" DisplayMemberBinding="{Binding TOTALMONEY}"></GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                </ScrollViewer>
-                            </Grid>
-
-                            <Grid Grid.Row="2" 
-                                  Height="30">
-                                <Grid Width="300">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Kind="PagePrevious"/>
-                                    </Button>
-
-                                    <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
-                                    </Button>
-
-                                    <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
-                                    </Button>
-
-                                    <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
-                                    </Button>
-
-                                    <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
-                                    </Button>
-
-                                    <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
-                                    </Button>
-
-                                    <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                        <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
-                                    </Button>
+                                                    <GridViewColumn Header="Tổng tiền" Width="90" DisplayMemberBinding="{Binding TOTALMONEY}"></GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </ScrollViewer>
                                 </Grid>
-                            </Grid>
 
+                                <Grid Grid.Row="2" 
+                                  Height="30">
+                                    <Grid Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Kind="PagePrevious"/>
+                                        </Button>
+
+                                        <Button Grid.Column="1" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericOne"/>
+                                        </Button>
+
+                                        <Button  Grid.Column="2" Height="30"  Width="30"  Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericTwo"/>
+                                        </Button>
+
+                                        <Button Grid.Column="3" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30" Kind="NumericThree"/>
+                                        </Button>
+
+                                        <Button  Grid.Column="4" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFour"/>
+                                        </Button>
+
+                                        <Button Grid.Column="5" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray"  Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center" Width="20" Height="30"  Kind="NumericFive"/>
+                                        </Button>
+
+                                        <Button Grid.Column="6" Height="30"  Width="30" Background= "White" BorderBrush="#FF28878B" FontSize="20" Foreground="DarkGray" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                            <materialDesign:PackIcon Margin="-7" HorizontalAlignment="Center"   Kind="PageNext"/>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </materialDesign:TransitioningContent>
+            </materialDesign:TransitioningContent>
 
-        <Grid Height="10" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center"
+            <Grid Height="10" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center"
                     Background="IndianRed" Cursor="ScrollAll">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
                                            CommandParameter="{Binding ElementName=detailEmployeesView}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Grid>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Grid>
 
-        <Button Command="{Binding g_iCm_ClickCloseCommand}" 
+            <Button Command="{Binding g_iCm_ClickCloseCommand}" 
                 CommandParameter="{Binding ElementName=detailEmployeesView}"
                 Height="25" Width="25" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Background="IndianRed" Foreground="Black" BorderBrush="#FF8D5BE6" >
-            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center"
+                <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center"
                 Margin="-11 0 -5 0" Kind="Close" Height="25" Width="25"/>
-        </Button>
+            </Button>
+        </Grid>
+        
     </Grid>
 </Window>

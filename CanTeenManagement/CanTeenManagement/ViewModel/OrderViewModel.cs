@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using CanTeenManagement.CO;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -339,8 +340,6 @@ namespace CanTeenManagement.ViewModel
 
             mainWd.Opacity = 0.5;
             p.Opacity = 0.5;
-
-            //this.groupByFollowID();
 
             PayView payV = new PayView();
             payV.ShowDialog();
