@@ -86,7 +86,7 @@
                             <materialDesign:Badged Grid.Column="0"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Badge="3"
+                                                   Badge="{Binding g_i_quantitySoldOut1}"
                                                    BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickSoldOutAllCommand1}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
@@ -101,7 +101,7 @@
                             <materialDesign:Badged Grid.Column="1"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Badge="3"
+                                                   Badge="{Binding g_i_quantityDone1}"
                                                    BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickDoneAllCommand1}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
@@ -113,10 +113,10 @@
                             </materialDesign:Badged>
 
                             <materialDesign:Badged Grid.Column="2"
-                                                    HorizontalAlignment="Center"
+                                                   HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                    Badge="3"
-                                                    BadgeBackground="#FF8DC1CD">
+                                                   Badge="{Binding g_i_quantitySkip1}"
+                                                   BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickSkipAllCommand1}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
                                     Background="#212121" 
@@ -343,7 +343,7 @@
                             <materialDesign:Badged Grid.Column="0"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Badge="3"
+                                                   Badge="{Binding g_i_quantitySoldOut2}"
                                                    BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickSoldOutAllCommand2}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
@@ -357,7 +357,7 @@
                             <materialDesign:Badged Grid.Column="1"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Badge="3"
+                                                   Badge="{Binding g_i_quantityDone2}"
                                                    BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickDoneAllCommand2}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
@@ -369,10 +369,10 @@
                             </materialDesign:Badged>
 
                             <materialDesign:Badged Grid.Column="2"
-                                                    HorizontalAlignment="Center"
+                                                   HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                    Badge="3"
-                                                    BadgeBackground="#FF8DC1CD">
+                                                   Badge="{Binding g_i_quantitySkip2}"
+                                                   BadgeBackground="#FF8DC1CD">
                                 <Button Command="{Binding g_iCm_ClickSkipAllCommand2}"
                                         CommandParameter="{Binding ElementName = sortFoodView}"
                                     Background="#212121" 
