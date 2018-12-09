@@ -23,7 +23,7 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
         public ICommand g_iCm_ClickCloseWindowCommand { get; set; }
-
+        public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
         public OrderDoneViewModel()
         {
             g_iCm_LoadedItemsControlCommand = new RelayCommand<OrderDoneView>((p) => { return true; }, (p) =>
@@ -34,6 +34,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickCloseWindowCommand = new RelayCommand<OrderDoneView>((p) => { return true; }, (p) =>
             {
                 this.clickCloseWindow(p);
+            });
+
+            g_iCm_MouseLeftButtonDownCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                this.mouseLeftButtonDown(p);
             });
         }
 
@@ -60,6 +65,14 @@ namespace CanTeenManagement.ViewModel
 
             this.g_list_OrderDone = new ObservableCollection<ORDERQUEUE>(l_sortFoodVM.g_list_OrderComplete);
 
+        }
+
+        private void mouseLeftButtonDown(Window p)
+        {
+            if (p == null)
+                return;
+
+            p.DragMove();
         }
     }
 }
