@@ -36,6 +36,47 @@ namespace CanTeenManagement.ViewModel
             set { _g_list_OrderComplete = value; OnPropertyChanged(); }
         }
 
+        private int _g_i_quantityDone1;
+        public int g_i_quantityDone1
+        {
+            get => _g_i_quantityDone1;
+            set { _g_i_quantityDone1 = value; OnPropertyChanged();}
+        }
+
+        private int _g_i_quantityDone2;
+        public int g_i_quantityDone2
+        {
+            get => _g_i_quantityDone2;
+            set { _g_i_quantityDone2 = value; OnPropertyChanged();}
+        }
+
+        private int _g_i_quantitySkip1;
+        public int g_i_quantitySkip1
+        {
+            get => _g_i_quantitySkip1;
+            set { _g_i_quantitySkip1 = value; OnPropertyChanged();}
+        }
+
+        private int _g_i_quantitySkip2;
+        public int g_i_quantitySkip2
+        {
+            get => _g_i_quantitySkip2;
+            set { _g_i_quantitySkip2 = value; OnPropertyChanged();}
+        }
+
+        private int _g_i_quantitySoldOut1;
+        public int g_i_quantitySoldOut1
+        {
+            get => _g_i_quantitySoldOut1;
+            set { _g_i_quantitySoldOut1 = value; OnPropertyChanged();}
+        }
+
+        private int _g_i_quantitySoldOut2;
+        public int g_i_quantitySoldOut2
+        {
+            get => _g_i_quantitySoldOut2;
+            set { _g_i_quantitySoldOut2 = value; OnPropertyChanged();}
+        }
         // Curr page.
         private int _g_i_quantityFoodLoad;
         public int g_i_quantityFoodLoad
@@ -133,6 +174,13 @@ namespace CanTeenManagement.ViewModel
         {
             this.loadData1();
             this.loadData2();
+
+            g_i_quantityDone1 = countAllOrder(1, 1);
+            g_i_quantityDone2 = countAllOrder(1, 2);
+            g_i_quantitySkip1 = countAllOrder(2, 1);
+            g_i_quantitySkip2 = countAllOrder(2, 2);
+            g_i_quantitySoldOut1 = countAllOrder(3, 1);
+            g_i_quantitySoldOut2 = countAllOrder(3, 2);
         }
 
         public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> enumeration)
@@ -197,7 +245,7 @@ namespace CanTeenManagement.ViewModel
                       TOTALMONEY = (int)orderDetail.TOTALMONEY,
                       CUSTOMERID = customer.ID.Trim(),
                       CUSTOMERNAME = customer.FULLNAME.Trim(),
-                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
+                      ORDERDATE = orderInfo.ORDERDATE.ToString(),
                       STATUS = orderDetail.STATUS.Trim()
                   }).Take(this.g_i_quantityFoodLoad));
         }
@@ -251,6 +299,8 @@ namespace CanTeenManagement.ViewModel
 
             this.addOrder(p.FOODTYPE);
 
+            addOneToAllOrder(1, p.FOODTYPE);
+
             staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME);
         }
 
@@ -259,6 +309,8 @@ namespace CanTeenManagement.ViewModel
             this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_skip);
 
             this.addOrder(p.FOODTYPE);
+
+            addOneToAllOrder(2, p.FOODTYPE);
 
             staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME);
         }
@@ -274,6 +326,8 @@ namespace CanTeenManagement.ViewModel
             this.updateStatusFood(p.FOODID, staticVarClass.status_soldOut);
 
             this.addOrder(p.FOODTYPE);
+
+            addOneToAllOrder(3, p.FOODTYPE);
 
             staticFunctionClass.showStatusView(true, "Hết món " + p.FOODNAME);
         }
@@ -294,96 +348,72 @@ namespace CanTeenManagement.ViewModel
         #region Click Button All
         private void clickDoneAll1(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Xong" && ord.FOOD.FOODTYPE == 1).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantityDone1 == 0)
             {
-                MessageBox.Show("Chưa có món cơm nào xong");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món cơm nào xong trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 1, 1);
         }
 
         private void clickSkipAll1(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Bỏ qua" && ord.FOOD.FOODTYPE == 1).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantitySkip1 == 0)
             {
-                MessageBox.Show("Không có món cơm nào bị bỏ qua");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món cơm nào bị bỏ qua trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 2, 1);
         }
 
         private void clickSoldOutAll1(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Hết món" && ord.FOOD.FOODTYPE == 1).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantitySoldOut1 == 0)
             {
-                MessageBox.Show("Không có món cơm nào hết món");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món cơm nào hết món trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 3, 1);
         }
 
         private void clickDoneAll2(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Xong" && ord.FOOD.FOODTYPE == 2).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantityDone2 == 0)
             {
-                MessageBox.Show("Chưa có món nước nào xong");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món nước nào xong trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 1, 2);
         }
 
         private void clickSkipAll2(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Bỏ qua" && ord.FOOD.FOODTYPE == 2).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantitySkip2 == 0)
             {
-                MessageBox.Show("Không có món nước nào bị bỏ qua");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món nước nào bị bỏ qua trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 2, 2);
         }
 
         private void clickSoldOutAll2(SortFoodView p)
         {
-            var l_orderCompleteList = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == "Hết món" && ord.FOOD.FOODTYPE == 2).OrderByDescending(ord => ord.ORDERID).ToList();
-
-            int l_i_count = l_orderCompleteList.Count();
-
-            if (l_i_count == 0)
+            if (g_i_quantitySoldOut2 == 0)
             {
-                MessageBox.Show("Không có món nước nào hết món");
+                staticFunctionClass.showStatusView(true, "Chưa có đơn hàng món nước nào hết món trong ngày hôm nay");
                 return;
             }
 
-            loadAllOrder(l_orderCompleteList, l_i_count);
+            loadAllOrder(p, 3, 2);
         }
         #endregion
 
-        private void loadAllOrder(List<ORDERDETAIL> list, int count)
+        private void loadAllOrder(SortFoodView p, int buttonID, int foodType)
         {
             if (g_list_OrderComplete != null)
             {
@@ -391,9 +421,96 @@ namespace CanTeenManagement.ViewModel
             }
             this.g_list_OrderComplete = new ObservableCollection<ORDERQUEUE>();
 
+            string l_status = "Xong";
+            switch(buttonID)
+            {
+                case 1:
+                    l_status = staticVarClass.status_done;
+                    break;
+                case 2:
+                    l_status = staticVarClass.status_skip;
+                    break;
+                case 3:
+                    l_status = staticVarClass.status_soldOut;
+                    break;
+            }
+
+            this.g_list_OrderComplete = this.ToObservableCollection<ORDERQUEUE>
+                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
+                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+                  where food.FOODTYPE == foodType && orderDetail.STATUS == l_status && orderInfo.ORDERDATE == DateTime.Today
+                  orderby orderInfo.ORDERDATE ascending
+                  select new ORDERQUEUE
+                  {
+                      ORDERID = orderDetail.ORDERID.Trim(),
+                      FOODID = food.ID.Trim(),
+                      FOODNAME = food.FOODNAME.Trim(),
+                      FOODTYPE = (int)food.FOODTYPE,
+                      QUANTITY = (int)orderDetail.QUANTITY,
+                      TOTALMONEY = (int)orderDetail.TOTALMONEY,
+                      CUSTOMERID = customer.ID.Trim(),
+                      CUSTOMERNAME = customer.FULLNAME.Trim(),
+                      ORDERDATE = orderInfo.ORDERDATE.ToString(),
+                      STATUS = orderDetail.STATUS.Trim()
+                  }));
+
+            MainWindow mainWd = MainWindow.Instance;
+
+            mainWd.Opacity = 0.5;
+            p.Opacity = 0.5;
 
             OrderDoneView orderDone = new OrderDoneView();
             orderDone.ShowDialog();
+
+            mainWd.Opacity = 100;
+            p.Opacity = 100;
+        }
+
+        private int countAllOrder(int buttonID, int foodType)
+        {
+            string l_status = "Xong";
+            switch (buttonID)
+            {
+                case 1:
+                    l_status = staticVarClass.status_done;
+                    break;
+                case 2:
+                    l_status = staticVarClass.status_skip;
+                    break;
+                case 3:
+                    l_status = staticVarClass.status_soldOut;
+                    break;
+            }
+
+            int count = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == l_status && ord.FOOD.FOODTYPE == foodType && ord.ORDERINFO.ORDERDATE == DateTime.Today).Count();
+            return count;
+        }
+
+        private void addOneToAllOrder (int buttonID, int foodType)
+        {
+            switch (buttonID)
+            {
+                case 1:
+                    if (foodType == 1)
+                        g_i_quantityDone1++;
+                    else
+                        g_i_quantityDone2++;
+                    break;
+                case 2:
+                    if (foodType == 1)
+                        g_i_quantitySkip1++;
+                    else
+                        g_i_quantitySkip2++;
+                    break;
+                case 3:
+                    if (foodType == 1)
+                        g_i_quantitySoldOut1++;
+                    else
+                        g_i_quantitySoldOut2++;
+                    break;
+            }
         }
     }
 }
