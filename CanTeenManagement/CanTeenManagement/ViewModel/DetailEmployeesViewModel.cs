@@ -78,6 +78,24 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        #region Các ô trong edit.
+        private string _g_str_fullNameEdit;
+        public string g_str_fullNameEdit { get => _g_str_fullNameEdit; set { _g_str_fullNameEdit = value; OnPropertyChanged(); } }
+
+        private string _g_str_genderEdit;
+        public string g_str_genderEdit { get => _g_str_genderEdit; set { _g_str_genderEdit = value; OnPropertyChanged(); } }
+
+        private Nullable<int> _g_i_yearOfBirthEdit;
+        public Nullable<int> g_i_yearOfBirthEdit { get => _g_i_yearOfBirthEdit; set { _g_i_yearOfBirthEdit = value; OnPropertyChanged(); } }
+
+        private string _g_str_phoneEdit;
+        public string g_str_phoneEdit { get => _g_str_phoneEdit; set { _g_str_phoneEdit = value; OnPropertyChanged(); } }
+
+        private string _g_str_emailEdit;
+        public string g_str_emailEdit { get => _g_str_emailEdit; set { _g_str_emailEdit = value; OnPropertyChanged(); } }
+        #endregion
+
+        #region Các ô trong gửi mail.
         private EMPLOYEE _g_selectedEmployee;
         public EMPLOYEE g_selectedEmployee
         {
@@ -110,6 +128,7 @@ namespace CanTeenManagement.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
@@ -323,6 +342,11 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 350;
             p.grVSendMail.Height = 0;
+            g_str_fullNameEdit = g_str_fullName;
+            g_str_genderEdit = g_str_gender;
+            g_i_yearOfBirthEdit = g_i_yearOfBirth;
+            g_str_phoneEdit = g_str_phone;
+            g_str_emailEdit = g_str_email;
         }
 
         private bool checkSaveInfo(DetailEmployeesView p)
@@ -343,22 +367,32 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSaveInfo(DetailEmployeesView p)
         {
-            p.grVInfo.Height = 350;
-            p.grVEdit.Height = 0;
-            p.grVSendMail.Height = 0;
-
             var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id).SingleOrDefault();
-            l_employee.FULLNAME = g_str_fullName;
-            l_employee.GENDER = g_str_gender;
-            l_employee.YEAROFBIRTH = g_i_yearOfBirth;
-            l_employee.PHONE = g_str_phone;
-            l_employee.EMAIL = g_str_email;
+            l_employee.FULLNAME = g_str_fullNameEdit;
+            l_employee.GENDER = g_str_genderEdit;
+            l_employee.YEAROFBIRTH = g_i_yearOfBirthEdit;
+            l_employee.PHONE = g_str_phoneEdit;
+            l_employee.EMAIL = g_str_emailEdit;
             l_employee.POSITION = g_str_position;
             l_employee.ROLE = g_str_role;
             l_employee.STATUS = g_str_status;
             l_employee.IMAGELINK = g_str_imageLink;
 
             dataProvider.Instance.DB.SaveChanges();
+
+            staticFunctionClass.showStatusView(true, "Sửa thông tin của nhân viên " + g_str_fullName + " thành công!");
+
+            #region Cập nhật lại thông tin.
+            g_str_fullName = g_str_fullNameEdit;
+            g_str_gender = g_str_genderEdit;
+            g_i_yearOfBirth = g_i_yearOfBirthEdit;
+            g_str_phone = g_str_phoneEdit;
+            g_str_email = g_str_emailEdit;
+            #endregion
+
+            p.grVInfo.Height = 350;
+            p.grVEdit.Height = 0;
+            p.grVSendMail.Height = 0;
         }
 
         private bool checkExport(DetailEmployeesView p)
@@ -441,40 +475,49 @@ namespace CanTeenManagement.ViewModel
             // Get the selected file name. 
             if (b_result == true)
             {
-                // Open document 
-                string str_fullNameChosen = openFileDialog.FileName; // full name.
-
-                // delete old image.
-                //var path = g_str_imageLink;
-                //g_str_imageLink = @"\\127.0.0.1\CanteenManagement\empty.jpg";
-                //if (path != string.Empty && path.Contains("\\") && path.Contains("."))
-                //{
-                //    const string BackSlash = @"\";
-                //    var foundPos = path.LastIndexOf(BackSlash);
-                //    var fileNameCurrent = path.Substring(foundPos + 1, path.Length - foundPos - 1);
-
-                //    myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
-                //    ftp.delete(fileNameCurrent);
-
-                //}
-
-                // upload new image.
-                var path = str_fullNameChosen;
-                if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+                try
                 {
-                    const string Dot = ".";
-                    var foundPos = path.LastIndexOf(Dot);
-                    var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
-                    var newfileName = g_str_id + "1" + Dot + extension;
-                    myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
-                    ftp.upload(newfileName, str_fullNameChosen);
+                    // Open document 
+                    string str_fullNameChosen = openFileDialog.FileName; // full name.
 
-                    // update image link in database.
-                    g_str_imageLink = staticVarClass.server_serverDirectory + newfileName;
-                    var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id).SingleOrDefault();
-                    l_employee.IMAGELINK = g_str_imageLink;
+                    // delete old image.
+                    //var path = g_str_imageLink;
+                    //g_str_imageLink = @"\\127.0.0.1\CanteenManagement\empty.jpg";
+                    //if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+                    //{
+                    //    const string BackSlash = @"\";
+                    //    var foundPos = path.LastIndexOf(BackSlash);
+                    //    var fileNameCurrent = path.Substring(foundPos + 1, path.Length - foundPos - 1);
 
-                    dataProvider.Instance.DB.SaveChanges();
+                    //    myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
+                    //    ftp.delete(fileNameCurrent);
+
+                    //}
+
+                    // upload new image.
+                    var path = str_fullNameChosen;
+                    if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+                    {
+                        const string Dot = ".";
+                        var foundPos = path.LastIndexOf(Dot);
+                        var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+                        var newfileName = g_str_id + "1" + Dot + extension;
+                        myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
+                        ftp.upload(newfileName, str_fullNameChosen);
+
+                        // update image link in database.
+                        g_str_imageLink = staticVarClass.server_serverDirectory + newfileName;
+                        var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id).SingleOrDefault();
+                        l_employee.IMAGELINK = g_str_imageLink;
+
+                        dataProvider.Instance.DB.SaveChanges();
+
+                        staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
                 }
             }
         }
@@ -484,6 +527,9 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 350;
+            g_selectedEmployee = null;
+            g_str_titleMail = string.Empty;
+            g_str_contentMail = string.Empty;
         }
 
         private bool checkSendMail(DetailEmployeesView p)
@@ -523,13 +569,15 @@ namespace CanTeenManagement.ViewModel
                 client.Send(message);
                 message = null;                         // Free the memory
 
+                staticFunctionClass.showStatusView(true, "Gửi email đến " + l_to + " thành công!");
+
                 p.grVInfo.Height = 350;
                 p.grVEdit.Height = 0;
                 p.grVSendMail.Height = 0;
             }
             catch (Exception ex)
             {
-
+                staticFunctionClass.showStatusView(false, "Gửi email đến " + g_selectedEmployee.EMAIL + " thất bại!");
             }
         }
 

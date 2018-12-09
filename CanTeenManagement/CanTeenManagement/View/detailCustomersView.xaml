@@ -67,14 +67,14 @@
                             </Rectangle.Fill>
                         </Rectangle>
 
-                        <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="155" Margin="10,10,0,0">
+                        <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="135" Margin="10,10,0,0">
                             <Ellipse.Fill>
                                 <ImageBrush ImageSource="{Binding g_str_imageLink, UpdateSourceTrigger=PropertyChanged}"/>
                             </Ellipse.Fill>
                         </Ellipse>
                         <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
                                                 CommandParameter="{Binding ElementName = detailCustomersView}" 
-                                                Margin="127,119,764,5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                Margin="120,119,774,5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                                                 Foreground="White" Background="#FFFF9C00" BorderBrush="#FF28878B" Height="Auto" Width="Auto" RenderTransformOrigin="-0.444,0.593">
                             <materialDesign:PackIcon Kind="Brush" Height="22" Width="17" />
                         </Button>
@@ -136,35 +136,35 @@
                                             <TextBlock Text=" Họ và tên: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                         </StackPanel>
                                         <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            Text="{Binding g_str_fullName}"/>
+                                            Text="{Binding g_str_fullNameEdit}"/>
 
                                         <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                             <materialDesign:PackIcon Kind="GenderMaleFemale" FontSize="100" Foreground="#FF28878B"/>
                                             <TextBlock Text=" Giới tính: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                         </StackPanel>
                                         <ComboBox Name="cbbGender" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            ItemsSource="{Binding g_listGenders}" SelectedItem="{Binding g_str_gender}" />
+                                            ItemsSource="{Binding g_listGenders}" SelectedItem="{Binding g_str_genderEdit}" />
 
                                         <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                             <materialDesign:PackIcon Kind="Counter" FontSize="100" Foreground="#FF28878B"/>
                                             <TextBlock Text=" Năm sinh: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                         </StackPanel>
                                         <ComboBox Name="cbbYearOfBirth" FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            ItemsSource="{Binding g_listYearOfBirth}" SelectedItem="{Binding g_i_yearOfBirth}"/>
+                                            ItemsSource="{Binding g_listYearOfBirth}" SelectedItem="{Binding g_i_yearOfBirthEdit}"/>
 
                                         <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                             <materialDesign:PackIcon Kind="Phone" FontSize="100" Foreground="#FF28878B"/>
                                             <TextBlock Text=" Số điện thoại: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                         </StackPanel>
                                         <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            Text="{Binding g_str_phone}"/>
+                                            Text="{Binding g_str_phoneEdit}"/>
 
                                         <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
                                             <materialDesign:PackIcon Kind="Mail" FontSize="100" Foreground="#FF28878B"/>
                                             <TextBlock Text=" Email: " Style="{StaticResource MaterialDesignSubheadingTextBlock}"  FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"/>
                                         </StackPanel>
                                         <TextBox FontFamily="Roboto" FontSize="15" HorizontalAlignment="Left" Foreground="#FF28878B"
-                                            Text="{Binding g_str_email}"/>
+                                            Text="{Binding g_str_emailEdit}"/>
                                     </StackPanel>
                                 </Grid>
                             </materialDesign:Card>
