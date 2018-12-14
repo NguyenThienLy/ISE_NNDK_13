@@ -56,32 +56,66 @@
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16" Background="{x:Null}" VerticalAlignment="Top">
-                    <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
-                        <Button  DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="FileExport" Height="20" Width="23"/>
+                <materialDesign:ColorZone Grid.Row="0" 
+                                          Mode="PrimaryMid" 
+                                          Padding="16"
+                                          Background="{x:Null}"
+                                          VerticalAlignment="Top">
+                    <DockPanel  Height="30" 
+                                VerticalAlignment="Top" 
+                                Margin="0 -11">
+                        <Button  DockPanel.Dock="Right" 
+                                 Margin="0 -5" 
+                                 Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="FileExport"
+                                                     Height="20" 
+                                                     Width="23"/>
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickSaveCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
-                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="ContentSave" Height="20" Width="23"/>
+                                DockPanel.Dock="Right"
+                                Margin="0 -5 20 -5" 
+                                Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="ContentSave" 
+                                                     Height="20"
+                                                     Width="23"/>
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickAddCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
-                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="Add" Height="20" Width="23"/>
+                                DockPanel.Dock="Right"
+                                Margin="0 -5"
+                                Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Add"
+                                                     Height="20"
+                                                     Width="23"/>
                         </Button>
 
                         <Button Command="{Binding g_iCm_ClickEditCommand}" 
                                 CommandParameter="{Binding ElementName = customersView}"
-                                DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon Kind="Edit" Height="20" Width="23"/>
+                                DockPanel.Dock="Right" 
+                                Margin="0 -5"
+                                Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Edit"
+                                                     Height="20"
+                                                     Width="23"/>
                         </Button>
 
-                        <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Height="25" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                        <Button Command="{Binding g_iCm_ClickUtilityCommand}" 
+                                CommandParameter="{Binding ElementName = customersView}"
+                                DockPanel.Dock="Right" 
+                                Margin="0 -5 20 -5" 
+                                Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="AttachMoney" 
+                                                     Height="20" 
+                                                     Width="23"/>
+                        </Button>
+
+                        <StackPanel Orientation="Horizontal" 
+                                    materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton Height="25" 
+                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
                             <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="16 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>

@@ -224,7 +224,7 @@
                      Width="100" 
                      Margin="0 10">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding g_str_imageLink}"/>
+                            <ImageBrush ImageSource="{Binding g_imgSrc_employee}"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Height="65" VerticalAlignment="Bottom">

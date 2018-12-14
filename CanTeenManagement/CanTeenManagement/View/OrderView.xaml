@@ -60,10 +60,22 @@
                     <DockPanel  Height="30" 
                                 VerticalAlignment="Top" 
                                 Margin="0 -11">
-                        <ToggleButton  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"  
-                                       VerticalAlignment="Center" 
-                                       DockPanel.Dock="Right" />
-                        <materialDesign:Badged Margin="10 5"  
+
+                        <Button  DockPanel.Dock="Right" Margin="0 -5" Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="FileExport" Height="20" Width="23"/>
+                        </Button>
+
+                        <Button Command="{Binding g_iCm_ClickButtonAddCommand}" 
+                                CommandParameter="{Binding ElementName = orderView}"
+                                DockPanel.Dock="Right" 
+                                Margin="0 -5" 
+                                Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Add" 
+                                                     Height="20"
+                                                     Width="23"/>
+                        </Button>
+
+                        <materialDesign:Badged Margin="20 5"  
                                                Badge="{Binding g_i_currOrderFood}" 
                                                Background="White"
                                                DockPanel.Dock="Right" 
@@ -76,6 +88,7 @@
                                 <materialDesign:PackIcon Kind="Cart" />
                             </Button>
                         </materialDesign:Badged>
+
                         <StackPanel  Orientation="Horizontal" 
                                      materialDesign:RippleAssist.IsCentered="True">
                             <ToggleButton Height="25" 
@@ -114,12 +127,13 @@
                                     </TextBox>
                                 </Grid>
                             </materialDesign:ColorZone>
-                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}"
-                                     Margin="8 0 0 0" Panel.ZIndex="0">
-                                <materialDesign:PackIcon Kind="Send" />
+
+                            <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
+                                <materialDesign:PackIcon Kind="Send" Height="22" Width="23" />
                             </Button>
                         </StackPanel>
                     </DockPanel>
+
                 </materialDesign:ColorZone>
 
                 <Grid Grid.Row="1">
@@ -162,8 +176,9 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid Grid.Row="0">
-                                                <Image  Source="{Binding IMAGELINK}"
-                                            Stretch="Fill" />
+                                                <Image Margin="5" 
+                                                       Source="{Binding IMAGESOURCE}"
+                                                       Stretch="Fill" />
 
                                                 <Ellipse Height="40"
                                                          Width= "40"
@@ -238,7 +253,9 @@
                                                           Grid.Row="2"  
                                                           Orientation="Horizontal" 
                                                           Margin="8">
-                                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                                <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonUpdateCommand}"
+                                                        CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignToolButton}"
                                                         Width="30"
                                                         Padding="2 0 2 0" 
                                                         materialDesign:RippleAssist.IsCentered="True">
@@ -251,6 +268,7 @@
                                                     <materialDesign:RatingBar Value="{Binding STAR}" 
                                                                               Orientation="Horizontal" 
                                                                               Foreground="Gold" 
+                                                                             IsHitTestVisible="False"
                                                                               />
                                                 </Button>
                                                 <materialDesign:PopupBox Padding="2 0 2 0">
@@ -273,13 +291,17 @@
                     <Grid Grid.Column="1" >
 
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="220"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" >
-                            <Grid Margin="0 10"  VerticalAlignment="Top" Height="130" Width="140">
-                                <Slider x:Name="sliderPrice" HorizontalAlignment="Left" 
+                            <Grid Margin="0 10"  
+                                  VerticalAlignment="Top"
+                                  Height="130" Width="140">
+                                
+                                <Slider x:Name="sliderPrice"
+                                        HorizontalAlignment="Left" 
                                         Width="30" 
                                         Height="120"  
                                         TickFrequency="5" 
@@ -306,6 +328,7 @@
                                                Width="80" Height="15" 
                                                FontFamily="Cooper Black" TextAlignment="Center" 
                                                Margin="0 0 15 5"/>
+                            
                                 <TextBlock Text="30.000 đ" 
                                                FontSize="13" 
                                                Foreground="Red" 
@@ -316,6 +339,7 @@
                                                FontFamily="Cooper Black" 
                                                TextAlignment="Center" 
                                                Margin="0 0 15 15"/>
+                                
                                 <TextBlock Text="50.000 đ" 
                                                FontSize="13" Foreground="Red" 
                                                VerticalAlignment="Top" 
@@ -326,72 +350,22 @@
                                                Margin="0 2 15 0"/>
                             </Grid>
 
-                            <Grid Margin="0 15" VerticalAlignment="Bottom" Height="120" Width="140" >
-                                <StackPanel VerticalAlignment="Top" 
-                                                Height="120" 
-                                                Width="140">
+                            <Grid Margin="0 15" VerticalAlignment="Bottom" Height="50" Width="140" >
 
-                                    <materialDesign:RatingBar x:Name="ratingBarOne"
-                                                              Value="1"  
-                                                              Foreground="Gold" >
+                                    <materialDesign:RatingBar x:Name="ratingBar"
+                                                              Value="5"  
+                                                              Foreground="Gold"
+                                                              VerticalAlignment="Center">
 
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
-                                             CommandParameter="{Binding ElementName = ratingBarOne}"/>
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
+                                             CommandParameter="{Binding ElementName = ratingBar}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
 
                                     </materialDesign:RatingBar>
-
-                                    <materialDesign:RatingBar  x:Name="ratingBarTwo"
-                                                               Value="2"  
-                                                              Foreground="Gold" >
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
-                                             CommandParameter="{Binding ElementName = ratingBarTwo}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-
-                                    </materialDesign:RatingBar>
-                                    <materialDesign:RatingBar x:Name="ratingBarThree"
-                                                              Value="3" 
-                                                              Foreground="Gold" >
-
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
-                                             CommandParameter="{Binding ElementName = ratingBarThree}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-
-                                    </materialDesign:RatingBar>
-                                    <materialDesign:RatingBar x:Name="ratingBarFour"
-                                                              Value="4" 
-                                                              Foreground="Gold" >
-
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
-                                             CommandParameter="{Binding ElementName = ratingBarFour}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-
-                                    </materialDesign:RatingBar>
-                                    <materialDesign:RatingBar  x:Name="ratingBarFive"
-                                                               Value="5"  
-                                                              Foreground="Gold" >
-
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
-                                             CommandParameter="{Binding ElementName = ratingBarFive}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-
-                                    </materialDesign:RatingBar>
-                                </StackPanel>
+                           
                             </Grid>
 
                         </Grid>

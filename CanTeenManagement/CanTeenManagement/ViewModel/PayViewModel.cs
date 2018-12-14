@@ -109,19 +109,6 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private bool _g_b_isEnableQuantity;
-        public bool g_b_isEnableQuantity
-        {
-            get => _g_b_isEnableQuantity;
-
-            set
-            {
-                _g_b_isEnableQuantity = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         #region command.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
 
@@ -150,11 +137,6 @@ namespace CanTeenManagement.ViewModel
         public PayViewModel()
         {
             this.initSupport();
-
-            g_iCm_LoadedItemsControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
-            {
-                this.loaded(p);
-            });
 
             g_iCm_ClickButtonPayCommand = new RelayCommand<Button>((p) => { return this.checkButtonPay(); }, (p) =>
             {
@@ -209,24 +191,24 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
-            this.g_i_sumPrice = 0;
-            this.g_i_customerStar = 0;
+            this.g_i_sumPrice = 0;          
             this.g_b_isPay = false;
-            this.g_b_isEnableQuantity = true;
 
+            this.loadedItemsControl();
             this.resetCustomer();
         }
 
         private void resetCustomer()
         {
             this.g_b_isPay = false;
+            this.g_i_customerStar = 0;
 
-            this.g_str_customerID = "Empty id";
-            this.g_str_customerfullName = "Empty full name";
+            this.g_str_customerID = "Trống";
+            this.g_str_customerfullName = "Tên khách hàng trống";
             this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
         }
 
-        private void loaded(ItemsControl p)
+        private void loadedItemsControl()
         {
             OrderView orderView = OrderView.Instance;
 
@@ -284,10 +266,10 @@ namespace CanTeenManagement.ViewModel
                 this.saveOrderInfo();
                 this.saveOrderDetail();
                 this.addPointForCustomer();
+                this.enableAllQuantityTextBox();
 
                 this.g_b_isPay = true;
-                this.g_b_isEnableQuantity = false;
-          
+
                 staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
                     + " Cho khách hàng " + this.g_str_customerfullName.Trim()
                     + " phụ trách bởi " + staticVarClass.account_userName);
@@ -297,6 +279,15 @@ namespace CanTeenManagement.ViewModel
                 staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
                    + " phụ trách bởi " + staticVarClass.account_userName);
+            }
+        }
+
+        private void enableAllQuantityTextBox()
+        {
+            int i = 0;
+            for (i = 0; i < this.g_obCl_payFood.Count(); i++)
+            {
+                this.g_obCl_payFood[i].ISENABLEQUANTITY = false;
             }
         }
 
@@ -478,6 +469,11 @@ namespace CanTeenManagement.ViewModel
         private void clickCheckBox(PAYFOOD p)
         {
             //p.IsChecked = false;
+            if (p.ISCHECKED == false)
+                p.ISENABLEQUANTITY = false;
+            else
+                p.ISENABLEQUANTITY = true;
+
             //sud price this in sum price.
             this.g_i_sumPrice = this.getSumPrice();
         }
@@ -494,15 +490,8 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonRemove(PAYFOOD p)
         {
-            int i_Index = this.g_obCl_payFood.IndexOf(p);
-
             p.QUANTITY--;
             this.g_i_sumPrice -= p.PRICESALE;
-
-            PAYFOOD l_payFood = new PAYFOOD(p);
-
-            this.g_obCl_payFood[i_Index] = l_payFood;
-
         }
         #endregion
 
@@ -517,14 +506,8 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonAdd(PAYFOOD p)
         {
-            int i_Index = this.g_obCl_payFood.IndexOf(p);
-
             p.QUANTITY++;
             this.g_i_sumPrice += p.PRICESALE;
-
-            PAYFOOD l_payFood = new PAYFOOD(p);
-
-            this.g_obCl_payFood[i_Index] = l_payFood;
         }
         #endregion
 

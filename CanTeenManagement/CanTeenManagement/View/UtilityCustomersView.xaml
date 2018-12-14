@@ -1,0 +1,473 @@
+﻿<Window x:Class="CanTeenManagement.View.UtilityCustomersView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanTeenManagement.View"
+        mc:Ignorable="d"
+        x:Name="utityCustomersView"     
+        Title="UtityCustomersView" 
+            
+        xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+   
+         FontFamily="{DynamicResource MaterialDesignFont}"
+         DataContext="{StaticResource UtilityCustomersVM}"
+       
+         Height="520"
+         Width="940"
+         WindowStartupLocation ="CenterScreen"
+         ResizeMode="NoResize"
+         WindowStyle="None"
+         AllowsTransparency="True"
+         Background="Transparent">
+
+    <Grid Margin="0 0 20 20" Background="White"  >
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" 
+                              Direction="-90"
+                              RenderingBias="Quality"
+                              ShadowDepth="2"/>
+        </Grid.Effect>
+
+        <Grid x:Name="gvMain" >
+
+            <Rectangle Height="500" Width="920" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+
+                <Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="350"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <materialDesign:Card 
+                                         Height="480"
+                                         VerticalAlignment="Center"
+                                         Margin="10 0 10 0" 
+                                         Background="White">
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="70"></RowDefinition>
+                                            <RowDefinition Height="130"></RowDefinition>
+                                            <RowDefinition Height="20"></RowDefinition>
+                                            <RowDefinition Height="100"></RowDefinition>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="0" 
+                                                     HorizontalAlignment="Center"
+                                                     Orientation="Horizontal">
+
+                                            <ToggleButton x:Name="tglBtnMode"
+                                                          Command="{ Binding g_iCm_ChangeModeCommand}"
+                                                          CommandParameter="{Binding ElementName = tglBtnMode}" Width="50"
+                                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                                          ToolTip="MaterialDesignSwitchToggleButton with Content and ToggleButtonAssist.OnContent">
+                                                <materialDesign:PackIcon
+                                                                    Kind="AttachMoney"
+                                                                    RenderTransformOrigin=".5,.5">
+                                                </materialDesign:PackIcon>
+
+                                                <materialDesign:ToggleButtonAssist.OnContent>
+                                                    <materialDesign:PackIcon
+                                                                        Kind="MoneyOff" />
+                                                </materialDesign:ToggleButtonAssist.OnContent>
+                                            </ToggleButton>
+
+                                            <TextBlock FontSize="40"
+                                                     Margin="5"
+                                                     TextWrapping="Wrap"
+                                                     FontWeight="DemiBold"
+                                                     VerticalAlignment="Center"
+                                                     Text="{Binding g_str_Mode}"/>
+                                        </StackPanel>
+
+                                        <Grid Grid.Row="1">
+                                            <ItemsControl x:Name="itemControlHaveCash" 
+                                                          ItemsSource="{Binding g_obCl_million ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+                                            
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"
+                                                    />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <materialDesign:Chip   
+                                                                         HorizontalContentAlignment="Center"
+                                                                         Margin="10 5 10 5"
+                                                                         Content="{Binding STRMILLION}"
+                                                                         FontSize="15" 
+                                                                         FontWeight="DemiBold"
+                                                                         IconBackground="{x:Null}"
+                                                                         IconForeground="#FF26788A" 
+                                                                         Height="Auto">
+
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseDoubleClick">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveCash, Path = DataContext.g_iCm_MouseDoubleClickMillionCommand}"
+                                                                          CommandParameter="{Binding}"/>
+                                                                </i:EventTrigger>
+
+                                                                <i:EventTrigger EventName="MouseRightButtonUp">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveCash, Path = DataContext.g_iCm_MouseRightButtonUpMillionCommand}"
+                                                                          CommandParameter="{Binding}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+
+                                                            <materialDesign:Chip.Icon>
+                                                                <materialDesign:PackIcon
+                                                                Kind="AttachMoney"></materialDesign:PackIcon>
+                                                            </materialDesign:Chip.Icon>
+                                                            
+                                                        </materialDesign:Chip >
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Grid>
+                             
+                                        <TextBlock Grid.Row="2"
+                                               Text=" Tổng số tiền:"
+                                               FontFamily="Roboto" 
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Center"/>
+
+                                        <StackPanel Grid.Row="3" 
+                                                    HorizontalAlignment="Center"
+                                                    Orientation="Horizontal"
+                                                    Margin="50 0 0 0">
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Column="5"
+                                                    Height="80"
+                                                    Width="80"
+                                                    ToolTip="Giảm đi 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                    Margin="0 0 -2 0"
+                                                    BorderThickness="2"
+                                                    HorizontalAlignment="Right">
+
+                                                <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                           Background="{x:Null}"
+                                                           Foreground="#FF26788A"    
+                                                           Kind="Remove" 
+                                                           Height="30"
+                                                           Width="30"/>
+                                            </Button>
+
+                                            <TextBox Text="{Binding g_i_sumPrice, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
+                                                     BorderBrush="#FF28878B"
+                                                     Height="80"
+                                                     Width="300"          
+                                                     FontSize="50"
+                                                     TextAlignment="Center"
+                                                     BorderThickness="2"
+                                                     FontWeight="DemiBold"
+                                                     VerticalAlignment="Center">
+                                            </TextBox>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Height="80"
+                                                    Width="80"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="-2 0 0 0"
+                                                    BorderThickness="2"
+                                                    ToolTip="Tăng thêm 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                  >
+
+
+                                                <materialDesign:PackIcon
+                                                     Margin="-17 0 -15 0"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Background="{x:Null}"
+                                                     Foreground="#FF26788A"
+                                                     Kind="Add"
+                                                     Height="30"
+                                                     Width="30" />
+
+                                            </Button>
+
+                                            <TextBlock Text=" đ "                                        
+                                               FontSize="40" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="4"
+                                                    HorizontalAlignment="Center"
+                                                    Orientation="Horizontal"
+                                                    >
+                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
+                                                    CommandParameter="{Binding}" 
+                                                    Margin="5 0 5 0"
+                                                    Height="30"
+                                                    Width="30"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                    BorderThickness="2"
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Trở lại trước đó">
+                                                <materialDesign:PackIcon
+                                                          Background="{x:Null}"
+                                                          Foreground="#FF26788A"  
+                                                          Kind="Undo"
+                                                          Height="24"
+                                                          Width="24" />
+                                            </Button>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
+                                                    CommandParameter="{Binding}" 
+                                                    Margin="5 0 5 0"
+                                                    Height="30"
+                                                    Width="30"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                    BorderThickness="2"
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Làm trống tổng số tiền">
+                                                <materialDesign:PackIcon
+                                                          Background="{x:Null}"
+                                                          Foreground="#FF26788A"  
+                                                          Kind="Cleaning"
+                                                          Height="24"
+                                                          Width="24" />
+                                            </Button>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
+                                                    CommandParameter="{Binding}" 
+                                                    Margin="5 0 5 0"
+                                                    Height="30"
+                                                    Width="30"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                    BorderThickness="2"
+                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                    ToolTip="Trở lại sau đó">
+                                                <materialDesign:PackIcon
+                                                          Background="{x:Null}"
+                                                          Foreground="#FF26788A"  
+                                                          Kind="Redo"
+                                                          Height="24"
+                                                          Width="24" />
+                                            </Button>
+                                        </StackPanel>
+
+                                        <Grid Grid.Row="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <Button x:Name="btnPay" 
+                                                     Command="{Binding g_iCm_ClickButtonPayCommand}"  
+                                                     CommandParameter="{Binding ElementName=btnPay}" 
+                                                     Grid.Row="4"                          
+                                                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                     HorizontalAlignment="Center"
+                                                     Width="160" Height="50"                                            
+                                                     FontSize="20" FontWeight="SemiBold" 
+                                                     Background="#43A047" 
+                                                     BorderBrush="#43A047"
+                                                     Content="Đồng ý">
+                                            </Button>
+
+                                            <Button x:Name="btnUndo" 
+                                                    Grid.Column="1"
+                                Command="{Binding g_iCm_ClickButtonUndoCommand}"  
+                                CommandParameter="{Binding ElementName=btnUndo}" 
+                                 Grid.Row="5"                          
+                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                 HorizontalAlignment="Center"
+                                 Width="160" Height="50"                                            
+                                 FontSize="20" FontWeight="SemiBold" 
+                                 Background="#D50000" 
+                                 BorderBrush="#D50000" 
+                                 Content="Hoàn tác">
+
+                                            </Button>
+
+                                        </Grid>
+                                    </Grid>
+
+                                </materialDesign:Card>
+
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="150"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Ellipse   Grid.Column="0"
+                                               Height="150"
+                                               Width="150"
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Left">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding g_str_customerImageLink}"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+
+                                    <StackPanel Grid.Column="1"
+                                        Orientation="Vertical">
+                                        <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
+                                                                  Foreground="Gold"
+                                                                  IsHitTestVisible="False"/>
+                                        <TextBlock TextWrapping="Wrap"
+                                        Text="{Binding g_str_customerfullName}"   
+                                        FontSize="30"
+                                       FontWeight="Bold">
+
+                                        </TextBlock>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock 
+                                       Text="Customer ID: " 
+                                       FontSize="15"
+                                       FontWeight="Bold"  VerticalAlignment="Center" >
+                                            </TextBlock>
+
+                                            <TextBox x:Name="txtCustomerID" 
+                                       Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       CaretBrush="#FF36AE98" >
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}" 
+                                                                   CommandParameter="{Binding ElementName = txtCustomerID}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+                                        </StackPanel>
+
+
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="50"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="50"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="1"
+                                               Text="Số tiền hiện có:"
+                                               FontFamily="Roboto" 
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="2" 
+                                             HorizontalAlignment="Center" 
+                                             VerticalAlignment="Center"
+                                             Text="{Binding g_i_customerCash, StringFormat='{}{0:#,#} đ'}"
+                                             FontSize="30"
+                                             FontWeight="DemiBold" >
+                                    </TextBlock>
+
+                                    <TextBlock Grid.Row="3"
+                                               Text="Số điểm hiện có:"
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="4" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Text="{Binding g_i_customerPoint}"
+                                               FontSize="30"
+                                               FontWeight="DemiBold" >
+                                    </TextBlock>
+
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Height=" 10" 
+                  Width=" 100"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Center"
+                  Background="IndianRed"
+                  Cursor="ScrollAll">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                   CommandParameter="{Binding ElementName = utityCustomersView}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Grid>
+
+                    <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
+                         CommandParameter="{Binding ElementName=utityCustomersView}" 
+                         x:Name="btnClose" 
+                         
+                         Height="25"
+                         Width="25"
+                         VerticalAlignment="Top" 
+                         HorizontalAlignment="Right"
+                         Background="IndianRed" 
+                         Foreground="Black" BorderBrush="#FF8D5BE6" 
+                         >
+                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Margin="-11 0 -5 0" Kind="Close"
+                                             Height="25" Width="25"/>
+                    </Button>
+
+                </Grid>
+            </materialDesign:TransitioningContent>
+        </Grid>
+
+    </Grid>
+</Window>

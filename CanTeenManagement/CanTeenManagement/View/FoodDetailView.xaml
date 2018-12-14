@@ -1,0 +1,601 @@
+﻿<Window x:Class="CanTeenManagement.View.FoodDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanTeenManagement.View"
+        mc:Ignorable="d"
+        x:Name="foodDetailView"
+        
+        xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+   
+         FontFamily="{DynamicResource MaterialDesignFont}"
+         DataContext="{StaticResource foodDetailVM}"
+       
+         Height="520"
+         Width="940"
+         WindowStartupLocation ="CenterScreen"
+         ResizeMode="NoResize"
+         WindowStyle="None"
+         AllowsTransparency="True"
+         Background="Transparent">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedWindowCommand}" 
+                                   CommandParameter="{Binding ElementName = foodDetailView}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Margin="0 0 20 20" Background="White"  >
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" 
+                              Direction="-90"
+                              RenderingBias="Quality"
+                              ShadowDepth="2"/>
+        </Grid.Effect>
+
+        <Grid x:Name="gvMain" >
+
+            <Rectangle Height="500" Width="920" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+               
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="220"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:Card Grid.Column="0"
+                                         Height="480"
+                                         VerticalAlignment="Center"
+                                         Margin="10 0 10 0" 
+                                         Background="White">
+                        
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" 
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+
+                                <materialDesign:PackIcon Kind="Food" Height="25" Width="25"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#FF28878B"/>
+                                <TextBlock Text=" Tên món: "
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontWeight="DemiBold"
+                                               />
+
+                                <TextBox FontSize="30"
+                                         Margin="5"
+                                         TextWrapping="Wrap"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding g_str_foodName}"
+                                            />
+                            </StackPanel>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="0" Margin="10 0" Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="AttachMoney" 
+                                                                 Height="25" 
+                                                                 Width="25"
+                                                                 VerticalAlignment="Center"
+                                                                 Foreground="#FF28878B"/>
+
+                                            <TextBlock Text=" Giá thành: "  
+                                               FontWeight="DemiBold"
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Bottom" 
+                                               Margin="0,0,0,13"></TextBlock>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Column="5"
+                                                    Height="30"
+                                                    Width="30"
+                                                    ToolTip="Giảm đi 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                    Margin="0 0 -2 0"
+                                    BorderThickness="2"
+                                    HorizontalAlignment="Right">
+
+                                                <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                           Background="{x:Null}"
+                                                           Foreground="#FF26788A"    
+                                                           Kind="Remove" 
+                                                           Height="20"
+                                                           Width="20"/>
+                                            </Button>
+
+                                            <TextBox Text="{Binding g_i_price, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
+                                                     BorderBrush="#FF28878B"
+                                                     Height="30"
+                                                     Width="70"          
+                                                     FontSize="18"
+                                                     BorderThickness="2"
+                                                     TextAlignment="Center"                
+                                                     IsEnabled="{Binding ISENABLEQUANTITY}">
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
+                                                                          CommandParameter="{Binding}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Height="30"
+                                                    Width="30"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="-2 0 0 0"
+                                                    BorderThickness="2"
+                                                    ToolTip="Tăng thêm 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                  >
+
+
+                                                <materialDesign:PackIcon
+                                                     Margin="-17 0 -15 0"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Background="{x:Null}"
+                                                     Foreground="#FF26788A"
+                                                     Kind="Add"
+                                                     Height="20"
+                                                     Width="20" />
+
+                                            </Button>
+
+                                            <TextBlock Text=" đ "                                        
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="1" 
+                                                    Margin="10 0"
+                                                    Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Sale" 
+                                                                 Height="25" 
+                                                                 Width="25"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#FF28878B"/>
+
+                                            <TextBlock Text=" Giảm giá: "  
+                                               FontWeight="DemiBold"
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+                                            
+                                            <ListBox
+                                               FontSize="20" 
+                                               VerticalAlignment="Center"/>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Column="5"
+                                                    Height="30"
+                                                    Width="30"
+                                                    ToolTip="Giảm đi 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A"
+                                                    Margin="0 0 -3 0"
+                                                    BorderThickness="2"
+                                                    HorizontalAlignment="Right">
+
+                                                <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                           Background="{x:Null}"
+                                                           Foreground="#FF26788A"    
+                                                           Kind="Remove" 
+                                                           Height="20"
+                                                           Width="20"/>
+                                            </Button>
+
+                                            <TextBox Text="{Binding g_i_sale, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                     BorderBrush="#FF28878B"
+                                                     Height="30"
+                                                     Width="50"          
+                                                     FontSize="18"
+                                                     BorderThickness="2"
+                                                     
+                                                     TextAlignment="Center"
+                                                     IsEnabled="{Binding ISENABLEQUANTITY}">
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
+                                                                          CommandParameter="{Binding}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+
+                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Height="30"
+                                                    Width="30"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="-1 0 0 0"
+                                                    BorderThickness="2"
+                                                    ToolTip="Tăng thêm 1 đơn vị"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="#FF26788A">
+                                                
+                                                <materialDesign:PackIcon
+                                                     Margin="-17 0 -15 0"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Background="{x:Null}"
+                                                     Foreground="#FF26788A"
+                                                     Kind="Add"
+                                                     Height="20"
+                                                     Width="20" />
+
+                                            </Button>
+
+                                            <TextBlock Text=" % "                                        
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="2"
+                                                Margin="10 0"
+                                                Orientation="Horizontal">
+
+                                            <materialDesign:PackIcon Kind="FoodOff" Height="25" Width="25"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#FF28878B"/>
+                                            <TextBlock Text=" Trạng thái: "
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                                FontWeight="DemiBold"
+                                               />
+
+                                            <ComboBox ItemsSource="{Binding g_lst_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                      SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                      FontSize="20"
+                                                      Margin="5"
+                                             
+                                             VerticalAlignment="Center"
+                                             Text="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                            />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="3"
+                                                Margin="10 0"
+                                                Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Vote" 
+                                                                 Height="25" 
+                                                                 Width="25"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#FF28878B"/>
+
+                                            <TextBlock Text=" Đánh giá: "  
+                                               FontWeight="DemiBold"
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+                                            <materialDesign:RatingBar   x:Name="ratingBarTwo"
+                                                                        VerticalAlignment="Center" 
+                                                                        Value="{Binding g_i_star, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  
+                                                                        Foreground="Gold"/>
+
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="4"
+                                               
+                                                Margin="10 0" 
+                                                Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="MergeType" 
+                                                                     Height="25" 
+                                                                     Width="25"
+                                                                     VerticalAlignment="Center"
+                                                                     Foreground="#FF28878B"/>
+
+                                            <TextBlock Text=" Loại: "  
+                                               FontWeight="DemiBold"
+                                               FontSize="20" 
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"></TextBlock>
+                                            <ComboBox ItemsSource="{Binding g_lst_foodType, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                      SelectedIndex="{Binding g_i_foodType, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                      FontSize="20" 
+                                               
+                                                      VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="5" 
+                                                Margin="10 0"
+                                                Orientation="Horizontal">
+
+                                            <materialDesign:PackIcon Kind="RateReview" 
+                                                                 Height="25" 
+                                                                 Width="25"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#FF28878B"/>
+
+                                            <TextBlock Text=" Mô tả thức ăn: "  
+                                               FontWeight="DemiBold"
+                                               FontSize="20" 
+                                               TextAlignment="Left"
+                                               VerticalAlignment="Center"></TextBlock>
+
+                                        </StackPanel>
+
+                                        <TextBox Grid.Row="6"
+                                                 FontSize="20"
+                                                 Margin="10 0"
+                                                 TextWrapping="Wrap"
+                                                 VerticalAlignment="Top"
+                                                 Text="{Binding g_str_foodDecription, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                        </TextBox>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+
+                                    <Image x:Name="imgEdit"
+                                           Margin="10 50 10 50"        
+                                           Stretch="Fill"
+                                           Source="{Binding g_imgSrc_currFood}">
+                                    </Image>
+
+                                    <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
+                                            CommandParameter="{Binding ElementName = foodDetailView}" 
+                                            Height="50" 
+                                            Width="50"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                            Foreground="White" Background="#FFFF9C00" 
+                                            BorderBrush="#FF28878B" 
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 10 10"  >
+                                        
+                                        <materialDesign:PackIcon Margin="0 10 0 10" 
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center"
+                                                         Kind="Brush" 
+                                                         BorderBrush="Black" 
+                                                         Height="30" Width="30" />
+                                    </Button>
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+
+                    </materialDesign:Card>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="1"
+                                   Text="Hiển thị"
+                                   FontSize="40"
+                                   FontWeight="DemiBold"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        
+                        <materialDesign:Card VerticalAlignment="Center" 
+                                             HorizontalAlignment="Center"
+                                             Grid.Row="2" 
+                                                  Width="200"
+                                                  Height="280"
+                                                  Margin="5 5 5 5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="140" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Image Margin="5
+                                           " Source="{Binding g_imgSrc_currFood}"
+                                            Stretch="Fill" />
+
+                                    <Ellipse Height="40"
+                                                         Width= "40"
+                                                         VerticalAlignment="Top"
+                                                         HorizontalAlignment="Left" 
+                                                         Fill="#FFF32121"
+                                                             >
+                                    </Ellipse>
+
+                                    <Ellipse  Height="36"
+                                                          Width="36"
+                                                          VerticalAlignment="Top"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="2 2" 
+                                                          Stroke="#FFFFF4F4">
+                                    </Ellipse>
+
+                                    <TextBlock Height="16" 
+                                                           Width="36"
+                                                           VerticalAlignment="Top"
+                                                           HorizontalAlignment="Left" 
+                                                           Margin="2 12"
+                                                           Text="{Binding g_i_sale, StringFormat='-{0}%'}"
+                                                           Foreground="#FFFFF4F4" FontStyle="Italic" 
+                                                           TextAlignment="Center"
+                                               />
+                                </Grid>
+
+                                <Button x:Name="btnCart" 
+                                        Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Row="0" 
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Bottom"
+                                         Margin="0 0 16 -20">
+                                    <materialDesign:PackIcon  Kind="Cart" />
+                                </Button>
+
+                                <StackPanel Grid.Row="1" 
+                                                        Margin="8 10 8 0">
+                                    <TextBlock FontWeight="Bold" 
+                                                           Text="{Binding g_str_foodName}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Foreground="Red"
+                                                           Text="{Binding g_i_priceSale, StringFormat='{}{0:#,#} đ' }"
+                                                           FontSize="15"  
+                                                           FontWeight="DemiBold"/>
+                                        <TextBlock  
+                                                           Text="{Binding g_i_price, StringFormat='{}{0:#,#} đ' }"
+                                                           FontSize="13"  
+                                                           FontWeight="DemiBold"
+                                                           Margin="5 0"
+                                                           VerticalAlignment="Bottom"
+                                                           >
+                                            <TextBlock.TextDecorations>
+                                                <TextDecoration Location="Strikethrough">
+                                                    <TextDecoration.Pen>
+                                                        <Pen Brush="Black" />
+                                                    </TextDecoration.Pen>
+                                                </TextDecoration>
+                                            </TextBlock.TextDecorations>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <TextBlock TextWrapping="Wrap" 
+                                                           VerticalAlignment="Center" 
+                                                           Text="{Binding g_str_foodDecription}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel   HorizontalAlignment="Right"  
+                                                          Grid.Row="2"  
+                                                          Orientation="Horizontal" 
+                                                          Margin="8">
+                                    <Button 
+                                            Style="{StaticResource MaterialDesignToolButton}"
+                                                        Width="30"
+                                                        Padding="2 0 2 0" 
+                                                        materialDesign:RippleAssist.IsCentered="True">
+                                        <materialDesign:PackIcon Kind="Update" />
+                                    </Button>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}"  
+                                                        Width="125"  
+                                                        Padding="2 0 2 0"  
+                                                        materialDesign:RippleAssist.IsCentered="True">
+                                        <materialDesign:RatingBar Value="{Binding g_i_star}" 
+                                                                          Orientation="Horizontal" 
+                                                                          Foreground="Gold" 
+                                                                          IsHitTestVisible="False"/>
+                                    </Button>
+                                    <materialDesign:PopupBox Padding="2 0 2 0">
+                                        <StackPanel>
+                                            <Button Content="More" />
+                                            <Button Content="Options" />
+                                        </StackPanel>
+                                    </materialDesign:PopupBox>
+                                </StackPanel>
+
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <Button  Grid.Row="3"  
+                                x:Name="btnSave" 
+                                Command="{Binding g_iCm_ClickButtonSaveCommand}"  
+                                CommandParameter="{Binding ElementName=btnSave}"                       
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                HorizontalAlignment="Center"                       
+                                Width="160" Height="50"                                            
+                                FontSize="20"
+                                FontWeight="SemiBold" 
+                                Background="#43A047" 
+                                BorderBrush="#43A047"
+                                Content="Lưu">
+                        </Button>
+                    </Grid>
+                  
+                </Grid>
+
+            </materialDesign:TransitioningContent>
+
+            <Grid Height=" 10" 
+                  Width=" 100"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Center"
+                  Background="IndianRed"
+                  Cursor="ScrollAll">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                   CommandParameter="{Binding ElementName = foodDetailView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Grid>
+
+            <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
+                         CommandParameter="{Binding ElementName=foodDetailView}" 
+                         x:Name="btnClose" 
+                         
+                         Height="25"
+                         Width="25"
+                         VerticalAlignment="Top" 
+                         HorizontalAlignment="Right"
+                         Background="IndianRed" 
+                         Foreground="Black" 
+                     BorderBrush="#FF8D5BE6" 
+                         >
+                <materialDesign:PackIcon VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Margin="-11 0 -5 0" Kind="Close"
+                                             Height="25" Width="25"/>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

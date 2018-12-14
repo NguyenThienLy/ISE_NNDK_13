@@ -130,6 +130,20 @@ namespace CanTeenManagement.ViewModel
             set { _g_lst_orderFood = value; }
         }
 
+        private ORDERFOOD _g_ordF_orderFood;
+        public ORDERFOOD g_ordF_orderFood
+        {
+            get => _g_ordF_orderFood;
+            set { _g_ordF_orderFood = value; }
+        }
+
+        private bool _g_b_isAdd;
+        public bool g_b_isAdd
+        {
+            get => _g_b_isAdd;
+            set { _g_b_isAdd = value; }
+        }
+
         //#region Các thuộc tính của food.
         //private string _g_str_id;
         //public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
@@ -186,6 +200,10 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_KeyUpTextSearchCommand { get; set; }
 
         public ICommand g_iCm_ClickCartCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonAddCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonUpdateCommand { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -265,6 +283,16 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickCartCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
             {
                 this.clickCart(p);
+            });
+
+            g_iCm_ClickButtonAddCommand = new RelayCommand<OrderView>((p) => { return true; }, (p) =>
+            {
+                this.clickButtonAdd();
+            });
+
+            g_iCm_ClickButtonUpdateCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            {
+                this.clickButtonUpdate(p);
             });
         }
 
@@ -483,6 +511,9 @@ namespace CanTeenManagement.ViewModel
         // group quantity food.
         private void groupByFollowID(PAYFOOD p)
         {
+            if (p == null)
+                return;
+
             int l_i_index = this.g_lst_orderFood.FindIndex(food => food.ID == p.ID);
 
             if (l_i_index != -1)
@@ -498,6 +529,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCart(ORDERFOOD p)
         {
+            if (p == null)
+                return;
+
             // Init quantity food.
             PAYFOOD l_payFood = new PAYFOOD(p);
 
@@ -506,6 +540,45 @@ namespace CanTeenManagement.ViewModel
 
             // Quantity order food.
             this.g_i_currOrderFood++;
+        }
+
+        private void clickButtonAdd()
+        {
+            this.g_b_isAdd = true;
+
+            MainWindow mainWd = MainWindow.Instance;
+            OrderView orderV = OrderView.Instance;
+
+            mainWd.Opacity = 0.5;
+            orderV.Opacity = 0.5;
+
+            FoodDetailView foodDetailV = new FoodDetailView();
+            foodDetailV.ShowDialog();
+
+            mainWd.Opacity = 100;
+            orderV.Opacity = 100;
+        }
+
+        private void clickButtonUpdate(ORDERFOOD p)
+        {
+            if (p == null)
+                return;
+
+            this.g_b_isAdd = false;
+
+            this.g_ordF_orderFood = p;
+
+            MainWindow mainWd = MainWindow.Instance;
+            OrderView orderV = OrderView.Instance;
+
+            mainWd.Opacity = 0.5;
+            orderV.Opacity = 0.5;
+
+            FoodDetailView foodDetailV = new FoodDetailView();
+            foodDetailV.ShowDialog();
+
+            mainWd.Opacity = 100;
+            orderV.Opacity = 100;
         }
     }
 }

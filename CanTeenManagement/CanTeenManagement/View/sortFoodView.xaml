@@ -200,17 +200,17 @@
                                                         </materialDesign:Chip.Icon>
                                                     </materialDesign:Chip>
 
-                                                    <materialDesign:Chip   Grid.Column= "1" 
-                                                                          HorizontalAlignment="Left" 
-                                                                           VerticalAlignment="Center"
-                                                                             HorizontalContentAlignment="Center"
-                                                                             Margin="10 0 0 0"
-                                                                            Content="{Binding STRQUANTITY}"
-                                                        FontSize="15" 
-                                                        FontWeight="DemiBold"
-                                                        IconBackground="{x:Null}"
-                                                        IconForeground="#FF26788A" 
-                                                        Height="Auto">
+                                                    <materialDesign:Chip Grid.Column= "1" 
+                                                                         HorizontalAlignment="Left" 
+                                                                         VerticalAlignment="Center"
+                                                                         HorizontalContentAlignment="Center"
+                                                                         Margin="10 0 0 0"
+                                                                         Content="{Binding STRQUANTITY}"
+                                                                         FontSize="15" 
+                                                                         FontWeight="DemiBold"
+                                                                         IconBackground="{x:Null}"
+                                                                         IconForeground="#FF26788A" 
+                                                                         Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon
@@ -228,17 +228,17 @@
                                                     </Grid.ColumnDefinitions>
 
 
-                                                    <materialDesign:Chip  Grid.Column="0" 
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center" 
-                                                        HorizontalContentAlignment="Center"
-                                                        Margin="10 0"                                        
-                                                        Content="{Binding CUSTOMERNAME}"
-                                                        FontSize="15" 
-                                                              FontWeight="DemiBold"
-                                                        IconBackground="{x:Null}"
-                                                        IconForeground="#FF26788A" 
-                                                                          Height="Auto">
+                                                    <materialDesign:Chip    Grid.Column="0" 
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Center" 
+                                                                            HorizontalContentAlignment="Center"
+                                                                            Margin="10 0"                                        
+                                                                            Content="{Binding CUSTOMERNAME}"
+                                                                            FontSize="15" 
+                                                                            FontWeight="DemiBold"
+                                                                            IconBackground="{x:Null}"
+                                                                            IconForeground="#FF26788A" 
+                                                                            Height="Auto">
 
                                                         <materialDesign:Chip.Icon>
                                                             <materialDesign:PackIcon

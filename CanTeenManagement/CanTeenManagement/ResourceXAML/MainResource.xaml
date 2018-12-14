@@ -18,4 +18,6 @@
     <viewmodel:SortFoodViewModel x:Key="sortFoodVM"></viewmodel:SortFoodViewModel>
     <viewmodel:OrderDoneViewModel x:Key="orderDoneVM"></viewmodel:OrderDoneViewModel>
     <viewmodel:StatusViewModel x:Key="statusVM"></viewmodel:StatusViewModel>
+    <viewmodel:FoodDetailViewModel x:Key="foodDetailVM"></viewmodel:FoodDetailViewModel>
+    <viewmodel:UtilityCustomersViewModel x:Key="UtilityCustomersVM"></viewmodel:UtilityCustomersViewModel>
 </ResourceDictionary>

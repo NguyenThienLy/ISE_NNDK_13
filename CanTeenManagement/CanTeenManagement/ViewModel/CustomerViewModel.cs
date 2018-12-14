@@ -161,6 +161,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_TextChangedFilterCommand { get; set; }
 
         public ICommand g_iCm_ClickDetailCommand { get; set; }
+
+        public ICommand g_iCm_ClickUtilityCommand { get; set; }
         #endregion
 
         public CustomersViewModel()
@@ -200,6 +202,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickDetailCommand = new RelayCommand<CUSTOMER>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
+            });
+
+            g_iCm_ClickUtilityCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
+            {
+                this.clickUtility(p);
             });
         }
 
@@ -413,8 +420,6 @@ namespace CanTeenManagement.ViewModel
 
         private void clickDetail(CUSTOMER p)
         {
-            // Lấy cái p này chính là dòng đang được chọn.
-            // Tui có làm ở trong order view truyền vào pay view bà tham khảo đó nha.
             if (p == null)
                 return;
 
@@ -428,6 +433,24 @@ namespace CanTeenManagement.ViewModel
 
             DetailCustomersView detailCusView = new DetailCustomersView();
             detailCusView.ShowDialog();
+
+            mainWd.Opacity = 100;
+            customersV.Opacity = 100;
+        }
+
+        private void clickUtility(CustomersView p)
+        {
+            if (p == null)
+                return;
+
+            MainWindow mainWd = MainWindow.Instance;
+            CustomersView customersV = CustomersView.Instance;
+
+            mainWd.Opacity = 0.5;
+            customersV.Opacity = 0.5;
+
+            UtilityCustomersView utilityCustomersView = new UtilityCustomersView();
+            utilityCustomersView.ShowDialog();
 
             mainWd.Opacity = 100;
             customersV.Opacity = 100;

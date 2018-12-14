@@ -15,6 +15,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -133,6 +134,17 @@ namespace CanTeenManagement.ViewModel
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
         public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+
+        private ImageSource _g_imgSrc_employee;
+        public ImageSource g_imgSrc_employee
+        {
+            get => _g_imgSrc_employee;
+            set
+            {
+                _g_imgSrc_employee = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_id;
         public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
@@ -295,6 +307,7 @@ namespace CanTeenManagement.ViewModel
             g_str_role = l_employeesVM.g_str_role;
             g_str_status = l_employeesVM.g_str_status;
             g_str_imageLink = l_employeesVM.g_str_imageLink;
+            g_imgSrc_employee = staticFunctionClass.LoadBitmap(g_str_imageLink);
             #endregion
 
             #region đổ dữ liệu vào listview

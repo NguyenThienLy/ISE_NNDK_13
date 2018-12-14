@@ -7,36 +7,80 @@ using System.Threading.Tasks;
 using System.Drawing;
 using CanTeenManagement.View;
 using CanTeenManagement.ViewModel;
+using System.Windows.Media.Imaging;
 
 namespace CanTeenManagement.CO
 {
     class staticFunctionClass
     {
-        //// Hàm load bitmap.
-        //public static Bitmap LoadBitmap(string path)
-        //{
-        //    if (File.Exists(path))
-        //    {
-        //        // open file in read only mode
-        //        using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-        //        // get a binary reader for the file stream
-        //        using (BinaryReader reader = new BinaryReader(stream))
-        //        {
-        //            // copy the content of the file into a memory stream
-        //            var memoryStream = new MemoryStream(reader.ReadBytes((int)stream.Length));
-        //            // make a new Bitmap object the owner of the MemoryStream
-        //            return new Bitmap(memoryStream);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //XtraMessageBox.Show("Error loading file!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return null;
-        //    }
-        //}
+        public static Bitmap LoadBitmap1(string path)
+        {
+            if (File.Exists(path))
+            {
+                // open file in read only mode
+                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+                // get a binary reader for the file stream
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    // copy the content of the file into a memory stream
+                    var memoryStream = new MemoryStream(reader.ReadBytes((int)stream.Length));
+                    // make a new Bitmap object the owner of the MemoryStream
+                    return new Bitmap(memoryStream);
+                }
+            }
+            else
+            {
+                //XtraMessageBox.Show("Error loading file!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        // Load bitmap.
+        public static BitmapImage LoadBitmap(string path)
+        {
+            if (File.Exists(path))
+            {
+                BitmapImage bitmapImg = new BitmapImage();
+
+                bitmapImg.BeginInit();
+
+                bitmapImg.CacheOption = BitmapCacheOption.OnLoad;
+
+                bitmapImg.UriSource = new Uri(path);
+
+                bitmapImg.EndInit();
+
+                return bitmapImg;
+            }
+
+            return null;
+        }
+
+        public static bool deleteFile(string fileName)
+        {
+            myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
+
+            return ftp.delete(fileName);
+        }
+
+        public static string getFormat(string path)
+        {
+            var dot = ".";
+            var foundPos = path.LastIndexOf(dot);
+            var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+
+            return dot + extension;
+        }
+
+        public static bool uploadFile(string fileName, string path)
+        {
+            myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
+
+            return ftp.upload(fileName, path);
+        }
 
         public static string TimeAgo(string strDateTime)
-        {    
+        {
             DateTime dateTime = DateTime.Parse(strDateTime);
             string result = string.Empty;
             var timeSpan = DateTime.Now.Subtract(dateTime);

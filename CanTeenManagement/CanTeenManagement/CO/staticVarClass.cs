@@ -40,6 +40,17 @@ namespace CanTeenManagement.CO
         public static int foodType_three = 3;
         #endregion
 
+        #region food type string.
+        public static string foodTypeStr_one = "Món cơm";
+        public static string foodTypeStr_two = "Món nước";
+        public static string foodTypeStr_three = "Thức ăn có sẵn";
+        #endregion
+
+        #region mode.
+        public static string mode_addCash = "Nạp tiền";
+        public static string mode_subCash = "Rút tiền";
+        #endregion
+
         #region account.
         public static string account_userName = string.Empty;
 
@@ -61,6 +72,7 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region status.
+        public static string status_still= "Còn";
         public static string status_waiting = "Đang chờ";
         public static string status_soldOut = "Hết món";
         public static string status_done = "Xong";

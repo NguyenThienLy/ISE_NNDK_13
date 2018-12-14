@@ -9,6 +9,7 @@ using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
 using CanTeenManagement.CO;
+using System.Windows.Media;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -20,6 +21,17 @@ namespace CanTeenManagement.ViewModel
             get => _g_str_imageLink;
             set
             { _g_str_imageLink = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ImageSource _g_imgSrc_employee;
+        public ImageSource g_imgSrc_employee
+        {
+            get => _g_imgSrc_employee;
+            set
+            {
+                _g_imgSrc_employee = value;
                 OnPropertyChanged();
             }
         }
@@ -205,8 +217,9 @@ namespace CanTeenManagement.ViewModel
             p.Hide();
 
             var loginV = new LoginView();
+            loginV.Topmost = true;
             loginV.ShowDialog();
-
+          
             if (loginV.DataContext == null)
                 return;
 
@@ -242,6 +255,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_str_fullName = l_userInfo.FULLNAME.Trim();
                 this.g_str_imageLink = l_userInfo.IMAGELINK.Trim();
+                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(g_str_imageLink);
             }
         }
 
