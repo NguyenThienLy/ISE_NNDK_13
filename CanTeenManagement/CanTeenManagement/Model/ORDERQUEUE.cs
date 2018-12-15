@@ -59,6 +59,8 @@ namespace CanTeenManagement.Model
 
         public string STATUS { get; set; }
 
+        public string COMPLETIONDATE { get; set; }
+
         public ORDERQUEUE() { }
     }
 }
