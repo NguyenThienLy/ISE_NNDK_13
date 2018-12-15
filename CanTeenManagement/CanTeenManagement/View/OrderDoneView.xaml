@@ -83,8 +83,8 @@
                                         Header="Số lượng"/>
                                     <GridViewColumn
                                         Width="150"
-                                        DisplayMemberBinding="{Binding ORDERDATE}"
-                                        Header="Thời gian"/>
+                                        DisplayMemberBinding="{Binding COMPLETIONDATE}"
+                                        Header="Ngày hoàn thành"/>
                                     <GridViewColumn
                                         Width="100"
                                         DisplayMemberBinding="{Binding STATUS}"
