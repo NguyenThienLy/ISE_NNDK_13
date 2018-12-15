@@ -40,42 +40,42 @@ namespace CanTeenManagement.ViewModel
         public int g_i_quantityDone1
         {
             get => _g_i_quantityDone1;
-            set { _g_i_quantityDone1 = value; OnPropertyChanged();}
+            set { _g_i_quantityDone1 = value; OnPropertyChanged(); }
         }
 
         private int _g_i_quantityDone2;
         public int g_i_quantityDone2
         {
             get => _g_i_quantityDone2;
-            set { _g_i_quantityDone2 = value; OnPropertyChanged();}
+            set { _g_i_quantityDone2 = value; OnPropertyChanged(); }
         }
 
         private int _g_i_quantitySkip1;
         public int g_i_quantitySkip1
         {
             get => _g_i_quantitySkip1;
-            set { _g_i_quantitySkip1 = value; OnPropertyChanged();}
+            set { _g_i_quantitySkip1 = value; OnPropertyChanged(); }
         }
 
         private int _g_i_quantitySkip2;
         public int g_i_quantitySkip2
         {
             get => _g_i_quantitySkip2;
-            set { _g_i_quantitySkip2 = value; OnPropertyChanged();}
+            set { _g_i_quantitySkip2 = value; OnPropertyChanged(); }
         }
 
         private int _g_i_quantitySoldOut1;
         public int g_i_quantitySoldOut1
         {
             get => _g_i_quantitySoldOut1;
-            set { _g_i_quantitySoldOut1 = value; OnPropertyChanged();}
+            set { _g_i_quantitySoldOut1 = value; OnPropertyChanged(); }
         }
 
         private int _g_i_quantitySoldOut2;
         public int g_i_quantitySoldOut2
         {
             get => _g_i_quantitySoldOut2;
-            set { _g_i_quantitySoldOut2 = value; OnPropertyChanged();}
+            set { _g_i_quantitySoldOut2 = value; OnPropertyChanged(); }
         }
         // Curr page.
         private int _g_i_quantityFoodLoad;
@@ -203,7 +203,7 @@ namespace CanTeenManagement.ViewModel
                   join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
                   join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
                   where food.FOODTYPE == staticVarClass.foodType_one && orderDetail.STATUS == staticVarClass.status_waiting
-                  orderby orderInfo.ORDERDATE ascending
+                  orderby orderInfo.ID ascending
                   select new ORDERQUEUE
                   {
                       ORDERID = orderDetail.ORDERID.Trim(),
@@ -215,7 +215,8 @@ namespace CanTeenManagement.ViewModel
                       CUSTOMERID = customer.ID.Trim(),
                       CUSTOMERNAME = customer.FULLNAME.Trim(),
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
-                      STATUS = orderDetail.STATUS.Trim()
+                      STATUS = orderDetail.STATUS.Trim(),
+                      COMPLETIONDATE = DateTime.Today.ToString()
                   }).Take(this.g_i_quantityFoodLoad));
         }
 
@@ -234,7 +235,7 @@ namespace CanTeenManagement.ViewModel
                   join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
                   join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
                   where food.FOODTYPE == staticVarClass.foodType_two && orderDetail.STATUS == staticVarClass.status_waiting
-                  orderby orderInfo.ORDERDATE ascending
+                  orderby orderInfo.ID ascending
                   select new ORDERQUEUE
                   {
                       ORDERID = orderDetail.ORDERID.Trim(),
@@ -257,6 +258,9 @@ namespace CanTeenManagement.ViewModel
                .Where(ord => ord.ORDERID == orderID && ord.FOODID == foodID)
                .ToList().ForEach(ord => ord.STATUS = status);
 
+            dataProvider.Instance.DB.ORDERDETAILs
+               .Where(ord => ord.ORDERID == orderID && ord.FOODID == foodID)
+               .ToList().ForEach(ord => ord.COMPLETIONDATE = DateTime.Today);
             //Lưu thay đổi vào cơ sở dữ liệu
             dataProvider.Instance.DB.SaveChanges();
         }
@@ -422,7 +426,7 @@ namespace CanTeenManagement.ViewModel
             this.g_list_OrderComplete = new ObservableCollection<ORDERQUEUE>();
 
             string l_status = "Xong";
-            switch(buttonID)
+            switch (buttonID)
             {
                 case 1:
                     l_status = staticVarClass.status_done;
@@ -440,7 +444,7 @@ namespace CanTeenManagement.ViewModel
                   join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
                   join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
                   join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
-                  where food.FOODTYPE == foodType && orderDetail.STATUS == l_status && orderInfo.ORDERDATE == DateTime.Today
+                  where food.FOODTYPE == foodType && orderDetail.STATUS == l_status && orderDetail.COMPLETIONDATE == DateTime.Today
                   orderby orderInfo.ORDERDATE ascending
                   select new ORDERQUEUE
                   {
@@ -453,7 +457,8 @@ namespace CanTeenManagement.ViewModel
                       CUSTOMERID = customer.ID.Trim(),
                       CUSTOMERNAME = customer.FULLNAME.Trim(),
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
-                      STATUS = orderDetail.STATUS.Trim()
+                      STATUS = orderDetail.STATUS.Trim(),
+                      COMPLETIONDATE = orderDetail.COMPLETIONDATE.ToString()
                   }));
 
             MainWindow mainWd = MainWindow.Instance;
@@ -484,11 +489,11 @@ namespace CanTeenManagement.ViewModel
                     break;
             }
 
-            int count = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == l_status && ord.FOOD.FOODTYPE == foodType && ord.ORDERINFO.ORDERDATE == DateTime.Today).Count();
+            int count = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == l_status && ord.FOOD.FOODTYPE == foodType && ord.COMPLETIONDATE == DateTime.Today).Count();
             return count;
         }
 
-        private void addOneToAllOrder (int buttonID, int foodType)
+        private void addOneToAllOrder(int buttonID, int foodType)
         {
             switch (buttonID)
             {
