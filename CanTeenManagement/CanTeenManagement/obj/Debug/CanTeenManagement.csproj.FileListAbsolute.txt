@@ -420,3 +420,5 @@ G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
