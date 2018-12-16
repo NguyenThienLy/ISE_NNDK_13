@@ -6,19 +6,19 @@
     <EntitySet Name="FOODs" EntityType="QLCanTinModel.FOOD" />
     <EntitySet Name="ORDERDETAILs" EntityType="QLCanTinModel.ORDERDETAIL" />
     <EntitySet Name="ORDERINFOes" EntityType="QLCanTinModel.ORDERINFO" />
-    <AssociationSet Name="FK__ORDERINFO__CUSTO__0CBAE877" Association="QLCanTinModel.FK__ORDERINFO__CUSTO__0CBAE877">
+    <AssociationSet Name="FK__ORDERINFO__CUSTO__3D5E1FD2" Association="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2">
       <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
       <End Role="ORDERINFO" EntitySet="ORDERINFOes" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERINFO__EMPLO__0DAF0CB0" Association="QLCanTinModel.FK__ORDERINFO__EMPLO__0DAF0CB0">
+    <AssociationSet Name="FK__ORDERINFO__EMPLO__3E52440B" Association="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B">
       <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
       <End Role="ORDERINFO" EntitySet="ORDERINFOes" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERDETA__FOODI__1367E606" Association="QLCanTinModel.FK__ORDERDETA__FOODI__1367E606">
+    <AssociationSet Name="FK__ORDERDETA__FOODI__4222D4EF" Association="QLCanTinModel.FK__ORDERDETA__FOODI__4222D4EF">
       <End Role="FOOD" EntitySet="FOODs" />
       <End Role="ORDERDETAIL" EntitySet="ORDERDETAILs" />
     </AssociationSet>
-    <AssociationSet Name="FK__ORDERDETA__ORDER__1273C1CD" Association="QLCanTinModel.FK__ORDERDETA__ORDER__1273C1CD">
+    <AssociationSet Name="FK__ORDERDETA__ORDER__412EB0B6" Association="QLCanTinModel.FK__ORDERDETA__ORDER__412EB0B6">
       <End Role="ORDERINFO" EntitySet="ORDERINFOes" />
       <End Role="ORDERDETAIL" EntitySet="ORDERDETAILs" />
     </AssociationSet>
@@ -38,7 +38,7 @@
     <Property Name="POINT" Type="Int32" />
     <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="STAR" Type="Int32" />
-    <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__0CBAE877" FromRole="CUSTOMER" ToRole="ORDERINFO" />
+    <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="CUSTOMER" ToRole="ORDERINFO" />
   </EntityType>
   <EntityType Name="EMPLOYEE">
     <Key>
@@ -55,7 +55,7 @@
     <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="ROLE" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__0DAF0CB0" FromRole="EMPLOYEE" ToRole="ORDERINFO" />
+    <NavigationProperty Name="ORDERINFOes" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B" FromRole="EMPLOYEE" ToRole="ORDERINFO" />
   </EntityType>
   <EntityType Name="FOOD">
     <Key>
@@ -70,7 +70,7 @@
     <Property Name="IMAGELINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="STAR" Type="Int32" />
     <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__1367E606" FromRole="FOOD" ToRole="ORDERDETAIL" />
+    <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__4222D4EF" FromRole="FOOD" ToRole="ORDERDETAIL" />
   </EntityType>
   <EntityType Name="ORDERDETAIL">
     <Key>
@@ -81,9 +81,10 @@
     <Property Name="FOODID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="QUANTITY" Type="Int32" />
     <Property Name="TOTALMONEY" Type="Int32" />
+    <Property Name="COMPLETIONDATE" Type="DateTime" Precision="3" />
     <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="FOOD" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__1367E606" FromRole="ORDERDETAIL" ToRole="FOOD" />
-    <NavigationProperty Name="ORDERINFO" Relationship="QLCanTinModel.FK__ORDERDETA__ORDER__1273C1CD" FromRole="ORDERDETAIL" ToRole="ORDERINFO" />
+    <NavigationProperty Name="FOOD" Relationship="QLCanTinModel.FK__ORDERDETA__FOODI__4222D4EF" FromRole="ORDERDETAIL" ToRole="FOOD" />
+    <NavigationProperty Name="ORDERINFO" Relationship="QLCanTinModel.FK__ORDERDETA__ORDER__412EB0B6" FromRole="ORDERDETAIL" ToRole="ORDERINFO" />
   </EntityType>
   <EntityType Name="ORDERINFO">
     <Key>
@@ -95,11 +96,11 @@
     <Property Name="ORDERDATE" Type="DateTime" Precision="3" />
     <Property Name="TOTALMONEY" Type="Int32" />
     <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="CUSTOMER" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__0CBAE877" FromRole="ORDERINFO" ToRole="CUSTOMER" />
-    <NavigationProperty Name="EMPLOYEE" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__0DAF0CB0" FromRole="ORDERINFO" ToRole="EMPLOYEE" />
-    <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__ORDER__1273C1CD" FromRole="ORDERINFO" ToRole="ORDERDETAIL" />
+    <NavigationProperty Name="CUSTOMER" Relationship="QLCanTinModel.FK__ORDERINFO__CUSTO__3D5E1FD2" FromRole="ORDERINFO" ToRole="CUSTOMER" />
+    <NavigationProperty Name="EMPLOYEE" Relationship="QLCanTinModel.FK__ORDERINFO__EMPLO__3E52440B" FromRole="ORDERINFO" ToRole="EMPLOYEE" />
+    <NavigationProperty Name="ORDERDETAILs" Relationship="QLCanTinModel.FK__ORDERDETA__ORDER__412EB0B6" FromRole="ORDERINFO" ToRole="ORDERDETAIL" />
   </EntityType>
-  <Association Name="FK__ORDERINFO__CUSTO__0CBAE877">
+  <Association Name="FK__ORDERINFO__CUSTO__3D5E1FD2">
     <End Type="QLCanTinModel.CUSTOMER" Role="CUSTOMER" Multiplicity="0..1" />
     <End Type="QLCanTinModel.ORDERINFO" Role="ORDERINFO" Multiplicity="*" />
     <ReferentialConstraint>
@@ -111,7 +112,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERINFO__EMPLO__0DAF0CB0">
+  <Association Name="FK__ORDERINFO__EMPLO__3E52440B">
     <End Type="QLCanTinModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
     <End Type="QLCanTinModel.ORDERINFO" Role="ORDERINFO" Multiplicity="*" />
     <ReferentialConstraint>
@@ -123,7 +124,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERDETA__FOODI__1367E606">
+  <Association Name="FK__ORDERDETA__FOODI__4222D4EF">
     <End Type="QLCanTinModel.FOOD" Role="FOOD" Multiplicity="1" />
     <End Type="QLCanTinModel.ORDERDETAIL" Role="ORDERDETAIL" Multiplicity="*" />
     <ReferentialConstraint>
@@ -135,7 +136,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ORDERDETA__ORDER__1273C1CD">
+  <Association Name="FK__ORDERDETA__ORDER__412EB0B6">
     <End Type="QLCanTinModel.ORDERINFO" Role="ORDERINFO" Multiplicity="1" />
     <End Type="QLCanTinModel.ORDERDETAIL" Role="ORDERDETAIL" Multiplicity="*" />
     <ReferentialConstraint>

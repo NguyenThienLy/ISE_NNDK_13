@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -359,11 +360,9 @@ namespace CanTeenManagement.ViewModel
                                 this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
 
                                 // Update image source.
-                                this._g_imgSrc_currFood = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+                                this.g_imgSrc_currFood = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
-                                //this.g_imgSrc_edit = staticFunctionClass.LoadBitmap1(g_str_imageLink);
-
-                                //this.g_imgSrc_edit = new BitmapImage(new Uri(this.g_str_imageLink));
+                                //Thread.Sleep(10000);
 
                                 dataProvider.Instance.DB.FOODs.Where(food => food.ID == this.g_str_id).ToList()
                                                                   .ForEach(food => food.IMAGELINK = g_str_imageLink);

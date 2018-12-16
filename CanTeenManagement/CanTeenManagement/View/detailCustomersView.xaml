@@ -68,27 +68,47 @@
                                 </Rectangle.Fill>
                             </Rectangle>
 
-                            <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Height="135" Width="135" Margin="10,10,0,0">
+                            <Ellipse VerticalAlignment="Top"
+                                     HorizontalAlignment="Left"
+                                     Height="135"
+                                     Width="135" 
+                                     Margin="10,10,0,0">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding g_imgSrc_customer, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ImageBrush ImageSource="{Binding g_imgSrc_customer}"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                             <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
-                                                CommandParameter="{Binding ElementName = detailCustomersView}" 
-                                                Margin="120,119,774,5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                                                Foreground="White" Background="#FFFF9C00" BorderBrush="#FF28878B" Height="Auto" Width="Auto" RenderTransformOrigin="-0.444,0.593">
-                                <materialDesign:PackIcon Kind="Brush" Height="22" Width="17" />
+                                    CommandParameter="{Binding ElementName = detailCustomersView}" 
+                                    Margin="120,119,774,5" 
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                    Foreground="White" 
+                                    Background="#FFFF9C00" 
+                                    BorderBrush="#FF28878B" 
+                                    Height="Auto" Width="Auto">
+
+                                <materialDesign:PackIcon Kind="Brush" 
+                                                         Height="22" 
+                                                         Width="17" />
                             </Button>
-                            <StackPanel Margin="170 0 0 10" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                <TextBlock FontFamily="Roboto" FontSize="30" Foreground="White" FontWeight="Bold"
-                            Text="{Binding g_str_fullName}" Width="398"></TextBlock>
+                            <StackPanel Margin="170 0 0 10"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Left">
+                                <TextBlock FontSize="30"
+                                           Foreground="White" 
+                                           FontWeight="DemiBold"
+                                           Text="{Binding g_str_fullName}" Width="398"></TextBlock>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold">
+                                    <TextBlock FontSize="20" 
+                                               Foreground="White"
+                                               FontWeight="DemiBold">
                                     Mã số khách hàng:
                                     </TextBlock>
 
-                                    <TextBlock FontFamily="Roboto" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10 0 0 0"
+                                    <TextBlock FontSize="20" 
+                                               Foreground="White" 
+                                               FontWeight="DemiBold"
+                                               Margin="10 0 0 0"
                                 Text="{Binding g_str_id}"></TextBlock>
                                 </StackPanel>
                             </StackPanel>
@@ -101,7 +121,8 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+                            <GridSplitter Grid.Column="1" 
+                                          HorizontalAlignment="Stretch"/>
 
                             <Grid x:Name="grVEdit" Grid.Column="0" >
                                 <materialDesign:Card  Background="White">
@@ -114,18 +135,21 @@
                                         <materialDesign:ColorZone Grid.Row="0"  Background="#FF28878B" Height="50" >
                                             <DockPanel  Height="40">
                                                 <Button Command="{Binding g_iCm_ClickGoBackCommand}" 
-                                                CommandParameter="{Binding ElementName = detailCustomersView}" 
-                                                Margin="0 0 0 0" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
-                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B">
+                                                        CommandParameter="{Binding ElementName = detailCustomersView}" 
+                                                        Margin="0 0 0 0" 
+                                                        DockPanel.Dock="Left" Style="{StaticResource MaterialDesignToolButton}" 
+                                                        Foreground="White"
+                                                        Background="#FF29E67F" 
+                                                        BorderBrush="#FF28878B">
                                                     <materialDesign:PackIcon Kind="ArrowLeft" Height="22" Width="23" />
                                                 </Button>
 
                                                 <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"  FontStyle="Italic" FontFamily="Roboto" FontSize="20" Margin="10 0" Foreground="White" Text="Chỉnh sửa thông tin"/>
 
                                                 <Button Command="{Binding g_iCm_ClickSaveInfoCommand}" 
-                                                CommandParameter="{Binding ElementName = detailCustomersView}"
-                                                Margin="45,4,0,4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
-                                                Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
+                                                        CommandParameter="{Binding ElementName = detailCustomersView}"
+                                                        Margin="45,4,0,4" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" 
+                                                        Foreground="White" Background="#FF29E67F" BorderBrush="#FF28878B" Width="46">
                                                     <materialDesign:PackIcon Kind="ContentSave" Height="22" Width="23" />
                                                 </Button>
                                             </DockPanel>
@@ -515,7 +539,7 @@
                 Margin="-11 0 -5 0" Kind="Close" Height="25" Width="25"/>
                     </Button>
                 </Grid>
-        
+
             </materialDesign:TransitioningContent>
         </Grid>
 

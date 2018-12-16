@@ -83,6 +83,7 @@ CREATE TABLE ORDERDETAIL
 	
 	QUANTITY int,
 	TOTALMONEY int,
+	COMPLETIONDATE datetime,
 	STATUS nchar(20),
 
 	PRIMARY KEY (ORDERID, FOODID),
@@ -110,7 +111,7 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STA
 ('FOOD08', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
 ('FOOD09', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
 ('FOOD10', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
-('FOOD11', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD011.jpg',3, N'Còn'),
+('FOOD11', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD11.png',3, N'Còn'),
 ('FOOD12', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
 ('FOOD13', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
 ('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
@@ -131,21 +132,21 @@ INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALU
 ('ORD13', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
 ('ORD14', 'long.nguyen', 'ly.nguyen', '10/11/2018', 60000, N'Đang chờ')
 
-INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY,STATUS) VALUES
-('ORD01', 'FOOD01', 2, 45000, N'Đang chờ'),
-('ORD01', 'FOOD02', 1, 10000, N'Đang chờ'),
-('ORD02', 'FOOD02', 1, 10000, N'Đang chờ'),
-('ORD02', 'FOOD11', 1, 10000, N'Đang chờ'),
-('ORD03', 'FOOD03', 2, 10000, N'Đang chờ'),
-('ORD04', 'FOOD04', 1, 10000, N'Đang chờ'),
-('ORD05', 'FOOD05', 1, 10000, N'Đang chờ'),
-('ORD06', 'FOOD06', 3, 10000, N'Đang chờ'),
-('ORD07', 'FOOD07', 1, 10000, N'Đang chờ'),
-('ORD08', 'FOOD08', 1, 10000, N'Đang chờ'),
-('ORD09', 'FOOD09', 2, 10000, N'Đang chờ'),
-('ORD10', 'FOOD10', 1, 10000, N'Đang chờ'),
-('ORD11', 'FOOD11', 3, 10000, N'Đang chờ'),
-('ORD12', 'FOOD12', 2, 10000, N'Đang chờ'),
-('ORD13', 'FOOD13', 1, 10000, N'Đang chờ'),
-('ORD14', 'FOOD14', 1, 10000, N'Đang chờ')
+INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY, COMPLETIONDATE,STATUS) VALUES
+('ORD01', 'FOOD01', 2, 45000,'10/11/2018', N'Đang chờ'),
+('ORD01', 'FOOD02', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD02', 'FOOD02', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD02', 'FOOD11', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD03', 'FOOD03', 2, 10000,'10/11/2018', N'Đang chờ'),
+('ORD04', 'FOOD04', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD05', 'FOOD05', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD06', 'FOOD06', 3, 10000,'10/11/2018', N'Đang chờ'),
+('ORD07', 'FOOD07', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD08', 'FOOD08', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD09', 'FOOD09', 2, 10000,'10/11/2018', N'Đang chờ'),
+('ORD10', 'FOOD10', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD11', 'FOOD11', 3, 10000,'10/11/2018', N'Đang chờ'),
+('ORD12', 'FOOD12', 2, 10000,'10/11/2018', N'Đang chờ'),
+('ORD13', 'FOOD13', 1, 10000,'10/11/2018', N'Đang chờ'),
+('ORD14', 'FOOD14', 1, 10000,'10/11/2018', N'Đang chờ')
 

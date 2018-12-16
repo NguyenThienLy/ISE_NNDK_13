@@ -11,6 +11,7 @@ using System.Windows.Input;
 using CanTeenManagement.CO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -59,6 +60,17 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_customerImageLink = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ImageSource _g_imgSrc_customer;
+        public ImageSource g_imgSrc_customer
+        {
+            get => _g_imgSrc_customer;
+            set
+            {
+                _g_imgSrc_customer = value;
                 OnPropertyChanged();
             }
         }
@@ -138,6 +150,11 @@ namespace CanTeenManagement.ViewModel
         {
             this.initSupport();
 
+            g_iCm_LoadedItemsControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
+            {
+                this.loadedItemsControl();
+            });
+
             g_iCm_ClickButtonPayCommand = new RelayCommand<Button>((p) => { return this.checkButtonPay(); }, (p) =>
             {
                 this.clickButtonPay(p);
@@ -191,10 +208,9 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
-            this.g_i_sumPrice = 0;          
+            this.g_i_sumPrice = 0;
             this.g_b_isPay = false;
 
-            this.loadedItemsControl();
             this.resetCustomer();
         }
 
@@ -205,7 +221,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_str_customerID = "Trống";
             this.g_str_customerfullName = "Tên khách hàng trống";
-            this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
+            this.g_imgSrc_customer = staticVarClass.imgSrc_defaultAvatar;
         }
 
         private void loadedItemsControl()
@@ -513,12 +529,15 @@ namespace CanTeenManagement.ViewModel
 
         private void textChangedTextBoxCustomerID(TextBox p)
         {
+            if (p == null)
+                return;
+
             CUSTOMER l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
 
             if (l_customer != null)
             {
                 this.g_str_customerfullName = l_customer.FULLNAME;
-                this.g_str_customerImageLink = l_customer.IMAGELINK;
+                this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(l_customer.IMAGELINK);
                 this.g_i_customerStar = (int)l_customer.STAR;
             }
         }

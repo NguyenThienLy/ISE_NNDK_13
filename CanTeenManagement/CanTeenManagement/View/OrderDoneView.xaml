@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CanTeenManagement.View"
         mc:Ignorable="d"         
         x:Name="orderDoneView"
+        Title="OrderDoneView"
         
         xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -14,88 +15,104 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+  
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource orderDoneVM}"
-        Title="OrderDoneView" Height="500" Width="920" WindowStyle="None" WindowStartupLocation ="CenterScreen" ResizeMode="NoResize">
-    <Grid x:Name="gvMain" >
-        <Rectangle Height="500" Width="920" >
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
-                    <GradientStop Color="White" Offset="1"/>
-                    <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
-                    <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
 
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
-            <Grid>
+         Height="520"
+         Width="940"
+         WindowStartupLocation ="CenterScreen"
+         ResizeMode="NoResize"
+         WindowStyle="None"
+         AllowsTransparency="True"
+         Background="Transparent">
+
+    <Grid Margin="0 0 20 20" Background="White"  >
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" 
+                              Direction="-90"
+                              RenderingBias="Quality"
+                              ShadowDepth="2"/>
+        </Grid.Effect>
+
+        <Grid x:Name="gvMain" >
+            <Rectangle Height="500" Width="920" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10"></RowDefinition>
-                        <RowDefinition ></RowDefinition>
-                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                    <Grid Height="10" 
+                        <Grid Height="10" 
                         Width=" 100"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Center"
                         Background="IndianRed"
                         Cursor="ScrollAll">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
-                                   CommandParameter="{Binding ElementName = orderDoneView}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding g_list_OrderDone}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"/>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
+                                   CommandParameter="{Binding ElementName = orderDoneView}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                        </Grid>
 
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
+                        <Grid Grid.Row="1">
+                            <ListView ItemsSource="{Binding g_list_OrderDone}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
                                         Width="100"
                                         DisplayMemberBinding="{Binding ORDERID}"
                                         Header="Mã order"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="130"
                                         DisplayMemberBinding="{Binding CUSTOMERID}"
                                         Header="Mã khách hàng"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="180"
                                         DisplayMemberBinding="{Binding CUSTOMERNAME}"
                                         Header="Tên khách hàng"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="150"
                                         DisplayMemberBinding="{Binding FOODNAME}"
                                         Header="Tên món"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="90"
                                         DisplayMemberBinding="{Binding QUANTITY}"
                                         Header="Số lượng"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="150"
                                         DisplayMemberBinding="{Binding COMPLETIONDATE}"
                                         Header="Ngày hoàn thành"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="100"
                                         DisplayMemberBinding="{Binding STATUS}"
                                         Header="Trạng thái"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
                     </Grid>
-                </Grid>
 
-                <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
+                    <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
                          CommandParameter="{Binding ElementName=orderDoneView}" 
                          x:Name="btnClose" 
                          
@@ -106,13 +123,16 @@
                          Background="IndianRed" 
                          Foreground="Black" BorderBrush="#FF8D5BE6" 
                          >
-                    <materialDesign:PackIcon VerticalAlignment="Center"
+                        <materialDesign:PackIcon VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
                                              Margin="-11 0 -5 0" Kind="Close"
                                              Height="25" Width="25"/>
-                </Button>
-            </Grid>
+                    </Button>
+                </Grid>
 
-        </materialDesign:TransitioningContent>
+            </materialDesign:TransitioningContent>
+        </Grid>
+        
     </Grid>
+
 </Window>

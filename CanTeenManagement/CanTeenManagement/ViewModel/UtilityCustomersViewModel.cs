@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace CanTeenManagement.ViewModel
 {
-    class UtilityCustomersViewModel:BaseViewModel
+    class UtilityCustomersViewModel : BaseViewModel
     {
         private ObservableCollection<CASH> _g_obCl_million;
         public ObservableCollection<CASH> g_obCl_million
@@ -196,7 +196,7 @@ namespace CanTeenManagement.ViewModel
         }
 
         private void resetCustomer()
-        {       
+        {
             this.g_str_customerID = "Empty id";
             this.g_str_customerfullName = "Empty full name";
             this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
@@ -207,6 +207,15 @@ namespace CanTeenManagement.ViewModel
 
         private void loadedItemsControl()
         {
+            CASH cash100 = new CASH(100);
+            this.g_obCl_million.Add(cash100);
+
+            CASH cash200 = new CASH(200);
+            this.g_obCl_million.Add(cash200);
+
+            CASH cash500 = new CASH(500);
+            this.g_obCl_million.Add(cash500);
+
             CASH cash1000 = new CASH(1000);
             this.g_obCl_million.Add(cash1000);
 

@@ -54,6 +54,7 @@
       <EntityTypeMapping TypeName="QLCanTinModel.ORDERDETAIL">
         <MappingFragment StoreEntitySet="ORDERDETAIL">
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="COMPLETIONDATE" ColumnName="COMPLETIONDATE" />
           <ScalarProperty Name="TOTALMONEY" ColumnName="TOTALMONEY" />
           <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
           <ScalarProperty Name="FOODID" ColumnName="FOODID" />

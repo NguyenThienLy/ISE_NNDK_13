@@ -20,7 +20,8 @@ namespace CanTeenManagement.ViewModel
         {
             get => _g_str_imageLink;
             set
-            { _g_str_imageLink = value;
+            {
+                _g_str_imageLink = value;
                 OnPropertyChanged();
             }
         }
@@ -219,7 +220,7 @@ namespace CanTeenManagement.ViewModel
             var loginV = new LoginView();
             loginV.Topmost = true;
             loginV.ShowDialog();
-          
+
             if (loginV.DataContext == null)
                 return;
 

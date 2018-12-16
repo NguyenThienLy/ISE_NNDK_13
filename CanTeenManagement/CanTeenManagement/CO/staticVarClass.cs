@@ -4,11 +4,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region gender.
+        public static string gender_male = "Nam";
+        public static string gender_feMale = "Nữ";
+        public static string gender_different = "Nữ";
+        #endregion
+
+        #region image source.
+        public static ImageSource imgSrc_defaultAvatar = staticFunctionClass.LoadBitmap(@"\\127.0.0.1\CanteenManagement\avatar.default.png");
+
+        #endregion
+
         #region time
         public static int time_autoOff = 5 * 1000;
 
@@ -35,7 +47,7 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region food type.
-        public static int foodType_one= 1;
+        public static int foodType_one = 1;
         public static int foodType_two = 2;
         public static int foodType_three = 3;
         #endregion
@@ -72,7 +84,7 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region status.
-        public static string status_still= "Còn";
+        public static string status_still = "Còn";
         public static string status_waiting = "Đang chờ";
         public static string status_soldOut = "Hết món";
         public static string status_done = "Xong";

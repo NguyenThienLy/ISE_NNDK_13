@@ -76,7 +76,8 @@
                             </materialDesign:Card>
                         </Grid>
 
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1"
+                              Margin="10 0 10 0">
                             <materialDesign:Transitioner SelectedIndex="{Binding g_i_index, UpdateSourceTrigger=PropertyChanged}" x:Name="itemControlSlideFood"
                                                          ItemsSource="{Binding g_obCl_orderFood, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
@@ -107,29 +108,40 @@
                                                 </i:Interaction.Triggers>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="47*"/>
-                                                        <ColumnDefinition Width="384"/>
-                                                        <ColumnDefinition Width="529*"/>
-                                                        <ColumnDefinition Width="47*"/>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="390"/>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="50"/>
                                                     </Grid.ColumnDefinitions>
 
-                                                    <Button Grid.Column="0" Panel.ZIndex="1" Margin="0,202,0,202" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                                                        Foreground="White" Background="#FFFF9C00" BorderBrush="#FF28878B" Height="45" Width="45"
-                                                        Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonBackCommand}" 
-                                                        CommandParameter="{Binding}"
-                                                        Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, IsAsync=True}">
+                                                    <Button Grid.Column="0"
+                                                            HorizontalAlignment="Center"
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                            Foreground="White"
+                                                            Background="#FFFF9C00"
+                                                            BorderBrush="#FF28878B" 
+                                                            Height="45" Width="45"
+                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonBackCommand}" 
+                                                            CommandParameter="{Binding}"
+                                                            Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, IsAsync=True}">
                                                         <materialDesign:PackIcon Kind="ArrowLeft" Height="45" Width="45" />
                                                     </Button>
 
-                                                    <Button Grid.Column="3" Panel.ZIndex="1" Margin="0,202,0,202" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                                                                Foreground="White" Background="#FFFF9C00" BorderBrush="#FF28878B" Height="45" Width="45"
-                                                        Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonNextCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged}">
+                                                    <Button Grid.Column="3" 
+                                                            HorizontalAlignment="Center" 
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                            Foreground="White"
+                                                            Background="#FFFF9C00" 
+                                                            BorderBrush="#FF28878B" 
+                                                            Height="45"
+                                                            Width="45"
+                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonNextCommand}"
+                                                            CommandParameter="{Binding}"
+                                                            Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged}">
                                                         <materialDesign:PackIcon Kind="ArrowRight" Height="45" Width="45" />
                                                     </Button>
 
-                                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30,30,10,0">
+                                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,30,10,0">
                                                         <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
                                                         <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
                                                             <TextBlock Text="{Binding PRICESALE, StringFormat='{}{0:#,#}'}" FontSize="75" FontFamily="Cooper Black" Foreground="#FFC00000" />
@@ -140,8 +152,8 @@
                                                     </StackPanel>
 
                                                     <Image Grid.Column="2" Source="{Binding IMAGELINK}" 
-                                                           Stretch="UniformToFill" 
-                                                           Margin="10,20,10,20"/>
+                                                           Stretch="Fill" 
+                                                           Margin="0 20 0 20"/>
                                                 </Grid>
                                             </materialDesign:Card>
                                         </materialDesign:TransitioningContent>

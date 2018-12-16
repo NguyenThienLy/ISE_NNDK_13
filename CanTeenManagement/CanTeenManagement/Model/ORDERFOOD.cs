@@ -143,7 +143,7 @@ namespace CanTeenManagement.Model
             this.FOODDESCRIPTION = food.FOODDESCRIPTION;
             this.PRICE = (int)food.PRICE;
             this.PRICESALE = (int)(food.PRICE * ((double)(100 - food.SALE) / 100));
-            this.SALE = (int)food.SALE; 
+            this.SALE = (int)food.SALE;
             this.IMAGELINK = food.IMAGELINK;
             this.IMAGESOURCE = staticFunctionClass.LoadBitmap(IMAGELINK);
             this.STAR = (int)food.STAR;

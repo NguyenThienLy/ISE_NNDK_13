@@ -274,9 +274,9 @@ namespace CanTeenManagement.ViewModel
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
-            l_listGenders.Add("Nữ");
-            l_listGenders.Add("Nam");
-            l_listGenders.Add("Khác");
+            l_listGenders.Add(staticVarClass.gender_feMale);
+            l_listGenders.Add(staticVarClass.gender_male);
+            l_listGenders.Add(staticVarClass.gender_different);
             g_listGenders = l_listGenders;
 
             // Thêm danh sách năm sinh.
@@ -476,59 +476,43 @@ namespace CanTeenManagement.ViewModel
 
         private void clickChangeImage(DetailEmployeesView p)
         {
-            //myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            //openFileDialog.DefaultExt = ".png";
             openFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
 
-            // Display OpenFileDialog by calling ShowDialog method.
             Nullable<bool> b_result = openFileDialog.ShowDialog();
 
-            // Get the selected file name. 
             if (b_result == true)
             {
                 try
                 {
-                    // Open document 
-                    string str_fullNameChosen = openFileDialog.FileName; // full name.
-
-                    // delete old image.
-                    //var path = g_str_imageLink;
-                    //g_str_imageLink = @"\\127.0.0.1\CanteenManagement\empty.jpg";
-                    //if (path != string.Empty && path.Contains("\\") && path.Contains("."))
-                    //{
-                    //    const string BackSlash = @"\";
-                    //    var foundPos = path.LastIndexOf(BackSlash);
-                    //    var fileNameCurrent = path.Substring(foundPos + 1, path.Length - foundPos - 1);
-
-                    //    myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
-                    //    ftp.delete(fileNameCurrent);
-
-                    //}
-
                     // upload new image.
-                    var path = str_fullNameChosen;
-                    if (path != string.Empty && path.Contains("\\") && path.Contains("."))
+                    string str_path = openFileDialog.FileName;
+
+                    if (str_path != string.Empty)
                     {
-                        const string Dot = ".";
-                        var foundPos = path.LastIndexOf(Dot);
-                        var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
-                        var newfileName = g_str_id + "1" + Dot + extension;
-                        myFTP ftp = new myFTP(staticVarClass.ftp_Server, staticVarClass.ftp_userName, staticVarClass.ftp_password);
-                        ftp.upload(newfileName, str_fullNameChosen);
+                        if (staticFunctionClass.deleteFile(this.g_str_id + staticFunctionClass.getFormat(this.g_str_imageLink)))
+                        {
+                            string str_newfileName = this.g_str_id + staticFunctionClass.getFormat(str_path);
 
-                        // update image link in database.
-                        g_str_imageLink = staticVarClass.server_serverDirectory + newfileName;
-                        var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id).SingleOrDefault();
-                        l_employee.IMAGELINK = g_str_imageLink;
+                            if (staticFunctionClass.uploadFile(str_newfileName, str_path))
+                            {
+                                // Update image link in database.
+                                this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
 
-                        dataProvider.Instance.DB.SaveChanges();
+                                // Update image source.
+                                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
-                        staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                                dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).ToList()
+                                                                  .ForEach(employee => employee.IMAGELINK = g_str_imageLink);
+                                dataProvider.Instance.DB.SaveChanges();
+
+                                staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                            }
+                        }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
                 }
