@@ -186,7 +186,7 @@
                                                            Width="30"/>
                                             </Button>
 
-                                            <TextBox Text="{Binding g_i_sumPrice, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
+                                            <TextBox Text="{Binding g_str_sumPrice, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
                                                      BorderBrush="#FF28878B"
                                                      Height="80"
                                                      Width="300"          
@@ -195,6 +195,17 @@
                                                      BorderThickness="2"
                                                      FontWeight="DemiBold"
                                                      VerticalAlignment="Center">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="GotFocus">
+                                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxGotFocusCommand}"
+                                                                                   CommandParameter="{Binding ElementName=utityCustomersView}"/>
+                                                        </i:EventTrigger>
+
+                                                        <i:EventTrigger EventName="LostFocus">
+                                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxLostFocusCommand}"
+                                                                                   CommandParameter="{Binding ElementName=utityCustomersView}"/>
+                                                        </i:EventTrigger>
+                                                </i:Interaction.Triggers>
                                             </TextBox>
 
                                             <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"

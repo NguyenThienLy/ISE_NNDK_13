@@ -493,3 +493,5 @@ G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Prope
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml

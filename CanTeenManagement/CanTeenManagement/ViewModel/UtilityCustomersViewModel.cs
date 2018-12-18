@@ -99,14 +99,21 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private int _g_i_sumPrice;
-        public int g_i_sumPrice
+        private string _g_str_sumPrice;
+        public string g_str_sumPrice
         {
-            get => _g_i_sumPrice;
+            get => _g_str_sumPrice;
 
             set
             {
-                _g_i_sumPrice = value;
+                int i = 0;
+                if (value != "")
+                    if (!int.TryParse(value, out i))
+                        value = g_str_sumPrice;
+                    else if (int.Parse(value) > 1000000)
+                        value = g_str_sumPrice;
+
+                _g_str_sumPrice = value;
                 OnPropertyChanged();
             }
         }
@@ -146,6 +153,10 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_MouseRightButtonUpMillionCommand { get; set; }
 
         public ICommand g_iCm_ChangeModeCommand { get; set; }
+
+        public ICommand g_iCm_TextBoxGotFocusCommand { get; set; }
+
+        public ICommand g_iCm_TextBoxLostFocusCommand { get; set; }
         #endregion
 
         public UtilityCustomersViewModel()
@@ -182,11 +193,21 @@ namespace CanTeenManagement.ViewModel
             {
                 this.changeMode(p);
             });
+
+            g_iCm_TextBoxGotFocusCommand = new RelayCommand<UtilityCustomersView>((p) => { return true; }, (p) =>
+            {
+                this.gotFocus(p);
+            });
+
+            g_iCm_TextBoxLostFocusCommand = new RelayCommand<UtilityCustomersView>((p) => { return true; }, (p) =>
+            {
+                this.lostFocus(p);
+            });
         }
 
         private void initSupport()
         {
-            this.g_i_sumPrice = 0;
+            this.g_str_sumPrice = "0";
             this.g_obCl_million = new ObservableCollection<CASH>();
             this.g_b_isAddCash = true;
             this.g_str_Mode = staticVarClass.mode_addCash;
@@ -288,7 +309,10 @@ namespace CanTeenManagement.ViewModel
         private bool checkMouseDoubleClickMillion(CASH p)
         {
             // > 1.000.000.
-            if (g_i_sumPrice + p.MILLION > 1000000)
+            if (g_str_sumPrice == "")
+                g_str_sumPrice = "0";
+
+            if (int.Parse(g_str_sumPrice) + p.MILLION > 1000000)
                 return false;
 
             return true;
@@ -299,14 +323,19 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            this.g_i_sumPrice += p.MILLION;
+            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            l_i_sumPrice += p.MILLION;
+            this.g_str_sumPrice = l_i_sumPrice.ToString();
         }
         #endregion
 
         #region Mouse right up.
         private bool checkMouseRightButtonUpMillion(CASH p)
         {
-            if (g_i_sumPrice - p.MILLION <= 0)
+            if (g_str_sumPrice == "")
+                g_str_sumPrice = "0";
+
+            if (int.Parse(g_str_sumPrice) - p.MILLION <= 0)
                 return false;
 
             return true;
@@ -317,7 +346,9 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            this.g_i_sumPrice -= p.MILLION;
+            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            l_i_sumPrice -= p.MILLION;
+            this.g_str_sumPrice = l_i_sumPrice.ToString();
         }
         #endregion
 
@@ -337,6 +368,24 @@ namespace CanTeenManagement.ViewModel
                 this.g_str_Mode = staticVarClass.mode_addCash;
             }
 
+        }
+
+        private void gotFocus(UtilityCustomersView p)
+        {
+            if (p == null)
+                return;
+
+            if (this.g_str_sumPrice == "0")
+                this.g_str_sumPrice = "";
+        }
+
+        private void lostFocus(UtilityCustomersView p)
+        {
+            if (p == null)
+                return;
+
+            if (this.g_str_sumPrice == "")
+                this.g_str_sumPrice = "0";
         }
     }
 }
