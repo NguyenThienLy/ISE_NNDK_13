@@ -10,6 +10,10 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region linkImage.
+        public static string linkImg_empty = @"\\127.0.0.1\CanteenManagement\empty.default.png";
+        #endregion
+
         #region gender.
         public static string gender_male = "Nam";
         public static string gender_feMale = "Nữ";
@@ -17,8 +21,7 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region image source.
-        public static ImageSource imgSrc_defaultAvatar = staticFunctionClass.LoadBitmap(@"\\127.0.0.1\CanteenManagement\avatar.default.png");
-
+        public static ImageSource imgSrc_empty = staticFunctionClass.LoadBitmap(linkImg_empty);
         #endregion
 
         #region time

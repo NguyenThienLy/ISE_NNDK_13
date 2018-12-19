@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -35,18 +36,6 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_customerID = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _g_str_customerImageLink;
-        public string g_str_customerImageLink
-        {
-            get => _g_str_customerImageLink;
-
-            set
-            {
-                _g_str_customerImageLink = value;
                 OnPropertyChanged();
             }
         }
@@ -141,6 +130,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private ImageSource _g_imgSrc_customer;
+        public ImageSource g_imgSrc_customer
+        {
+            get => _g_imgSrc_customer;
+            set
+            {
+                _g_imgSrc_customer = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region command.
         public ICommand g_iCm_TextChangedTextBoxCustomerIDCommand { get; set; }
 
@@ -218,9 +218,9 @@ namespace CanTeenManagement.ViewModel
 
         private void resetCustomer()
         {
-            this.g_str_customerID = "Empty id";
-            this.g_str_customerfullName = "Empty full name";
-            this.g_str_customerImageLink = @"\\127.0.0.1\CanteenManagement\avatar.default.png";
+            this.g_str_customerID = "Trống";
+            this.g_str_customerfullName = "Trống";
+            this.g_imgSrc_customer = staticVarClass.imgSrc_empty;
             this.g_i_customerStar = 0;
             this.g_i_customerCash = 0;
             this.g_i_customerPoint = 0;
@@ -272,7 +272,7 @@ namespace CanTeenManagement.ViewModel
             if (l_customer != null)
             {
                 this.g_str_customerfullName = l_customer.FULLNAME;
-                this.g_str_customerImageLink = l_customer.IMAGELINK;
+                this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(l_customer.IMAGELINK);
                 this.g_i_customerStar = (int)l_customer.STAR;
                 this.g_i_customerCash = (int)l_customer.CASH;
                 this.g_i_customerPoint = (int)l_customer.POINT;

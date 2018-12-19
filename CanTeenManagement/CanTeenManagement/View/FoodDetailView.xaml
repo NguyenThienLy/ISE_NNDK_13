@@ -91,7 +91,7 @@
                                          Margin="5"
                                          TextWrapping="Wrap"
                                          VerticalAlignment="Center"
-                                         Text="{Binding g_str_foodName}"
+                                         Text="{Binding g_str_foodName, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                             />
                             </StackPanel>
 
@@ -127,19 +127,20 @@
                                                VerticalAlignment="Bottom" 
                                                Margin="0,0,0,13"></TextBlock>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnRemovePrice" 
+                                                    Command="{Binding g_iCm_ClickButtonRemovePriceCommand}"
+                                                    CommandParameter="{Binding ElementName=btnRemovePrice}"
                                                     Grid.Column="5"
                                                     Height="30"
                                                     Width="30"
                                                     ToolTip="Giảm đi 1 đơn vị"
                                                     Background="{x:Null}"
                                                     BorderBrush="#FF26788A"
-                                    Margin="0 0 -2 0"
-                                    BorderThickness="2"
-                                    HorizontalAlignment="Right">
+                                                    Margin="0 0 -2 0"
+                                                    BorderThickness="2"
+                                                    HorizontalAlignment="Right">
 
-                                                <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
+                                                <materialDesign:PackIcon   Margin="-12 0 -10 0"  VerticalAlignment="Center"
                                                             HorizontalAlignment="Center"
                                                            Background="{x:Null}"
                                                            Foreground="#FF26788A"    
@@ -148,7 +149,8 @@
                                                            Width="20"/>
                                             </Button>
 
-                                            <TextBox Text="{Binding g_i_price, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
+                                            <TextBox x:Name="txtPrice" 
+                                                     Text="{Binding g_i_price, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
                                                      BorderBrush="#FF28878B"
                                                      Height="30"
                                                      Width="70"          
@@ -159,14 +161,15 @@
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="TextChanged">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
-                                                                          CommandParameter="{Binding}"/>
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxPriceCommand}"
+                                                                CommandParameter="{Binding ElementName=txtPrice}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </TextBox>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnAddPrice" 
+                                                    Command="{Binding g_iCm_ClickButtonAddPriceCommand}"
+                                                    CommandParameter="{Binding ElementName=btnAddPrice}"
                                                     Height="30"
                                                     Width="30"
                                                     HorizontalAlignment="Left"
@@ -177,7 +180,6 @@
                                                     BorderBrush="#FF26788A"
                                                   >
 
-
                                                 <materialDesign:PackIcon
                                                      Margin="-17 0 -15 0"
                                                      VerticalAlignment="Center"
@@ -187,7 +189,13 @@
                                                      Kind="Add"
                                                      Height="20"
                                                      Width="20" />
-
+                                                
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxPriceCommand}"
+                                                                CommandParameter="{Binding ElementName=btnAddPice}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
                                             </Button>
 
                                             <TextBlock Text=" đ "                                        
@@ -216,8 +224,9 @@
                                                FontSize="20" 
                                                VerticalAlignment="Center"/>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnRemoveSale" 
+                                                    Command="{Binding g_iCm_ClickButtonRemoveSaleCommand}"
+                                                    CommandParameter="{Binding ElementName=btnRemoveSale}"
                                                     Grid.Column="5"
                                                     Height="30"
                                                     Width="30"
@@ -237,7 +246,8 @@
                                                            Width="20"/>
                                             </Button>
 
-                                            <TextBox Text="{Binding g_i_sale, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                            <TextBox x:Name="txtSale"
+                                                     Text="{Binding g_i_sale, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
                                                      BorderBrush="#FF28878B"
                                                      Height="30"
                                                      Width="50"          
@@ -249,14 +259,15 @@
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="TextChanged">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
-                                                                          CommandParameter="{Binding}"/>
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxSaleCommand}"
+                                                                CommandParameter="{Binding ElementName=txtSale}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </TextBox>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnAddSale" 
+                                                    Command="{Binding g_iCm_ClickButtonAddSaleCommand}"
+                                                    CommandParameter="{Binding ElementName=btnAddSale}"
                                                     Height="30"
                                                     Width="30"
                                                     HorizontalAlignment="Left"
@@ -492,7 +503,9 @@
                                         <TextBlock Foreground="Red"
                                                            Text="{Binding g_i_priceSale, StringFormat='{}{0:#,#} đ' }"
                                                            FontSize="15"  
-                                                           FontWeight="DemiBold"/>
+                                                           FontWeight="DemiBold">
+                                        </TextBlock>
+                                        
                                         <TextBlock  
                                                            Text="{Binding g_i_price, StringFormat='{}{0:#,#} đ' }"
                                                            FontSize="13"  

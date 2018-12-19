@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -193,6 +194,18 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickChangeImageCommand { get; set; }
 
         public ICommand g_iCm_LoadedImageEditCommand { get; set; }
+
+        public ICommand g_iCm_TextChangedTextBoxPriceCommand { get; set; }
+
+        public ICommand g_iCm_TextChangedTextBoxSaleCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonAddPriceCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRemovePriceCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonAddSaleCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRemoveSaleCommand { get; set; }
         #endregion
 
         public FoodDetailViewModel()
@@ -217,10 +230,35 @@ namespace CanTeenManagement.ViewModel
                 this.clickChangeImage(p);
             });
 
-            //g_iCm_LoadedImageEditCommand = new RelayCommand<Image>((p) => { return true; }, (p) =>
-            //{
-            //    this.loadedEditImage(p);
-            //});
+            g_iCm_TextChangedTextBoxPriceCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.textChangedTextBoxPrice(p);
+            });
+
+            g_iCm_TextChangedTextBoxSaleCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.textChangedTextBoxSale(p);
+            });
+
+            g_iCm_ClickButtonAddPriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddPrice(p); }, (p) =>
+            {
+                this.clickButtonAddPrice(p);
+            });
+
+            g_iCm_ClickButtonRemovePriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemovePrice(p); }, (p) =>
+            {
+                this.clickButtonRemovePrice(p);
+            });
+
+            g_iCm_ClickButtonAddSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddSale(p); }, (p) =>
+            {
+                this.clickButtonAddSale(p);
+            });
+
+            g_iCm_ClickButtonRemoveSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemoveSale(p); }, (p) =>
+            {
+                this.clickButtonRemoveSale(p);
+            });
         }
 
         #region loaded.
@@ -281,7 +319,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_price = p.PRICE;
             this.g_i_sale = p.SALE;
             this.g_str_imageLink = p.IMAGELINK;
-            this.g_imgSrc_currFood = p.IMAGESOURCE;         
+            this.g_imgSrc_currFood = p.IMAGESOURCE;
             this.g_i_star = p.STAR;
             this.g_str_status = p.STATUS;
             this.g_str_visibility = p.VISIBILITY;
@@ -292,14 +330,15 @@ namespace CanTeenManagement.ViewModel
             ORDERFOOD orderFood = new ORDERFOOD
             {
                 ID = this.createNewFoodID(),
-                FOODNAME = "Tên đồ ăn trống",
+                FOODNAME = "Trống",
                 FOODTYPE = -1,
-                FOODDESCRIPTION = "Mô tả đồ ăn trống",
-                PRICE = 25000,
+                FOODDESCRIPTION = "Trống",
+                PRICE = 0,
                 SALE = 0,
-                IMAGELINK = @"\\127.0.0.1\CanteenManagement\avatar.default.png",
-                IMAGESOURCE = staticFunctionClass.LoadBitmap(@"\\127.0.0.1\CanteenManagement\avatar.default.png"),
-                STATUS = staticVarClass.status_still
+                IMAGELINK = staticVarClass.linkImg_empty,
+                IMAGESOURCE = staticFunctionClass.LoadBitmap(staticVarClass.linkImg_empty),
+                STATUS = staticVarClass.status_still,
+                VISIBILITY = staticVarClass.visibility_hidden
             };
 
             return orderFood;
@@ -390,9 +429,89 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private void loadedEditImage(Image p)
+        private void loadedEditImage(System.Drawing.Image p)
         {
 
         }
+
+        #region price.
+        private bool checkClickButtonAddPrice(Button p)
+        {
+            // > 1.000.000 đ.
+            if (this.g_i_price + 500 > 1000000)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonAddPrice(Button p)
+        {
+            this.g_i_price += 500;
+        }
+
+        private bool checkClickButtonRemovePrice(Button p)
+        {
+            // < 0 đ.
+            if (this.g_i_price - 500 < 0)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRemovePrice(Button p)
+        {
+            this.g_i_price -= 500;
+        }
+        private void textChangedTextBoxPrice(TextBox p)
+        {
+            if (p == null)
+                return;
+
+            this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
+        }
+        #endregion
+
+        #region sale.
+        private bool checkClickButtonAddSale(Button p)
+        {
+            // > 100%.
+            if (this.g_i_sale + 1 > 100)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonAddSale(Button p)
+        {
+            this.g_i_sale++;
+        }
+
+        private bool checkClickButtonRemoveSale(Button p)
+        {
+            // < 0%.
+            if (this.g_i_sale - 1 < 0)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRemoveSale(Button p)
+        {
+            this.g_i_sale--;
+        }
+
+        private void textChangedTextBoxSale(TextBox p)
+        {
+            if (p == null)
+                return;
+
+            if (p.Text != "0")
+                this.g_str_visibility = staticVarClass.visibility_visible;
+            else
+                this.g_str_visibility = staticVarClass.visibility_hidden;
+
+            this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
+        }
+        #endregion
     }
 }

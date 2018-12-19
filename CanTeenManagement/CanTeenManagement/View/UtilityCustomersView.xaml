@@ -342,8 +342,8 @@
 
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <RowDefinition Height="150"></RowDefinition>
+                                    <RowDefinition Height="15"></RowDefinition>
+                                    <RowDefinition Height="165"></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
 
@@ -359,7 +359,7 @@
                                                VerticalAlignment="Top"
                                                HorizontalAlignment="Left">
                                         <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding g_str_customerImageLink}"/>
+                                            <ImageBrush ImageSource="{Binding g_imgSrc_customer}"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
 
@@ -368,25 +368,35 @@
                                         <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
                                                                   Foreground="Gold"
                                                                   IsHitTestVisible="False"/>
-                                        <TextBlock TextWrapping="Wrap"
-                                        Text="{Binding g_str_customerfullName}"   
-                                        FontSize="30"
-                                       FontWeight="Bold">
-
-                                        </TextBlock>
-
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel>
                                             <TextBlock 
-                                       Text="Customer ID: " 
+                                                    Text="Tên: " 
+                                                    FontSize="15"
+                                                    FontWeight="Bold"
+                                                VerticalAlignment="Center" >
+                                            </TextBlock>
+
+                                            <TextBlock TextWrapping="Wrap"
+                                             Text="{Binding g_str_customerfullName}"   
+                                              FontSize="30"
+                                              FontWeight="DemiBold">
+
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel >
+                                            <TextBlock 
+                                       Text="Mã: " 
                                        FontSize="15"
                                        FontWeight="Bold"  VerticalAlignment="Center" >
                                             </TextBlock>
 
                                             <TextBox x:Name="txtCustomerID" 
-                                       Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                                       FontSize="15"
-                                       FontWeight="Bold"
-                                       CaretBrush="#FF36AE98" >
+                                                     Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                     FontSize="15"
+                                                     FontWeight="Bold"
+                                                     CaretBrush="#FF36AE98" 
+                                                     >
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="TextChanged">
@@ -396,7 +406,6 @@
                                                 </i:Interaction.Triggers>
                                             </TextBox>
                                         </StackPanel>
-
 
                                     </StackPanel>
                                 </Grid>
