@@ -381,8 +381,9 @@
 
                                 <Grid Grid.Column="1">
 
-                                    <Image  Margin="10 50 10 50"
-                                            Source="{Binding g_imgSrc_currFood}">
+                                    <Image  Margin="10 30 10 30"
+                                            Source="{Binding g_imgSrc_currFood}"
+                                            Stretch="Fill">
                                     </Image>
 
                                     <Button Command="{Binding g_iCm_ClickChangeImageCommand}" 
@@ -448,7 +449,7 @@
                                                          VerticalAlignment="Top"
                                                          HorizontalAlignment="Left" 
                                                          Fill="#FFF32121"
-                                                             >
+                                                         Visibility="{Binding g_str_visibility}"   >
                                     </Ellipse>
 
                                     <Ellipse  Height="36"
@@ -456,7 +457,8 @@
                                                           VerticalAlignment="Top"
                                                           HorizontalAlignment="Left"
                                                           Margin="2 2" 
-                                                          Stroke="#FFFFF4F4">
+                                                          Stroke="#FFFFF4F4"
+                                               Visibility="{Binding g_str_visibility}" >
                                     </Ellipse>
 
                                     <TextBlock Height="16" 
@@ -467,6 +469,7 @@
                                                            Text="{Binding g_i_sale, StringFormat='-{0}%'}"
                                                            Foreground="#FFFFF4F4" FontStyle="Italic" 
                                                            TextAlignment="Center"
+                                                Visibility="{Binding g_str_visibility}" 
                                                />
                                 </Grid>
 
@@ -496,7 +499,7 @@
                                                            FontWeight="DemiBold"
                                                            Margin="5 0"
                                                            VerticalAlignment="Bottom"
-                                                           >
+                                                           Visibility="{Binding g_str_visibility}" >
                                             <TextBlock.TextDecorations>
                                                 <TextDecoration Location="Strikethrough">
                                                     <TextDecoration.Pen>

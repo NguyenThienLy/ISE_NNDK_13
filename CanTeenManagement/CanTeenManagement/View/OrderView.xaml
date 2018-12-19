@@ -185,7 +185,7 @@
                                                          VerticalAlignment="Top"
                                                          HorizontalAlignment="Left" 
                                                          Fill="#FFF32121"
-                                                             >
+                                                         Visibility="{Binding VISIBILITY}">
                                                 </Ellipse>
 
                                                 <Ellipse  Height="36"
@@ -193,7 +193,8 @@
                                                           VerticalAlignment="Top"
                                                           HorizontalAlignment="Left"
                                                           Margin="2 2" 
-                                                          Stroke="#FFFFF4F4">
+                                                          Stroke="#FFFFF4F4"
+                                                          Visibility="{Binding VISIBILITY}">
                                                 </Ellipse>
 
                                                 <TextBlock Height="16" 
@@ -204,17 +205,18 @@
                                                            Text="{Binding SALE, StringFormat='-{0}%'}"
                                                            Foreground="#FFFFF4F4" FontStyle="Italic" 
                                                            TextAlignment="Center"
+                                                           Visibility="{Binding VISIBILITY}"
                                                />
                                             </Grid>
 
                                             <Button x:Name="btnCart" 
-                                        Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
-                                        CommandParameter="{Binding}"
-                                        Grid.Row="0" 
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                        HorizontalAlignment="Right" 
-                                        VerticalAlignment="Bottom"
-                                         Margin="0 0 16 -20">
+                                                    Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="0" 
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                                    HorizontalAlignment="Right" 
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="0 0 16 -20">
                                                 <materialDesign:PackIcon  Kind="Cart" />
                                             </Button>
 
@@ -233,6 +235,7 @@
                                                            FontWeight="DemiBold"
                                                            Margin="5 0"
                                                            VerticalAlignment="Bottom"
+                                                           Visibility="{Binding VISIBILITY}"
                                                            >
                                                         <TextBlock.TextDecorations>
                                                             <TextDecoration Location="Strikethrough">
@@ -299,7 +302,7 @@
                             <Grid Margin="0 10"  
                                   VerticalAlignment="Top"
                                   Height="130" Width="140">
-                                
+
                                 <Slider x:Name="sliderPrice"
                                         HorizontalAlignment="Left" 
                                         Width="30" 
@@ -328,7 +331,7 @@
                                                Width="80" Height="15" 
                                                FontFamily="Cooper Black" TextAlignment="Center" 
                                                Margin="0 0 15 5"/>
-                            
+
                                 <TextBlock Text="30.000 đ" 
                                                FontSize="13" 
                                                Foreground="Red" 
@@ -339,7 +342,7 @@
                                                FontFamily="Cooper Black" 
                                                TextAlignment="Center" 
                                                Margin="0 0 15 15"/>
-                                
+
                                 <TextBlock Text="50.000 đ" 
                                                FontSize="13" Foreground="Red" 
                                                VerticalAlignment="Top" 
@@ -352,20 +355,20 @@
 
                             <Grid Margin="0 15" VerticalAlignment="Bottom" Height="50" Width="140" >
 
-                                    <materialDesign:RatingBar x:Name="ratingBar"
+                                <materialDesign:RatingBar x:Name="ratingBar"
                                                               Value="5"  
                                                               Foreground="Gold"
                                                               VerticalAlignment="Center">
 
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
                                             <i:InvokeCommandAction Command="{Binding g_iCm_MouseDoubleClickRatingBarCommand}" 
                                              CommandParameter="{Binding ElementName = ratingBar}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
 
-                                    </materialDesign:RatingBar>
-                           
+                                </materialDesign:RatingBar>
+
                             </Grid>
 
                         </Grid>

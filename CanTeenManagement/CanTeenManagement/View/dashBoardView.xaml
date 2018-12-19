@@ -145,7 +145,7 @@
                                                         <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
                                                         <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
                                                             <TextBlock Text="{Binding PRICESALE, StringFormat='{}{0:#,#}'}" FontSize="75" FontFamily="Cooper Black" Foreground="#FFC00000" />
-                                                            <TextBlock Text="VNĐ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
+                                                            <TextBlock Text="đ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
                                                         </StackPanel>
                                                         <TextBlock Text="{Binding FOODNAME}" TextWrapping="Wrap" FontSize="40" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
                                                         <TextBlock Text="{Binding FOODDESCRIPTION}" TextWrapping="Wrap" FontSize="30" FontFamily="Champagne &amp; Limousines" Margin="5"/>

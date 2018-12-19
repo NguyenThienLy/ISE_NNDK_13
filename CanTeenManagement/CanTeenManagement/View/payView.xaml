@@ -148,11 +148,12 @@
                                                             <StackPanel Grid.Row="2" 
                                                                         Orientation="Horizontal">
                                                                 <TextBlock Margin="10 0" 
-                                                             HorizontalAlignment="Left" 
-                                                             VerticalAlignment="Center"
-                                                             Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
-                                                             FontSize="16"
-                                                             FontWeight="DemiBold">
+                                                                           HorizontalAlignment="Left" 
+                                                                           VerticalAlignment="Center"
+                                                                           Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
+                                                                           FontSize="16"
+                                                                           FontWeight="DemiBold"
+                                                                           Visibility="{Binding VISIBILITY}">
 
                                                                     <TextBlock.TextDecorations>
                                                                         <TextDecoration Location="Strikethrough">
@@ -164,12 +165,13 @@
 
                                                                 </TextBlock>
 
-                                                                <TextBlock Height="15" Width="35"
-                                                               Margin="5 0" Foreground="#FFFFF4F4"
-                                                               FontStyle="Italic" 
-                                                               Background="Red"
-                                                               TextAlignment="Center"
-                                                               Text="{Binding SALE, StringFormat='-{0}%'}"/>
+                                                                <TextBlock  Height="15" Width="35"
+                                                                            Margin="5 0" Foreground="#FFFFF4F4"
+                                                                            FontStyle="Italic" 
+                                                                            Background="Red"
+                                                                            TextAlignment="Center"
+                                                                            Text="{Binding SALE, StringFormat='-{0}%'}"
+                                                                            Visibility="{Binding VISIBILITY}"/>
                                                             </StackPanel>
 
                                                         </Grid>

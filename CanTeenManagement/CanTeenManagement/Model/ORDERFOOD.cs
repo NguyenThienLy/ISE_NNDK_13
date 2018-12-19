@@ -133,21 +133,41 @@ namespace CanTeenManagement.Model
             }
         }
 
+        private string _VISIBILITY;
+        public string VISIBILITY
+        {
+            get => _VISIBILITY;
+            set
+            {
+                _VISIBILITY = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ORDERFOOD() { }
 
         public ORDERFOOD(FOOD food)
         {
-            this.ID = food.ID;
-            this.FOODNAME = food.FOODNAME;
+            this.ID = food.ID.Trim();
+            this.FOODNAME = food.FOODNAME.Trim();
             this.FOODTYPE = (int)food.FOODTYPE;
-            this.FOODDESCRIPTION = food.FOODDESCRIPTION;
+            this.FOODDESCRIPTION = food.FOODDESCRIPTION.Trim();
             this.PRICE = (int)food.PRICE;
             this.PRICESALE = (int)(food.PRICE * ((double)(100 - food.SALE) / 100));
             this.SALE = (int)food.SALE;
-            this.IMAGELINK = food.IMAGELINK;
+            this.IMAGELINK = food.IMAGELINK.Trim();
             this.IMAGESOURCE = staticFunctionClass.LoadBitmap(IMAGELINK);
             this.STAR = (int)food.STAR;
-            this.STATUS = food.STATUS;
+            this.STATUS = food.STATUS.Trim();
+
+            if (this.SALE == 0)
+            {
+                this.VISIBILITY = staticVarClass.visibility_hidden;
+            }
+            else
+            {
+                this.VISIBILITY = staticVarClass.visibility_visible;
+            }
         }
     }
 }

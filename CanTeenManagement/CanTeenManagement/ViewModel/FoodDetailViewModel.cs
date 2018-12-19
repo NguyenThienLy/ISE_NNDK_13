@@ -170,6 +170,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibility;
+        public string g_str_visibility
+        {
+            get => _g_str_visibility;
+            set
+            {
+                _g_str_visibility = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region command.
         public ICommand g_iCm_LoadedWindowCommand { get; set; }
 
@@ -262,19 +273,18 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            this.g_str_id = p.ID.Trim();
-            this.g_str_foodName = p.FOODNAME.Trim();
+            this.g_str_id = p.ID;
+            this.g_str_foodName = p.FOODNAME;
             this.g_i_foodType = p.FOODTYPE;
-            this.g_str_foodDecription = p.FOODDESCRIPTION.Trim();
+            this.g_str_foodDecription = p.FOODDESCRIPTION;
             this.g_i_priceSale = p.PRICESALE;
             this.g_i_price = p.PRICE;
             this.g_i_sale = p.SALE;
-            this.g_str_imageLink = p.IMAGELINK.Trim();
-            this.g_imgSrc_currFood = p.IMAGESOURCE;
-
-
+            this.g_str_imageLink = p.IMAGELINK;
+            this.g_imgSrc_currFood = p.IMAGESOURCE;         
             this.g_i_star = p.STAR;
-            this.g_str_status = p.STATUS.Trim();
+            this.g_str_status = p.STATUS;
+            this.g_str_visibility = p.VISIBILITY;
         }
 
         private ORDERFOOD emptyFood()

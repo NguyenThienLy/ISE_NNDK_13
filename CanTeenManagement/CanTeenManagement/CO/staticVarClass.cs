@@ -13,7 +13,7 @@ namespace CanTeenManagement.CO
         #region gender.
         public static string gender_male = "Nam";
         public static string gender_feMale = "Nữ";
-        public static string gender_different = "Nữ";
+        public static string gender_different = "Khác";
         #endregion
 
         #region image source.
@@ -100,6 +100,11 @@ namespace CanTeenManagement.CO
         #region gmail.
         public static string gmail_user = "ISE.NNDK.13@gmail.com";
         public static string gmail_password = "123456aA123456";
+        #endregion
+
+        #region visibility.
+        public static string visibility_hidden = "Hidden";
+        public static string visibility_visible = "Visible";
         #endregion
 
         //#region screen.

@@ -131,6 +131,16 @@ namespace CanTeenManagement.Model
             }
         }
 
+        private string _VISIBILITY;
+        public string VISIBILITY
+        {
+            get => _VISIBILITY;
+            set
+            {
+                _VISIBILITY = value;
+                OnPropertyChanged();
+            }
+        }
 
         public PAYFOOD() { }
 
@@ -144,6 +154,7 @@ namespace CanTeenManagement.Model
             this.SALE = orderFood.SALE;
             this.IMAGELINK = orderFood.IMAGELINK;
             this.IMAGESOURCE = orderFood.IMAGESOURCE;
+            this.VISIBILITY = orderFood.VISIBILITY;
 
             // Default quantity  = 1.
             this.QUANTITY = 1;
