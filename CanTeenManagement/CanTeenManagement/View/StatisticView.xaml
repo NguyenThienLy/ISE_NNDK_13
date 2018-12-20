@@ -50,9 +50,9 @@
                         VerticalAlignment="Top"
                         Height="621"
                         Width="972"
-                        Margin="4,40,4,-1" Grid.ColumnSpan="2">
+                        Margin="4,40,4,-1">
 
-                <TabItem Header="Doanh số" FontSize="22" FontFamily="Roboto" Height="34" VerticalAlignment="Bottom">
+                <TabItem Header="Doanh số" FontSize="22" FontFamily="Roboto" Height="34" VerticalAlignment="Top" Margin="-2,0">
                     <Grid>
                         <Grid Height="80" 
                           Width="980" 
@@ -62,14 +62,14 @@
 
                             <TextBlock Text="Từ ngày" FontSize="15" FontFamily="Roboto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="71,26,0,35" FontWeight="SemiBold"/>
 
-                            <DatePicker x:Name="dp_FromTime_FoodOrder" SelectedDate="{Binding g_sd_StaticChart_FromTime}" Margin="142,18,680,0" VerticalAlignment="Top"/>
+                            <DatePicker SelectedDate="{Binding g_sd_StatChart_FromTime}" Margin="142,18,698,0" VerticalAlignment="Top"/>
 
                             <TextBlock Text="Đến ngày" FontSize="15" FontFamily="Roboto" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,25,210,30" FontWeight="SemiBold"/>
 
-                            <DatePicker x:Name="dp_ToTime_FoodOrder" SelectedDate="{Binding g_sd_StaticChart_ToTime}" Margin="790,20,30,0" VerticalAlignment="Top" Width="158"/>
+                            <DatePicker SelectedDate="{Binding g_sd_StatChart_ToTime}" Margin="791,20,49,0" VerticalAlignment="Top"/>
 
-                            <Button x:Name="btn_ChartStatic" Content="Thống kê" Margin="450,22,424,26"
-                                    Command="{Binding g_iCm_StaticChart}">
+                            <Button Content="Thống kê" Margin="450,22,424,26"
+                                    Command="{Binding g_iCm_StatChart}">
                                 <Button.Foreground>
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
                                 </Button.Foreground>
@@ -83,14 +83,17 @@
 
                         <TextBlock Text ="Chọn thống kê" FontSize="20" FontFamily="Roboto" HorizontalAlignment="Left" Margin="30,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-                        <ComboBox Margin="177,100,623,449"
-                                  Text="{Binding g_sv_StaticChart_Choice}"
+                        <ComboBox Margin="177,98,633,447"
+                                  Text="{Binding g_sv_StatChart_Choice}"
                                   FontSize="18"
                                   FontFamily="Roboto"
                                   IsEditable="True"
-                                  IsReadOnly="True" Background="{x:Null}" Height="30">
+                                  IsReadOnly="True" Background="{x:Null}">
                             <ComboBoxItem>
                                 <TextBlock Text="Khoảng thời gian" FontSize="15" FontFamily="Roboto"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="Theo tuần" FontSize="15" FontFamily="Roboto"/>
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <TextBlock Text="Tuần hiện tại" FontSize="15" FontFamily="Roboto"/>
@@ -101,13 +104,16 @@
                             <ComboBoxItem>
                                 <TextBlock Text="Năm hiện tại" FontSize="15" FontFamily="Roboto"/>
                             </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="Nhiều năm" FontSize="15" FontFamily="Roboto"/>
+                            </ComboBoxItem>
                         </ComboBox>
 
                         <chartingToolkit:Chart FontSize="10" HorizontalAlignment="Right" Height="414" Margin="0,154,13,0" VerticalAlignment="Top" Width="935">
-                            <chartingToolkit:ColumnSeries Title="{Binding g_t_StaticChart_Title}"
+                            <chartingToolkit:ColumnSeries Title="{Binding g_t_StatChart_Title}"
                                                           DependentValuePath="Value"                      
 	                                                	  IndependentValuePath="Key" 
-                                                          ItemsSource="{Binding g_dc_StaticChart_Chart}" 
+                                                          ItemsSource="{Binding g_dc_StatChart_Chart}" 
 		                                                  IsSelectionEnabled="True" Margin="0,0,0,0">
                                 <chartingToolkit:ColumnSeries.DataPointStyle>
                                     <Style TargetType="chartingToolkit:DataPoint">
@@ -142,7 +148,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Món ăn" FontSize="22" FontFamily="Roboto" Height="32" VerticalAlignment="Top" Margin="-2,0">
+                <TabItem Header="Món ăn" FontSize="22" FontFamily="Roboto" Height="32" VerticalAlignment="Bottom" Margin="-2,0,-2,2">
                     <Grid>
                         <Grid Height="80" 
                           Width="980" 
@@ -152,14 +158,14 @@
 
                             <TextBlock Text="Từ ngày" FontSize="15" FontFamily="Roboto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="71,26,0,35" FontWeight="SemiBold"/>
 
-                            <DatePicker SelectedDate="{Binding g_sd_StaticFood_FromTime}" Margin="142,18,680,0" VerticalAlignment="Top"/>
+                            <DatePicker SelectedDate="{Binding g_sd_StatFood_FromTime}" Margin="142,18,698,0" VerticalAlignment="Top"/>
 
                             <TextBlock Text="Đến ngày" FontSize="15" FontFamily="Roboto" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,25,210,30" FontWeight="SemiBold"/>
 
-                            <DatePicker SelectedDate="{Binding g_sd_StaticFood_ToTime}" Margin="790,20,30,0" VerticalAlignment="Top" Width="158"/>
+                            <DatePicker SelectedDate="{Binding g_sd_StatFood_ToTime}" Margin="791,20,49,0" VerticalAlignment="Top"/>
 
                             <Button Content="Thống kê" Margin="450,22,424,26"
-                                    Command="{Binding g_iCm_StaticFood}">
+                                    Command="{Binding g_iCm_StatFood}">
                                 <Button.Foreground>
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
                                 </Button.Foreground>
@@ -171,17 +177,17 @@
 
                         <Border Height="1" Margin="0,80,0,0" VerticalAlignment="Top" Background="#8888" Grid.ColumnSpan="2"/>
 
-                        <ListView x:Name="lv_StatisticFood" ItemsSource="{Binding g_is_StaticFood_Source}"  FontSize="13" FontFamily="Roboto" Margin="562,101,18,58">
+                        <ListView ItemsSource="{Binding g_is_StatFood_Source}"  FontSize="13" FontFamily="Roboto" Margin="562,101,18,58">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn                         
                                         Header="Món ăn"
                                         Width="240"
-                                        DisplayMemberBinding="{Binding g_dmb_StaticFood_FoodName}"/>
+                                        DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}"/>
                                     <GridViewColumn
                                         Header="Số lượng bán" 
                                         Width="120"
-                                        DisplayMemberBinding="{Binding g_dmb_StaticFood_Sale}"/>
+                                        DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -190,7 +196,7 @@
                             <chartingToolkit:PieSeries Height="324" VerticalAlignment="Top"                                                       
                                                        DependentValuePath="Value"                                                                                 	
                                                        IndependentValuePath="Key"
-                                                       ItemsSource="{Binding g_dc_StaticFood_Chart}"                                     
+                                                       ItemsSource="{Binding g_dc_StatFood_Chart}"                                     
                                                        IsSelectionEnabled="True"
                                                        Margin="0,0,0,0">
                             </chartingToolkit:PieSeries>
@@ -198,12 +204,12 @@
 
                         <TextBlock Text ="Chọn thống kê" FontSize="20" FontFamily="Roboto" HorizontalAlignment="Left" Margin="30,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-                        <ComboBox Margin="177,100,623,449"
-                                  Text="{Binding g_sv_StaticFood_Choice}"
+                        <ComboBox Margin="177,98,633,447"
+                                  Text="{Binding g_sv_StatFood_Choice}"
                                   FontSize="18"
                                   FontFamily="Roboto"
                                   IsEditable="True"
-                                  IsReadOnly="True" Background="{x:Null}" Height="30">
+                                  IsReadOnly="True" Background="{x:Null}">
                             <ComboBoxItem>
                                 <TextBlock Text="Khoảng thời gian" FontSize="15" FontFamily="Roboto"/>
                             </ComboBoxItem>
@@ -218,7 +224,7 @@
                             </ComboBoxItem>
                         </ComboBox>
 
-                        <TextBlock Text="{Binding g_txt_StaticFood_BestSeller}" FontSize="18" FontFamily="Roboto" HorizontalAlignment="Left" Margin="583,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+                        <TextBlock Text="{Binding g_txt_StatFood_BestSeller}" FontSize="18" FontFamily="Roboto" HorizontalAlignment="Left" Margin="583,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
                     </Grid>
                 </TabItem>
 
