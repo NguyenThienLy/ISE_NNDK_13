@@ -138,5 +138,102 @@ namespace CanTeenManagement.CO
             statusV.Topmost = true;
             statusV.ShowDialog();
         }
+
+        public static string getHost()
+        {
+            string str_FilePathLocal = staticVarClass.linkFile_serverIP;
+            string str_HostLocal = string.Empty;
+
+            if (System.IO.File.Exists(str_FilePathLocal))
+            {
+                // FileStream fs = new FileStream(str_FilePathLocal, FileMode.Open);
+
+                StreamReader strRd = new StreamReader(str_FilePathLocal);
+
+                str_HostLocal = strRd.ReadLine();
+
+                strRd.Close();
+            }
+            else
+            {
+                return null;
+            }
+
+            return str_HostLocal;
+        }
+
+        public static Image GenerateAvtarImage(String text, Font font, Color textColor, Color backColor, string filename)
+        {
+            //first, create a dummy bitmap just to get a graphics object  
+            Image img = new Bitmap(1, 1);
+            Graphics drawing = Graphics.FromImage(img);
+
+            //measure the string to see how big the image needs to be  
+            SizeF textSize = drawing.MeasureString(text, font);
+
+            //free up the dummy image and old graphics object  
+            img.Dispose();
+            drawing.Dispose();
+
+            //create a new image of the right size  
+            img = new Bitmap(300, 300);
+
+            drawing = Graphics.FromImage(img);
+
+            //paint the background  
+            drawing.Clear(backColor);
+
+            //create a brush for the text  
+            Brush textBrush = new SolidBrush(textColor);
+
+            //drawing.DrawString(text, font, textBrush, 0, 0);  
+            drawing.DrawString(text, font, textBrush, new Rectangle(40, 80, 250, 250));
+
+            drawing.Save();
+
+            textBrush.Dispose();
+            drawing.Dispose();
+
+            img.Save(staticVarClass.server_serverDirectory + filename + staticVarClass.format_JPG);
+
+            return img;
+        }
+
+        public static List<string> ColorsCode()
+        {
+            List<string> list = new List<string>();
+            list.Add("#EEAD0E");
+            list.Add("#8bbf61");
+
+            list.Add("#DC143C");
+            list.Add("#CD6889");
+            list.Add("#8B8386");
+            list.Add("#800080");
+            list.Add("#9932CC");
+            list.Add("#009ACD");
+            list.Add("#00CED1");
+            list.Add("#03A89E");
+
+            list.Add("#00C78C");
+            list.Add("#00CD66");
+            list.Add("#66CD00");
+            list.Add("#EEB422");
+            list.Add("#FF8C00");
+            list.Add("#EE4000");
+
+            list.Add("#388E8E");
+            list.Add("#8E8E38");
+            list.Add("#7171C6");
+
+            return list;
+        }
+
+        public static void CreateProfilePicture(string name, string path, int size)
+        {
+            Font font = new Font(System.Drawing.FontFamily.GenericSerif, size, System.Drawing.FontStyle.Bold);
+            System.Drawing.Color fontcolor = ColorTranslator.FromHtml("#FFF");
+            Color bgcolor = ColorTranslator.FromHtml(staticVarClass.lst_Color.OrderBy(a => Guid.NewGuid()).FirstOrDefault());
+            staticFunctionClass.GenerateAvtarImage(name, font, fontcolor, bgcolor, path);
+        }
     }
 }

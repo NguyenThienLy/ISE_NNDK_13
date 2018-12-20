@@ -92,7 +92,7 @@
                                          TextWrapping="Wrap"
                                          VerticalAlignment="Center"
                                          Text="{Binding g_str_foodName, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                            />
+                                         materialDesign:HintAssist.Hint="Trống"  />
                             </StackPanel>
 
                             <Grid Grid.Row="1">
@@ -385,7 +385,8 @@
                                                  Margin="10 0"
                                                  TextWrapping="Wrap"
                                                  VerticalAlignment="Top"
-                                                 Text="{Binding g_str_foodDecription, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                                 Text="{Binding g_str_foodDecription, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                 materialDesign:HintAssist.Hint="Trống">
                                         </TextBox>
                                     </Grid>
                                 </Grid>

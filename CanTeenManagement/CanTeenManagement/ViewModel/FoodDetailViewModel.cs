@@ -330,9 +330,9 @@ namespace CanTeenManagement.ViewModel
             ORDERFOOD orderFood = new ORDERFOOD
             {
                 ID = this.createNewFoodID(),
-                FOODNAME = "Trống",
+                FOODNAME = string.Empty,
                 FOODTYPE = -1,
-                FOODDESCRIPTION = "Trống",
+                FOODDESCRIPTION = string.Empty,
                 PRICE = 0,
                 SALE = 0,
                 IMAGELINK = staticVarClass.linkImg_empty,

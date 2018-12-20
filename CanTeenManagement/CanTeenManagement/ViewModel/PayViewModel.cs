@@ -219,7 +219,7 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isPay = false;
             this.g_i_customerStar = 0;
 
-            this.g_str_customerID = "Trống";
+            this.g_str_customerID = string.Empty;
             this.g_str_customerfullName = "Trống";
             this.g_imgSrc_customer = staticVarClass.imgSrc_empty;
         }

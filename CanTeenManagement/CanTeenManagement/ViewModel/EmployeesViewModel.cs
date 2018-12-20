@@ -14,6 +14,7 @@ using System.Windows.Input;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
+using CanTeenManagement.CO;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -280,10 +281,19 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
+        private string getNameForPicture(string id)
+        {
+            string l_temp = string.Empty;
+            string l_dot = ".";
+            int l_foundPos = id.LastIndexOf(l_dot);
+
+            l_temp = id[0].ToString().ToUpper() + l_dot + id[l_foundPos + 1].ToString().ToUpper();
+
+            return l_temp;
+        }
+
         private void clickAdd(EmployeesView p)
         {
-            //p.rDefTop.Height = new GridLength(40, GridUnitType.Star);
-
             var l_employee = new EMPLOYEE()
             {
                 ID = g_str_id,
@@ -294,10 +304,13 @@ namespace CanTeenManagement.ViewModel
                 PHONE = g_str_phone,
                 EMAIL = g_str_email,
                 POSITION = g_str_position,
-                IMAGELINK = String.Empty,
+                IMAGELINK = staticVarClass.server_serverDirectory + g_str_id + staticVarClass.format_JPG,
                 ROLE = g_str_role,
                 STATUS = g_str_status
             };
+
+            // Make image default.
+            staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
 
             dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
             dataProvider.Instance.DB.SaveChanges();

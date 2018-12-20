@@ -16,6 +16,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using Microsoft.Win32;
+using CanTeenManagement.CO;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -260,6 +261,15 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
+        private string getNameForPicture(string id)
+        {
+            string l_temp = string.Empty;
+
+            l_temp = id[4].ToString() + id[5].ToString() + id[6].ToString();
+
+            return l_temp;
+        }
+
         private void clickAdd(CustomersView p)
         {
             //p.rDefTop.Height = new GridLength(40, GridUnitType.Star);
@@ -276,8 +286,11 @@ namespace CanTeenManagement.ViewModel
                 CASH = g_i_cash,
                 POINT = g_i_point,
                 STAR = 1,
-                IMAGELINK = ""
+                IMAGELINK = staticVarClass.server_serverDirectory + g_str_id + staticVarClass.format_JPG
             };
+
+            // Make image default.
+            staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_customer.ID), l_customer.ID, 95);
 
             dataProvider.Instance.DB.CUSTOMERs.Add(l_customer);
             dataProvider.Instance.DB.SaveChanges();

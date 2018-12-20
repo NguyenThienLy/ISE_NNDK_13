@@ -10,6 +10,16 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region format.
+        public static string format_PNG = ".png";
+        public static string format_JPG = ".jpg";
+        public static string format_GIF = ".gif";
+        #endregion
+
+        #region list.
+        public static List<string> lst_Color = staticFunctionClass.ColorsCode();
+        #endregion
+
         #region linkImage.
         public static string linkImg_empty = @"\\127.0.0.1\CanteenManagement\empty.default.png";
         #endregion
@@ -122,30 +132,6 @@ namespace CanTeenManagement.CO
 
         #region quantity
         public static int quantity_statusView = 2;
-        #endregion
-
-        // Hàm lấy host.
-        public static string getHost()
-        {
-            string str_FilePathLocal = staticVarClass.linkFile_serverIP;
-            string str_HostLocal = string.Empty;
-
-            if (System.IO.File.Exists(str_FilePathLocal))
-            {
-                // FileStream fs = new FileStream(str_FilePathLocal, FileMode.Open);
-
-                StreamReader strRd = new StreamReader(str_FilePathLocal);
-
-                str_HostLocal = strRd.ReadLine();
-
-                strRd.Close();
-            }
-            else
-            {
-                return null;
-            }
-
-            return str_HostLocal;
-        }
+        #endregion   
     }
 }

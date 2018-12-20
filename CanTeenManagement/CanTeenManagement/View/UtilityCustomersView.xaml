@@ -396,6 +396,7 @@
                                                      FontSize="15"
                                                      FontWeight="Bold"
                                                      CaretBrush="#FF36AE98" 
+                                                     materialDesign:HintAssist.Hint="Trống"
                                                      >
 
                                                 <i:Interaction.Triggers>
