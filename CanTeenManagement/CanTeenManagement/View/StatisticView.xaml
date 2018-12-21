@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:CanTeenManagement.View"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sort="clr-namespace:CanTeenManagement.ViewModel"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -20,7 +21,7 @@
 
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid>
-            <Grid Height="40" Width="980"  VerticalAlignment="Top" Margin="4,0,-4,0" Grid.ColumnSpan="2">
+            <Grid Height="40" Width="980"  VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2">
                 <Rectangle Height="40" Width="980" VerticalAlignment="Top" >
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -32,7 +33,7 @@
                 </Rectangle>
             </Grid>
 
-            <StackPanel Height="40" Width="980"  VerticalAlignment="Top" Margin="4,0,-4,0" Grid.ColumnSpan="2">
+            <StackPanel Height="40" Width="980"  VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2">
                 <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Background="{x:Null}" Height="40" Width="980" VerticalAlignment="Top">
 
                     <DockPanel  Height="30" VerticalAlignment="Top" Margin="0 -11">
@@ -177,17 +178,23 @@
 
                         <Border Height="1" Margin="0,80,0,0" VerticalAlignment="Top" Background="#8888" Grid.ColumnSpan="2"/>
 
-                        <ListView ItemsSource="{Binding g_is_StatFood_Source}"  FontSize="13" FontFamily="Roboto" Margin="562,101,18,58">
+                        <ListView FontSize="13" FontFamily="Roboto" Margin="562,101,18,58"
+                                  ItemsSource="{Binding g_is_StatFood_Source}"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  sort:StatisticViewModel.AutoSort="True">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn                         
-                                        Header="Món ăn"
-                                        Width="240"
-                                        DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}"/>
-                                    <GridViewColumn
-                                        Header="Số lượng bán" 
-                                        Width="120"
-                                        DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}"/>
+                                    <GridView.Columns>
+                                        <GridViewColumn
+                                            Width="220"
+                                            Header="Món ăn"                                           
+                                            DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}"
+                                            sort:StatisticViewModel.PropertyName="g_dmb_StatFood_FoodName"/>
+                                        <GridViewColumn                       
+                                            Header="Số lượng bán"                                                                                                                         
+                                            DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}"
+                                            sort:StatisticViewModel.PropertyName="g_dmb_StatFood_Sale"/>
+                                    </GridView.Columns>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -227,9 +234,6 @@
                         <TextBlock Text="{Binding g_txt_StatFood_BestSeller}" FontSize="18" FontFamily="Roboto" HorizontalAlignment="Left" Margin="583,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
                     </Grid>
                 </TabItem>
-
-
-
             </TabControl>
         </Grid>
     </materialDesign:TransitioningContent>
