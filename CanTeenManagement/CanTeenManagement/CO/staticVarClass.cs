@@ -10,6 +10,11 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region
+        public static string str_true = "true";
+        public static string str_false= "false";
+        #endregion
+
         #region format.
         public static string format_PNG = ".png";
         public static string format_JPG = ".jpg";

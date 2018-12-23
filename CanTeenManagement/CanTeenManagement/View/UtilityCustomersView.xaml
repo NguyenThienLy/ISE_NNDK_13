@@ -165,8 +165,9 @@
                                                     HorizontalAlignment="Center"
                                                     Orientation="Horizontal"
                                                     Margin="50 0 0 0">
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnRemove"
+                                                    Command="{Binding g_iCm_ClickButtonRemoveCommand}"
+                                                    CommandParameter="{Binding ElementName=btnRemove}"
                                                     Grid.Column="5"
                                                     Height="80"
                                                     Width="80"
@@ -186,7 +187,8 @@
                                                            Width="30"/>
                                             </Button>
 
-                                            <TextBox Text="{Binding g_str_sumPrice, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
+                                            <TextBox x:Name="txtPrice" 
+                                                     Text="{Binding g_str_sumPrice, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, StringFormat='{}{0:#,#}'}" 
                                                      BorderBrush="#FF28878B"
                                                      Height="80"
                                                      Width="300"          
@@ -194,22 +196,30 @@
                                                      TextAlignment="Center"
                                                      BorderThickness="2"
                                                      FontWeight="DemiBold"
-                                                     VerticalAlignment="Center">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="GotFocus">
-                                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxGotFocusCommand}"
-                                                                                   CommandParameter="{Binding ElementName=utityCustomersView}"/>
-                                                        </i:EventTrigger>
+                                                     VerticalAlignment="Center"
+                                                     IsEnabled="{Binding g_str_isEnable}">
+                                                
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="GotFocus">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxGotFocusCommand}"
+                                                                                   CommandParameter="{Binding ElementName=txtPrice}"/>
+                                                    </i:EventTrigger>
 
-                                                        <i:EventTrigger EventName="LostFocus">
-                                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxLostFocusCommand}"
-                                                                                   CommandParameter="{Binding ElementName=utityCustomersView}"/>
-                                                        </i:EventTrigger>
+                                                    <i:EventTrigger EventName="LostFocus">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxLostFocusCommand}"
+                                                                                   CommandParameter="{Binding ElementName=txtPrice}"/>
+                                                    </i:EventTrigger>
+
+                                                    <i:EventTrigger EventName="KeyDown">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextBoxKeyDownCommand}"
+                                                                                   CommandParameter="{Binding ElementName=txtPrice}"/>
+                                                    </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </TextBox>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
-                                                    CommandParameter="{Binding}"
+                                            <Button x:Name="btnAdd"
+                                                    Command="{Binding g_iCm_ClickButtonAddCommand}"
+                                                    CommandParameter="{Binding ElementName=btnAdd}"
                                                     Height="80"
                                                     Width="80"
                                                     HorizontalAlignment="Left"
@@ -243,8 +253,9 @@
                                                     HorizontalAlignment="Center"
                                                     Orientation="Horizontal"
                                                     >
-                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
-                                                    CommandParameter="{Binding}" 
+                                            <Button x:Name="btnUndo"
+                                                    Command="{Binding g_iCm_ClickButtonUndoCommand}" 
+                                                    CommandParameter="{Binding ElementName=btnUndo}" 
                                                     Margin="5 0 5 0"
                                                     Height="30"
                                                     Width="30"
@@ -261,8 +272,9 @@
                                                           Width="24" />
                                             </Button>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
-                                                    CommandParameter="{Binding}" 
+                                            <Button x:Name="btnClear" 
+                                                    Command="{Binding g_iCm_ClickButtonClearCommand}" 
+                                                    CommandParameter="{Binding ElementName=btnClear}" 
                                                     Margin="5 0 5 0"
                                                     Height="30"
                                                     Width="30"
@@ -279,8 +291,9 @@
                                                           Width="24" />
                                             </Button>
 
-                                            <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
-                                                    CommandParameter="{Binding}" 
+                                            <Button x:Name="btnRedo" 
+                                                    Command="{Binding g_iCm_ClickButtonRedoCommand}" 
+                                                    CommandParameter="{Binding ElementName=btnRedo}" 
                                                     Margin="5 0 5 0"
                                                     Height="30"
                                                     Width="30"
@@ -305,9 +318,9 @@
                                             </Grid.ColumnDefinitions>
 
 
-                                            <Button x:Name="btnPay" 
-                                                     Command="{Binding g_iCm_ClickButtonPayCommand}"  
-                                                     CommandParameter="{Binding ElementName=btnPay}" 
+                                            <Button x:Name="btnAgree" 
+                                                     Command="{Binding g_iCm_ClickButtonAgreeCommand}"  
+                                                     CommandParameter="{Binding ElementName=btnAgree}" 
                                                      Grid.Row="4"                          
                                                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                      HorizontalAlignment="Center"
@@ -318,18 +331,18 @@
                                                      Content="Đồng ý">
                                             </Button>
 
-                                            <Button x:Name="btnUndo" 
+                                            <Button x:Name="btnBack" 
                                                     Grid.Column="1"
-                                Command="{Binding g_iCm_ClickButtonUndoCommand}"  
-                                CommandParameter="{Binding ElementName=btnUndo}" 
-                                 Grid.Row="5"                          
-                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                 HorizontalAlignment="Center"
-                                 Width="160" Height="50"                                            
-                                 FontSize="20" FontWeight="SemiBold" 
-                                 Background="#D50000" 
-                                 BorderBrush="#D50000" 
-                                 Content="Hoàn tác">
+                                                    Command="{Binding g_iCm_ClickButtonBackCommand}"  
+                                                    CommandParameter="{Binding ElementName=btnBack}" 
+                                                    Grid.Row="5"                          
+                                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                    HorizontalAlignment="Center"
+                                                    Width="160" Height="50"                                            
+                                                    FontSize="20" FontWeight="SemiBold" 
+                                                    Background="#D50000" 
+                                                    BorderBrush="#D50000" 
+                                                    Content="Hoàn tác">
 
                                             </Button>
 

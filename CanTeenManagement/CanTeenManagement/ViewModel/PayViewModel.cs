@@ -121,6 +121,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_isHaveCus;
+        public bool g_b_isHaveCus
+        {
+            get => _g_b_isHaveCus;
+
+            set
+            {
+                _g_b_isHaveCus = value;
+            }
+        }
+
         #region command.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
 
@@ -157,7 +168,7 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_ClickButtonPayCommand = new RelayCommand<Button>((p) => { return this.checkButtonPay(); }, (p) =>
             {
-                this.clickButtonPay(p);
+                this.clickButtonPay();
             });
 
             g_iCm_ClickButtonUndoCommand = new RelayCommand<Button>((p) => { return this.checkButtonUndo(); }, (p) =>
@@ -192,7 +203,7 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_TextChangedTextBoxCustomerIDCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                this.textChangedTextBoxCustomerID(p);
+                this.textChangedTextBoxCustomerID();
             });
 
             g_iCm_TextChangedTextBoxQuantityCommand = new RelayCommand<PAYFOOD>((p) => { return this.checkTextChangedTextBoxQuantity(); }, (p) =>
@@ -210,6 +221,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_sumPrice = 0;
             this.g_b_isPay = false;
+            this.g_b_isHaveCus = false;
 
             this.resetCustomer();
         }
@@ -219,7 +231,7 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isPay = false;
             this.g_i_customerStar = 0;
 
-            this.g_str_customerID = string.Empty;
+            //this.g_str_customerID = string.Empty;
             this.g_str_customerfullName = "Trống";
             this.g_imgSrc_customer = staticVarClass.imgSrc_empty;
         }
@@ -257,14 +269,13 @@ namespace CanTeenManagement.ViewModel
         #region Click pay.
         private bool checkButtonPay()
         {
-            if (dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).Count() == 0
-                || this.g_b_isPay == true)
+            if (this.g_b_isHaveCus == false || this.g_b_isPay == true)
                 return false;
 
             return true;
         }
 
-        private void clickButtonPay(Button p)
+        private void clickButtonPay()
         {
             OrderView orderView = OrderView.Instance;
 
@@ -279,22 +290,33 @@ namespace CanTeenManagement.ViewModel
 
             if (createNewOrderID())
             {
-                this.saveOrderInfo();
-                this.saveOrderDetail();
-                this.addPointForCustomer();
-                this.enableAllQuantityTextBox();
+                try
+                {
+                    this.saveOrderInfo();
+                    this.saveOrderDetail();
+                    this.addPointForCustomer();
+                    this.enableAllQuantityTextBox();
 
-                this.g_b_isPay = true;
+                    this.g_b_isPay = true;
 
-                staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
-                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                    + " phụ trách bởi " + staticVarClass.account_userName);
+                    staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                        + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                        + " phụ trách bởi " + staticVarClass.account_userName + " thành công!");
+                }
+                catch
+                {
+
+                    staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                   + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                   + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
+                }
+
             }
             else
             {
                 staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                   + " phụ trách bởi " + staticVarClass.account_userName);
+                   + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
             }
         }
 
@@ -368,10 +390,6 @@ namespace CanTeenManagement.ViewModel
         {
             int l_i_addPoint = this.g_i_sumPrice / 10;
 
-            //int l_str_currPoint = (int)dataProvider.Instance.DB.CUSTOMERs
-            //   .Where(customer => customer.ID == this.g_str_customerID)
-            //   .Select(customer => customer.POINT).FirstOrDefault();
-
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
                                               .ForEach(customer => customer.POINT += l_i_addPoint);
             dataProvider.Instance.DB.SaveChanges();
@@ -388,9 +406,22 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonUndo(Button p)
         {
-            this.deleteOrderInfo();
-            this.deleteOrderDetail();
-            this.subPointCustomer();
+            try
+            {
+                this.deleteOrderInfo();
+                this.deleteOrderDetail();
+                this.subPointCustomer();
+
+                staticFunctionClass.showStatusView(true, "Hoàn tác thực đơn " + this.g_str_orderID
+                      + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                      + " phụ trách bởi " + staticVarClass.account_userName + " thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(true, "Hoàn tác thực đơn " + this.g_str_orderID
+                  + " Cho khách hàng " + this.g_str_customerfullName.Trim()
+                  + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
+            }
         }
 
         private void deleteOrderInfo()
@@ -527,18 +558,23 @@ namespace CanTeenManagement.ViewModel
         }
         #endregion
 
-        private void textChangedTextBoxCustomerID(TextBox p)
+        private void textChangedTextBoxCustomerID()
         {
-            if (p == null)
-                return;
-
             CUSTOMER l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
 
             if (l_customer != null)
             {
+                this.g_b_isHaveCus = true;
+
                 this.g_str_customerfullName = l_customer.FULLNAME;
                 this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(l_customer.IMAGELINK);
                 this.g_i_customerStar = (int)l_customer.STAR;
+            }
+            else
+            {
+                this.g_b_isHaveCus = false;
+
+                this.resetCustomer();
             }
         }
 
