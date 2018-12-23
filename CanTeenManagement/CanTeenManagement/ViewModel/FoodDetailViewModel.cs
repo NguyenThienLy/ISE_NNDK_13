@@ -20,6 +20,7 @@ namespace CanTeenManagement.ViewModel
 {
     class FoodDetailViewModel : BaseViewModel
     {
+        public const int DEFAULT_PRICE = 25000;
         //private ORDERFOOD _g_ordF_food;
         //public ORDERFOOD g_ordF_food
         //{
@@ -182,6 +183,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_isAdd;
+        public bool g_b_isAdd
+        {
+            get => _g_b_isAdd;
+            set
+            {
+                _g_b_isAdd = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region command.
         public ICommand g_iCm_LoadedWindowCommand { get; set; }
 
@@ -259,6 +271,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickButtonRemoveSale(p);
             });
+
+            g_iCm_ClickButtonSaveCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                this.clickButtonSave(p);
+            });
         }
 
         #region loaded.
@@ -277,9 +294,16 @@ namespace CanTeenManagement.ViewModel
             //this.g_ordF_food = l_orderVM.g_ordF_orderFood;
 
             if (l_orderVM.g_b_isAdd)
+            {
+                this.g_b_isAdd = true;
                 this.setPropetyOrderFood(this.emptyFood());
+                this.g_i_priceSale = DEFAULT_PRICE;
+            }
             else
+            {
+                this.g_b_isAdd = false;
                 this.setPropetyOrderFood(l_orderVM.g_ordF_orderFood);
+            }
 
             this.loadCbbFoodType();
             this.loadCbbStatus();
@@ -306,6 +330,7 @@ namespace CanTeenManagement.ViewModel
             this.g_lst_status = l_lst_status;
         }
 
+
         private void setPropetyOrderFood(ORDERFOOD p)
         {
             if (p == null)
@@ -313,7 +338,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_str_id = p.ID;
             this.g_str_foodName = p.FOODNAME;
-            this.g_i_foodType = p.FOODTYPE;
+            this.g_i_foodType = p.FOODTYPE - 1;
             this.g_str_foodDecription = p.FOODDESCRIPTION;
             this.g_i_priceSale = p.PRICESALE;
             this.g_i_price = p.PRICE;
@@ -331,9 +356,9 @@ namespace CanTeenManagement.ViewModel
             {
                 ID = this.createNewFoodID(),
                 FOODNAME = string.Empty,
-                FOODTYPE = -1,
+                FOODTYPE = 1,
                 FOODDESCRIPTION = string.Empty,
-                PRICE = 0,
+                PRICE = DEFAULT_PRICE,
                 SALE = 0,
                 IMAGELINK = staticVarClass.linkImg_empty,
                 IMAGESOURCE = staticFunctionClass.LoadBitmap(staticVarClass.linkImg_empty),
@@ -356,7 +381,7 @@ namespace CanTeenManagement.ViewModel
             if (match.Success)
             {
                 // Create new orderID.
-                return "ORD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
+                return "FOOD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
             }
 
             return null; ;
@@ -418,6 +443,8 @@ namespace CanTeenManagement.ViewModel
                                 dataProvider.Instance.DB.SaveChanges();
 
                                 staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+
+
                             }
                         }
                     }
@@ -427,6 +454,8 @@ namespace CanTeenManagement.ViewModel
                     staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
                 }
             }
+
+
         }
 
         private void loadedEditImage(System.Drawing.Image p)
@@ -462,10 +491,23 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_price -= 500;
         }
+
         private void textChangedTextBoxPrice(TextBox p)
         {
             if (p == null)
                 return;
+
+            bool success;
+            Int32 l_price = 0;
+            success = Int32.TryParse(p.Text.Replace(",", ""), out l_price);
+            
+            if (l_price < 0)
+                l_price = 0;
+
+            if (l_price > 1000000)
+                l_price = 1000000;
+
+            p.Text = string.Format("{0:n0}", l_price);
 
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
         }
@@ -505,12 +547,186 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            bool success;
+            Int32 l_sale = 0;
+            success = Int32.TryParse(p.Text.Replace(",", ""), out l_sale);
+
+            if (l_sale < 0)
+                l_sale = 0;
+
+            if (l_sale > 100)
+                l_sale = 100;
+
+            p.Text = string.Format("{0:n0}", l_sale);
+
             if (p.Text != "0")
                 this.g_str_visibility = staticVarClass.visibility_visible;
             else
                 this.g_str_visibility = staticVarClass.visibility_hidden;
 
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
+        }
+
+        private bool checkBeforeSave()
+        {
+            if (this.g_str_foodName == "")
+            {
+                staticFunctionClass.showStatusView(false, "Sai tên món ăn, vui lòng nhập lại!");
+                return false;
+            }
+
+            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true && g_b_isAdd == true)
+            {
+                staticFunctionClass.showStatusView(false, "Món " + g_str_foodName + " đã có trong cơ sở dữ liệu");
+                return false;
+            }
+
+            if (this.g_i_price < 1000)
+            {
+                staticFunctionClass.showStatusView(false, "Sai giá thành, vui lòng nhập lại!");
+                return false;
+            }
+
+            if (this.g_str_status == "")
+            {
+                staticFunctionClass.showStatusView(false, "Chưa chọn trạng thái món ăn, vui lòng nhập lại!");
+                return false;
+            }
+
+            if (this.g_i_star == 0)
+            {
+                staticFunctionClass.showStatusView(false, "Chưa đánh giá món ăn, vui lòng nhập lại!");
+                return false;
+            }
+
+            if (this.g_i_foodType == -1)
+            {
+                staticFunctionClass.showStatusView(false, "Chưa chọn loại món ăn, vui lòng nhập lại!");
+                return false;
+            }
+
+            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true && g_b_isAdd == false)
+            {
+                return true;
+            }
+
+            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == false)
+            {
+                g_str_id = this.createNewFoodID();
+                return true;
+            }
+
+            return true;
+        }
+
+        private void clickButtonSave(Button p)
+        {
+            if (checkBeforeSave() == true)
+            {
+                if (g_b_isAdd == true)
+                {
+                    addNewFood();
+                }
+                else
+                {
+                    editFood();
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void addNewFood()
+        {
+            try
+            {
+                g_str_foodName = StringNormalization(g_str_foodName);
+                g_str_foodDecription = StringNormalization(g_str_foodDecription);
+                var l_food = new FOOD()
+                {
+                    ID = g_str_id,
+                    FOODNAME = g_str_foodName,
+                    FOODTYPE = g_i_foodType + 1,
+                    FOODDESCRIPTION = g_str_foodDecription,
+                    PRICE = g_i_price,
+                    SALE = g_i_sale,
+                    IMAGELINK = g_str_imageLink,
+                    STAR = g_i_star,
+                    STATUS = g_str_status
+                };
+
+                dataProvider.Instance.DB.FOODs.Add(l_food);
+                dataProvider.Instance.DB.SaveChanges();
+
+                staticFunctionClass.showStatusView(true, "Thêm món " + g_str_foodName + " thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(false, "Thêm món " + g_str_foodName + " không thành công!");
+            }
+        }
+
+        private void editFood()
+        {
+            try
+            {
+                g_str_foodName = StringNormalization(g_str_foodName);
+                g_str_foodDecription = StringNormalization(g_str_foodDecription);
+
+                var l_food = dataProvider.Instance.DB.FOODs.First(f => f.ID == g_str_id);
+                l_food.FOODNAME = g_str_foodName;
+                l_food.FOODTYPE = g_i_foodType + 1;
+                l_food.FOODDESCRIPTION = g_str_foodDecription;
+                l_food.PRICE = g_i_price;
+                l_food.SALE = g_i_sale;
+                l_food.IMAGELINK = g_str_imageLink;
+                l_food.STAR = g_i_star;
+                l_food.STATUS = g_str_status;
+
+                dataProvider.Instance.DB.SaveChanges();
+
+                staticFunctionClass.showStatusView(true, "Sửa món " + g_str_foodName + " thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(false, "Sửa món " + g_str_foodName + " không thành công!");
+            }
+        }
+
+        private string StringNormalization(string source)
+        {
+            if (source == null || source == "")
+            {
+                return "";
+            }
+            var source_String = source;
+            const string Space = " ";
+
+            var tokens = source_String.Split(new string[] { Space },
+                StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            tokens[0] = tokens[0].Trim().ToLower();
+            var firstChar = tokens[0].Substring(0, 1).ToUpper();
+            var remaining = tokens[0].Substring(1, tokens[0].Length - 1);
+            tokens[0] = firstChar + remaining;
+
+            var builder = new StringBuilder();
+
+            builder.Append(tokens[0]);
+            builder.Append(Space);
+
+            for (int i = 1; i < tokens.Count(); i++)
+            {
+                tokens[i] = tokens[i].Trim().ToLower();
+                builder.Append(tokens[i]);
+                builder.Append(Space);
+            }
+
+            builder.Remove(builder.Length - 1, 1);
+
+            return builder.ToString();
         }
         #endregion
     }
