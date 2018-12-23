@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using CanTeenManagement.View;
 using CanTeenManagement.Model;
 using System.Windows;
-using System.Windows.Controls;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
-using MaterialDesignThemes.Wpf;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.ComponentModel;
-using System.Windows.Documents;
+using System.Windows.Data;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -40,15 +35,16 @@ namespace CanTeenManagement.ViewModel
         private DateTime? _g_sd_StatFood_ToTime;
         private string _g_sv_StatFood_Choice;
         private string _g_txt_StatFood_BestSeller;
-        private List<ItemFood> _g_is_StatFood_Source;
+        private CollectionViewSource _g_is_StatFood_Source;
         private ObservableCollection<KeyValuePair<string, int>> _g_dc_StatFood_Chart;
 
         public DateTime? g_sd_StatFood_FromTime { get => _g_sd_StatFood_FromTime; set { _g_sd_StatFood_FromTime = value; OnPropertyChanged(); } }
         public DateTime? g_sd_StatFood_ToTime { get => _g_sd_StatFood_ToTime; set { _g_sd_StatFood_ToTime = value; OnPropertyChanged(); } }
         public string g_sv_StatFood_Choice { get => _g_sv_StatFood_Choice; set { _g_sv_StatFood_Choice = value; OnPropertyChanged(); } }
         public string g_txt_StatFood_BestSeller { get => _g_txt_StatFood_BestSeller; set { _g_txt_StatFood_BestSeller = value; OnPropertyChanged(); } }
-        public List<ItemFood> g_is_StatFood_Source { get => _g_is_StatFood_Source; set { _g_is_StatFood_Source = value; OnPropertyChanged(); } }
-        public List<ItemFood> StatFood_Value { get; private set; }
+        public ListCollectionView g_is_StatFood_Source { get => (ListCollectionView)_g_is_StatFood_Source.View; /*set { _g_is_StatFood_Source.Source = value; OnPropertyChanged(); } */}
+        //public CollectionViewSource g_is_StatFood_Source { get => _g_is_StatFood_Source; set { _g_is_StatFood_Source = value; OnPropertyChanged(); } }
+        public ListCollectionView StatFood_Value { get; private set; }
         public ObservableCollection<KeyValuePair<string, int>> g_dc_StatFood_Chart { get => _g_dc_StatFood_Chart; set { _g_dc_StatFood_Chart = value; OnPropertyChanged(); } }
         public ObservableCollection<KeyValuePair<string, int>> StatFood_ChartValue { get; private set; }
         #endregion
@@ -56,34 +52,32 @@ namespace CanTeenManagement.ViewModel
         #region commands.
         public ICommand g_iCm_StatChart { get; set; }
         public ICommand g_iCm_StatFood { get; set; }
-        public ICommand g_iCm_StatRevenue { get; set; }
+        public ICommand g_iCm_Sort { get; set; }
         #endregion
 
         public int MAX_COLUMN = 20;
 
         public StatisticViewModel()
         {
-            g_sd_StatChart_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
-            g_sd_StatChart_ToTime = DateTime.Today;
-            g_sv_StatChart_Choice = "Khoảng thời gian";
-            g_sd_StatFood_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
-            g_sd_StatFood_ToTime = DateTime.Today;
-            g_sv_StatFood_Choice = "Khoảng thời gian";
+            statStartUp();
 
             g_iCm_StatChart = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
             {
-                this.statChart(p);
+                statChart();
             });
 
             g_iCm_StatFood = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
             {
-                this.statFood(p);
+                DataLV.Clear();
+                statFood();
             });
+
+            g_iCm_Sort = new RelayCommand(sort);
         }
 
-        private void statChart(StatisticView p)
+        private void statChart()
         {
-            this.StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
+            StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
 
             if (_g_sv_StatChart_Choice == "Theo tuần")
             {
@@ -119,7 +113,7 @@ namespace CanTeenManagement.ViewModel
             g_dc_StatChart_Chart = StatChart_Value;
         }
 
-        private void statFood(StatisticView p)
+        private void statFood()
         {
             if (_g_sv_StatFood_Choice == "Tuần hiện tại")
             {
@@ -152,6 +146,8 @@ namespace CanTeenManagement.ViewModel
 
                 statFoodBetweenTime(_g_sd_StatFood_FromTime, _g_sd_StatFood_ToTime);
             }
+
+            sortSaleByDescending();
         }
 
         private void statChartByTime()
@@ -382,8 +378,7 @@ namespace CanTeenManagement.ViewModel
 
         private void statFoodBetweenTime(DateTime? dtBeginTime, DateTime? dtEndTime)
         {
-            this.StatFood_Value = new List<ItemFood>();
-            this.StatFood_ChartValue = new ObservableCollection<KeyValuePair<string, int>>();
+            StatFood_ChartValue = new ObservableCollection<KeyValuePair<string, int>>();
 
             var dataOrderDetail = dataProvider.Instance.DB.ORDERDETAILs;
             var dataFood = dataProvider.Instance.DB.FOODs;
@@ -402,7 +397,7 @@ namespace CanTeenManagement.ViewModel
             foreach (var i in result)
             {
                 int temp = i.Sale ?? default(int);
-                StatFood_Value.Add(new ItemFood(i.Name, temp));
+                DataLV.Add(new ItemFood(i.Name, temp));
                 iTotal += temp;
 
                 if (iFirst < temp)
@@ -449,7 +444,6 @@ namespace CanTeenManagement.ViewModel
             StatFood_ChartValue.Add(new KeyValuePair<string, int>("Các món còn lại", iOthers));
 
             g_txt_StatFood_BestSeller = "Bán chạy nhất:  " + strFirst[0];
-            g_is_StatFood_Source = StatFood_Value;
             g_dc_StatFood_Chart = StatFood_ChartValue;
         }
 
@@ -524,6 +518,66 @@ namespace CanTeenManagement.ViewModel
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date.Value, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
+        private void statStartUp()
+        {
+            g_sd_StatChart_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
+            g_sd_StatChart_ToTime = DateTime.Today;
+            g_sv_StatChart_Choice = "Khoảng thời gian";
+            g_sd_StatFood_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
+            g_sd_StatFood_ToTime = DateTime.Today;
+            g_sv_StatFood_Choice = "Khoảng thời gian";
+            StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
+            DataLV = new ObservableCollection<ItemFood>();
+            statChart();
+            statFood();
+        }
+
+        #region Sort
+        private string _sortColumn;
+        private ListSortDirection _sortDirection;
+        private ObservableCollection<ItemFood> _g_is_StatFood_DataLV;
+
+
+        public ObservableCollection<ItemFood> DataLV
+        {
+            get
+            {
+                return _g_is_StatFood_DataLV;
+            }
+            set
+            {
+                _g_is_StatFood_DataLV = value;
+                _g_is_StatFood_Source = new CollectionViewSource();
+                _g_is_StatFood_Source.Source = _g_is_StatFood_DataLV;
+            }
+        }
+
+        private void sort(object parameter)
+        {
+            string column = parameter as string;
+
+            if (_sortColumn == column)
+            {
+                // Toggle sorting direction
+                _sortDirection = _sortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+            }
+            else
+            {
+                _sortColumn = column;
+                _sortDirection = ListSortDirection.Ascending;
+            }
+
+            _g_is_StatFood_Source.SortDescriptions.Clear();
+            _g_is_StatFood_Source.SortDescriptions.Add(new SortDescription(_sortColumn, _sortDirection));
+        }
+
+        private void sortSaleByDescending()
+        {
+            _g_is_StatFood_Source.SortDescriptions.Clear();
+            _g_is_StatFood_Source.SortDescriptions.Add(new SortDescription("g_dmb_StatFood_Sale", ListSortDirection.Descending));
+        }
+        #endregion
+
         public class ItemFood
         {
             public ItemFood(string name, int sale)
@@ -536,341 +590,52 @@ namespace CanTeenManagement.ViewModel
             public int g_dmb_StatFood_Sale { get; set; }
         }
 
-        #region Public attached properties
+        #region Relay Command
 
-        public static ICommand GetCommand(DependencyObject obj)
+        public class RelayCommand : ICommand
         {
-            return (ICommand)obj.GetValue(CommandProperty);
-        }
+            private readonly Action<object> _Execute;
+            private readonly Func<object, bool> _CanExecute;
 
-        public static void SetCommand(DependencyObject obj, ICommand value)
-        {
-            obj.SetValue(CommandProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.RegisterAttached(
-                "Command",
-                typeof(ICommand),
-                typeof(StatisticViewModel),
-                new UIPropertyMetadata(
-                    null,
-                    (o, e) =>
-                    {
-                        ItemsControl listView = o as ItemsControl;
-                        if (listView != null)
-                        {
-                            if (!GetAutoSort(listView)) // Don't change click handler if AutoSort enabled
-                            {
-                                if (e.OldValue != null && e.NewValue == null)
-                                {
-                                    listView.RemoveHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(ColumnHeader_Click));
-                                }
-                                if (e.OldValue == null && e.NewValue != null)
-                                {
-                                    listView.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(ColumnHeader_Click));
-                                }
-                            }
-                        }
-                    }
-                )
-            );
-
-        public static bool GetAutoSort(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AutoSortProperty);
-        }
-
-        public static void SetAutoSort(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AutoSortProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for AutoSort.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AutoSortProperty =
-            DependencyProperty.RegisterAttached(
-                "AutoSort",
-                typeof(bool),
-                typeof(StatisticViewModel),
-                new UIPropertyMetadata(
-                    false,
-                    (o, e) =>
-                    {
-                        ListView listView = o as ListView;
-                        if (listView != null)
-                        {
-                            if (GetCommand(listView) == null) // Don't change click handler if a command is set
-                            {
-                                bool oldValue = (bool)e.OldValue;
-                                bool newValue = (bool)e.NewValue;
-                                if (oldValue && !newValue)
-                                {
-                                    listView.RemoveHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(ColumnHeader_Click));
-                                }
-                                if (!oldValue && newValue)
-                                {
-                                    listView.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(ColumnHeader_Click));
-                                }
-                            }
-                        }
-                    }
-                )
-            );
-
-        public static string GetPropertyName(DependencyObject obj)
-        {
-            return (string)obj.GetValue(PropertyNameProperty);
-        }
-
-        public static void SetPropertyName(DependencyObject obj, string value)
-        {
-            obj.SetValue(PropertyNameProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for PropertyName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.RegisterAttached(
-                "PropertyName",
-                typeof(string),
-                typeof(StatisticViewModel),
-                new UIPropertyMetadata(null)
-            );
-
-        public static bool GetShowSortGlyph(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(ShowSortGlyphProperty);
-        }
-
-        public static void SetShowSortGlyph(DependencyObject obj, bool value)
-        {
-            obj.SetValue(ShowSortGlyphProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for ShowSortGlyph.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowSortGlyphProperty =
-            DependencyProperty.RegisterAttached("ShowSortGlyph", typeof(bool), typeof(StatisticViewModel), new UIPropertyMetadata(true));
-
-        public static ImageSource GetSortGlyphAscending(DependencyObject obj)
-        {
-            return (ImageSource)obj.GetValue(SortGlyphAscendingProperty);
-        }
-
-        public static void SetSortGlyphAscending(DependencyObject obj, ImageSource value)
-        {
-            obj.SetValue(SortGlyphAscendingProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for SortGlyphAscending.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SortGlyphAscendingProperty =
-            DependencyProperty.RegisterAttached("SortGlyphAscending", typeof(ImageSource), typeof(StatisticViewModel), new UIPropertyMetadata(null));
-
-        public static ImageSource GetSortGlyphDescending(DependencyObject obj)
-        {
-            return (ImageSource)obj.GetValue(SortGlyphDescendingProperty);
-        }
-
-        public static void SetSortGlyphDescending(DependencyObject obj, ImageSource value)
-        {
-            obj.SetValue(SortGlyphDescendingProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for SortGlyphDescending.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SortGlyphDescendingProperty =
-            DependencyProperty.RegisterAttached("SortGlyphDescending", typeof(ImageSource), typeof(StatisticViewModel), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region Private attached properties
-
-        private static GridViewColumnHeader GetSortedColumnHeader(DependencyObject obj)
-        {
-            return (GridViewColumnHeader)obj.GetValue(SortedColumnHeaderProperty);
-        }
-
-        private static void SetSortedColumnHeader(DependencyObject obj, GridViewColumnHeader value)
-        {
-            obj.SetValue(SortedColumnHeaderProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for SortedColumn.  This enables animation, styling, binding, etc...
-        private static readonly DependencyProperty SortedColumnHeaderProperty =
-            DependencyProperty.RegisterAttached("SortedColumnHeader", typeof(GridViewColumnHeader), typeof(StatisticViewModel), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region Column header click event handler
-
-        private static void ColumnHeader_Click(object sender, RoutedEventArgs e)
-        {
-            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-            if (headerClicked != null && headerClicked.Column != null)
+            public RelayCommand(Action<object> execute)
+                : this(execute, null)
             {
-                string propertyName = GetPropertyName(headerClicked.Column);
-                if (!string.IsNullOrEmpty(propertyName))
+
+            }
+
+            public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
+            {
+                if (execute == null)
                 {
-                    ListView listView = GetAncestor<ListView>(headerClicked);
-                    if (listView != null)
-                    {
-                        ICommand command = GetCommand(listView);
-                        if (command != null)
-                        {
-                            if (command.CanExecute(propertyName))
-                            {
-                                command.Execute(propertyName);
-                            }
-                        }
-                        else if (GetAutoSort(listView))
-                        {
-                            ApplySort(listView.Items, propertyName, listView, headerClicked);
-                        }
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region Helper methods
-
-        public static T GetAncestor<T>(DependencyObject reference) where T : DependencyObject
-        {
-            DependencyObject parent = VisualTreeHelper.GetParent(reference);
-            while (!(parent is T))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-            if (parent != null)
-                return (T)parent;
-            else
-                return null;
-        }
-
-        public static void ApplySort(ICollectionView view, string propertyName, ListView listView, GridViewColumnHeader sortedColumnHeader)
-        {
-            ListSortDirection direction = ListSortDirection.Ascending;
-            if (view.SortDescriptions.Count > 0)
-            {
-                SortDescription currentSort = view.SortDescriptions[0];
-                if (currentSort.PropertyName == propertyName)
-                {
-                    if (currentSort.Direction == ListSortDirection.Ascending)
-                        direction = ListSortDirection.Descending;
-                    else
-                        direction = ListSortDirection.Ascending;
-                }
-                view.SortDescriptions.Clear();
-
-                GridViewColumnHeader currentSortedColumnHeader = GetSortedColumnHeader(listView);
-                if (currentSortedColumnHeader != null)
-                {
-                    RemoveSortGlyph(currentSortedColumnHeader);
-                }
-            }
-            if (!string.IsNullOrEmpty(propertyName))
-            {
-                view.SortDescriptions.Add(new SortDescription(propertyName, direction));
-                if (GetShowSortGlyph(listView))
-                    AddSortGlyph(
-                        sortedColumnHeader,
-                        direction,
-                        direction == ListSortDirection.Ascending ? GetSortGlyphAscending(listView) : GetSortGlyphDescending(listView));
-                SetSortedColumnHeader(listView, sortedColumnHeader);
-            }
-        }
-
-        private static void AddSortGlyph(GridViewColumnHeader columnHeader, ListSortDirection direction, ImageSource sortGlyph)
-        {
-            AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(columnHeader);
-            adornerLayer.Add(
-                new SortGlyphAdorner(
-                    columnHeader,
-                    direction,
-                    sortGlyph
-                    ));
-        }
-
-        private static void RemoveSortGlyph(GridViewColumnHeader columnHeader)
-        {
-            AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(columnHeader);
-            Adorner[] adorners = adornerLayer.GetAdorners(columnHeader);
-            if (adorners != null)
-            {
-                foreach (Adorner adorner in adorners)
-                {
-                    if (adorner is SortGlyphAdorner)
-                        adornerLayer.Remove(adorner);
-                }
-            }
-        }
-
-        #endregion
-
-        #region SortGlyphAdorner nested class
-
-        private class SortGlyphAdorner : Adorner
-        {
-            private GridViewColumnHeader _columnHeader;
-            private ListSortDirection _direction;
-            private ImageSource _sortGlyph;
-
-            public SortGlyphAdorner(GridViewColumnHeader columnHeader, ListSortDirection direction, ImageSource sortGlyph)
-                : base(columnHeader)
-            {
-                _columnHeader = columnHeader;
-                _direction = direction;
-                _sortGlyph = sortGlyph;
-            }
-
-            private Geometry GetDefaultGlyph()
-            {
-                double x1 = _columnHeader.ActualWidth - 13;
-                double x2 = x1 + 10;
-                double x3 = x1 + 5;
-                double y1 = _columnHeader.ActualHeight / 2 - 3;
-                double y2 = y1 + 5;
-
-                if (_direction == ListSortDirection.Ascending)
-                {
-                    double tmp = y1;
-                    y1 = y2;
-                    y2 = tmp;
+                    throw new ArgumentNullException("execute", "Execute cannot be null.");
                 }
 
-                PathSegmentCollection pathSegmentCollection = new PathSegmentCollection();
-                pathSegmentCollection.Add(new LineSegment(new Point(x2, y1), true));
-                pathSegmentCollection.Add(new LineSegment(new Point(x3, y2), true));
-
-                PathFigure pathFigure = new PathFigure(
-                    new Point(x1, y1),
-                    pathSegmentCollection,
-                    true);
-
-                PathFigureCollection pathFigureCollection = new PathFigureCollection();
-                pathFigureCollection.Add(pathFigure);
-
-                PathGeometry pathGeometry = new PathGeometry(pathFigureCollection);
-                return pathGeometry;
+                _Execute = execute;
+                _CanExecute = canExecute;
             }
 
-            protected override void OnRender(DrawingContext drawingContext)
+            public event EventHandler CanExecuteChanged
             {
-                base.OnRender(drawingContext);
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
 
-                if (_sortGlyph != null)
+            public void Execute(object parameter)
+            {
+                _Execute(parameter);
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                if (_CanExecute == null)
                 {
-                    double x = _columnHeader.ActualWidth - 13;
-                    double y = _columnHeader.ActualHeight / 2 - 5;
-                    Rect rect = new Rect(x, y, 10, 10);
-                    drawingContext.DrawImage(_sortGlyph, rect);
+                    return true;
                 }
-                else
-                {
-                    drawingContext.DrawGeometry(Brushes.LightGray, new Pen(Brushes.Gray, 1.0), GetDefaultGlyph());
-                }
+
+                return _CanExecute(parameter);
             }
         }
 
-        #endregion
+        #endregion        
     }
 }

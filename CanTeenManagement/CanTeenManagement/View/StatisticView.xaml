@@ -2,13 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-             xmlns:local="clr-namespace:CanTeenManagement.View"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sort="clr-namespace:CanTeenManagement.ViewModel"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -179,22 +176,21 @@
                         <Border Height="1" Margin="0,80,0,0" VerticalAlignment="Top" Background="#8888" Grid.ColumnSpan="2"/>
 
                         <ListView FontSize="13" FontFamily="Roboto" Margin="562,101,18,58"
-                                  ItemsSource="{Binding g_is_StatFood_Source}"
-                                  IsSynchronizedWithCurrentItem="True"
-                                  sort:StatisticViewModel.AutoSort="True">
+                                  ItemsSource="{Binding g_is_StatFood_Source}">
                             <ListView.View>
                                 <GridView>
-                                    <GridView.Columns>
-                                        <GridViewColumn
-                                            Width="220"
-                                            Header="Món ăn"                                           
-                                            DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}"
-                                            sort:StatisticViewModel.PropertyName="g_dmb_StatFood_FoodName"/>
-                                        <GridViewColumn                       
-                                            Header="Số lượng bán"                                                                                                                         
-                                            DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}"
-                                            sort:StatisticViewModel.PropertyName="g_dmb_StatFood_Sale"/>
-                                    </GridView.Columns>
+                                    <GridViewColumn Width="220" DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}">
+                                        <GridViewColumnHeader 
+                                            Content="Món ăn"
+                                            Command="{Binding g_iCm_Sort}"                                            
+                                            CommandParameter="g_dmb_StatFood_FoodName"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}">
+                                        <GridViewColumnHeader 
+                                            Content="Số lượng bán"
+                                            Command="{Binding g_iCm_Sort}"                                            
+                                            CommandParameter="g_dmb_StatFood_Sale"/>
+                                    </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
