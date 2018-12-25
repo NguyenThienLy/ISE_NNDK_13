@@ -1,92 +1,95 @@
 ﻿<UserControl x:Class="CanTeenManagement.View.DashBoardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CanTeenManagement.View"
-             mc:Ignorable="d" 
-              x:Name="dashboardView"
-             
-              xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
-          DataContext="{StaticResource dashboardVM}"
-       Height="660" 
-       Width="980">
+             mc:Ignorable="d"
+             x:Name="dashboardView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{StaticResource dashboardVM}"
+             Height="660"
+             Width="980">
     <Grid>
-        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
+                                             OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
             <Grid>
-                <Rectangle Height="660" 
-                       Width="980" 
-                       VerticalAlignment="Bottom">
+                <Rectangle Height="660"
+                           Width="980"
+                           VerticalAlignment="Bottom">
                     <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
-                            <GradientStop Color="White" Offset="1"/>
-                            <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
-                            <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                        <LinearGradientBrush EndPoint="0.5,0.2"
+                                             StartPoint="0.5,1">
+                            <GradientStop Color="White"
+                                          Offset="1" />
+                            <GradientStop Color="#FFCBD0D1"
+                                          Offset="0.5" />
+                            <GradientStop Color="#FFE4E7EA"
+                                          Offset="0.068" />
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
-
                 <StackPanel>
                     <Grid Height="659">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="190"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="190" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
-
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-
-                            <materialDesign:Card  Grid.Column="1" 
-                                                  Margin="8 0 8 0" 
+                            <materialDesign:Card  Grid.Column="1"
+                                                  Margin="8 0 8 0"
                                                   Background="#FFC00000">
-                                <StackPanel >
-                                    <materialDesign:PackIcon Kind="Place" 
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Place"
                                                              Foreground="White"
-                                                             Height="120" Width="130" 
-                                                             HorizontalAlignment="Center" 
-                                                             VerticalAlignment="Stretch" 
-                                                             Margin="7,0"/>
-                                    <TextBlock TextWrapping="Wrap" 
-                                               FontSize="25" 
+                                                             Height="120"
+                                                             Width="130"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Stretch"
+                                                             Margin="7,0" />
+                                    <TextBlock TextWrapping="Wrap"
+                                               FontSize="25"
                                                Foreground="#FFF3E1E1"
                                                FontWeight="Bold"
-                                               FontFamily="Roboto" 
-                                               Width="134" HorizontalAlignment="Center" 
-                                               TextAlignment="Center" 
-                                               Margin="0 10"><Run Text="CĂN TIN"/></TextBlock>
-                                    <TextBlock TextWrapping="Wrap" FontSize="20"
-                                               Foreground="#FFF3E1E1"
-                                               FontWeight="Bold" 
                                                FontFamily="Roboto"
-                                               Width="134" 
-                                               HorizontalAlignment="Center" 
-                                               TextAlignment="Center"><Run Text="ĐH KHTN"/></TextBlock>
+                                               Width="134"
+                                               HorizontalAlignment="Center"
+                                               TextAlignment="Center"
+                                               Margin="0 10"><Run Text="CĂN TIN" /></TextBlock>
+                                    <TextBlock TextWrapping="Wrap"
+                                               FontSize="20"
+                                               Foreground="#FFF3E1E1"
+                                               FontWeight="Bold"
+                                               FontFamily="Roboto"
+                                               Width="134"
+                                               HorizontalAlignment="Center"
+                                               TextAlignment="Center"><Run Text="ĐH KHTN" /></TextBlock>
                                 </StackPanel>
                             </materialDesign:Card>
                         </Grid>
-
                         <Grid Grid.Row="1"
                               Margin="10 0 10 0">
-                            <materialDesign:Transitioner SelectedIndex="{Binding g_i_index, UpdateSourceTrigger=PropertyChanged}" x:Name="itemControlSlideFood"
+                            <materialDesign:Transitioner SelectedIndex="{Binding g_i_index, UpdateSourceTrigger=PropertyChanged}"
+                                                         x:Name="itemControlSlideFood"
                                                          ItemsSource="{Binding g_obCl_orderFood, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}" 
-                                                               CommandParameter="{Binding ElementName=itemControlSlideFood}"/>
+                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"
+                                                               CommandParameter="{Binding ElementName=itemControlSlideFood}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:TransitioningContent>
@@ -97,63 +100,87 @@
                                             <materialDesign:Card Margin="0 10">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseEnter">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}" 
-                                                                               CommandParameter="{Binding}"/>
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}"
+                                                                               CommandParameter="{Binding}" />
                                                     </i:EventTrigger>
-
                                                     <i:EventTrigger EventName="MouseLeave">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}" 
-                                                                               CommandParameter="{Binding}"/>
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}"
+                                                                               CommandParameter="{Binding}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
-                                                        <ColumnDefinition Width="390"/>
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="390" />
                                                         <ColumnDefinition />
-                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="50" />
                                                     </Grid.ColumnDefinitions>
-
                                                     <Button Grid.Column="0"
                                                             HorizontalAlignment="Center"
-                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                                                             Foreground="White"
                                                             Background="#FFFF9C00"
-                                                            BorderBrush="#FF28878B" 
-                                                            Height="45" Width="45"
-                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonBackCommand}" 
+                                                            BorderBrush="#FF28878B"
+                                                            Height="45"
+                                                            Width="45"
+                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonBackCommand}"
                                                             CommandParameter="{Binding}"
                                                             Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, IsAsync=True}">
-                                                        <materialDesign:PackIcon Kind="ArrowLeft" Height="45" Width="45" />
+                                                        <materialDesign:PackIcon Kind="ArrowLeft"
+                                                                                 Height="45"
+                                                                                 Width="45" />
                                                     </Button>
-
-                                                    <Button Grid.Column="3" 
-                                                            HorizontalAlignment="Center" 
-                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                                    <Button Grid.Column="3"
+                                                            HorizontalAlignment="Center"
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                                                             Foreground="White"
-                                                            Background="#FFFF9C00" 
-                                                            BorderBrush="#FF28878B" 
+                                                            Background="#FFFF9C00"
+                                                            BorderBrush="#FF28878B"
                                                             Height="45"
                                                             Width="45"
                                                             Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonNextCommand}"
                                                             CommandParameter="{Binding}"
                                                             Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged}">
-                                                        <materialDesign:PackIcon Kind="ArrowRight" Height="45" Width="45" />
+                                                        <materialDesign:PackIcon Kind="ArrowRight"
+                                                                                 Height="45"
+                                                                                 Width="45" />
                                                     </Button>
-
-                                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,30,10,0">
-                                                        <TextBlock Text="CHỈ" FontSize="25" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="10,10,0,0"/>
-                                                        <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                                                            <TextBlock Text="{Binding PRICESALE, StringFormat='{}{0:#,#}'}" FontSize="75" FontFamily="Cooper Black" Foreground="#FFC00000" />
-                                                            <TextBlock Text="đ" FontSize="30" FontFamily="Cooper Black" Foreground="#FFC00000" Margin="5,40,0,0"/>
+                                                    <StackPanel Grid.Column="1"
+                                                                Orientation="Vertical"
+                                                                Margin="0,30,10,0">
+                                                        <TextBlock Text="CHỈ"
+                                                                   FontSize="25"
+                                                                   FontFamily="Cooper Black"
+                                                                   Foreground="#FFC00000"
+                                                                   Margin="10,10,0,0" />
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    Margin="20 0 0 0">
+                                                            <TextBlock Text="{Binding PRICESALE, StringFormat='{}{0:0,0}'}"
+                                                                       FontSize="75"
+                                                                       FontFamily="Cooper Black"
+                                                                       Foreground="#FFC00000" />
+                                                            <TextBlock Text="đ"
+                                                                       FontSize="30"
+                                                                       FontFamily="Cooper Black"
+                                                                       Foreground="#FFC00000"
+                                                                       Margin="5,40,0,0" />
                                                         </StackPanel>
-                                                        <TextBlock Text="{Binding FOODNAME}" TextWrapping="Wrap" FontSize="40" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
-                                                        <TextBlock Text="{Binding FOODDESCRIPTION}" TextWrapping="Wrap" FontSize="30" FontFamily="Champagne &amp; Limousines" Margin="5"/>
+                                                        <TextBlock Text="{Binding FOODNAME}"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="40"
+                                                                   FontFamily="Champagne &amp; Limousines"
+                                                                   FontWeight="Bold"
+                                                                   Margin="5" />
+                                                        <TextBlock Text="{Binding FOODDESCRIPTION}"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="30"
+                                                                   FontFamily="Champagne &amp; Limousines"
+                                                                   Margin="5" />
                                                     </StackPanel>
-
-                                                    <Image Grid.Column="2" Source="{Binding IMAGELINK}" 
-                                                           Stretch="Fill" 
-                                                           Margin="0 20 0 20"/>
+                                                    <Image Grid.Column="2"
+                                                           Source="{Binding IMAGELINK}"
+                                                           Stretch="Fill"
+                                                           Margin="0 20 0 20" />
                                                 </Grid>
                                             </materialDesign:Card>
                                         </materialDesign:TransitioningContent>
@@ -161,7 +188,6 @@
                                 </ItemsControl.ItemTemplate>
                             </materialDesign:Transitioner>
                         </Grid>
-
                     </Grid>
                 </StackPanel>
             </Grid>

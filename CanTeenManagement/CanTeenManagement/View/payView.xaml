@@ -4,196 +4,170 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanTeenManagement.View"
-        mc:Ignorable="d" 
-        x:Name="payView"     
-        Title="PayView" 
-            
-        xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        x:Name="payView"
+        Title="PayView"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-   
-         FontFamily="{DynamicResource MaterialDesignFont}"
-         DataContext="{StaticResource payVM}"
-       
-         Height="520"
-         Width="940"
-         WindowStartupLocation ="CenterScreen"
-         ResizeMode="NoResize"
-         WindowStyle="None"
-         AllowsTransparency="True"
-         Background="Transparent">
-
-    <Grid Margin="0 0 20 20" Background="White"  >
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource payVM}"
+        Height="520"
+        Width="940"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+    <Grid Margin="0 0 20 20"
+          Background="White">
         <Grid.Effect>
-            <DropShadowEffect BlurRadius="15" 
+            <DropShadowEffect BlurRadius="15"
                               Direction="-90"
                               RenderingBias="Quality"
-                              ShadowDepth="2"/>
+                              ShadowDepth="2" />
         </Grid.Effect>
-
-        <Grid x:Name="gvMain" >
-
-            <Rectangle Height="500" Width="920" >
+        <Grid x:Name="gvMain">
+            <Rectangle Height="500"
+                       Width="920">
                 <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,0.2" StartPoint="0.5,1">
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="#FFCBD0D1" Offset="0.5"/>
-                        <GradientStop Color="#FFE4E7EA" Offset="0.068"/>
+                    <LinearGradientBrush EndPoint="0.5,0.2"
+                                         StartPoint="0.5,1">
+                        <GradientStop Color="White"
+                                      Offset="1" />
+                        <GradientStop Color="#FFCBD0D1"
+                                      Offset="0.5" />
+                        <GradientStop Color="#FFE4E7EA"
+                                      Offset="0.068" />
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-
-            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
-
+            <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
+                                                 OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                 <Grid>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"></RowDefinition>
-                            <RowDefinition ></RowDefinition>
+                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition Width="10"></ColumnDefinition>
                                 <ColumnDefinition Width="340"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-
                             <Grid Grid.Column="0">
-
                                 <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl x:Name="itemControlHaveFood" 
+                                    <ItemsControl x:Name="itemControlHaveFood"
                                                   ItemsSource="{Binding g_obCl_payFood ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Loaded">
                                                 <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"
-                                                                       CommandParameter="{Binding ElementName=itemControlHaveFood}"/>
+                                                                       CommandParameter="{Binding ElementName=itemControlHaveFood}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <WrapPanel Orientation="Horizontal"
-                                               />
+                                                <WrapPanel Orientation="Horizontal" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
-
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-
                                                 <materialDesign:Card Grid.Row="0"
-                                                                     Width="550"    
+                                                                     Width="550"
                                                                      Height="140"
                                                                      VerticalAlignment="Center"
                                                                      Margin="5 5 0 5">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="30"/>
-                                                            <ColumnDefinition Width="150"/>
+                                                            <ColumnDefinition Width="30" />
+                                                            <ColumnDefinition Width="150" />
                                                             <ColumnDefinition />
-                                                            <ColumnDefinition Width="40"/>
-                                                            <ColumnDefinition Width="30"/>
-                                                            <ColumnDefinition Width="40"/>
-                                                            <ColumnDefinition Width="50"/>
-                                                            <ColumnDefinition Width="40"/>
+                                                            <ColumnDefinition Width="40" />
+                                                            <ColumnDefinition Width="30" />
+                                                            <ColumnDefinition Width="40" />
+                                                            <ColumnDefinition Width="50" />
+                                                            <ColumnDefinition Width="40" />
                                                         </Grid.ColumnDefinitions>
-
                                                         <CheckBox Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCheckBoxCommand}"
-                                                                  CommandParameter="{Binding}" 
+                                                                  CommandParameter="{Binding}"
                                                                   Grid.Column="0"
                                                                   HorizontalAlignment="Center"
-                                                                  IsChecked= "{Binding ISCHECKED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                  Background="#FF36AE98" 
-                                                                  Style="{StaticResource MaterialDesignCheckBox}">
-                                                        </CheckBox>
-
+                                                                  IsChecked="{Binding ISCHECKED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                  Background="#FF36AE98"
+                                                                  Style="{StaticResource MaterialDesignCheckBox}"></CheckBox>
                                                         <Image Grid.Column="1"
                                                                Height="100"
-                                                               Source="{Binding IMAGESOURCE}">
-
-                                                        </Image>
-
+                                                               Source="{Binding IMAGESOURCE}"></Image>
                                                         <Grid Grid.Column="2">
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition></RowDefinition>
                                                                 <RowDefinition Height="20"></RowDefinition>
-                                                                <RowDefinition Height="20">
-                                                                </RowDefinition>
+                                                                <RowDefinition Height="20"></RowDefinition>
                                                             </Grid.RowDefinitions>
-
                                                             <TextBlock Margin="10 0"
-                                                                       Grid.Row="0" 
-                                                                       FontWeight="DemiBold" 
-                                                                       FontSize="30" 
+                                                                       Grid.Row="0"
+                                                                       FontWeight="DemiBold"
+                                                                       FontSize="30"
                                                                        TextWrapping="Wrap"
-                                                                       HorizontalAlignment="Left" 
-                                                                       VerticalAlignment="Center" 
-                                                                       Text = "{Binding FOODNAME}"/>
-
-                                                            <TextBlock Margin="10 0"  
+                                                                       HorizontalAlignment="Left"
+                                                                       VerticalAlignment="Center"
+                                                                       Text="{Binding FOODNAME}" />
+                                                            <TextBlock Margin="10 0"
                                                                        Foreground="Red"
-                                                                       Grid.Row="1" 
-                                                                       HorizontalAlignment="Left" 
+                                                                       Grid.Row="1"
+                                                                       HorizontalAlignment="Left"
                                                                        VerticalAlignment="Center"
                                                                        Text="{Binding PRICESALE, StringFormat='{}{0:#,#} đ' }"
                                                                        FontSize="20"
-                                                                       FontWeight="DemiBold">
-                                                            </TextBlock>
-
-                                                            <StackPanel Grid.Row="2" 
+                                                                       FontWeight="DemiBold"></TextBlock>
+                                                            <StackPanel Grid.Row="2"
                                                                         Orientation="Horizontal">
-                                                                <TextBlock Margin="10 0" 
-                                                                           HorizontalAlignment="Left" 
+                                                                <TextBlock Margin="10 0"
+                                                                           HorizontalAlignment="Left"
                                                                            VerticalAlignment="Center"
                                                                            Text="{Binding PRICE, StringFormat='{}{0:#,#} đ' }"
                                                                            FontSize="16"
                                                                            FontWeight="DemiBold"
                                                                            Visibility="{Binding VISIBILITY}">
-
                                                                     <TextBlock.TextDecorations>
                                                                         <TextDecoration Location="Strikethrough">
                                                                             <TextDecoration.Pen>
                                                                                 <Pen Brush="Black" />
                                                                             </TextDecoration.Pen>
                                                                         </TextDecoration>
-                                                                    </TextBlock.TextDecorations>
-
-                                                                </TextBlock>
-
-                                                                <TextBlock  Height="15" Width="35"
-                                                                            Margin="5 0" Foreground="#FFFFF4F4"
-                                                                            FontStyle="Italic" 
+                                                                    </TextBlock.TextDecorations></TextBlock>
+                                                                <TextBlock  Height="15"
+                                                                            Width="35"
+                                                                            Margin="5 0"
+                                                                            Foreground="#FFFFF4F4"
+                                                                            FontStyle="Italic"
                                                                             Background="Red"
                                                                             TextAlignment="Center"
                                                                             Text="{Binding SALE, StringFormat='-{0}%'}"
-                                                                            Visibility="{Binding VISIBILITY}"/>
+                                                                            Visibility="{Binding VISIBILITY}" />
                                                             </StackPanel>
-
                                                         </Grid>
-
-                                                        <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}" 
-                                                    CommandParameter="{Binding}" 
-                                                    Grid.Column="3"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="{x:Null}"
-                                                    BorderBrush="#FF26788A"
-                                                    BorderThickness="2"
-                                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                    ToolTip="Xóa món ra khỏi danh sách">
-                                                            <materialDesign:PackIcon
-                                                          Background="{x:Null}"
-                                                          Foreground="#FF26788A"  
-                                                          Kind="Delete"
-                                                          Height="24"
-                                                          Width="24" />
+                                                        <Button Command="{Binding ElementName=itemControlHaveFood,Path=DataContext.g_iCm_ClickButtonDeleteCommand}"
+                                                                CommandParameter="{Binding}"
+                                                                Grid.Column="3"
+                                                                Height="30"
+                                                                Width="30"
+                                                                Background="{x:Null}"
+                                                                BorderBrush="#FF26788A"
+                                                                BorderThickness="2"
+                                                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                                                ToolTip="Xóa món ra khỏi danh sách">
+                                                            <materialDesign:PackIcon Background="{x:Null}"
+                                                                                     Foreground="#FF26788A"
+                                                                                     Kind="Delete"
+                                                                                     Height="24"
+                                                                                     Width="24" />
                                                         </Button>
-
                                                         <Button   Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonRemoveCommand}"
                                                                   CommandParameter="{Binding}"
                                                                   Grid.Column="5"
@@ -205,17 +179,16 @@
                                                                   Margin="0 0 -2 0"
                                                                   BorderThickness="2"
                                                                   HorizontalAlignment="Right">
-
-                                                            <materialDesign:PackIcon  Margin="-12 0 -10 0"  VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center"
-                                                           Background="{x:Null}"
-                                                           Foreground="#FF26788A"    
-                                                           Kind="Remove" 
-                                                           Height="20"
-                                                           Width="20"/>
+                                                            <materialDesign:PackIcon  Margin="-12 0 -10 0"
+                                                                                      VerticalAlignment="Center"
+                                                                                      HorizontalAlignment="Center"
+                                                                                      Background="{x:Null}"
+                                                                                      Foreground="#FF26788A"
+                                                                                      Kind="Remove"
+                                                                                      Height="20"
+                                                                                      Width="20" />
                                                         </Button>
-
-                                                        <TextBox  Text="{Binding QUANTITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"      
+                                                        <TextBox  Text="{Binding QUANTITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='{}{0:0,0}'}"
                                                                   Grid.Column="6"
                                                                   BorderBrush="#FF28878B"
                                                                   Height="30"
@@ -224,126 +197,138 @@
                                                                   FontSize="18"
                                                                   BorderThickness="2"
                                                                   TextAlignment="Center"
-                                                                  IsEnabled="{Binding ISENABLEQUANTITY}"
-                                                                  >
-
+                                                                  IsEnabled="{Binding ISENABLEQUANTITY}">
                                                             <i:Interaction.Triggers>
                                                                 <i:EventTrigger EventName="TextChanged">
                                                                     <i:InvokeCommandAction Command="{Binding ElementName=itemControlHaveFood, Path = DataContext.g_iCm_TextChangedTextBoxQuantityCommand}"
-                                                                          CommandParameter="{Binding}"/>
+                                                                                           CommandParameter="{Binding}" />
                                                                 </i:EventTrigger>
                                                             </i:Interaction.Triggers>
                                                         </TextBox>
-
                                                         <Button Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickButtonAddCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    Grid.Column="7"
-                                                    Height="30"
-                                                    Width="30"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="-2 0 0 0"
-                                                    BorderThickness="2"
-                                                    ToolTip="Tăng thêm 1 đơn vị"
-                                                    Background="{x:Null}"
-                                                    BorderBrush="#FF26788A"
-                                                  >
-
-
-                                                            <materialDesign:PackIcon
-                                                     Margin="-17 0 -15 0"
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Center"
-                                                     Background="{x:Null}"
-                                                     Foreground="#FF26788A"
-                                                     Kind="Add"
-                                                     Height="20"
-                                                     Width="20" />
-
+                                                                CommandParameter="{Binding}"
+                                                                Grid.Column="7"
+                                                                Height="30"
+                                                                Width="30"
+                                                                HorizontalAlignment="Left"
+                                                                Margin="-2 0 0 0"
+                                                                BorderThickness="2"
+                                                                ToolTip="Tăng thêm 1 đơn vị"
+                                                                Background="{x:Null}"
+                                                                BorderBrush="#FF26788A">
+                                                            <materialDesign:PackIcon Margin="-17 0 -15 0"
+                                                                                     VerticalAlignment="Center"
+                                                                                     HorizontalAlignment="Center"
+                                                                                     Background="{x:Null}"
+                                                                                     Foreground="#FF26788A"
+                                                                                     Kind="Add"
+                                                                                     Height="20"
+                                                                                     Width="20" />
                                                         </Button>
-
                                                     </Grid>
                                                 </materialDesign:Card>
-
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </ScrollViewer>
-
-
                             </Grid>
-
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="15"></RowDefinition>
                                     <RowDefinition Height="165"></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="160"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-
-                                    <Ellipse   Grid.Column="0"
-                                               Height="150"
-                                               Width="150"
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Left">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding g_imgSrc_customer}"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-
+                                    <Grid  Grid.Column="0">
+                                        <Ellipse Height="150"
+                                                 Width="150"
+                                                 VerticalAlignment="Top"
+                                                 HorizontalAlignment="Left">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding g_imgSrc_customer}" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Grid  VerticalAlignment="Top"
+                                               HorizontalAlignment="Left"
+                                               Visibility="{Binding g_str_visibitily}">
+                                            <Ellipse Fill="#D50000"
+                                                     Height="150"
+                                                     Width="150"
+                                                     Opacity="0.5">
+                                                <Ellipse.Clip>
+                                                    <RectangleGeometry Rect="0,75,150,75" />
+                                                </Ellipse.Clip>
+                                            </Ellipse>
+                                            <Grid  VerticalAlignment="Bottom"
+                                                   Height="75">
+                                                <TextBlock Margin="0 -30 0 0"
+                                                           FontWeight="DemiBold"
+                                                           Height="35"
+                                                           Width="150"
+                                                           Text="Thiếu tiền"
+                                                           Foreground="White"
+                                                           TextAlignment="Center"
+                                                           FontSize="25"></TextBlock>
+                                                <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
+                                                         CommandParameter="{Binding ElementName=payView}"
+                                                         Height="25"
+                                                         Width="25"
+                                                         Margin="0 0 0 10"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Center"
+                                                         Background="{x:Null}"
+                                                         Foreground="Black"
+                                                         BorderBrush="{x:Null}">
+                                                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                                             HorizontalAlignment="Center"
+                                                                             Margin="-11 0 -5 0"
+                                                                             Kind="AttachMoney"
+                                                                             Height="25"
+                                                                             Width="25" />
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid >
                                     <StackPanel Grid.Column="1"
-                                        Orientation="Vertical">
-                                        <materialDesign:RatingBar Value="{Binding g_i_customerStar}"  
+                                                Orientation="Vertical">
+                                        <materialDesign:RatingBar Value="{Binding g_i_customerStar}"
                                                                   Foreground="Gold"
-                                                                  IsHitTestVisible="False"/>
-                                        
+                                                                  IsHitTestVisible="False" />
                                         <StackPanel>
-                                            <TextBlock 
-                                                    Text="Tên: " 
-                                                    FontSize="15"
-                                                    FontWeight="Bold"
-                                                VerticalAlignment="Center" >
-                                            </TextBlock>
-
+                                            <TextBlock Text="Tên: "
+                                                       FontSize="15"
+                                                       FontWeight="Bold"
+                                                       VerticalAlignment="Center"></TextBlock>
                                             <TextBlock TextWrapping="Wrap"
-                                             Text="{Binding g_str_customerfullName}"   
-                                              FontSize="30"
-                                              FontWeight="DemiBold">
-
-                                            </TextBlock>
+                                                       Text="{Binding g_str_customerfullName}"
+                                                       FontSize="30"
+                                                       FontWeight="DemiBold"></TextBlock>
                                         </StackPanel>
-                          
-                                        <StackPanel >
-                                            <TextBlock 
-                                       Text="Mã: " 
-                                       FontSize="15"
-                                       FontWeight="Bold"  VerticalAlignment="Center" >
-                                            </TextBlock>
-
-                                            <TextBox x:Name="txtCustomerID" 
-                                                     Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                        <StackPanel>
+                                            <TextBlock Text="Mã: "
+                                                       FontSize="15"
+                                                       FontWeight="Bold"
+                                                       VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="txtCustomerID"
+                                                     Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                      FontSize="15"
                                                      FontWeight="Bold"
-                                                     CaretBrush="#FF36AE98" 
-                                                     materialDesign:HintAssist.Hint="Trống"
-                                                     >
-
+                                                     CaretBrush="#FF36AE98"
+                                                     materialDesign:HintAssist.Hint="Trống">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="TextChanged">
-                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}" 
-                                                                   CommandParameter="{Binding ElementName = txtCustomerID}"/>
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedTextBoxCustomerIDCommand}"
+                                                                               CommandParameter="{Binding ElementName = txtCustomerID}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </TextBox>
                                         </StackPanel>
-
                                     </StackPanel>
                                 </Grid>
-
                                 <Grid Grid.Row="2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"></RowDefinition>
@@ -354,89 +339,91 @@
                                         <RowDefinition Height="70"></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-
                                     <TextBlock Grid.Row="1"
-                                   Text="Tổng số tiền"
-                                   FontFamily="Roboto" 
-                                   FontSize="15"
-                                   FontWeight="Bold"
-                                   VerticalAlignment="Center"/>
-
-                                    <TextBlock Grid.Row="2" 
-                                             HorizontalAlignment="Center" 
+                                               Text="Tổng số tiền"
+                                               FontFamily="Roboto"
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Center" />
+                                    <TextBox x:Name="txtSumPrice"
+                                             Grid.Row="2"
+                                             HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             Text="{Binding g_i_sumPrice, StringFormat='{}{0:#,#} đ'}"
+                                             Text="{Binding g_i_sumPrice, StringFormat='{}{0:0,0} đ'}"
                                              FontSize="50"
-                                             FontWeight="DemiBold" >
-                                    </TextBlock>
-
-                                    <Button x:Name="btnPay" 
-                                Command="{Binding g_iCm_ClickButtonPayCommand}"  
-                                CommandParameter="{Binding ElementName=btnPay}" 
-                                Grid.Row="4"                          
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                HorizontalAlignment="Center"
-                                Width="160" Height="50"                                            
-                                FontSize="20" FontWeight="SemiBold" 
-                                Background="#43A047" 
-                                BorderBrush="#43A047"
-                                Content="Thanh toán">
-                                    </Button>
-
-                                    <Button x:Name="btnUndo" 
-                                Command="{Binding g_iCm_ClickButtonUndoCommand}"  
-                                CommandParameter="{Binding ElementName=btnUndo}" 
-                                 Grid.Row="5"                          
-                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                 HorizontalAlignment="Center"
-                                 Width="160" Height="50"                                            
-                                 FontSize="20" FontWeight="SemiBold" 
-                                 Background="#D50000" 
-                                 BorderBrush="#D50000" 
-                                 Content="Hoàn tác">
-
-                                    </Button>
-
+                                             FontWeight="DemiBold"
+                                             IsReadOnly="True"
+                                             CaretBrush="{x:Null}"
+                                             BorderThickness="0">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedPriceTextBoxCommand}"
+                                                                       CommandParameter="{Binding ElementName = txtSumPrice}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <Button x:Name="btnPay"
+                                            Command="{Binding g_iCm_ClickButtonPayCommand}"
+                                            CommandParameter="{Binding ElementName=btnPay}"
+                                            Grid.Row="4"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                            HorizontalAlignment="Center"
+                                            Width="160"
+                                            Height="50"
+                                            FontSize="20"
+                                            FontWeight="SemiBold"
+                                            Background="#43A047"
+                                            BorderBrush="#43A047"
+                                            Content="Thanh toán"></Button>
+                                    <Button x:Name="btnUndo"
+                                            Command="{Binding g_iCm_ClickButtonUndoCommand}"
+                                            CommandParameter="{Binding ElementName=btnUndo}"
+                                            Grid.Row="5"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                            HorizontalAlignment="Center"
+                                            Width="160"
+                                            Height="50"
+                                            FontSize="20"
+                                            FontWeight="SemiBold"
+                                            Background="#D50000"
+                                            BorderBrush="#D50000"
+                                            Content="Hoàn tác"></Button>
                                 </Grid>
                             </Grid>
                         </Grid>
-
                     </Grid>
-
-                    <Grid Height=" 10" 
-                  Width=" 100"
-                  VerticalAlignment="Top"
-                  HorizontalAlignment="Center"
-                  Background="IndianRed"
-                  Cursor="ScrollAll">
+                    <Grid Height=" 10"
+                          Width=" 100"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Center"
+                          Background="IndianRed"
+                          Cursor="ScrollAll">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}" 
-                                   CommandParameter="{Binding ElementName = payView}"/>
+                                <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeftButtonDownCommand}"
+                                                       CommandParameter="{Binding ElementName = payView}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Grid>
-
                     <Button  Command="{Binding g_iCm_ClickCloseWindowCommand}"
-                         CommandParameter="{Binding ElementName=payView}" 
-                         x:Name="btnClose" 
-                         
-                         Height="25"
-                         Width="25"
-                         VerticalAlignment="Top" 
-                         HorizontalAlignment="Right"
-                         Background="IndianRed" 
-                         Foreground="Black" BorderBrush="#FF8D5BE6" 
-                         >
+                             CommandParameter="{Binding ElementName=payView}"
+                             x:Name="btnClose"
+                             Height="25"
+                             Width="25"
+                             VerticalAlignment="Top"
+                             HorizontalAlignment="Right"
+                             Background="IndianRed"
+                             Foreground="Black"
+                             BorderBrush="#FF8D5BE6">
                         <materialDesign:PackIcon VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             Margin="-11 0 -5 0" Kind="Close"
-                                             Height="25" Width="25"/>
+                                                 HorizontalAlignment="Center"
+                                                 Margin="-11 0 -5 0"
+                                                 Kind="Close"
+                                                 Height="25"
+                                                 Width="25" />
                     </Button>
-
                 </Grid>
             </materialDesign:TransitioningContent>
         </Grid>
-
     </Grid>
 </Window>

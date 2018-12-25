@@ -108,21 +108,25 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private string _g_str_sumPrice;
-        public string g_str_sumPrice
+        private int _g_i_sumPrice;
+        public int g_i_sumPrice
         {
-            get => _g_str_sumPrice;
+            get => _g_i_sumPrice;
 
             set
             {
                 int i = 0;
-                if (value != "")
-                    if (!int.TryParse(value, out i))
-                        value = g_str_sumPrice;
-                    else if (int.Parse(value) > 1000000)
-                        value = g_str_sumPrice;
+                if (value != 0)
+                {
+                    if (!int.TryParse(value.ToString(), out i))
+                        value = g_i_sumPrice;
+                    else if (value < 0)
+                        value = g_i_sumPrice;
+                    else if (value > 1000000)
+                        value = g_i_sumPrice;
+                }
 
-                _g_str_sumPrice = value;
+                _g_i_sumPrice = value;
                 OnPropertyChanged();
             }
         }
@@ -195,6 +199,29 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibitily;
+        public string g_str_visibitily
+        {
+            get => _g_str_visibitily;
+
+            set
+            {
+                _g_str_visibitily = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isEnough;
+        public bool g_b_isEnough
+        {
+            get => _g_b_isEnough;
+
+            set
+            {
+                _g_b_isEnough = value;
+            }
+        }
+
         #region command.
         public ICommand g_iCm_TextChangedTextBoxCustomerIDCommand { get; set; }
 
@@ -227,6 +254,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickButtonAgreeCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonBackCommand { get; set; }
+
+        public ICommand g_iCm_TextChangedPriceTextBoxCommand { get; set; }
         #endregion
 
         public UtilityCustomersViewModel()
@@ -237,7 +266,6 @@ namespace CanTeenManagement.ViewModel
             {
                 this.textChangedTextBoxCustomerID();
             });
-
 
             g_iCm_MouseLeftButtonDownCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -262,16 +290,6 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ChangeModeCommand = new RelayCommand<ToggleButton>((p) => { return true; }, (p) =>
             {
                 this.changeMode();
-            });
-
-            g_iCm_TextBoxGotFocusCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
-            {
-                this.textBoxGotFocus();
-            });
-
-            g_iCm_TextBoxLostFocusCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
-            {
-                this.textBoxLostFocus();
             });
 
             g_iCm_TextBoxKeyDownCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
@@ -313,6 +331,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickButtonAgree();
             });
+
+            g_iCm_TextChangedPriceTextBoxCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.textChangedPriceTextBox();
+            });
         }
 
         private void initSupport()
@@ -322,7 +345,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_Mode = staticVarClass.mode_addCash;
 
             //
-            this.g_str_sumPrice = "0";
+            this.g_i_sumPrice = 0;
             this.g_obCl_million = new ObservableCollection<CASH>();
 
             //
@@ -340,6 +363,12 @@ namespace CanTeenManagement.ViewModel
             // 
             this.g_b_isAgree = false;
             this.g_b_isHaveCus = false;
+
+            //
+            this.g_str_visibitily = staticVarClass.visibility_hidden;
+
+            // 
+            this.g_b_isEnough = true;
         }
 
         private void resetCustomer()
@@ -427,6 +456,13 @@ namespace CanTeenManagement.ViewModel
             l_orderVM.g_i_currOrderFood = 0;
 
             this.resetCustomer();
+            this.g_str_customerID = string.Empty;
+
+            // 
+            this.g_str_visibitily = staticVarClass.visibility_hidden;
+
+            // 
+            this.g_i_sumPrice = 0;
 
             p.Close();
         }
@@ -443,7 +479,7 @@ namespace CanTeenManagement.ViewModel
         private bool checkMouseDoubleClickMillion(CASH p)
         {
             // > 1.000.000.
-            if (int.Parse(g_str_sumPrice) + p.MILLION > 1000000 || this.g_b_isAgree == true)
+            if (g_i_sumPrice + p.MILLION > 1000000 || this.g_b_isAgree == true)
                 return false;
 
             return true;
@@ -454,11 +490,11 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            int l_i_sumPrice = this.g_i_sumPrice;
             l_i_sumPrice += p.MILLION;
-            this.g_str_sumPrice = l_i_sumPrice.ToString();
+            this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_str_sumPrice);
+            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -467,7 +503,7 @@ namespace CanTeenManagement.ViewModel
         #region Mouse right up.
         private bool checkMouseRightButtonUpMillion(CASH p)
         {
-            if (int.Parse(g_str_sumPrice) - p.MILLION <= 0 || this.g_b_isAgree == true)
+            if (g_i_sumPrice - p.MILLION <= 0 || this.g_b_isAgree == true)
                 return false;
 
             return true;
@@ -478,11 +514,11 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            int l_i_sumPrice = this.g_i_sumPrice;
             l_i_sumPrice -= p.MILLION;
-            this.g_str_sumPrice = l_i_sumPrice.ToString();
+            this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_str_sumPrice);
+            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -495,11 +531,18 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_b_isAddCash = false;
                 this.g_str_Mode = staticVarClass.mode_subCash;
+
+                //
+                this.textChangedPriceTextBox();
             }
             else
             {
                 this.g_b_isAddCash = true;
                 this.g_str_Mode = staticVarClass.mode_addCash;
+
+                //
+                this.g_str_visibitily = staticVarClass.visibility_hidden;
+                this.g_b_isEnough = true;
             }
 
             this.resetForMode();
@@ -508,39 +551,52 @@ namespace CanTeenManagement.ViewModel
         private void resetForMode()
         {
             this.g_b_isAgree = false;
-            this.g_str_sumPrice = "0";
+            this.g_i_sumPrice = 0;
             this.g_str_isEnable = staticVarClass.str_true;
         }
         #endregion
 
         #region Textbox price.
-        private void textBoxGotFocus()
-        {
-            if (this.g_str_sumPrice == "0")
-                this.g_str_sumPrice = "";
-        }
-
-        private void textBoxLostFocus()
-        {
-            if (this.g_str_sumPrice == "")
-                this.g_str_sumPrice = "0";
-        }
-
         private void textBoxKeyDown()
         {
-            this.g_stck_undo.Push(this.g_str_sumPrice);
+            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
+        }
+
+        private void textChangedPriceTextBox()
+        {
+            this.g_i_sumPrice = this.g_i_sumPrice;
+
+            if (this.g_b_isHaveCus == false || this.g_b_isAddCash == true)
+                return;
+
+            int l_currCash = (int)dataProvider.Instance.DB.CUSTOMERs
+                .Where(cus => cus.ID == this.g_str_customerID)
+                .Select(cus => cus.CASH).FirstOrDefault();
+
+            if (this.g_i_sumPrice > l_currCash)
+            {
+                this.g_b_isEnough = false;
+
+                this.g_str_visibitily = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_b_isEnough = true;
+
+                this.g_str_visibitily = staticVarClass.visibility_hidden;
+            }
         }
         #endregion
 
         #region Button clear.
         private bool checkClickButtonClear()
         {
-            if (this.g_str_sumPrice == "")
-                this.g_str_sumPrice = "0";
+            //if (this.g_i_sumPrice == "")
+            //    this.g_i_sumPrice = "0";
 
-            if (int.Parse(this.g_str_sumPrice) == 0 || this.g_b_isAgree == true)
+            if (this.g_i_sumPrice == 0 || this.g_b_isAgree == true)
                 return false;
 
             return true;
@@ -548,14 +604,14 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonClear()
         {
-            this.g_str_sumPrice = "0";
+            this.g_i_sumPrice = 0;
         }
         #endregion
 
         #region Button redo.
         private bool checkClickButtonRedo()
         {
-            if (this.g_stck_redo.Count() == 0 || this.g_b_isAgree == true || this.g_str_sumPrice == "0")
+            if (this.g_stck_redo.Count() == 0 || this.g_b_isAgree == true || this.g_i_sumPrice == 0)
                 return false;
 
             return true;
@@ -565,14 +621,14 @@ namespace CanTeenManagement.ViewModel
         {
             string l_temp = this.g_stck_redo.Pop();
 
-            this.g_str_sumPrice = l_temp;
+            this.g_i_sumPrice = int.Parse(l_temp);
         }
         #endregion
 
         #region Button undo.
         private bool checkClickButtonUndo()
         {
-            if (this.g_stck_undo.Count() <= 1 || this.g_b_isAgree == true || this.g_str_sumPrice == "0")
+            if (this.g_stck_undo.Count() <= 1 || this.g_b_isAgree == true || this.g_i_sumPrice == 0)
                 return false;
 
             return true;
@@ -582,7 +638,7 @@ namespace CanTeenManagement.ViewModel
         {
             string l_temp = this.g_stck_undo.Pop();
 
-            this.g_str_sumPrice = this.g_stck_undo.ElementAtOrDefault(0);
+            this.g_i_sumPrice = int.Parse(this.g_stck_undo.ElementAtOrDefault(0));
 
             this.g_stck_redo.Push(l_temp);
         }
@@ -592,7 +648,7 @@ namespace CanTeenManagement.ViewModel
         private bool checkClickButtonRemove()
         {
             // < 10.000.
-            if (int.Parse(g_str_sumPrice) - 10000 < 0 || this.g_b_isAgree == true)
+            if (g_i_sumPrice - 10000 < 0 || this.g_b_isAgree == true)
                 return false;
 
             return true;
@@ -600,12 +656,12 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonRemove()
         {
-            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            int l_i_sumPrice = this.g_i_sumPrice;
             l_i_sumPrice -= 10000;
 
-            this.g_str_sumPrice = l_i_sumPrice.ToString();
+            this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_str_sumPrice);
+            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -615,7 +671,7 @@ namespace CanTeenManagement.ViewModel
         private bool checkClickButtonAdd()
         {
             // > 1.000.000.
-            if (int.Parse(g_str_sumPrice) + 10000 > 1000000 || this.g_b_isAgree == true)
+            if (g_i_sumPrice + 10000 > 1000000 || this.g_b_isAgree == true)
                 return false;
 
             return true;
@@ -623,12 +679,12 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonAdd()
         {
-            int l_i_sumPrice = int.Parse(this.g_str_sumPrice);
+            int l_i_sumPrice = this.g_i_sumPrice;
             l_i_sumPrice += 10000;
 
-            this.g_str_sumPrice = l_i_sumPrice.ToString();
+            this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_str_sumPrice);
+            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -637,7 +693,8 @@ namespace CanTeenManagement.ViewModel
         #region Button agree.
         private bool checkClickButtonAgree()
         {
-            if (this.g_b_isHaveCus == false || this.g_str_sumPrice == "0" || this.g_b_isAgree == true)
+            if (this.g_b_isHaveCus == false || this.g_i_sumPrice == 0
+                || this.g_b_isAgree == true || this.g_b_isEnough == false)
                 return false;
 
             return true;
@@ -645,44 +702,60 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonAgree()
         {
+            // Bỏ nó chung để câu lệnh của status được nằm cuối.
             try
             {
                 if (this.g_b_isAddCash)
                 {
                     this.saveAddPriceForCustomer();
-                  
-                    staticFunctionClass.showStatusView(true, "Nạp " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
+
+                    this.g_b_isAgree = true;
+                    this.g_str_isEnable = staticVarClass.str_false;
+                    this.updateCustomerCash();
+
+                    staticFunctionClass.showStatusView(true, "Nạp " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
                 }
                 else
                 {
                     this.saveSubPriceForCustomer();
 
-                    staticFunctionClass.showStatusView(true, "Rút " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
-                }
+                    this.g_b_isAgree = true;
+                    this.g_str_isEnable = staticVarClass.str_false;
+                    this.updateCustomerCash();
 
-                this.g_b_isAgree = true;
-                this.g_str_isEnable = staticVarClass.str_false;
+                    staticFunctionClass.showStatusView(true, "Rút " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
+                }
             }
             catch
             {
                 if (this.g_b_isAddCash)
                 {
-                    staticFunctionClass.showStatusView(false, "Nạp " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
+                    this.g_b_isAgree = false;
+
+                    staticFunctionClass.showStatusView(false, "Nạp " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
                 }
                 else
                 {
-                    staticFunctionClass.showStatusView(false, "Rút " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
-                }
 
-                this.g_b_isAgree = false;
+                    this.g_b_isAgree = false;
+
+                    staticFunctionClass.showStatusView(false, "Rút " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
+                }
             }
         }
 
         private void saveAddPriceForCustomer()
         {
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH += int.Parse(this.g_str_sumPrice));
+                                              .ForEach(customer => customer.CASH += this.g_i_sumPrice);
             dataProvider.Instance.DB.SaveChanges();
+        }
+
+        private void updateCustomerCash()
+        {
+            this.g_i_customerCash = (int)dataProvider.Instance.DB.CUSTOMERs
+                .Where(customer => customer.ID == this.g_str_customerID)
+                .Select(customer => customer.CASH).FirstOrDefault();
         }
         #endregion
 
@@ -703,36 +776,46 @@ namespace CanTeenManagement.ViewModel
                 {
                     this.saveSubPriceForCustomer();
 
-                    staticFunctionClass.showStatusView(true, "Hoàn tác nạp " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
+                    //
+                    this.resetForBack();
+                    this.updateCustomerCash();
+
+                    staticFunctionClass.showStatusView(true, "Hoàn tác nạp " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
                 }
                 else
                 {
                     this.saveAddPriceForCustomer();
 
-                    staticFunctionClass.showStatusView(true, "Hoàn tác rút " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
+                    //
+                    this.resetForBack();
+                    this.updateCustomerCash();
+
+                    staticFunctionClass.showStatusView(true, "Hoàn tác rút " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thành công!");
                 }
 
-                this.resetForBack();
+
             }
             catch
             {
                 if (this.g_b_isAddCash)
                 {
-                    staticFunctionClass.showStatusView(false, "Hoàn tác nạp " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
+                    this.g_b_isAgree = false;
+
+                    staticFunctionClass.showStatusView(false, "Hoàn tác nạp " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
                 }
                 else
                 {
-                    staticFunctionClass.showStatusView(false, "Hoàn tác rút " + this.g_str_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
-                }
+                    this.g_b_isAgree = false;
 
-                this.g_b_isAgree = false;
+                    staticFunctionClass.showStatusView(false, "Hoàn tác rút " + this.g_i_sumPrice + " cho tài khoản " + this.g_str_customerID + " thất bại!");
+                }
             }
         }
 
         private void saveSubPriceForCustomer()
         {
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH -= int.Parse(this.g_str_sumPrice));
+                                              .ForEach(customer => customer.CASH -= this.g_i_sumPrice);
             dataProvider.Instance.DB.SaveChanges();
         }
 
