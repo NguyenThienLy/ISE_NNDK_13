@@ -1,4 +1,5 @@
 ﻿using CanTeenManagement.Model;
+using CanTeenManagement.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,19 +48,13 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private string _g_str_visible { get; set; }
-        public string g_str_visible
-        {
-            get => _g_str_visible;
-            set
-            {
-                _g_str_visible = value;
-                OnPropertyChanged();
-            }
-        }
+        DispatcherTimer g_timer = null;
+        int g_i_flagLoaded = 0;
 
         #region command.
-        public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
+        public ICommand g_iCm_LoadedCommand { get; set; }
+
+        public ICommand g_iCm_UnLoadedCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonBackCommand { get; set; }
 
@@ -72,34 +67,50 @@ namespace CanTeenManagement.ViewModel
 
         public DashboardViewModel()
         {
-            g_iCm_LoadedItemsControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
+            g_iCm_LoadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
                 this.loaded(p);
             });
 
-            g_iCm_ClickButtonBackCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            g_iCm_UnLoadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
-                this.clickBack(p);
+                this.unloaded(p);
             });
 
-            g_iCm_ClickButtonNextCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            g_iCm_ClickButtonBackCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
-                this.clickNext(p);
+                this.clickBack();
             });
 
-            g_iCm_MouseEnterItemControlCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            g_iCm_ClickButtonNextCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
-                this.mouseEnter(p);
+                this.clickNext();
             });
 
-            g_iCm_MouseLeaveItemControlCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            g_iCm_MouseEnterItemControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
             {
-                this.mouseLeave(p);
+                this.mouseEnter();
+            });
+
+            g_iCm_MouseLeaveItemControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
+            {
+                this.mouseLeave();
             });
         }
 
-        private void loaded(ItemsControl p)
+        private void unloaded(DashBoardView p)
         {
+            if (p == null)
+                return;
+
+            g_timer.Stop();
+        }
+
+        private void loaded(DashBoardView p)
+        {
+            if (p == null)
+                return;
+
             if (this.g_obCl_orderFood != null)
                 this.g_obCl_orderFood.Clear();
 
@@ -117,15 +128,18 @@ namespace CanTeenManagement.ViewModel
             }
 
             this.g_i_index = 0;
-            this.g_str_visible = "Hidden";
 
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Tick += (s, ev) => clickNext(g_obCl_orderFood[0]);
-            timer.Interval = new TimeSpan(0, 0, 5);
-            timer.Start();
+            if (g_i_flagLoaded == 0)
+            {
+                g_timer = new DispatcherTimer();
+                g_timer.Tick += (s, ev) => clickNext();
+                g_timer.Interval = new TimeSpan(0, 0, 5);
+            }
+            g_timer.Start();
+            g_i_flagLoaded = 1;
         }
 
-        private void clickBack(ORDERFOOD p)
+        private void clickBack()
         {
             int l_quantityFood = g_obCl_orderFood.Count();
 
@@ -135,7 +149,7 @@ namespace CanTeenManagement.ViewModel
                 this.g_i_index = l_quantityFood - 1;
         }
 
-        private void clickNext(ORDERFOOD p)
+        private void clickNext()
         {
             int l_quantityFood = g_obCl_orderFood.Count();
 
@@ -145,14 +159,14 @@ namespace CanTeenManagement.ViewModel
                 this.g_i_index = 0;
         }
 
-        private void mouseEnter(ORDERFOOD p)
+        private void mouseEnter()
         {
-            g_str_visible = "Visible";
+            //g_str_visible = "Visible";
         }
 
-        private void mouseLeave(ORDERFOOD p)
+        private void mouseLeave()
         {
-            g_str_visible = "Hidden";
+            //g_str_visible = "Hidden";
         }
     }
 }

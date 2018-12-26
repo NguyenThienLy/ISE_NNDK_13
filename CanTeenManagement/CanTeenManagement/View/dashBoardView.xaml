@@ -18,6 +18,18 @@
              DataContext="{StaticResource dashboardVM}"
              Height="660"
              Width="980">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}" 
+                                   CommandParameter="{Binding ElementName=dashboardView}"/>
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_UnloadedCommand}" 
+                                   CommandParameter="{Binding ElementName=dashboardView}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
                                              OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
@@ -37,17 +49,20 @@
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
+
                 <StackPanel>
                     <Grid Height="659">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="190" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
+
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="180" />
                             </Grid.ColumnDefinitions>
+
                             <materialDesign:Card  Grid.Column="1"
                                                   Margin="8 0 8 0"
                                                   Background="#FFC00000">
@@ -58,7 +73,7 @@
                                                              Width="130"
                                                              HorizontalAlignment="Center"
                                                              VerticalAlignment="Stretch"
-                                                             Margin="7,0" />
+                                                             Margin="0" />
                                     <TextBlock TextWrapping="Wrap"
                                                FontSize="25"
                                                Foreground="#FFF3E1E1"
@@ -67,29 +82,49 @@
                                                Width="134"
                                                HorizontalAlignment="Center"
                                                TextAlignment="Center"
-                                               Margin="0 10"><Run Text="CĂN TIN" /></TextBlock>
+                                               Margin="0 0 0 0"><Run Text="CĂN TIN" /></TextBlock>
                                     <TextBlock TextWrapping="Wrap"
-                                               FontSize="20"
+                                               FontSize="22"
                                                Foreground="#FFF3E1E1"
                                                FontWeight="Bold"
                                                FontFamily="Roboto"
                                                Width="134"
                                                HorizontalAlignment="Center"
-                                               TextAlignment="Center"><Run Text="ĐH KHTN" /></TextBlock>
+                                               TextAlignment="Center"
+                                               Margin="0 5 0 10"><Run Text="ĐH KHTN" /></TextBlock>
                                 </StackPanel>
                             </materialDesign:Card>
                         </Grid>
-                        <Grid Grid.Row="1"
-                              Margin="10 0 10 0">
+
+                        <Grid Grid.Row="1">
+                            <Button Panel.ZIndex="1" Margin="0,202,935,202" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                    Foreground="White" Background="#FFFFB300" BorderBrush="#FFFF9C00" Height="45" Width="45"
+                                    Command="{Binding g_iCm_ClickButtonBackCommand}" 
+                                    CommandParameter="{Binding ElementName=dashboardView}" >
+                                <materialDesign:PackIcon Kind="ArrowLeft" Height="45" Width="45" />
+                            </Button>
+
+                            <Button Panel.ZIndex="1" Margin="935,202,0,202" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                    Foreground="White" Background="#FFFFB300" BorderBrush="#FFFF9C00" Height="45" Width="45"
+                                    Command="{Binding g_iCm_ClickButtonNextCommand}" 
+                                    CommandParameter="{Binding ElementName=dashboardView}" >
+                                <materialDesign:PackIcon Kind="ArrowRight" Height="45" Width="45" />
+                            </Button>
+
                             <materialDesign:Transitioner SelectedIndex="{Binding g_i_index, UpdateSourceTrigger=PropertyChanged}"
                                                          x:Name="itemControlSlideFood"
                                                          ItemsSource="{Binding g_obCl_orderFood, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"
+                                    <i:EventTrigger EventName="MouseEnter">
+                                        <i:InvokeCommandAction Command="{Binding g_iCm_MouseEnterItemControlCommand}" 
+                                                               CommandParameter="{Binding ElementName=itemControlSlideFood}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseLeave">
+                                        <i:InvokeCommandAction Command="{Binding g_iCm_MouseLeaveItemControlCommand}"
                                                                CommandParameter="{Binding ElementName=itemControlSlideFood}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
+
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:TransitioningContent>
@@ -97,57 +132,17 @@
                                                 <materialDesign:TransitionEffect Kind="SlideInFromLeft" />
                                                 <materialDesign:TransitionEffect Kind="FadeIn" />
                                             </materialDesign:TransitioningContent.OpeningEffects>
+
                                             <materialDesign:Card Margin="0 10">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseEnter">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}"
-                                                                               CommandParameter="{Binding}" />
-                                                    </i:EventTrigger>
-                                                    <i:EventTrigger EventName="MouseLeave">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_MouseEnterItemControlCommand}"
-                                                                               CommandParameter="{Binding}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50" />
-                                                        <ColumnDefinition Width="390" />
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="384*" />
+                                                        <ColumnDefinition Width="529*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Button Grid.Column="0"
-                                                            HorizontalAlignment="Center"
-                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                                            Foreground="White"
-                                                            Background="#FFFF9C00"
-                                                            BorderBrush="#FF28878B"
-                                                            Height="45"
-                                                            Width="45"
-                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonBackCommand}"
-                                                            CommandParameter="{Binding}"
-                                                            Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, IsAsync=True}">
-                                                        <materialDesign:PackIcon Kind="ArrowLeft"
-                                                                                 Height="45"
-                                                                                 Width="45" />
-                                                    </Button>
-                                                    <Button Grid.Column="3"
-                                                            HorizontalAlignment="Center"
-                                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                                            Foreground="White"
-                                                            Background="#FFFF9C00"
-                                                            BorderBrush="#FF28878B"
-                                                            Height="45"
-                                                            Width="45"
-                                                            Command="{Binding ElementName=itemControlSlideFood, Path=DataContext.g_iCm_ClickButtonNextCommand}"
-                                                            CommandParameter="{Binding}"
-                                                            Visibility="{Binding g_str_visible, UpdateSourceTrigger=PropertyChanged}">
-                                                        <materialDesign:PackIcon Kind="ArrowRight"
-                                                                                 Height="45"
-                                                                                 Width="45" />
-                                                    </Button>
-                                                    <StackPanel Grid.Column="1"
+
+                                                    <StackPanel Grid.Column="0"
                                                                 Orientation="Vertical"
-                                                                Margin="0,30,10,0">
+                                                                Margin="30,30,10,0">
                                                         <TextBlock Text="CHỈ"
                                                                    FontSize="25"
                                                                    FontFamily="Cooper Black"
@@ -159,7 +154,7 @@
                                                                        FontSize="75"
                                                                        FontFamily="Cooper Black"
                                                                        Foreground="#FFC00000" />
-                                                            <TextBlock Text="đ"
+                                                            <TextBlock Text="VNĐ"
                                                                        FontSize="30"
                                                                        FontFamily="Cooper Black"
                                                                        Foreground="#FFC00000"
@@ -177,8 +172,8 @@
                                                                    FontFamily="Champagne &amp; Limousines"
                                                                    Margin="5" />
                                                     </StackPanel>
-                                                    <Image Grid.Column="2"
-                                                           Source="{Binding IMAGELINK}"
+                                                    <Image Grid.Column="1"
+                                                           Source="{Binding IMAGESOURCE}"
                                                            Stretch="Fill"
                                                            Margin="0 20 0 20" />
                                                 </Grid>
