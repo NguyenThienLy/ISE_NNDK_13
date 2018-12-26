@@ -28,8 +28,8 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private Stack<string> _g_stck_undo;
-        public Stack<string> g_stck_undo
+        private Stack<int> _g_stck_undo;
+        public Stack<int> g_stck_undo
         {
             get => _g_stck_undo;
             set
@@ -38,8 +38,8 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private Stack<string> _g_stck_redo;
-        public Stack<string> g_stck_redo
+        private Stack<int> _g_stck_redo;
+        public Stack<int> g_stck_redo
         {
             get => _g_stck_redo;
             set
@@ -356,9 +356,9 @@ namespace CanTeenManagement.ViewModel
             this.resetCustomer();
 
             //
-            this.g_stck_redo = new Stack<string>();
-            this.g_stck_undo = new Stack<string>();
-            this.g_stck_undo.Push("0");
+            this.g_stck_redo = new Stack<int>();
+            this.g_stck_undo = new Stack<int>();
+            this.g_stck_undo.Push(0);
 
             // 
             this.g_b_isAgree = false;
@@ -494,7 +494,7 @@ namespace CanTeenManagement.ViewModel
             l_i_sumPrice += p.MILLION;
             this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
+            this.g_stck_undo.Push(this.g_i_sumPrice);
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -518,7 +518,7 @@ namespace CanTeenManagement.ViewModel
             l_i_sumPrice -= p.MILLION;
             this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
+            this.g_stck_undo.Push(this.g_i_sumPrice);
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -559,7 +559,7 @@ namespace CanTeenManagement.ViewModel
         #region Textbox price.
         private void textBoxKeyDown()
         {
-            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
+            this.g_stck_undo.Push(this.g_i_sumPrice);
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -619,9 +619,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonRedo()
         {
-            string l_temp = this.g_stck_redo.Pop();
+            int l_temp = this.g_stck_redo.Pop();
 
-            this.g_i_sumPrice = int.Parse(l_temp);
+            this.g_i_sumPrice = l_temp;
         }
         #endregion
 
@@ -636,9 +636,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonUndo()
         {
-            string l_temp = this.g_stck_undo.Pop();
+            int l_temp = this.g_stck_undo.Pop();
 
-            this.g_i_sumPrice = int.Parse(this.g_stck_undo.ElementAtOrDefault(0));
+            this.g_i_sumPrice = this.g_stck_undo.ElementAtOrDefault(0);
 
             this.g_stck_redo.Push(l_temp);
         }
@@ -661,7 +661,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
+            this.g_stck_undo.Push(this.g_i_sumPrice);
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
@@ -684,7 +684,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_sumPrice = l_i_sumPrice;
 
-            this.g_stck_undo.Push(this.g_i_sumPrice.ToString());
+            this.g_stck_undo.Push(this.g_i_sumPrice);
             // When redo, add price then clear g_stck_redo.
             this.g_stck_redo.Clear();
         }
