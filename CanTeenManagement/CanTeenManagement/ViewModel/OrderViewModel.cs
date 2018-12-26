@@ -555,6 +555,9 @@ namespace CanTeenManagement.ViewModel
             FoodDetailView foodDetailV = new FoodDetailView();
             foodDetailV.ShowDialog();
 
+            // Reload.
+            this.loadData();
+
             mainWd.Opacity = 100;
             orderV.Opacity = 100;
         }
@@ -576,6 +579,9 @@ namespace CanTeenManagement.ViewModel
 
             FoodDetailView foodDetailV = new FoodDetailView();
             foodDetailV.ShowDialog();
+
+            // Reload.
+            this.loadData();
 
             mainWd.Opacity = 100;
             orderV.Opacity = 100;

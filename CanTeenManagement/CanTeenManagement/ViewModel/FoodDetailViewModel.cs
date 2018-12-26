@@ -81,7 +81,19 @@ namespace CanTeenManagement.ViewModel
             get => _g_i_price;
             set
             {
-                _g_i_price = value; OnPropertyChanged();
+                int i = 0;
+                if (value != 0)
+                {
+                    if (!int.TryParse(value.ToString(), out i))
+                        value = g_i_price;
+                    else if (value < 0)
+                        value = g_i_price;
+                    else if (value > 100000)
+                        value = g_i_price;
+                }
+
+                _g_i_price = value;
+                OnPropertyChanged();
             }
         }
 
@@ -101,6 +113,17 @@ namespace CanTeenManagement.ViewModel
             get => _g_i_sale;
             set
             {
+                int i = 0;
+                if (value != 0)
+                {
+                    if (!int.TryParse(value.ToString(), out i))
+                        value = g_i_sale;
+                    else if (value < 0)
+                        value = g_i_sale;
+                    else if (value > 100)
+                        value = g_i_sale;
+                }
+
                 _g_i_sale = value;
                 OnPropertyChanged();
             }
@@ -224,7 +247,7 @@ namespace CanTeenManagement.ViewModel
         {
             g_iCm_LoadedWindowCommand = new RelayCommand<FoodDetailView>((p) => { return true; }, (p) =>
             {
-                this.loaded(p);
+                this.loaded();
             });
 
             g_iCm_ClickCloseWindowCommand = new RelayCommand<FoodDetailView>((p) => { return true; }, (p) =>
@@ -244,46 +267,43 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_TextChangedTextBoxPriceCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                this.textChangedTextBoxPrice(p);
+                this.textChangedTextBoxPrice();
             });
 
             g_iCm_TextChangedTextBoxSaleCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                this.textChangedTextBoxSale(p);
+                this.textChangedTextBoxSale();
             });
 
-            g_iCm_ClickButtonAddPriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddPrice(p); }, (p) =>
+            g_iCm_ClickButtonAddPriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddPrice(); }, (p) =>
             {
-                this.clickButtonAddPrice(p);
+                this.clickButtonAddPrice();
             });
 
-            g_iCm_ClickButtonRemovePriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemovePrice(p); }, (p) =>
+            g_iCm_ClickButtonRemovePriceCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemovePrice(); }, (p) =>
             {
-                this.clickButtonRemovePrice(p);
+                this.clickButtonRemovePrice();
             });
 
-            g_iCm_ClickButtonAddSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddSale(p); }, (p) =>
+            g_iCm_ClickButtonAddSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonAddSale(); }, (p) =>
             {
-                this.clickButtonAddSale(p);
+                this.clickButtonAddSale();
             });
 
-            g_iCm_ClickButtonRemoveSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemoveSale(p); }, (p) =>
+            g_iCm_ClickButtonRemoveSaleCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRemoveSale(); }, (p) =>
             {
-                this.clickButtonRemoveSale(p);
+                this.clickButtonRemoveSale();
             });
 
             g_iCm_ClickButtonSaveCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
-                this.clickButtonSave(p);
+                this.clickButtonSave();
             });
         }
 
         #region loaded.
-        private void loaded(FoodDetailView p)
+        private void loaded()
         {
-            if (p == null)
-                return;
-
             OrderView orderView = OrderView.Instance;
 
             if (orderView.DataContext == null)
@@ -329,7 +349,6 @@ namespace CanTeenManagement.ViewModel
 
             this.g_lst_status = l_lst_status;
         }
-
 
         private void setPropetyOrderFood(ORDERFOOD p)
         {
@@ -458,13 +477,8 @@ namespace CanTeenManagement.ViewModel
 
         }
 
-        private void loadedEditImage(System.Drawing.Image p)
-        {
-
-        }
-
         #region price.
-        private bool checkClickButtonAddPrice(Button p)
+        private bool checkClickButtonAddPrice()
         {
             // > 1.000.000 đ.
             if (this.g_i_price + 500 > 1000000)
@@ -473,12 +487,12 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
-        private void clickButtonAddPrice(Button p)
+        private void clickButtonAddPrice()
         {
             this.g_i_price += 500;
         }
 
-        private bool checkClickButtonRemovePrice(Button p)
+        private bool checkClickButtonRemovePrice()
         {
             // < 0 đ.
             if (this.g_i_price - 500 < 0)
@@ -487,34 +501,21 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
-        private void clickButtonRemovePrice(Button p)
+        private void clickButtonRemovePrice()
         {
             this.g_i_price -= 500;
         }
 
-        private void textChangedTextBoxPrice(TextBox p)
+        private void textChangedTextBoxPrice()
         {
-            if (p == null)
-                return;
-
-            bool success;
-            Int32 l_price = 0;
-            success = Int32.TryParse(p.Text.Replace(",", ""), out l_price);
-            
-            if (l_price < 0)
-                l_price = 0;
-
-            if (l_price > 1000000)
-                l_price = 1000000;
-
-            p.Text = string.Format("{0:n0}", l_price);
+            this.g_i_price = this.g_i_price;
 
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
         }
         #endregion
 
         #region sale.
-        private bool checkClickButtonAddSale(Button p)
+        private bool checkClickButtonAddSale()
         {
             // > 100%.
             if (this.g_i_sale + 1 > 100)
@@ -523,12 +524,12 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
-        private void clickButtonAddSale(Button p)
+        private void clickButtonAddSale()
         {
             this.g_i_sale++;
         }
 
-        private bool checkClickButtonRemoveSale(Button p)
+        private bool checkClickButtonRemoveSale()
         {
             // < 0%.
             if (this.g_i_sale - 1 < 0)
@@ -537,32 +538,14 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
-        private void clickButtonRemoveSale(Button p)
+        private void clickButtonRemoveSale()
         {
             this.g_i_sale--;
         }
 
-        private void textChangedTextBoxSale(TextBox p)
+        private void textChangedTextBoxSale()
         {
-            if (p == null)
-                return;
-
-            bool success;
-            Int32 l_sale = 0;
-            success = Int32.TryParse(p.Text.Replace(",", ""), out l_sale);
-
-            if (l_sale < 0)
-                l_sale = 0;
-
-            if (l_sale > 100)
-                l_sale = 100;
-
-            p.Text = string.Format("{0:n0}", l_sale);
-
-            if (p.Text != "0")
-                this.g_str_visibility = staticVarClass.visibility_visible;
-            else
-                this.g_str_visibility = staticVarClass.visibility_hidden;
+            this.g_i_sale = this.g_i_sale;
 
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
         }
@@ -619,7 +602,7 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
-        private void clickButtonSave(Button p)
+        private void clickButtonSave()
         {
             if (checkBeforeSave() == true)
             {
@@ -642,8 +625,8 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                g_str_foodName = StringNormalization(g_str_foodName);
-                g_str_foodDecription = StringNormalization(g_str_foodDecription);
+                g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
+                g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
                 var l_food = new FOOD()
                 {
                     ID = g_str_id,
@@ -672,8 +655,8 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                g_str_foodName = StringNormalization(g_str_foodName);
-                g_str_foodDecription = StringNormalization(g_str_foodDecription);
+                g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
+                g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
 
                 var l_food = dataProvider.Instance.DB.FOODs.First(f => f.ID == g_str_id);
                 l_food.FOODNAME = g_str_foodName;
@@ -693,40 +676,6 @@ namespace CanTeenManagement.ViewModel
             {
                 staticFunctionClass.showStatusView(false, "Sửa món " + g_str_foodName + " không thành công!");
             }
-        }
-
-        private string StringNormalization(string source)
-        {
-            if (source == null || source == "")
-            {
-                return "";
-            }
-            var source_String = source;
-            const string Space = " ";
-
-            var tokens = source_String.Split(new string[] { Space },
-                StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            tokens[0] = tokens[0].Trim().ToLower();
-            var firstChar = tokens[0].Substring(0, 1).ToUpper();
-            var remaining = tokens[0].Substring(1, tokens[0].Length - 1);
-            tokens[0] = firstChar + remaining;
-
-            var builder = new StringBuilder();
-
-            builder.Append(tokens[0]);
-            builder.Append(Space);
-
-            for (int i = 1; i < tokens.Count(); i++)
-            {
-                tokens[i] = tokens[i].Trim().ToLower();
-                builder.Append(tokens[i]);
-                builder.Append(Space);
-            }
-
-            builder.Remove(builder.Length - 1, 1);
-
-            return builder.ToString();
         }
         #endregion
     }
