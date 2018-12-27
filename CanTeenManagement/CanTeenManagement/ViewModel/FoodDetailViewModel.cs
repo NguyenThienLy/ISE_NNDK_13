@@ -552,7 +552,7 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkBeforeSave()
         {
-            if (this.g_str_foodName == "")
+            if (this.g_str_foodName == "" || this.g_str_foodName.Count() == 1)
             {
                 staticFunctionClass.showStatusView(false, "Sai tên món ăn, vui lòng nhập lại!");
                 return false;
@@ -587,6 +587,12 @@ namespace CanTeenManagement.ViewModel
                 staticFunctionClass.showStatusView(false, "Chưa chọn loại món ăn, vui lòng nhập lại!");
                 return false;
             }
+
+            //if (g_str_imageLink == @"\\127.0.0.1\CanteenManagement\empty.default.png")
+            //{
+            //    staticFunctionClass.showStatusView(false, "Chưa chọn hình ảnh, vui lòng nhập lại!");
+            //    return false;
+            //}
 
             if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true && g_b_isAdd == false)
             {
