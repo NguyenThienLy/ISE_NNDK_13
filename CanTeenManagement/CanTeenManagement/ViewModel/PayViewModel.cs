@@ -334,7 +334,7 @@ namespace CanTeenManagement.ViewModel
                 catch
                 {
 
-                    staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                    staticFunctionClass.showStatusView(false, "Thêm thực đơn " + this.g_str_orderID
                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
                    + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
                 }
@@ -342,7 +342,7 @@ namespace CanTeenManagement.ViewModel
             }
             else
             {
-                staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
+                staticFunctionClass.showStatusView(false, "Thêm thực đơn " + this.g_str_orderID
                    + " Cho khách hàng " + this.g_str_customerfullName.Trim()
                    + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
             }
@@ -461,7 +461,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(true, "Hoàn tác thực đơn " + this.g_str_orderID
+                staticFunctionClass.showStatusView(false, "Hoàn tác thực đơn " + this.g_str_orderID
                   + " Cho khách hàng " + this.g_str_customerfullName.Trim()
                   + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
             }
