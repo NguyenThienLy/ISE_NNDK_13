@@ -45,6 +45,28 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private int _g_i_height;
+        public int g_i_height
+        {
+            get { return _g_i_height; }
+            set
+            {
+                _g_i_height = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isReadOnlyID;
+        public bool g_b_isReadOnlyID
+        {
+            get { return _g_b_isReadOnlyID; }
+            set
+            {
+                _g_b_isReadOnlyID = value;
+                OnPropertyChanged();
+            }
+        }
+
         private EMPLOYEE _g_selectedItem;
         public EMPLOYEE g_selectedItem
         {
@@ -53,7 +75,7 @@ namespace CanTeenManagement.ViewModel
             {
                 _g_selectedItem = value;
                 OnPropertyChanged();
-                if (g_selectedItem != null)
+                if (g_selectedItem != null && g_i_addOrEdit == 0)
                 {
                     // Binding giá trị đang chọn lên text box.
                     g_str_id = g_selectedItem.ID.Trim();
@@ -131,12 +153,35 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        int g_i_addOrEdit = 0;
+
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
-        public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+        public string g_str_imageLink
+        {
+            get => _g_str_imageLink;
+            set
+            {
+                _g_str_imageLink = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_id;
-        public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
+        public string g_str_id
+        {
+            get => _g_str_id;
+            set
+            {
+                long i = 0;
+                if (value != string.Empty)
+                    if (long.TryParse(value, out i))
+                        value = g_str_id;
+
+                _g_str_id = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_fullName;
         public string g_str_fullName { get => _g_str_fullName; set { _g_str_fullName = value; OnPropertyChanged(); } }
@@ -177,6 +222,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_TextChangedFilterCommand { get; set; }
 
         public ICommand g_iCm_ClickDetailCommand { get; set; }
+
+        public ICommand g_iCm_ClickGoBackCommand { get; set; }
         #endregion
 
         public EmployeesViewModel()
@@ -185,37 +232,42 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_LoadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
-                this.loaded(p);
+                this.loaded();
             });
 
-            g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(p); }, (p) =>
+            g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(); }, (p) =>
             {
-                this.clickAdd(p);
+                this.clickAdd();
             });
 
-            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkEdit(p); }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkEdit(); }, (p) =>
             {
-                this.clickEdit(p);
+                this.clickEdit();
             });
 
-            g_iCm_ClickSaveInfoCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickSaveInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkSave(); }, (p) =>
             {
-                this.clickSave(p);
+                this.clickSave();
             });
 
-            g_iCm_ClickExportCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickExportCommand = new RelayCommand<EmployeesView>((p) => { return this.checkExport(); }, (p) =>
             {
-                this.clickExport(p);
+                this.clickExport();
             });
 
             g_iCm_TextChangedFilterCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
-                this.filterIDEmployee(p);
+                this.filterIDEmployee();
             });
 
             g_iCm_ClickDetailCommand = new RelayCommand<EMPLOYEE>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
+            });
+
+            g_iCm_ClickGoBackCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.clickGoBack();
             });
         }
 
@@ -225,16 +277,16 @@ namespace CanTeenManagement.ViewModel
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
-            l_listGenders.Add("Nữ");
-            l_listGenders.Add("Nam");
-            l_listGenders.Add("Khác");
+            l_listGenders.Add(staticVarClass.gender_feMale);
+            l_listGenders.Add(staticVarClass.gender_male);
+            l_listGenders.Add(staticVarClass.gender_different);
             g_listGenders = l_listGenders;
-            g_str_gender = "Nữ"; // mặc định.
+            g_str_gender = staticVarClass.gender_feMale; // mặc định.
 
             // Thêm danh sách role.
             List<string> l_listRoles = new List<string>();
-            l_listRoles.Add("Thành viên");
-            l_listRoles.Add("Admin");
+            l_listRoles.Add(staticVarClass.role_member);
+            l_listRoles.Add(staticVarClass.role_admin);
             g_listRoles = l_listRoles;
             g_str_role = l_listRoles[0]; // mặc định.
 
@@ -257,28 +309,9 @@ namespace CanTeenManagement.ViewModel
             g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
-        private void loaded(EmployeesView p)
+        private void loaded()
         {
-            if (p == null)
-                return;
 
-            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
-        }
-
-        private bool checkAdd(EmployeesView p)
-        {
-            if (p == null)
-                return false;
-
-            if (string.IsNullOrEmpty(g_str_id))
-                return false;
-
-            // check id.
-            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
-            if (l_employee == null || l_employee.Count() != 0)
-                return false;
-
-            return true;
         }
 
         private string getNameForPicture(string id)
@@ -292,94 +325,176 @@ namespace CanTeenManagement.ViewModel
             return l_temp;
         }
 
-        private void clickAdd(EmployeesView p)
+        private bool clickGoBack()
         {
-            var l_employee = new EMPLOYEE()
-            {
-                ID = g_str_id,
-                PASSWORD = "123",
-                FULLNAME = g_str_fullName,
-                GENDER = g_str_gender,
-                YEAROFBIRTH = g_i_yearOfBirth,
-                PHONE = g_str_phone,
-                EMAIL = g_str_email,
-                POSITION = g_str_position,
-                IMAGELINK = staticVarClass.server_serverDirectory + g_str_id + staticVarClass.format_JPG,
-                ROLE = g_str_role,
-                STATUS = g_str_status
-            };
-
-            // Make image default.
-            staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
-
-            dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
-            dataProvider.Instance.DB.SaveChanges();
-
-            g_listEmployees.Add(l_employee);
+            g_i_height = 0;
+            g_i_addOrEdit = 0;
+            g_b_isReadOnlyID = false;
+            return true;
         }
 
-        private bool checkEdit(EmployeesView p)
+        private bool checkAdd()
         {
-            if (p == null)
-                return false;
-
-            if (string.IsNullOrEmpty(g_str_id) || g_selectedItem == null)
-                return false;
-
-            // check id.
-            var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
-            if (l_IDList == null || l_IDList.Count() == 0)
+            if (g_i_addOrEdit != 0)
                 return false;
 
             return true;
         }
 
-        private void clickEdit(EmployeesView p)
+        private void clickAdd()
         {
-            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_selectedItem.ID).SingleOrDefault();
-            l_employee.FULLNAME = g_str_fullName;
-            l_employee.GENDER = g_str_gender;
-            l_employee.YEAROFBIRTH = g_i_yearOfBirth;
-            l_employee.PHONE = g_str_phone;
-            l_employee.EMAIL = g_str_email;
-            l_employee.POSITION = g_str_position;
-            l_employee.IMAGELINK = g_str_imageLink;
-            l_employee.ROLE = g_str_role;
-            l_employee.STATUS = g_str_status;
+            g_i_height = 40;
+            g_i_addOrEdit = 1;
 
-            dataProvider.Instance.DB.SaveChanges();
+            #region Làm trống text box.
+            g_str_id = string.Empty;
+            g_str_fullName = string.Empty;
+            g_str_gender = g_listGenders[0];
+            g_i_yearOfBirth = g_listYearOfBirth[0];
+            g_str_phone = string.Empty;
+            g_str_email = string.Empty;
+            g_str_position = string.Empty;
+            g_str_role = g_listRoles[0];
+            g_str_status = g_listStatus[0];
+            #endregion
+        }
 
-            for (int i = 0; i < g_listEmployees.Count(); i++)
+        private bool checkEdit()
+        {
+            if (g_selectedItem == null || g_i_addOrEdit != 0)
+                return false;
+
+            g_selectedItem = g_selectedItem;
+            return true;
+        }
+
+        private void clickEdit()
+        {
+            g_i_height = 40;
+            g_i_addOrEdit = 2;
+            g_b_isReadOnlyID = true;
+        }
+
+        private bool checkSave()
+        {
+            if (g_i_addOrEdit == 0)
             {
-                if (g_listEmployees[i].ID.Trim() == g_selectedItem.ID.Trim())
+                return false;
+            }
+            else if (g_i_addOrEdit == 1)
+            {
+                if (string.IsNullOrEmpty(g_str_id))
+                    return false;
+
+                // check id.
+                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
+                if (l_IDList == null || l_IDList.Count() != 0)
+                    return false;
+            }
+            else if (g_i_addOrEdit == 2)
+            {
+                // check id.
+                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
+                if (l_IDList == null || l_IDList.Count() == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private void clickSave()
+        {
+            if (g_i_addOrEdit == 1)
+            {
+                var l_employee = new EMPLOYEE()
                 {
-                    g_listEmployees[i] = new EMPLOYEE()
-                    {
-                        ID = g_selectedItem.ID,
-                        FULLNAME = g_str_fullName,
-                        GENDER = g_str_gender,
-                        YEAROFBIRTH = g_i_yearOfBirth,
-                        PHONE = g_str_phone,
-                        EMAIL = g_str_email,
-                        POSITION = g_str_position,
-                        IMAGELINK = g_str_imageLink,
-                        ROLE = g_str_role,
-                        STATUS = g_str_status
-                    };
-                    break;
+                    ID = g_str_id,
+                    PASSWORD = "123456",
+                    FULLNAME = g_str_fullName,
+                    GENDER = g_str_gender,
+                    YEAROFBIRTH = g_i_yearOfBirth,
+                    PHONE = g_str_phone,
+                    EMAIL = g_str_email,
+                    POSITION = g_str_position,
+                    IMAGELINK = staticVarClass.server_serverDirectory + g_str_id + staticVarClass.format_JPG,
+                    ROLE = g_str_role,
+                    STATUS = g_str_status
+                };
+
+                try
+                {
+                    dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
+                    dataProvider.Instance.DB.SaveChanges();
+
+                    // Make image default.
+                    staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
+                    g_listEmployees.Add(l_employee);
+                    staticFunctionClass.showStatusView(true, "Thêm thành viên " + g_str_id + " thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Thêm thành viên " + g_str_id + " thất bại!");
                 }
             }
+            else if (g_i_addOrEdit == 2)
+            {
+                var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_selectedItem.ID).SingleOrDefault();
+                l_employee.FULLNAME = g_str_fullName;
+                l_employee.GENDER = g_str_gender;
+                l_employee.YEAROFBIRTH = g_i_yearOfBirth;
+                l_employee.PHONE = g_str_phone;
+                l_employee.EMAIL = g_str_email;
+                l_employee.POSITION = g_str_position;
+                l_employee.IMAGELINK = g_str_imageLink;
+                l_employee.ROLE = g_str_role;
+                l_employee.STATUS = g_str_status;
+
+                try
+                {
+                    dataProvider.Instance.DB.SaveChanges();
+                    staticFunctionClass.showStatusView(true, "Sửa thông tin thành viên " + g_str_id + " thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Sửa thông tin thành viên " + g_str_id + " thất bại!");
+                }
+
+                g_b_isReadOnlyID = false;
+                for (int i = 0; i < g_listEmployees.Count(); i++)
+                {
+                    if (g_listEmployees[i].ID.Trim() == g_selectedItem.ID.Trim())
+                    {
+                        g_listEmployees[i] = new EMPLOYEE()
+                        {
+                            ID = g_selectedItem.ID,
+                            FULLNAME = g_str_fullName,
+                            GENDER = g_str_gender,
+                            YEAROFBIRTH = g_i_yearOfBirth,
+                            PHONE = g_str_phone,
+                            EMAIL = g_str_email,
+                            POSITION = g_str_position,
+                            IMAGELINK = g_str_imageLink,
+                            ROLE = g_str_role,
+                            STATUS = g_str_status
+                        };
+                        break;
+                    }
+                }
+            }
+
+            g_i_height = 0;
+            g_i_addOrEdit = 0;
         }
 
-        private void clickSave(EmployeesView p)
+        private bool checkExport()
         {
-            if (p == null)
-                return;
+            if (g_i_addOrEdit != 0 || g_listEmployees.Count() == 0)
+                return false;
 
-            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            return true;
         }
 
-        private void clickExport(EmployeesView p)
+        private void clickExport()
         {
             SaveFileDialog sfd = new SaveFileDialog()
             {
@@ -424,10 +539,19 @@ namespace CanTeenManagement.ViewModel
                 workSheet.Cells.Select();
                 workSheet.Cells.EntireColumn.AutoFit();
 
-                workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
-                            Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
-                            Excel.XlSaveConflictResolution.xlUserResolution, true,
-                            Missing.Value, Missing.Value, Missing.Value);
+                try
+                {
+                    workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                                Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                                Excel.XlSaveConflictResolution.xlUserResolution, true,
+                                Missing.Value, Missing.Value, Missing.Value);
+                    staticFunctionClass.showStatusView(true, "Xuất file thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Xuất file thất bại!");
+                }
+
                 workBook.Close();
                 excel.Quit();
             }
@@ -442,11 +566,8 @@ namespace CanTeenManagement.ViewModel
                 return ((item as EMPLOYEE).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void filterIDEmployee(EmployeesView p)
+        private void filterIDEmployee()
         {
-            if (p == null)
-                return;
-
             CollectionViewSource.GetDefaultView(g_listEmployees).Refresh();
         }
 
@@ -457,6 +578,7 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            g_i_addOrEdit = 0;
             g_selectedItem = p;
 
             MainWindow mainWd = MainWindow.Instance;

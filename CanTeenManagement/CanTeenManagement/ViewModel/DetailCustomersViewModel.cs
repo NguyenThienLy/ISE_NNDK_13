@@ -162,6 +162,8 @@ namespace CanTeenManagement.ViewModel
 
         public DetailCustomersViewModel()
         {
+            this.loadData();
+
             g_iCm_LoadedCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
                 this.loaded(p);
@@ -177,14 +179,14 @@ namespace CanTeenManagement.ViewModel
                 this.clickEditInfo(p);
             });
 
-            g_iCm_ClickSaveInfoCommand = new RelayCommand<DetailCustomersView>((p) => { return this.checkSaveInfo(p); }, (p) =>
+            g_iCm_ClickSaveInfoCommand = new RelayCommand<DetailCustomersView>((p) => { return this.checkSaveInfo(); }, (p) =>
             {
                 this.clickSaveInfo(p);
             });
 
-            g_iCm_ClickExportCommand = new RelayCommand<DetailCustomersView>((p) => { return checkExport(p); }, (p) =>
+            g_iCm_ClickExportCommand = new RelayCommand<DetailCustomersView>((p) => { return checkExport(); }, (p) =>
             {
-                this.clickExport(p);
+                this.clickExport();
             });
 
             g_iCm_MouseLeftButtonDownCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
@@ -194,7 +196,7 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_ClickChangeImageCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
-                this.clickChangeImage(p);
+                this.clickChangeImage();
             });
 
             g_iCm_TextChangedFilterCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
@@ -208,14 +210,8 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
-        private void loaded(DetailCustomersView p)
+        private void loadData()
         {
-            p.grVInfo.Height = 350;
-            p.grVEdit.Height = 0;
-
-            if (p == null)
-                return;
-
             CustomersView l_customersView = CustomersView.Instance;
 
             if (l_customersView.DataContext == null)
@@ -225,9 +221,9 @@ namespace CanTeenManagement.ViewModel
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
-            l_listGenders.Add("Nữ");
-            l_listGenders.Add("Nam");
-            l_listGenders.Add("Khác");
+            l_listGenders.Add(staticVarClass.gender_feMale);
+            l_listGenders.Add(staticVarClass.gender_male);
+            l_listGenders.Add(staticVarClass.gender_different);
             g_listGenders = l_listGenders;
 
             // Thêm danh sách năm sinh.
@@ -257,6 +253,15 @@ namespace CanTeenManagement.ViewModel
             #region đổ dữ liệu vào listview
             this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == g_str_id));
             #endregion
+        }
+
+        private void loaded(DetailCustomersView p)
+        {
+            if (p == null)
+                return;
+
+            p.grVInfo.Height = 350;
+            p.grVEdit.Height = 0;
         }
 
         private void clickCloseWindow(DetailCustomersView p)
@@ -296,8 +301,12 @@ namespace CanTeenManagement.ViewModel
 
         private void clickEditInfo(DetailCustomersView p)
         {
+            if (p == null)
+                return;
+
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 350;
+
             g_str_fullNameEdit = g_str_fullName;
             g_str_genderEdit = g_str_gender;
             g_i_yearOfBirthEdit = g_i_yearOfBirth;
@@ -305,11 +314,8 @@ namespace CanTeenManagement.ViewModel
             g_str_emailEdit = g_str_email;
         }
 
-        private bool checkSaveInfo(DetailCustomersView p)
+        private bool checkSaveInfo()
         {
-            if (p == null)
-                return false;
-
             if (string.IsNullOrEmpty(g_str_id))
                 return false;
 
@@ -334,34 +340,37 @@ namespace CanTeenManagement.ViewModel
             l_customer.STAR = g_i_star;
             l_customer.IMAGELINK = g_str_imageLink;
 
-            dataProvider.Instance.DB.SaveChanges();
+            try
+            {
+                dataProvider.Instance.DB.SaveChanges();
+                staticFunctionClass.showStatusView(true, "Sửa thông tin khách hàng " + g_str_fullName + " thành công!");
 
-            staticFunctionClass.showStatusView(true, "Sửa thông tin của khách hàng " + g_str_fullName + " thành công!");
-
-            #region Cập nhật lại thông tin.
-            g_str_fullName = g_str_fullNameEdit;
-            g_str_gender = g_str_genderEdit;
-            g_i_yearOfBirth = g_i_yearOfBirthEdit;
-            g_str_phone = g_str_phoneEdit;
-            g_str_email = g_str_emailEdit;
-            #endregion
+                #region Cập nhật lại thông tin.
+                g_str_fullName = g_str_fullNameEdit;
+                g_str_gender = g_str_genderEdit;
+                g_i_yearOfBirth = g_i_yearOfBirthEdit;
+                g_str_phone = g_str_phoneEdit;
+                g_str_email = g_str_emailEdit;
+                #endregion
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(false, "Sửa thông tin khách hàng " + g_str_id + " thất bại!");
+            }
 
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
         }
 
-        private bool checkExport(DetailCustomersView p)
+        private bool checkExport()
         {
-            if (p == null)
-                return false;
-
             if (g_listOrders == null || g_listOrders.Count() == 0)
                 return false;
 
             return true;
         }
 
-        private void clickExport(DetailCustomersView p)
+        private void clickExport()
         {
             SaveFileDialog sfd = new SaveFileDialog()
             {
@@ -401,10 +410,19 @@ namespace CanTeenManagement.ViewModel
                 workSheet.Cells.Select();
                 workSheet.Cells.EntireColumn.AutoFit();
 
-                workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                try
+                {
+                    workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
                             Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
                             Excel.XlSaveConflictResolution.xlUserResolution, true,
                             Missing.Value, Missing.Value, Missing.Value);
+                    staticFunctionClass.showStatusView(true, "Xuất file thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(true, "Xuất file thất bại!");
+                }
+
                 workBook.Close();
                 excel.Quit();
             }
@@ -416,7 +434,7 @@ namespace CanTeenManagement.ViewModel
             p.DragMove();
         }
 
-        private void clickChangeImage(DetailCustomersView p)
+        private void clickChangeImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -475,11 +493,8 @@ namespace CanTeenManagement.ViewModel
                 return ((item as ORDERINFO).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void filterIDOrder(DetailCustomersView p)
+        private void filterIDOrder()
         {
-            if (p == null)
-                return;
-
             CollectionViewSource.GetDefaultView(g_listOrders).Refresh();
         }
     }
