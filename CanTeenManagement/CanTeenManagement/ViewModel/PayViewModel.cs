@@ -154,6 +154,7 @@ namespace CanTeenManagement.ViewModel
                 _g_b_isEnough = value;
             }
         }
+
         #region command.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
 
@@ -280,7 +281,7 @@ namespace CanTeenManagement.ViewModel
 
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
-            this.g_obCl_payFood = new ObservableCollection<PAYFOOD>(l_orderVM.g_lst_orderFood);
+            this.g_obCl_payFood = l_orderVM.g_obCl_orderFood;
             // Sum price in order food.
             this.g_i_sumPrice = this.getSumPrice();
         }
@@ -304,7 +305,8 @@ namespace CanTeenManagement.ViewModel
         #region Click pay.
         private bool checkButtonPay()
         {
-            if (this.g_b_isHaveCus == false || this.g_b_isPay == true || this.g_b_isEnough == false)
+            if (this.g_b_isHaveCus == false || this.g_b_isPay == true
+                || this.g_b_isEnough == false || this.g_i_sumPrice == 0)
                 return false;
 
             return true;
@@ -312,17 +314,6 @@ namespace CanTeenManagement.ViewModel
 
         private void clickButtonPay()
         {
-            OrderView orderView = OrderView.Instance;
-
-            if (orderView.DataContext == null)
-                return;
-
-            var l_orderVM = orderView.DataContext as OrderViewModel;
-
-            // Reset affter pay in orderView.
-            l_orderVM.g_lst_orderFood.Clear();
-            l_orderVM.g_i_currOrderFood = 0;
-
             if (createNewOrderID())
             {
                 try
@@ -518,6 +509,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(PayView p)
         {
+            if (p == null)
+                return;
+
             OrderView orderView = OrderView.Instance;
 
             if (orderView.DataContext == null)
@@ -526,7 +520,7 @@ namespace CanTeenManagement.ViewModel
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
             // Reset affter pay in orderView.
-            l_orderVM.g_lst_orderFood.Clear();
+            l_orderVM.g_obCl_orderFood.Clear();
             l_orderVM.g_i_currOrderFood = 0;
 
             this.resetCustomer();

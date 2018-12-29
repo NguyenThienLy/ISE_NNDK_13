@@ -10,9 +10,20 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region color.
+        public static string color_indianRed = "IndianRed";
+        public static string color_mainColor = "#FF28878B";
+        #endregion.
+
+        #region quantility page.
+        public static int quantilityPage_order = 8;
+
+        public static int quantilityPage_turnOrder = 5;
+        #endregion
+
         #region
         public static string str_true = "true";
-        public static string str_false= "false";
+        public static string str_false = "false";
         #endregion
 
         #region format.
@@ -79,6 +90,8 @@ namespace CanTeenManagement.CO
         #region mode.
         public static string mode_addCash = "Nạp tiền";
         public static string mode_subCash = "Rút tiền";
+        public static string mode_today = "Hôm nay";
+        public static string mode_all = "Tất cả";
         #endregion
 
         #region account.

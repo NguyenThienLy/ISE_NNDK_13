@@ -452,7 +452,7 @@ namespace CanTeenManagement.ViewModel
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
             // Reset affter pay in orderView.
-            l_orderVM.g_lst_orderFood.Clear();
+            l_orderVM.g_obCl_orderFood.Clear();
             l_orderVM.g_i_currOrderFood = 0;
 
             this.resetCustomer();

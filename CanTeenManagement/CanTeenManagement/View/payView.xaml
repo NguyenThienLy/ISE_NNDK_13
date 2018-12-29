@@ -99,6 +99,7 @@
                                                                   HorizontalAlignment="Center"
                                                                   IsChecked="{Binding ISCHECKED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                                   Background="#FF36AE98"
+                                                                  ToolTip="Bỏ chọn khỏi danh sách món"
                                                                   Style="{StaticResource MaterialDesignCheckBox}"></CheckBox>
                                                         <Image Grid.Column="1"
                                                                Height="100"
@@ -161,7 +162,7 @@
                                                                 BorderBrush="#FF26788A"
                                                                 BorderThickness="2"
                                                                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                                                ToolTip="Xóa món ra khỏi danh sách">
+                                                                ToolTip="Xóa khỏi danh sách món">
                                                             <materialDesign:PackIcon Background="{x:Null}"
                                                                                      Foreground="#FF26788A"
                                                                                      Kind="Delete"

@@ -144,6 +144,28 @@ namespace CanTeenManagement.Model
             }
         }
 
+        private string _VISIBILITYSTATUS;
+        public string VISIBILITYSTATUS
+        {
+            get => _VISIBILITYSTATUS;
+            set
+            {
+                _VISIBILITYSTATUS = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _VISIBILITYCHOOSE;
+        public string VISIBILITYCHOOSE
+        {
+            get => _VISIBILITYCHOOSE;
+            set
+            {
+                _VISIBILITYCHOOSE = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ORDERFOOD() { }
 
         public ORDERFOOD(FOOD food)
@@ -159,6 +181,7 @@ namespace CanTeenManagement.Model
             this.IMAGESOURCE = staticFunctionClass.LoadBitmap(IMAGELINK);
             this.STAR = (int)food.STAR;
             this.STATUS = food.STATUS.Trim();
+            this.VISIBILITYCHOOSE = staticVarClass.visibility_hidden;
 
             if (this.SALE == 0)
             {
@@ -167,6 +190,15 @@ namespace CanTeenManagement.Model
             else
             {
                 this.VISIBILITY = staticVarClass.visibility_visible;
+            }
+
+            if (this.STATUS == staticVarClass.status_still)
+            {
+                this.VISIBILITYSTATUS = staticVarClass.visibility_hidden;
+            }
+            else
+            {
+                this.VISIBILITYSTATUS = staticVarClass.visibility_visible;
             }
         }
     }
