@@ -84,7 +84,7 @@ namespace CanTeenManagement.CO
         #region food type string.
         public static string foodTypeStr_one = "Món cơm";
         public static string foodTypeStr_two = "Món nước";
-        public static string foodTypeStr_three = "Thức ăn có sẵn";
+        public static string foodTypeStr_three = "Đồ ăn có sẵn";
         #endregion
 
         #region mode.

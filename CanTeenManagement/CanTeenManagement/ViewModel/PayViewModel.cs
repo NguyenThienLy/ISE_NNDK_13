@@ -327,24 +327,17 @@ namespace CanTeenManagement.ViewModel
                     //
                     this.g_b_isPay = true;
 
-                    staticFunctionClass.showStatusView(true, "Thêm thực đơn " + this.g_str_orderID
-                        + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                        + " phụ trách bởi " + staticVarClass.account_userName + " thành công!");
+                    staticFunctionClass.showStatusView(true, "Thêm đơn hàng " + this.g_str_orderID + " thành công!");
                 }
                 catch
                 {
-
-                    staticFunctionClass.showStatusView(false, "Thêm thực đơn " + this.g_str_orderID
-                   + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                   + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
+                    staticFunctionClass.showStatusView(false, "Thêm đơn hàng " + this.g_str_orderID + " thất bại!");
                 }
 
             }
             else
             {
-                staticFunctionClass.showStatusView(false, "Thêm thực đơn " + this.g_str_orderID
-                   + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                   + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Thêm đơn hàng " + this.g_str_orderID + " thất bại!");
             }
         }
 
@@ -446,8 +439,8 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                this.deleteOrderInfo();
                 this.deleteOrderDetail();
+                this.deleteOrderInfo();
                 this.addPriceCustomer();
                 this.subPointCustomer();
                 this.enableAllQuantityTextBox(true);
@@ -455,15 +448,11 @@ namespace CanTeenManagement.ViewModel
                 // 
                 this.g_b_isPay = false;
 
-                staticFunctionClass.showStatusView(true, "Hoàn tác thực đơn " + this.g_str_orderID
-                      + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                      + " phụ trách bởi " + staticVarClass.account_userName + " thành công!");
+                staticFunctionClass.showStatusView(true, "Hoàn tác đơn hàng " + this.g_str_orderID + " thành công!");
             }
             catch
             {
-                staticFunctionClass.showStatusView(false, "Hoàn tác thực đơn " + this.g_str_orderID
-                  + " Cho khách hàng " + this.g_str_customerfullName.Trim()
-                  + " phụ trách bởi " + staticVarClass.account_userName + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Hoàn tác đơn hàng " + this.g_str_orderID + " thất bại!");
             }
         }
 
@@ -472,8 +461,11 @@ namespace CanTeenManagement.ViewModel
 
             ORDERINFO l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.Where(orderInfo => orderInfo.ID == this.g_str_orderID).SingleOrDefault();
 
-            dataProvider.Instance.DB.ORDERINFOes.Remove(l_orderInfo);
-            dataProvider.Instance.DB.SaveChanges();
+            if (l_orderInfo != null)
+            {
+                dataProvider.Instance.DB.ORDERINFOes.Remove(l_orderInfo);
+                dataProvider.Instance.DB.SaveChanges();
+            }
         }
 
         private void deleteOrderDetail()
@@ -481,10 +473,20 @@ namespace CanTeenManagement.ViewModel
             int i = 0;
             for (i = 0; i < this.g_obCl_payFood.Count(); i++)
             {
-                ORDERDETAIL l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs.Where(orderDetail => orderDetail.ORDERID == this.g_str_orderID && orderDetail.FOODID == this.g_obCl_payFood[i].ID).SingleOrDefault();
+                if (this.g_obCl_payFood[i].ISCHECKED == true)
+                {
+                    string t_id = this.g_obCl_payFood[i].ID;
 
-                dataProvider.Instance.DB.ORDERDETAILs.Remove(l_orderDetail);
-                dataProvider.Instance.DB.SaveChanges();
+                    ORDERDETAIL l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs
+                        .Where(orderDetail => orderDetail.ORDERID == this.g_str_orderID
+                        && orderDetail.FOODID == t_id).SingleOrDefault();
+
+                    if (l_orderDetail != null)
+                    {
+                        dataProvider.Instance.DB.ORDERDETAILs.Remove(l_orderDetail);
+                        dataProvider.Instance.DB.SaveChanges();
+                    }
+                }
             }
         }
 

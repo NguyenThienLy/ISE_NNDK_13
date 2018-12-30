@@ -21,16 +21,6 @@ namespace CanTeenManagement.ViewModel
     class FoodDetailViewModel : BaseViewModel
     {
         public const int DEFAULT_PRICE = 25000;
-        //private ORDERFOOD _g_ordF_food;
-        //public ORDERFOOD g_ordF_food
-        //{
-        //    get => _g_ordF_food;
-        //    set
-        //    {
-        //        _g_ordF_food = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
 
         private string _g_str_id;
         public string g_str_id
@@ -206,6 +196,28 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibilityStatus;
+        public string g_str_visibilityStatus
+        {
+            get => _g_str_visibilityStatus;
+            set
+            {
+                _g_str_visibilityStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_visibilityChoose;
+        public string g_str_visibilityChoose
+        {
+            get => _g_str_visibilityChoose;
+            set
+            {
+                _g_str_visibilityChoose = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _g_b_isAdd;
         public bool g_b_isAdd
         {
@@ -213,6 +225,17 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_b_isAdd = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isFoodNameTrue;
+        public bool g_b_isFoodNameTrue
+        {
+            get => _g_b_isFoodNameTrue;
+            set
+            {
+                _g_b_isFoodNameTrue = value;
                 OnPropertyChanged();
             }
         }
@@ -241,13 +264,23 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickButtonAddSaleCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonRemoveSaleCommand { get; set; }
+
+        public ICommand g_iCm_SelectionChangedComboboxCommand { get; set; }
+
+        public ICommand g_iCm_LostFocusFoodNameCommand { get; set; }
+
+        public ICommand g_iCm_KeyFoodNameCommand { get; set; }
+
+        public ICommand g_iCm_TextChangedFoodNameCommand { get; set; }
         #endregion
 
         public FoodDetailViewModel()
         {
+            this.initSuport();
+
             g_iCm_LoadedWindowCommand = new RelayCommand<FoodDetailView>((p) => { return true; }, (p) =>
             {
-                this.loaded();
+                this.loaded(p);
             });
 
             g_iCm_ClickCloseWindowCommand = new RelayCommand<FoodDetailView>((p) => { return true; }, (p) =>
@@ -295,14 +328,40 @@ namespace CanTeenManagement.ViewModel
                 this.clickButtonRemoveSale();
             });
 
-            g_iCm_ClickButtonSaveCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            g_iCm_ClickButtonSaveCommand = new RelayCommand<Button>((p) => { return this.checkButtonSave(); }, (p) =>
             {
                 this.clickButtonSave();
             });
+
+            g_iCm_SelectionChangedComboboxCommand = new RelayCommand<FoodDetailView>((p) => { return true; }, (p) =>
+            {
+                this.selectionChangedCombobox(p);
+            });
+
+            g_iCm_LostFocusFoodNameCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.checkFoodName();
+            });
+
+            g_iCm_KeyFoodNameCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.checkFoodName();
+            });
+
+
+            g_iCm_TextChangedFoodNameCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.textChangedFoodName();
+            });
+        }
+
+        private void initSuport()
+        {
+            this.g_b_isFoodNameTrue = false;
         }
 
         #region loaded.
-        private void loaded()
+        private void loaded(FoodDetailView p)
         {
             OrderView orderView = OrderView.Instance;
 
@@ -311,11 +370,10 @@ namespace CanTeenManagement.ViewModel
 
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
-            //this.g_ordF_food = l_orderVM.g_ordF_orderFood;
-
             if (l_orderVM.g_b_isAdd)
             {
                 this.g_b_isAdd = true;
+
                 this.setPropetyOrderFood(this.emptyFood());
                 this.g_i_priceSale = DEFAULT_PRICE;
             }
@@ -327,6 +385,25 @@ namespace CanTeenManagement.ViewModel
 
             this.loadCbbFoodType();
             this.loadCbbStatus();
+            this.setFollowStatus(p);
+        }
+
+        private void setFollowStatus(FoodDetailView p)
+        {
+            if (p.cbbStatus.Text == staticVarClass.status_soldOut)
+            {
+                this.g_str_visibilityStatus = staticVarClass.visibility_visible;
+
+                p.btnDelete.IsEnabled = false;
+                p.btnCart.IsEnabled = false;
+            }
+            else
+            {
+                this.g_str_visibilityStatus = staticVarClass.visibility_hidden;
+
+                p.btnDelete.IsEnabled = true;
+                p.btnCart.IsEnabled = true;
+            }
         }
 
         private void loadCbbFoodType()
@@ -367,6 +444,8 @@ namespace CanTeenManagement.ViewModel
             this.g_i_star = p.STAR;
             this.g_str_status = p.STATUS;
             this.g_str_visibility = p.VISIBILITY;
+            this.g_str_visibilityStatus = p.VISIBILITYSTATUS;
+            this.g_str_visibilityChoose = p.VISIBILITYCHOOSE;
         }
 
         private ORDERFOOD emptyFood()
@@ -381,29 +460,14 @@ namespace CanTeenManagement.ViewModel
                 SALE = 0,
                 IMAGELINK = staticVarClass.linkImg_empty,
                 IMAGESOURCE = staticFunctionClass.LoadBitmap(staticVarClass.linkImg_empty),
+                STAR = 1,
                 STATUS = staticVarClass.status_still,
-                VISIBILITY = staticVarClass.visibility_hidden
+                VISIBILITY = staticVarClass.visibility_hidden,
+                VISIBILITYSTATUS = staticVarClass.visibility_hidden,
+                VISIBILITYCHOOSE = staticVarClass.visibility_hidden
             };
 
             return orderFood;
-        }
-
-        private string createNewFoodID()
-        {
-            string l_str_CurrID = dataProvider.Instance.DB.FOODs
-                .OrderByDescending(food => food.ID)
-                .Select(food => food.ID).FirstOrDefault();
-
-            //var resultString = dataProvider.Instance.DB.ORDERINFOes.OrderByDescending(id => id.ID).First();
-            Match match = Regex.Match(l_str_CurrID, @"(\d+)");
-
-            if (match.Success)
-            {
-                // Create new orderID.
-                return "FOOD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
-            }
-
-            return null; ;
         }
         #endregion
 
@@ -477,7 +541,7 @@ namespace CanTeenManagement.ViewModel
 
         }
 
-        #region price.
+        #region Button add price.
         private bool checkClickButtonAddPrice()
         {
             // > 1.000.000 đ.
@@ -491,7 +555,9 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_price += 500;
         }
+        #endregion
 
+        #region Button remove price.
         private bool checkClickButtonRemovePrice()
         {
             // < 0 đ.
@@ -505,6 +571,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_price -= 500;
         }
+        #endregion
 
         private void textChangedTextBoxPrice()
         {
@@ -512,9 +579,8 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
         }
-        #endregion
 
-        #region sale.
+        #region Button add sale.
         private bool checkClickButtonAddSale()
         {
             // > 100%.
@@ -528,7 +594,9 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_sale++;
         }
+        #endregion.
 
+        #region  Button remove sale.
         private bool checkClickButtonRemoveSale()
         {
             // < 0%.
@@ -542,6 +610,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_sale--;
         }
+        #endregion
 
         private void textChangedTextBoxSale()
         {
@@ -550,92 +619,56 @@ namespace CanTeenManagement.ViewModel
             this.g_i_priceSale = (int)(this.g_i_price * ((double)(100 - this.g_i_sale) / 100));
         }
 
-        private bool checkBeforeSave()
+        #region Button save.
+        private bool checkButtonSave()
         {
-            if (this.g_str_foodName == "" || this.g_str_foodName.Count() == 1)
-            {
-                staticFunctionClass.showStatusView(false, "Sai tên món ăn, vui lòng nhập lại!");
+            if (this.g_i_star == 0 || this.g_b_isFoodNameTrue == false
+                || this.g_str_foodName == string.Empty)
                 return false;
-            }
-
-            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true && g_b_isAdd == true)
-            {
-                staticFunctionClass.showStatusView(false, "Món " + g_str_foodName + " đã có trong cơ sở dữ liệu");
-                return false;
-            }
-
-            if (this.g_i_price < 1000)
-            {
-                staticFunctionClass.showStatusView(false, "Sai giá thành, vui lòng nhập lại!");
-                return false;
-            }
-
-            if (this.g_str_status == "")
-            {
-                staticFunctionClass.showStatusView(false, "Chưa chọn trạng thái món ăn, vui lòng nhập lại!");
-                return false;
-            }
-
-            if (this.g_i_star == 0)
-            {
-                staticFunctionClass.showStatusView(false, "Chưa đánh giá món ăn, vui lòng nhập lại!");
-                return false;
-            }
-
-            if (this.g_i_foodType == -1)
-            {
-                staticFunctionClass.showStatusView(false, "Chưa chọn loại món ăn, vui lòng nhập lại!");
-                return false;
-            }
-
-            //if (g_str_imageLink == @"\\127.0.0.1\CanteenManagement\empty.default.png")
-            //{
-            //    staticFunctionClass.showStatusView(false, "Chưa chọn hình ảnh, vui lòng nhập lại!");
-            //    return false;
-            //}
-
-            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true && g_b_isAdd == false)
-            {
-                return true;
-            }
-
-            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == false)
-            {
-                g_str_id = this.createNewFoodID();
-                return true;
-            }
 
             return true;
         }
 
         private void clickButtonSave()
         {
-            if (checkBeforeSave() == true)
+            if (g_b_isAdd == true)
             {
-                if (g_b_isAdd == true)
-                {
-                    addNewFood();
-                }
-                else
-                {
-                    editFood();
-                }
+                this.addNewFood();
             }
             else
             {
-                return;
+                this.editFood();
             }
+        }
+        #endregion.
+
+        private string createNewFoodID()
+        {
+            string l_str_CurrID = dataProvider.Instance.DB.FOODs
+                .OrderByDescending(food => food.ID)
+                .Select(food => food.ID).FirstOrDefault();
+
+            Match match = Regex.Match(l_str_CurrID, @"(\d+)");
+
+            if (match.Success)
+            {
+                // Create new ID.
+                return "FOOD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
+            }
+
+            return null; ;
         }
 
         private void addNewFood()
         {
             try
             {
-                g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
-                g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
+                this.g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
+                this.g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
+
                 var l_food = new FOOD()
                 {
-                    ID = g_str_id,
+                    ID = this.createNewFoodID(),
                     FOODNAME = g_str_foodName,
                     FOODTYPE = g_i_foodType + 1,
                     FOODDESCRIPTION = g_str_foodDecription,
@@ -653,7 +686,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(false, "Thêm món " + g_str_foodName + " không thành công!");
+                staticFunctionClass.showStatusView(false, "Thêm món " + g_str_foodName + " thất bại!");
             }
         }
 
@@ -661,18 +694,22 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
-                g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
+                this.g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
+                this.g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
 
-                var l_food = dataProvider.Instance.DB.FOODs.First(f => f.ID == g_str_id);
-                l_food.FOODNAME = g_str_foodName;
-                l_food.FOODTYPE = g_i_foodType + 1;
-                l_food.FOODDESCRIPTION = g_str_foodDecription;
-                l_food.PRICE = g_i_price;
-                l_food.SALE = g_i_sale;
-                l_food.IMAGELINK = g_str_imageLink;
-                l_food.STAR = g_i_star;
-                l_food.STATUS = g_str_status;
+                var l_food = dataProvider.Instance.DB.FOODs.Where(f => f.ID == g_str_id).FirstOrDefault();
+
+                if (l_food != null)
+                {
+                    l_food.FOODNAME = g_str_foodName;
+                    l_food.FOODTYPE = g_i_foodType + 1;
+                    l_food.FOODDESCRIPTION = g_str_foodDecription;
+                    l_food.PRICE = g_i_price;
+                    l_food.SALE = g_i_sale;
+                    l_food.IMAGELINK = g_str_imageLink;
+                    l_food.STAR = g_i_star;
+                    l_food.STATUS = g_str_status;
+                }
 
                 dataProvider.Instance.DB.SaveChanges();
 
@@ -680,8 +717,37 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(false, "Sửa món " + g_str_foodName + " không thành công!");
+                staticFunctionClass.showStatusView(false, "Sửa món " + g_str_foodName + " thất bại!");
             }
+        }
+
+        private void selectionChangedCombobox(FoodDetailView p)
+        {
+            if (p == null)
+                return;
+
+            this.setFollowStatus(p);
+        }
+
+        #region Food name.
+        private void checkFoodName()
+        {
+            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true)
+            {
+                staticFunctionClass.showStatusView(false, "Món " + this.g_str_foodName + " đã có trong cơ sở dữ liệu");
+
+                this.g_str_foodName = string.Empty;
+                this.g_b_isFoodNameTrue = false;
+            }
+            else
+            {
+                this.g_b_isFoodNameTrue = true;
+            }
+        }
+
+        private void textChangedFoodName()
+        {
+            this.g_b_isFoodNameTrue = false;
         }
         #endregion
     }

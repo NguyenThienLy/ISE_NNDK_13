@@ -81,12 +81,29 @@
                                            TextAlignment="Center"
                                            VerticalAlignment="Center"
                                            FontWeight="DemiBold" />
-                                <TextBox FontSize="30"
+                                <TextBox x:Name="txtfoodName"
+                                         FontSize="30"
                                          Margin="5"
                                          TextWrapping="Wrap"
                                          VerticalAlignment="Center"
                                          Text="{Binding g_str_foodName, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                         materialDesign:HintAssist.Hint="Trống" />
+                                         materialDesign:HintAssist.Hint="Trống">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter"
+                                                    Command="{Binding g_iCm_KeyFoodNameCommand}"
+                                                    CommandParameter="{Binding Path, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_LostFocusFoodNameCommand}"
+                                                                   CommandParameter="{Binding ElementName = txtfoodName}" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFoodNameCommand}"
+                                                                   CommandParameter="{Binding ElementName = txtfoodName}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
                             </StackPanel>
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
@@ -276,12 +293,20 @@
                                                        TextAlignment="Center"
                                                        VerticalAlignment="Center"
                                                        FontWeight="DemiBold" />
-                                            <ComboBox ItemsSource="{Binding g_lst_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                            <ComboBox x:Name="cbbStatus"
+                                                      ItemsSource="{Binding g_lst_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                                       SelectedItem="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                                       FontSize="20"
                                                       Margin="5"
                                                       VerticalAlignment="Center"
-                                                      Text="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                                                      Text="{Binding g_str_status, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding g_iCm_SelectionChangedComboboxCommand}"
+                                                                               CommandParameter="{Binding ElementName = foodDetailView}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
                                         </StackPanel>
                                         <StackPanel Grid.Row="3"
                                                     Margin="10 0"
@@ -317,7 +342,7 @@
                                             <ComboBox ItemsSource="{Binding g_lst_foodType, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                                       SelectedIndex="{Binding g_i_foodType, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                                       FontSize="20"
-                                                      VerticalAlignment="Center" />
+                                                      VerticalAlignment="Center"></ComboBox>
                                         </StackPanel>
                                         <StackPanel Grid.Row="5"
                                                     Margin="10 0"
@@ -395,8 +420,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
-                                    <Image Margin="5
-                                           "
+                                    <Image Margin="5"
                                            Source="{Binding g_imgSrc_currFood}"
                                            Stretch="Fill" />
                                     <Ellipse Height="40"
@@ -422,27 +446,58 @@
                                                FontStyle="Italic"
                                                TextAlignment="Center"
                                                Visibility="{Binding g_str_visibility}" />
+                                    <Grid  Margin="5"
+                                           Height="50"
+                                           VerticalAlignment="Bottom"
+                                           Visibility="{Binding g_str_visibilityStatus}">
+                                        <Grid   Opacity="0.5"
+                                                Background="IndianRed"></Grid>
+                                        <TextBlock FontWeight="DemiBold"
+                                                   VerticalAlignment="Center"
+                                                   Text="Hết món"
+                                                   Foreground="White"
+                                                   TextAlignment="Center"
+                                                   Margin="5"
+                                                   FontSize="30"></TextBlock>
+                                    </Grid>
+                                    <Button x:Name="btnCart"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Margin="0 0 16 -20"
+                                            IsHitTestVisible="False">
+                                        <materialDesign:PackIcon  Kind="Cart" />
+                                    </Button>
+                                    <Button Height="20"
+                                            Width="20"
+                                            Background="{x:Null}"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                            ToolTip="Đã chọn"
+                                            BorderBrush="{x:Null}"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 15 14"
+                                            Cursor="None"
+                                            IsHitTestVisible="False"
+                                            Visibility="{Binding g_str_visibilityChoose}">
+                                        <materialDesign:PackIcon Margin="-1 -1 0 0"
+                                                                 Kind="Done"
+                                                                 Height="20"
+                                                                 Width="20"
+                                                                 Foreground="Green" />
+                                    </Button>
                                 </Grid>
-                                <Button x:Name="btnCart"
-                                        Command="{Binding ElementName=itemControlHaveFood, Path=DataContext.g_iCm_ClickCartCommand}"
-                                        CommandParameter="{Binding}"
-                                        Grid.Row="0"
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
-                                        Margin="0 0 16 -20">
-                                    <materialDesign:PackIcon  Kind="Cart" />
-                                </Button>
                                 <StackPanel Grid.Row="1"
                                             Margin="8 10 8 0">
                                     <TextBlock FontWeight="Bold"
                                                Text="{Binding g_str_foodName}" />
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Foreground="Red"
-                                                   Text="{Binding g_i_priceSale, StringFormat='{}{0:#,#} đ' }"
+                                                   Text="{Binding g_i_priceSale, StringFormat='{}{0:0,0} đ' }"
                                                    FontSize="15"
                                                    FontWeight="DemiBold"></TextBlock>
-                                        <TextBlock Text="{Binding g_i_price, StringFormat='{}{0:#,#} đ' }"
+                                        <TextBlock Text="{Binding g_i_price, StringFormat='{}{0:0,0} đ' }"
                                                    FontSize="13"
                                                    FontWeight="DemiBold"
                                                    Margin="5 0"
@@ -467,7 +522,8 @@
                                     <Button Style="{StaticResource MaterialDesignToolButton}"
                                             Width="30"
                                             Padding="2 0 2 0"
-                                            materialDesign:RippleAssist.IsCentered="True">
+                                            ToolTip="Cập nhật lại món"
+                                            IsHitTestVisible="False">
                                         <materialDesign:PackIcon Kind="Update" />
                                     </Button>
                                     <Button Style="{StaticResource MaterialDesignToolButton}"
@@ -479,12 +535,13 @@
                                                                   Foreground="Gold"
                                                                   IsHitTestVisible="False" />
                                     </Button>
-                                    <materialDesign:PopupBox Padding="2 0 2 0">
-                                        <StackPanel>
-                                            <Button Content="More" />
-                                            <Button Content="Options" />
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
+                                    <Button x:Name="btnDelete"
+                                            Style="{StaticResource MaterialDesignToolButton}"
+                                            Width="30"
+                                            Padding="2 0 2 0"
+                                            IsHitTestVisible="False">
+                                        <materialDesign:PackIcon Kind="Delete" />
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Card>

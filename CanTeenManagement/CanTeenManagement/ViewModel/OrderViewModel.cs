@@ -117,6 +117,7 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_contentSearch = value;
+                OnPropertyChanged();
             }
         }
 
@@ -240,6 +241,12 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_LoadedCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonDeleteCommand { get; set; }
+
+        public ICommand g_iCm_KeyTextSearchCommand { get; set; }
+
+        public ICommand g_iCm_LostFocusTextSearchCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonSearchCommand { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -291,9 +298,19 @@ namespace CanTeenManagement.ViewModel
                 this.checkedcheckBoxFoodNotCooked(p);
             });
 
-            g_iCm_KeyUpTextSearchCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            g_iCm_LostFocusTextSearchCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                this.keyUpTextSearch(p);
+                this.searchFood();
+            });
+
+            g_iCm_KeyTextSearchCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                this.searchFood();
+            });
+
+            g_iCm_ClickButtonSearchCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonSearch(); }, (p) =>
+            {
+                this.searchFood();
             });
 
             g_iCm_ClickCartCommand = new RelayCommand<ORDERFOOD>((p) => { return this.checkClickCart(p); }, (p) =>
@@ -336,6 +353,8 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
+            this.g_str_contentSearch = string.Empty;
+
             //
             this.g_b_isViewToday = true;
             this.g_str_Mode = staticVarClass.mode_today;
@@ -719,13 +738,16 @@ namespace CanTeenManagement.ViewModel
             this.loaded();
         }
 
-        private void keyUpTextSearch(TextBox p)
+        private bool checkClickButtonSearch()
         {
-            if (p == null)
-                return;
+            if (this.g_str_contentSearch == string.Empty)
+                return false;
 
-            this.g_str_contentSearch = p.Text.Trim();
+            return true;
+        }
 
+        private void searchFood()
+        {
             // Reset curr page when value slider changed.
             this.g_i_currPage = 1;
             this.g_i_skipFood = 0;
