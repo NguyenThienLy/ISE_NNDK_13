@@ -8,6 +8,7 @@
              x:Name="employeesView"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:util="clr-namespace:Wpf.Util"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -250,7 +251,10 @@
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ListView x:Name="lsVEmployees"
                                       ItemsSource="{Binding g_listEmployees}"
-                                      SelectedItem="{Binding g_selectedItem, Mode=TwoWay}">
+                                      SelectedItem="{Binding g_selectedItem, Mode=TwoWay}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      util:GridViewSort.AutoSort="True"
+                                      util:GridViewSort.ShowSortGlyph="True">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="40">
@@ -267,31 +271,40 @@
                                         </GridViewColumn>
                                         <GridViewColumn Header="Mã nhân viên"
                                                         Width="115"
-                                                        DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding ID}"
+                                                        util:GridViewSort.PropertyName="ID"></GridViewColumn>
                                         <GridViewColumn Header="Họ và tên"
                                                         Width="140"
-                                                        DisplayMemberBinding="{Binding FULLNAME}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding FULLNAME}"
+                                                        util:GridViewSort.PropertyName="FULLNAME"></GridViewColumn>
                                         <GridViewColumn Header="Giới tính"
                                                         Width="85"
-                                                        DisplayMemberBinding="{Binding GENDER}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding GENDER}"
+                                                        util:GridViewSort.PropertyName="GENDER"></GridViewColumn>
                                         <GridViewColumn Header="Năm sinh"
                                                         Width="88"
-                                                        DisplayMemberBinding="{Binding YEAROFBIRTH}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding YEAROFBIRTH}"
+                                                        util:GridViewSort.PropertyName="YEAROFBIRTH"></GridViewColumn>
                                         <GridViewColumn Header="Số điện thoại"
                                                         Width="110"
-                                                        DisplayMemberBinding="{Binding PHONE}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding PHONE}"
+                                                        util:GridViewSort.PropertyName="PHONE"></GridViewColumn>
                                         <GridViewColumn Header="Email"
                                                         Width="180"
-                                                        DisplayMemberBinding="{Binding EMAIL}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding EMAIL}"
+                                                        util:GridViewSort.PropertyName="EMAIL"></GridViewColumn>
                                         <GridViewColumn Header="Chức vụ"
                                                         Width="80"
-                                                        DisplayMemberBinding="{Binding POSITION}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding POSITION}"
+                                                        util:GridViewSort.PropertyName="POSITION"></GridViewColumn>
                                         <GridViewColumn Header="Quyền"
                                                         Width="70"
-                                                        DisplayMemberBinding="{Binding ROLE}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding ROLE}"
+                                                        util:GridViewSort.PropertyName="ROLE"></GridViewColumn>
                                         <GridViewColumn Header="Trạng thái"
                                                         Width="80"
-                                                        DisplayMemberBinding="{Binding STATUS}"></GridViewColumn>
+                                                        DisplayMemberBinding="{Binding STATUS}"
+                                                        util:GridViewSort.PropertyName="STATUS"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

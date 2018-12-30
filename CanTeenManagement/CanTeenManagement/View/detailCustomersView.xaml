@@ -228,7 +228,7 @@
                                             </StackPanel>
                                             <TextBox FontSize="15"
                                                      HorizontalAlignment="Left"
-                                                     Text="{Binding g_str_phoneEdit}"
+                                                     Text="{Binding g_str_phoneEdit, UpdateSourceTrigger=PropertyChanged}"
                                                      Width="110" />
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0 7 0 0">

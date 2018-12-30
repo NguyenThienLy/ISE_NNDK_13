@@ -91,7 +91,20 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_yearOfBirthEdit { get => _g_i_yearOfBirthEdit; set { _g_i_yearOfBirthEdit = value; OnPropertyChanged(); } }
 
         private string _g_str_phoneEdit;
-        public string g_str_phoneEdit { get => _g_str_phoneEdit; set { _g_str_phoneEdit = value; OnPropertyChanged(); } }
+        public string g_str_phoneEdit
+        {
+            get => _g_str_phoneEdit;
+            set
+            {
+                long i = 0;
+                if (value != string.Empty)
+                    if (!long.TryParse(value, out i))
+                        value = this.g_str_phoneEdit;
+
+                _g_str_phoneEdit = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_emailEdit;
         public string g_str_emailEdit { get => _g_str_emailEdit; set { _g_str_emailEdit = value; OnPropertyChanged(); } }
@@ -125,7 +138,20 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
 
         private string _g_str_phone;
-        public string g_str_phone { get => _g_str_phone; set { _g_str_phone = value; OnPropertyChanged(); } }
+        public string g_str_phone
+        {
+            get => _g_str_phone;
+            set
+            {
+                long i = 0;
+                if (value != string.Empty)
+                    if (!long.TryParse(value, out i))
+                        value = this.g_str_phone;
+
+                _g_str_phone = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_email;
         public string g_str_email { get => _g_str_email; set { _g_str_email = value; OnPropertyChanged(); } }
@@ -162,7 +188,7 @@ namespace CanTeenManagement.ViewModel
 
         public DetailCustomersViewModel()
         {
-            this.loadData();
+            this.inItSupport();
 
             g_iCm_LoadedCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
@@ -210,21 +236,14 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
-        private void loadData()
+        private void inItSupport()
         {
-            CustomersView l_customersView = CustomersView.Instance;
-
-            if (l_customersView.DataContext == null)
-                return;
-
-            var l_customersVM = l_customersView.DataContext as CustomersViewModel;
-
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
             l_listGenders.Add(staticVarClass.gender_feMale);
             l_listGenders.Add(staticVarClass.gender_male);
             l_listGenders.Add(staticVarClass.gender_different);
-            g_listGenders = l_listGenders;
+            this.g_listGenders = l_listGenders;
 
             // Thêm danh sách năm sinh.
             List<int> l_listYearOfBirth = new List<int>();
@@ -234,31 +253,38 @@ namespace CanTeenManagement.ViewModel
             {
                 l_listYearOfBirth.Add(i);
             }
-            g_listYearOfBirth = l_listYearOfBirth;
-
-            #region gán giá trị cho các ô
-            g_str_id = l_customersVM.g_str_id;
-            g_str_fullName = l_customersVM.g_str_fullName;
-            g_str_gender = l_customersVM.g_str_gender;
-            g_i_yearOfBirth = l_customersVM.g_i_yearOfBirth;
-            g_str_phone = l_customersVM.g_str_phone;
-            g_str_email = l_customersVM.g_str_email;
-            g_i_cash = l_customersVM.g_i_cash;
-            g_i_point = l_customersVM.g_i_point;
-            g_i_star = l_customersVM.g_i_star;
-            g_str_imageLink = l_customersVM.g_str_imageLink;
-            g_imgSrc_customer = staticFunctionClass.LoadBitmap(g_str_imageLink);
-            #endregion
-
-            #region đổ dữ liệu vào listview
-            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == g_str_id));
-            #endregion
+            this.g_listYearOfBirth = l_listYearOfBirth;
         }
 
         private void loaded(DetailCustomersView p)
         {
             if (p == null)
                 return;
+
+            CustomersView l_customersView = CustomersView.Instance;
+
+            if (l_customersView.DataContext == null)
+                return;
+
+            var l_customersVM = l_customersView.DataContext as CustomersViewModel;
+
+            #region gán giá trị cho các ô
+            this.g_str_id = l_customersVM.g_str_id;
+            this.g_str_fullName = l_customersVM.g_str_fullName;
+            this.g_str_gender = l_customersVM.g_str_gender;
+            this.g_i_yearOfBirth = l_customersVM.g_i_yearOfBirth;
+            this.g_str_phone = l_customersVM.g_str_phone;
+            this.g_str_email = l_customersVM.g_str_email;
+            this.g_i_cash = l_customersVM.g_i_cash;
+            this.g_i_point = l_customersVM.g_i_point;
+            this.g_i_star = l_customersVM.g_i_star;
+            this.g_str_imageLink = l_customersVM.g_str_imageLink;
+            this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+            #endregion
+
+            #region đổ dữ liệu vào listview
+            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == this.g_str_id));
+            #endregion
 
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
@@ -277,20 +303,20 @@ namespace CanTeenManagement.ViewModel
 
             for (int i = 0; i < l_customersVM.g_listCustomers.Count(); i++)
             {
-                if (l_customersVM.g_listCustomers[i].ID.Trim() == g_str_id)
+                if (l_customersVM.g_listCustomers[i].ID.Trim() == this.g_str_id)
                 {
                     l_customersVM.g_listCustomers[i] = new CUSTOMER()
                     {
-                        ID = g_str_id,
-                        FULLNAME = g_str_fullName,
-                        GENDER = g_str_gender,
-                        YEAROFBIRTH = g_i_yearOfBirth,
-                        PHONE = g_str_phone,
-                        EMAIL = g_str_email,
-                        CASH = g_i_cash,
-                        POINT = g_i_point,
-                        STAR = g_i_star,
-                        IMAGELINK = g_str_imageLink
+                        ID = this.g_str_id,
+                        FULLNAME = this.g_str_fullName,
+                        GENDER = this.g_str_gender,
+                        YEAROFBIRTH = this.g_i_yearOfBirth,
+                        PHONE = this.g_str_phone,
+                        EMAIL = this.g_str_email,
+                        CASH = this.g_i_cash,
+                        POINT = this.g_i_point,
+                        STAR = this.g_i_star,
+                        IMAGELINK = this.g_str_imageLink
                     };
 
                     l_customersVM.g_selectedItem = l_customersVM.g_listCustomers[i];
@@ -307,20 +333,20 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 350;
 
-            g_str_fullNameEdit = g_str_fullName;
-            g_str_genderEdit = g_str_gender;
-            g_i_yearOfBirthEdit = g_i_yearOfBirth;
-            g_str_phoneEdit = g_str_phone;
-            g_str_emailEdit = g_str_email;
+            this.g_str_fullNameEdit = this.g_str_fullName;
+            this.g_str_genderEdit = this.g_str_gender;
+            this.g_i_yearOfBirthEdit = this.g_i_yearOfBirth;
+            this.g_str_phoneEdit = this.g_str_phone;
+            this.g_str_emailEdit = this.g_str_email;
         }
 
         private bool checkSaveInfo()
         {
-            if (string.IsNullOrEmpty(g_str_id))
+            if (string.IsNullOrEmpty(this.g_str_id))
                 return false;
 
             // check id.
-            var l_IDList = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == g_str_id);
+            var l_IDList = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
             if (l_IDList == null || l_IDList.Count() == 0)
                 return false;
 
@@ -329,33 +355,33 @@ namespace CanTeenManagement.ViewModel
 
         private void clickSaveInfo(DetailCustomersView p)
         {
-            var l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == g_str_id).SingleOrDefault();
-            l_customer.FULLNAME = g_str_fullName;
-            l_customer.GENDER = g_str_gender;
-            l_customer.YEAROFBIRTH = g_i_yearOfBirth;
-            l_customer.PHONE = g_str_phone;
-            l_customer.EMAIL = g_str_email;
-            l_customer.CASH = g_i_cash;
-            l_customer.POINT = g_i_point;
-            l_customer.STAR = g_i_star;
-            l_customer.IMAGELINK = g_str_imageLink;
-
             try
             {
+                var l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id).SingleOrDefault();
+                l_customer.FULLNAME = this.g_str_fullName;
+                l_customer.GENDER = this.g_str_gender;
+                l_customer.YEAROFBIRTH = this.g_i_yearOfBirth;
+                l_customer.PHONE = this.g_str_phone;
+                l_customer.EMAIL = this.g_str_email;
+                l_customer.CASH = this.g_i_cash;
+                l_customer.POINT = this.g_i_point;
+                l_customer.STAR = this.g_i_star;
+                l_customer.IMAGELINK = this.g_str_imageLink;
+
                 dataProvider.Instance.DB.SaveChanges();
-                staticFunctionClass.showStatusView(true, "Sửa thông tin khách hàng " + g_str_fullName + " thành công!");
+                staticFunctionClass.showStatusView(true, "Sửa thông tin khách hàng " + this.g_str_fullName + " thành công!");
 
                 #region Cập nhật lại thông tin.
-                g_str_fullName = g_str_fullNameEdit;
-                g_str_gender = g_str_genderEdit;
-                g_i_yearOfBirth = g_i_yearOfBirthEdit;
-                g_str_phone = g_str_phoneEdit;
-                g_str_email = g_str_emailEdit;
+                this.g_str_fullName = this.g_str_fullNameEdit;
+                this.g_str_gender = this.g_str_genderEdit;
+                this.g_i_yearOfBirth = this.g_i_yearOfBirthEdit;
+                this.g_str_phone = this.g_str_phoneEdit;
+                this.g_str_email = this.g_str_emailEdit;
                 #endregion
             }
             catch
             {
-                staticFunctionClass.showStatusView(false, "Sửa thông tin khách hàng " + g_str_id + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Sửa thông tin khách hàng " + this.g_str_id + " thất bại!");
             }
 
             p.grVInfo.Height = 350;
@@ -364,7 +390,7 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkExport()
         {
-            if (g_listOrders == null || g_listOrders.Count() == 0)
+            if (this.g_listOrders == null || this.g_listOrders.Count() == 0)
                 return false;
 
             return true;
@@ -398,12 +424,12 @@ namespace CanTeenManagement.ViewModel
                     workSheet.Cells[1, x].Font.Bold = true;
                 }
 
-                for (int x = 2; x < g_listOrders.Count() + 2; x++)
+                for (int x = 2; x < this.g_listOrders.Count() + 2; x++)
                 {
-                    workSheet.Cells[x, 1] = g_listOrders[x - 2].ORDERDATE.ToString().Trim();
-                    workSheet.Cells[x, 2] = g_listOrders[x - 2].ID.ToString().Trim();
-                    workSheet.Cells[x, 3] = g_listOrders[x - 2].EMPLOYEEID.ToString().Trim();
-                    workSheet.Cells[x, 4] = g_listOrders[x - 2].TOTALMONEY.ToString().Trim();
+                    workSheet.Cells[x, 1] = this.g_listOrders[x - 2].ORDERDATE.ToString().Trim();
+                    workSheet.Cells[x, 2] = this.g_listOrders[x - 2].ID.ToString().Trim();
+                    workSheet.Cells[x, 3] = this.g_listOrders[x - 2].EMPLOYEEID.ToString().Trim();
+                    workSheet.Cells[x, 4] = this.g_listOrders[x - 2].TOTALMONEY.ToString().Trim();
                 }
 
                 // AutoSet Cell Widths to Content Size
@@ -464,7 +490,7 @@ namespace CanTeenManagement.ViewModel
                                 this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
                                 dataProvider.Instance.DB.EMPLOYEEs.Where(customer => customer.ID == this.g_str_id).ToList()
-                                                                  .ForEach(customer => customer.IMAGELINK = g_str_imageLink);
+                                                                  .ForEach(customer => customer.IMAGELINK = this.g_str_imageLink);
                                 dataProvider.Instance.DB.SaveChanges();
 
                                 staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
@@ -495,7 +521,7 @@ namespace CanTeenManagement.ViewModel
 
         private void filterIDOrder()
         {
-            CollectionViewSource.GetDefaultView(g_listOrders).Refresh();
+            CollectionViewSource.GetDefaultView(this.g_listOrders).Refresh();
         }
     }
 }

@@ -229,7 +229,7 @@
                                             </StackPanel>
                                             <TextBox FontSize="15"
                                                      HorizontalAlignment="Left"
-                                                     Text="{Binding g_str_phoneEdit}"
+                                                     Text="{Binding g_str_phoneEdit, UpdateSourceTrigger=PropertyChanged}"
                                                      Width="110" />
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0 7 0 0">
@@ -464,9 +464,8 @@
                                                                          Width="19" />
                                                 <ComboBox Name="cbbSendEmail"
                                                           Margin="0 0 0 0"
-                                                          DisplayMemberPath="EMAIL"
-                                                          ItemsSource="{Binding g_listEmployees}"
-                                                          SelectedItem="{Binding g_selectedEmployee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                          ItemsSource="{Binding g_listEmails}"
+                                                          SelectedItem="{Binding g_selectedEmail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                           FontSize="14"
                                                           materialDesign:HintAssist.Hint="Email cần gửi tới"
                                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
