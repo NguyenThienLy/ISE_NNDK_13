@@ -296,6 +296,9 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_listCustomers = new ObservableCollection<CUSTOMER>(dataProvider.Instance.DB.CUSTOMERs);
 
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listCustomers);
+            var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortDescription);
         }
 
         private string getNameForPicture(string id)

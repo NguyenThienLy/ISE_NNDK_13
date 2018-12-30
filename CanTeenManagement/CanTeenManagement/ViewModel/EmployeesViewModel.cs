@@ -329,6 +329,10 @@ namespace CanTeenManagement.ViewModel
         private void loaded()
         {
             this.g_listEmployees = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
+            var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortDescription);
         }
 
         private string getNameForPicture(string id)
