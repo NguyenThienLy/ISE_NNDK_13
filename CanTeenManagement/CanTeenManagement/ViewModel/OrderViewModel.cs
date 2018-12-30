@@ -117,6 +117,16 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_contentSearch = value;
+            }
+        }
+
+        private string _g_str_contentSearchTemp;
+        public string g_str_contentSearchTemp
+        {
+            get => _g_str_contentSearchTemp;
+            set
+            {
+                _g_str_contentSearchTemp = value;
                 OnPropertyChanged();
             }
         }
@@ -354,6 +364,7 @@ namespace CanTeenManagement.ViewModel
         private void initSupport()
         {
             this.g_str_contentSearch = string.Empty;
+            this.g_str_contentSearchTemp = string.Empty;
 
             //
             this.g_b_isViewToday = true;
@@ -748,7 +759,9 @@ namespace CanTeenManagement.ViewModel
 
         private void searchFood()
         {
-            // Reset curr page when value slider changed.
+            // Search by new text.
+            this.g_str_contentSearch = this.g_str_contentSearchTemp;
+
             this.g_i_currPage = 1;
             this.g_i_skipFood = 0;
 

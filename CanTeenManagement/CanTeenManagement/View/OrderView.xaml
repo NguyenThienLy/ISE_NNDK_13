@@ -120,7 +120,10 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Button Margin="0 -5"
-                                            Style="{DynamicResource MaterialDesignToolButton}">
+                                            Style="{DynamicResource MaterialDesignToolButton}"
+                                            Command="{Binding g_iCm_ClickButtonSearchCommand}"
+                                            CommandParameter="{Binding ElementName=btnSearch}"
+                                            ToolTip="Tìm kiếm">
                                         <materialDesign:PackIcon Kind="Magnify"
                                                                  Opacity=".56" />
                                     </Button>
@@ -131,7 +134,7 @@
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0"
                                              MinWidth="200"
-                                             Text="{Binding g_str_contentSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                             Text="{Binding g_str_contentSearchTemp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                              VerticalAlignment="Center"
                                              FontSize="12">
                                         <TextBox.InputBindings>
@@ -148,17 +151,6 @@
                                     </TextBox>
                                 </Grid>
                             </materialDesign:ColorZone>
-                            <Button x:Name="btnSearch"
-                                    Style="{DynamicResource MaterialDesignToolForegroundButton}"
-                                    Margin="8 0 0 0"
-                                    Panel.ZIndex="0"
-                                    ToolTip="Tìm kiếm"
-                                    Command="{Binding g_iCm_ClickButtonSearchCommand}"
-                                    CommandParameter="{Binding ElementName=btnSearch}">
-                                <materialDesign:PackIcon Kind="Send"
-                                                         Height="22"
-                                                         Width="23" />
-                            </Button>
                         </StackPanel>
                         <StackPanel Width="150"
                                     Orientation="Horizontal">
@@ -209,7 +201,7 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
-                                                <Image Margin="5"
+                                                <Image Margin="2"
                                                        Source="{Binding IMAGESOURCE}"
                                                        Stretch="Fill" />
                                                 <Ellipse Height="40"
