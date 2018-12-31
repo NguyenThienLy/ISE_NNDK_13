@@ -92,6 +92,9 @@ namespace CanTeenManagement.CO
         public static string mode_subCash = "Rút tiền";
         public static string mode_today = "Hôm nay";
         public static string mode_all = "Tất cả";
+        public static string mode_groupGender = "Gom nhóm giới tính";
+        public static string mode_groupRole = "Gom nhóm quyền";
+        public static string mode_groupYearOfBirth = "Gom nhóm năm sinh";
         #endregion
 
         #region account.
@@ -109,8 +112,8 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region Role
-        public static string role_admin = "Admin";
-        public static string role_member = "Member";
+        public static string role_admin = "Quản lý";
+        public static string role_member = "Nhân viên";
         public static string role_staff = "Staff";
         #endregion
 
@@ -120,6 +123,8 @@ namespace CanTeenManagement.CO
         public static string status_soldOut = "Hết món";
         public static string status_done = "Xong";
         public static string status_skip = "Bỏ qua";
+        public static string status_working = "Đang làm";
+        public static string status_notWorking = "Đã nghỉ";
         #endregion
 
         #region email.

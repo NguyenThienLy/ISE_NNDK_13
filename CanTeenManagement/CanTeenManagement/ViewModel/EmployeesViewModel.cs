@@ -15,6 +15,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using CanTeenManagement.CO;
+using System.Windows.Controls.Primitives;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -42,6 +43,17 @@ namespace CanTeenManagement.ViewModel
 
                 ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(_g_listEmployees);
                 view.Filter = filterIDEmployee;
+            }
+        }
+
+        private string _g_str_mode;
+        public string g_str_mode
+        {
+            get { return _g_str_mode; }
+            set
+            {
+                _g_str_mode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -155,6 +167,8 @@ namespace CanTeenManagement.ViewModel
 
         int g_i_addOrEdit;
 
+        bool g_b_groupGender;
+
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
         public string g_str_imageLink
@@ -237,6 +251,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickDetailCommand { get; set; }
 
         public ICommand g_iCm_ClickGoBackCommand { get; set; }
+
+        public ICommand g_iCm_ClickChangeModeCommand { get; set; }
         #endregion
 
         public EmployeesViewModel()
@@ -282,15 +298,17 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickGoBack();
             });
+
+            g_iCm_ClickChangeModeCommand = new RelayCommand<ToggleButton>((p) => { return true; }, (p) =>
+            {
+                this.clickChangeModeGroup();
+            });
         }
 
         private void inItSupport()
         {
-            //ICollectionView view = CollectionViewSource.GetDefaultView(_g_listEmployees);
-            //var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
-            //view.SortDescriptions.Add(sortDescription);
-
             this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = true;
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
@@ -309,8 +327,8 @@ namespace CanTeenManagement.ViewModel
 
             // Thêm danh sách status.
             List<string> l_listStatus = new List<string>();
-            l_listStatus.Add("Đang làm");
-            l_listStatus.Add("Đã nghỉ");
+            l_listStatus.Add(staticVarClass.status_working);
+            l_listStatus.Add(staticVarClass.status_notWorking);
             this.g_listStatus = l_listStatus;
             this.g_str_status = l_listStatus[0]; // mặc định.
 
@@ -329,10 +347,43 @@ namespace CanTeenManagement.ViewModel
         private void loaded()
         {
             this.g_listEmployees = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+            for (int i = 0; i < this.g_listEmployees.Count(); i++)
+            {
+                this.g_listEmployees[i].GENDER = this.g_listEmployees[i].GENDER.Trim();
+                this.g_listEmployees[i].ROLE = this.g_listEmployees[i].ROLE.Trim();
+            }
 
+            this.sortID();
+            this.clickChangeModeGroup();
+        }
+
+        private void sortID()
+        {
             ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
             var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
             view.SortDescriptions.Add(sortDescription);
+        }
+
+        private void clickChangeModeGroup()
+        {
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
+
+            if (this.g_b_groupGender)
+            {
+                this.g_b_groupGender = false;
+                var groupDescription = new PropertyGroupDescription("GENDER");
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupGender;
+            }
+            else
+            {
+                this.g_b_groupGender = true;
+                var groupDescription = new PropertyGroupDescription("ROLE");
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupRole;
+            }
         }
 
         private string getNameForPicture(string id)
@@ -449,7 +500,7 @@ namespace CanTeenManagement.ViewModel
 
                     // Make image default.
                     staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
-                    this.g_listEmployees.Add(l_employee);
+                    //this.g_listEmployees.Add(l_employee);
                     staticFunctionClass.showStatusView(true, "Thêm nhân viên " + this.g_str_id + " thành công!");
                 }
                 catch
@@ -481,30 +532,32 @@ namespace CanTeenManagement.ViewModel
                 }
 
                 this.g_b_isReadOnlyID = false;
-                for (int i = 0; i < this.g_listEmployees.Count(); i++)
-                {
-                    if (this.g_listEmployees[i].ID.Trim() == this.g_selectedItem.ID.Trim())
-                    {
-                        this.g_listEmployees[i] = new EMPLOYEE()
-                        {
-                            ID = this.g_selectedItem.ID,
-                            FULLNAME = this.g_str_fullName,
-                            GENDER = this.g_str_gender,
-                            YEAROFBIRTH = this.g_i_yearOfBirth,
-                            PHONE = this.g_str_phone,
-                            EMAIL = this.g_str_email,
-                            POSITION = this.g_str_position,
-                            IMAGELINK = this.g_str_imageLink,
-                            ROLE = this.g_str_role,
-                            STATUS = this.g_str_status
-                        };
-                        break;
-                    }
-                }
+                //for (int i = 0; i < this.g_listEmployees.Count(); i++)
+                //{
+                //    if (this.g_listEmployees[i].ID.Trim() == this.g_selectedItem.ID.Trim())
+                //    {
+                //        this.g_listEmployees[i] = new EMPLOYEE()
+                //        {
+                //            ID = this.g_selectedItem.ID,
+                //            FULLNAME = this.g_str_fullName,
+                //            GENDER = this.g_str_gender,
+                //            YEAROFBIRTH = this.g_i_yearOfBirth,
+                //            PHONE = this.g_str_phone,
+                //            EMAIL = this.g_str_email,
+                //            POSITION = this.g_str_position,
+                //            IMAGELINK = this.g_str_imageLink,
+                //            ROLE = this.g_str_role,
+                //            STATUS = this.g_str_status
+                //        };
+                //        break;
+                //    }
+                //}
             }
 
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = !this.g_b_groupGender;
+            this.loaded();
         }
 
         private bool checkExport()

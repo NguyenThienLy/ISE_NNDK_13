@@ -165,6 +165,26 @@
                                                          Width="23" />
                             </Button>
                         </StackPanel>
+                        <StackPanel Width="200"
+                                    Orientation="Horizontal">
+                            <ToggleButton Margin="4 0 4 0"
+                                          x:Name="tglBtnMode"
+                                          Command="{ Binding g_iCm_ClickChangeModeCommand}"
+                                          CommandParameter="{Binding ElementName = tglBtnMode}"
+                                          Width="50"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          ToolTip="Chế độ xem">
+                                <materialDesign:PackIcon Kind="sort"
+                                                         RenderTransformOrigin=".5,.5"></materialDesign:PackIcon>
+                                <materialDesign:ToggleButtonAssist.OnContent>
+                                    <materialDesign:PackIcon Kind="sort" />
+                                </materialDesign:ToggleButtonAssist.OnContent>
+                            </ToggleButton>
+                            <TextBlock Text="{Binding g_str_mode}"
+                                       TextAlignment="Center"
+                                       FontSize="15"
+                                       VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <Grid Grid.Row="1">
@@ -254,6 +274,39 @@
                                       IsSynchronizedWithCurrentItem="True"
                                       util:GridViewSort.AutoSort="True"
                                       util:GridViewSort.ShowSortGlyph="True">
+                                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.ContainerStyle>
+                                            <Style TargetType="{x:Type GroupItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Expander IsExpanded="true">
+                                                                <Expander.Header>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <TextBlock Text="{Binding Name}"
+                                                                                   FontWeight="Bold"
+                                                                                   Foreground="Gray"
+                                                                                   FontSize="18"
+                                                                                   VerticalAlignment="Bottom" />
+                                                                        <TextBlock Text="{Binding ItemCount}"
+                                                                                   FontSize="18"
+                                                                                   Foreground="CadetBlue"
+                                                                                   FontWeight="Bold"
+                                                                                   FontStyle="Italic"
+                                                                                   Margin="30,0,0,0"
+                                                                                   VerticalAlignment="Bottom" />
+                                                                    </StackPanel>
+                                                                </Expander.Header>
+                                                                <ItemsPresenter />
+                                                            </Expander>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </GroupStyle.ContainerStyle>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="40">

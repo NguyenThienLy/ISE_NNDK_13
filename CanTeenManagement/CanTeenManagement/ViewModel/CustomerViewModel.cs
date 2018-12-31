@@ -17,6 +17,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using Microsoft.Win32;
 using CanTeenManagement.CO;
+using System.Windows.Controls.Primitives;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -44,6 +45,17 @@ namespace CanTeenManagement.ViewModel
 
                 ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listCustomers);
                 view.Filter = filterIDCustomer;
+            }
+        }
+
+        private string _g_str_mode;
+        public string g_str_mode
+        {
+            get { return _g_str_mode; }
+            set
+            {
+                _g_str_mode = value;
+                OnPropertyChanged();
             }
         }
 
@@ -139,6 +151,7 @@ namespace CanTeenManagement.ViewModel
         }
 
         int g_i_addOrEdit;
+        bool g_b_groupGender;
 
         #region Các thuộc tính của customer.
         private string _g_str_imageLink;
@@ -216,6 +229,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickUtilityCommand { get; set; }
 
         public ICommand g_iCm_ClickGoBackCommand { get; set; }
+
+        public ICommand g_iCm_ClickChangeModeCommand { get; set; }
         #endregion
 
         public CustomersViewModel()
@@ -266,11 +281,17 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickGoBack();
             });
+
+            g_iCm_ClickChangeModeCommand = new RelayCommand<ToggleButton>((p) => { return true; }, (p) =>
+            {
+                this.clickChangeModeGroup();
+            });
         }
 
         private void inItSupport()
         {
             this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = true;
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
@@ -295,10 +316,42 @@ namespace CanTeenManagement.ViewModel
         private void loaded()
         {
             this.g_listCustomers = new ObservableCollection<CUSTOMER>(dataProvider.Instance.DB.CUSTOMERs);
+            for (int i = 0; i < this.g_listCustomers.Count(); i++)
+            {
+                this.g_listCustomers[i].GENDER = this.g_listCustomers[i].GENDER.Trim();
+            }
 
+            this.sortID();
+            this.clickChangeModeGroup();
+        }
+
+        private void sortID()
+        {
             ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listCustomers);
             var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
             view.SortDescriptions.Add(sortDescription);
+        }
+
+        private void clickChangeModeGroup()
+        {
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listCustomers);
+
+            if (this.g_b_groupGender)
+            {
+                this.g_b_groupGender = false;
+                var groupDescription = new PropertyGroupDescription("GENDER".Trim());
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupGender;
+            }
+            else
+            {
+                this.g_b_groupGender = true;
+                var groupDescription = new PropertyGroupDescription("YEAROFBIRTH".Trim());
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupYearOfBirth;
+            }
         }
 
         private string getNameForPicture(string id)
@@ -413,7 +466,7 @@ namespace CanTeenManagement.ViewModel
 
                     // Make image default.
                     staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_customer.ID), l_customer.ID, 95);
-                    this.g_listCustomers.Add(l_customer);
+                    //this.g_listCustomers.Add(l_customer);
                     staticFunctionClass.showStatusView(true, "Thêm khách hàng " + this.g_str_id + " thành công!");
                 }
                 catch
@@ -445,30 +498,32 @@ namespace CanTeenManagement.ViewModel
                 }
 
                 this.g_b_isReadOnlyID = false;
-                for (int i = 0; i < this.g_listCustomers.Count(); i++)
-                {
-                    if (this.g_listCustomers[i].ID == this.g_selectedItem.ID)
-                    {
-                        this.g_listCustomers[i] = new CUSTOMER()
-                        {
-                            ID = this.g_selectedItem.ID,
-                            FULLNAME = this.g_str_fullName,
-                            GENDER = this.g_str_gender,
-                            YEAROFBIRTH = this.g_i_yearOfBirth,
-                            PHONE = this.g_str_phone,
-                            EMAIL = this.g_str_email,
-                            CASH = this.g_i_cash,
-                            POINT = this.g_i_point,
-                            STAR = this.g_i_star,
-                            IMAGELINK = this.g_str_imageLink
-                        };
-                        break;
-                    }
-                }
+                //for (int i = 0; i < this.g_listCustomers.Count(); i++)
+                //{
+                //    if (this.g_listCustomers[i].ID == this.g_selectedItem.ID)
+                //    {
+                //        this.g_listCustomers[i] = new CUSTOMER()
+                //        {
+                //            ID = this.g_selectedItem.ID,
+                //            FULLNAME = this.g_str_fullName,
+                //            GENDER = this.g_str_gender,
+                //            YEAROFBIRTH = this.g_i_yearOfBirth,
+                //            PHONE = this.g_str_phone,
+                //            EMAIL = this.g_str_email,
+                //            CASH = this.g_i_cash,
+                //            POINT = this.g_i_point,
+                //            STAR = this.g_i_star,
+                //            IMAGELINK = this.g_str_imageLink
+                //        };
+                //        break;
+                //    }
+                //}
             }
 
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = !this.g_b_groupGender;
+            this.loaded();
         }
 
         private bool checkExport()
