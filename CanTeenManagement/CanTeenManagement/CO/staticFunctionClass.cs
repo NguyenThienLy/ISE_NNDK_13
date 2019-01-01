@@ -235,5 +235,39 @@ namespace CanTeenManagement.CO
             Color bgcolor = ColorTranslator.FromHtml(staticVarClass.lst_Color.OrderBy(a => Guid.NewGuid()).FirstOrDefault());
             staticFunctionClass.GenerateAvtarImage(name, font, fontcolor, bgcolor, path);
         }
+
+        public static string StringNormalization(string source)
+        {
+            if (source == null || source == "")
+            {
+                return "";
+            }
+            var source_String = source;
+            const string Space = " ";
+
+            var tokens = source_String.Split(new string[] { Space },
+                StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            tokens[0] = tokens[0].Trim().ToLower();
+            var firstChar = tokens[0].Substring(0, 1).ToUpper();
+            var remaining = tokens[0].Substring(1, tokens[0].Length - 1);
+            tokens[0] = firstChar + remaining;
+
+            var builder = new StringBuilder();
+
+            builder.Append(tokens[0]);
+            builder.Append(Space);
+
+            for (int i = 1; i < tokens.Count(); i++)
+            {
+                tokens[i] = tokens[i].Trim().ToLower();
+                builder.Append(tokens[i]);
+                builder.Append(Space);
+            }
+
+            builder.Remove(builder.Length - 1, 1);
+
+            return builder.ToString();
+        }
     }
 }

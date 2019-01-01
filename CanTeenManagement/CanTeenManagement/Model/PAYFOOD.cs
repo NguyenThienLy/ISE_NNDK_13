@@ -93,6 +93,17 @@ namespace CanTeenManagement.Model
             get => _QUANTITY;
             set
             {
+                int i = 0;
+                if (value != 0)
+                {
+                    if (!int.TryParse(value.ToString(), out i))
+                        value = QUANTITY;
+                    else if (value < 0)
+                        value = QUANTITY;
+                    else if (value > 10)
+                        value = QUANTITY;
+                }
+
                 _QUANTITY = value;
                 OnPropertyChanged();
             }

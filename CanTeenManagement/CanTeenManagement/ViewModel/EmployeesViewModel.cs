@@ -15,6 +15,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using CanTeenManagement.CO;
+using System.Windows.Controls.Primitives;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -45,6 +46,39 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_mode;
+        public string g_str_mode
+        {
+            get { return _g_str_mode; }
+            set
+            {
+                _g_str_mode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _g_i_height;
+        public int g_i_height
+        {
+            get { return _g_i_height; }
+            set
+            {
+                _g_i_height = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isReadOnlyID;
+        public bool g_b_isReadOnlyID
+        {
+            get { return _g_b_isReadOnlyID; }
+            set
+            {
+                _g_b_isReadOnlyID = value;
+                OnPropertyChanged();
+            }
+        }
+
         private EMPLOYEE _g_selectedItem;
         public EMPLOYEE g_selectedItem
         {
@@ -53,36 +87,36 @@ namespace CanTeenManagement.ViewModel
             {
                 _g_selectedItem = value;
                 OnPropertyChanged();
-                if (g_selectedItem != null)
+                if (this.g_selectedItem != null && this.g_i_addOrEdit == 0)
                 {
                     // Binding giá trị đang chọn lên text box.
-                    g_str_id = g_selectedItem.ID.Trim();
+                    this.g_str_id = this.g_selectedItem.ID.Trim();
 
-                    if (g_selectedItem.FULLNAME == null)
-                        g_str_fullName = string.Empty;
-                    else g_str_fullName = g_selectedItem.FULLNAME.Trim();
+                    if (this.g_selectedItem.FULLNAME == null)
+                        this.g_str_fullName = string.Empty;
+                    else this.g_str_fullName = this.g_selectedItem.FULLNAME.Trim();
 
-                    g_str_gender = g_selectedItem.GENDER.Trim();
-                    g_i_yearOfBirth = g_selectedItem.YEAROFBIRTH;
+                    this.g_str_gender = this.g_selectedItem.GENDER.Trim();
+                    this.g_i_yearOfBirth = this.g_selectedItem.YEAROFBIRTH;
 
-                    if (g_selectedItem.PHONE == null)
-                        g_str_phone = string.Empty;
-                    else g_str_phone = g_selectedItem.PHONE.Trim();
+                    if (this.g_selectedItem.PHONE == null)
+                        this.g_str_phone = string.Empty;
+                    else this.g_str_phone = this.g_selectedItem.PHONE.Trim();
 
-                    if (g_selectedItem.EMAIL == null)
-                        g_str_email = string.Empty;
-                    else g_str_email = g_selectedItem.EMAIL.Trim();
+                    if (this.g_selectedItem.EMAIL == null)
+                        this.g_str_email = string.Empty;
+                    else this.g_str_email = this.g_selectedItem.EMAIL.Trim();
 
-                    if (g_selectedItem.POSITION == null)
-                        g_str_position = string.Empty;
-                    else g_str_position = g_selectedItem.POSITION.Trim();
+                    if (this.g_selectedItem.POSITION == null)
+                        this.g_str_position = string.Empty;
+                    else this.g_str_position = this.g_selectedItem.POSITION.Trim();
 
-                    g_str_role = g_selectedItem.ROLE.Trim();
-                    g_str_status = g_selectedItem.STATUS.Trim();
+                    this.g_str_role = this.g_selectedItem.ROLE.Trim();
+                    this.g_str_status = this.g_selectedItem.STATUS.Trim();
 
-                    if (g_selectedItem.IMAGELINK == null)
-                        g_str_imageLink = string.Empty;
-                    else g_str_imageLink = g_selectedItem.IMAGELINK.Trim();
+                    if (this.g_selectedItem.IMAGELINK == null)
+                        this.g_str_imageLink = string.Empty;
+                    else this.g_str_imageLink = this.g_selectedItem.IMAGELINK.Trim();
                 }
             }
         }
@@ -131,12 +165,37 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        int g_i_addOrEdit;
+
+        bool g_b_groupGender;
+
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
-        public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+        public string g_str_imageLink
+        {
+            get => _g_str_imageLink;
+            set
+            {
+                _g_str_imageLink = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_id;
-        public string g_str_id { get => _g_str_id; set { _g_str_id = value; OnPropertyChanged(); } }
+        public string g_str_id
+        {
+            get => _g_str_id;
+            set
+            {
+                long i = 0;
+                if (value != string.Empty)
+                    if (long.TryParse(value, out i))
+                        value = this.g_str_id;
+
+                _g_str_id = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_fullName;
         public string g_str_fullName { get => _g_str_fullName; set { _g_str_fullName = value; OnPropertyChanged(); } }
@@ -148,7 +207,20 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
 
         private string _g_str_phone;
-        public string g_str_phone { get => _g_str_phone; set { _g_str_phone = value; OnPropertyChanged(); } }
+        public string g_str_phone
+        {
+            get => _g_str_phone;
+            set
+            {
+                long i = 0;
+                if (value != string.Empty)
+                    if (!long.TryParse(value, out i))
+                        value = this.g_str_phone;
+
+                _g_str_phone = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_email;
         public string g_str_email { get => _g_str_email; set { _g_str_email = value; OnPropertyChanged(); } }
@@ -177,108 +249,141 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_TextChangedFilterCommand { get; set; }
 
         public ICommand g_iCm_ClickDetailCommand { get; set; }
+
+        public ICommand g_iCm_ClickGoBackCommand { get; set; }
+
+        public ICommand g_iCm_ClickChangeModeCommand { get; set; }
         #endregion
 
         public EmployeesViewModel()
         {
-            this.loadData();
+            this.inItSupport();
 
             g_iCm_LoadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
-                this.loaded(p);
+                this.loaded();
             });
 
-            g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(p); }, (p) =>
+            g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(); }, (p) =>
             {
-                this.clickAdd(p);
+                this.clickAdd();
             });
 
-            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkEdit(p); }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkEdit(); }, (p) =>
             {
-                this.clickEdit(p);
+                this.clickEdit();
             });
 
-            g_iCm_ClickSaveInfoCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickSaveInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkSave(); }, (p) =>
             {
-                this.clickSave(p);
+                this.clickSave();
             });
 
-            g_iCm_ClickExportCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickExportCommand = new RelayCommand<EmployeesView>((p) => { return this.checkExport(); }, (p) =>
             {
-                this.clickExport(p);
+                this.clickExport();
             });
 
             g_iCm_TextChangedFilterCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
-                this.filterIDEmployee(p);
+                this.filterIDEmployee();
             });
 
             g_iCm_ClickDetailCommand = new RelayCommand<EMPLOYEE>((p) => { return true; }, (p) =>
             {
                 this.clickDetail(p);
             });
+
+            g_iCm_ClickGoBackCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.clickGoBack();
+            });
+
+            g_iCm_ClickChangeModeCommand = new RelayCommand<ToggleButton>((p) => { return true; }, (p) =>
+            {
+                this.clickChangeModeGroup();
+            });
         }
 
-        private void loadData()
+        private void inItSupport()
         {
-            this.g_listEmployees = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+            this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = true;
 
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
-            l_listGenders.Add("Nữ");
-            l_listGenders.Add("Nam");
-            l_listGenders.Add("Khác");
-            g_listGenders = l_listGenders;
-            g_str_gender = "Nữ"; // mặc định.
+            l_listGenders.Add(staticVarClass.gender_feMale);
+            l_listGenders.Add(staticVarClass.gender_male);
+            l_listGenders.Add(staticVarClass.gender_different);
+            this.g_listGenders = l_listGenders;
+            this.g_str_gender = staticVarClass.gender_feMale; // mặc định.
 
             // Thêm danh sách role.
             List<string> l_listRoles = new List<string>();
-            l_listRoles.Add("Thành viên");
-            l_listRoles.Add("Admin");
-            g_listRoles = l_listRoles;
-            g_str_role = l_listRoles[0]; // mặc định.
+            l_listRoles.Add(staticVarClass.role_member);
+            l_listRoles.Add(staticVarClass.role_admin);
+            this.g_listRoles = l_listRoles;
+            this.g_str_role = l_listRoles[0]; // mặc định.
 
             // Thêm danh sách status.
             List<string> l_listStatus = new List<string>();
-            l_listStatus.Add("Đang làm");
-            l_listStatus.Add("Đã nghỉ");
-            g_listStatus = l_listStatus;
-            g_str_status = l_listStatus[0]; // mặc định.
+            l_listStatus.Add(staticVarClass.status_working);
+            l_listStatus.Add(staticVarClass.status_notWorking);
+            this.g_listStatus = l_listStatus;
+            this.g_str_status = l_listStatus[0]; // mặc định.
 
             // Thêm danh sách năm sinh.
             List<int> l_listYearOfBirth = new List<int>();
-            int l_i_EighteenYearLocal = DateTime.Now.Year - 2018 + 2000;
+            int l_i_EighteenYear = DateTime.Now.Year - 2018 + 2000;
 
-            for (int i = l_i_EighteenYearLocal; i >= l_i_EighteenYearLocal - (42 + DateTime.Now.Year - 2018); i--)
+            for (int i = l_i_EighteenYear; i >= l_i_EighteenYear - (42 + DateTime.Now.Year - 2018); i--)
             {
                 l_listYearOfBirth.Add(i);
             }
-            g_listYearOfBirth = l_listYearOfBirth;
-            g_i_yearOfBirth = l_listYearOfBirth[0];
+            this.g_listYearOfBirth = l_listYearOfBirth;
+            this.g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
-        private void loaded(EmployeesView p)
+        private void loaded()
         {
-            if (p == null)
-                return;
+            this.g_listEmployees = new ObservableCollection<EMPLOYEE>(dataProvider.Instance.DB.EMPLOYEEs);
+            for (int i = 0; i < this.g_listEmployees.Count(); i++)
+            {
+                this.g_listEmployees[i].GENDER = this.g_listEmployees[i].GENDER.Trim();
+                this.g_listEmployees[i].ROLE = this.g_listEmployees[i].ROLE.Trim();
+            }
 
-            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            this.sortID();
+            this.clickChangeModeGroup();
         }
 
-        private bool checkAdd(EmployeesView p)
+        private void sortID()
         {
-            if (p == null)
-                return false;
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
+            var sortDescription = new SortDescription("ID", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortDescription);
+        }
 
-            if (string.IsNullOrEmpty(g_str_id))
-                return false;
+        private void clickChangeModeGroup()
+        {
+            ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
 
-            // check id.
-            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
-            if (l_employee == null || l_employee.Count() != 0)
-                return false;
-
-            return true;
+            if (this.g_b_groupGender)
+            {
+                this.g_b_groupGender = false;
+                var groupDescription = new PropertyGroupDescription("GENDER");
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupGender;
+            }
+            else
+            {
+                this.g_b_groupGender = true;
+                var groupDescription = new PropertyGroupDescription("ROLE");
+                view.GroupDescriptions.Clear();
+                view.GroupDescriptions.Add(groupDescription);
+                this.g_str_mode = staticVarClass.mode_groupRole;
+            }
         }
 
         private string getNameForPicture(string id)
@@ -292,94 +397,178 @@ namespace CanTeenManagement.ViewModel
             return l_temp;
         }
 
-        private void clickAdd(EmployeesView p)
+        private bool clickGoBack()
         {
-            var l_employee = new EMPLOYEE()
-            {
-                ID = g_str_id,
-                PASSWORD = "123",
-                FULLNAME = g_str_fullName,
-                GENDER = g_str_gender,
-                YEAROFBIRTH = g_i_yearOfBirth,
-                PHONE = g_str_phone,
-                EMAIL = g_str_email,
-                POSITION = g_str_position,
-                IMAGELINK = staticVarClass.server_serverDirectory + g_str_id + staticVarClass.format_JPG,
-                ROLE = g_str_role,
-                STATUS = g_str_status
-            };
-
-            // Make image default.
-            staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
-
-            dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
-            dataProvider.Instance.DB.SaveChanges();
-
-            g_listEmployees.Add(l_employee);
+            this.g_i_height = 0;
+            this.g_i_addOrEdit = 0;
+            this.g_b_isReadOnlyID = false;
+            return true;
         }
 
-        private bool checkEdit(EmployeesView p)
+        private bool checkAdd()
         {
-            if (p == null)
-                return false;
-
-            if (string.IsNullOrEmpty(g_str_id) || g_selectedItem == null)
-                return false;
-
-            // check id.
-            var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_str_id);
-            if (l_IDList == null || l_IDList.Count() == 0)
+            if (this.g_i_addOrEdit != 0)
                 return false;
 
             return true;
         }
 
-        private void clickEdit(EmployeesView p)
+        private void clickAdd()
         {
-            var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == g_selectedItem.ID).SingleOrDefault();
-            l_employee.FULLNAME = g_str_fullName;
-            l_employee.GENDER = g_str_gender;
-            l_employee.YEAROFBIRTH = g_i_yearOfBirth;
-            l_employee.PHONE = g_str_phone;
-            l_employee.EMAIL = g_str_email;
-            l_employee.POSITION = g_str_position;
-            l_employee.IMAGELINK = g_str_imageLink;
-            l_employee.ROLE = g_str_role;
-            l_employee.STATUS = g_str_status;
+            this.g_i_height = 40;
+            this.g_i_addOrEdit = 1;
 
-            dataProvider.Instance.DB.SaveChanges();
+            #region Làm trống text box.
+            this.g_str_id = string.Empty;
+            this.g_str_fullName = string.Empty;
+            this.g_str_gender = this.g_listGenders[0];
+            this.g_i_yearOfBirth = this.g_listYearOfBirth[0];
+            this.g_str_phone = string.Empty;
+            this.g_str_email = string.Empty;
+            this.g_str_position = string.Empty;
+            this.g_str_role = this.g_listRoles[0];
+            this.g_str_status = this.g_listStatus[0];
+            #endregion
+        }
 
-            for (int i = 0; i < g_listEmployees.Count(); i++)
+        private bool checkEdit()
+        {
+            if (this.g_selectedItem == null || this.g_i_addOrEdit != 0)
+                return false;
+
+            this.g_selectedItem = this.g_selectedItem;
+            return true;
+        }
+
+        private void clickEdit()
+        {
+            this.g_i_height = 40;
+            this.g_i_addOrEdit = 2;
+            this.g_b_isReadOnlyID = true;
+        }
+
+        private bool checkSave()
+        {
+            if (this.g_i_addOrEdit == 0)
             {
-                if (g_listEmployees[i].ID.Trim() == g_selectedItem.ID.Trim())
+                return false;
+            }
+            else if (this.g_i_addOrEdit == 1)
+            {
+                if (string.IsNullOrEmpty(this.g_str_id))
+                    return false;
+
+                // check id.
+                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
+                if (l_IDList == null || l_IDList.Count() != 0)
+                    return false;
+            }
+            else if (this.g_i_addOrEdit == 2)
+            {
+                // check id.
+                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
+                if (l_IDList == null || l_IDList.Count() == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private void clickSave()
+        {
+            if (this.g_i_addOrEdit == 1)
+            {
+                var l_employee = new EMPLOYEE()
                 {
-                    g_listEmployees[i] = new EMPLOYEE()
-                    {
-                        ID = g_selectedItem.ID,
-                        FULLNAME = g_str_fullName,
-                        GENDER = g_str_gender,
-                        YEAROFBIRTH = g_i_yearOfBirth,
-                        PHONE = g_str_phone,
-                        EMAIL = g_str_email,
-                        POSITION = g_str_position,
-                        IMAGELINK = g_str_imageLink,
-                        ROLE = g_str_role,
-                        STATUS = g_str_status
-                    };
-                    break;
+                    ID = this.g_str_id,
+                    PASSWORD = "123456",
+                    FULLNAME = this.g_str_fullName,
+                    GENDER = this.g_str_gender,
+                    YEAROFBIRTH = this.g_i_yearOfBirth,
+                    PHONE = this.g_str_phone,
+                    EMAIL = this.g_str_email,
+                    POSITION = this.g_str_position,
+                    IMAGELINK = staticVarClass.server_serverDirectory + this.g_str_id + staticVarClass.format_JPG,
+                    ROLE = this.g_str_role,
+                    STATUS = this.g_str_status
+                };
+
+                try
+                {
+                    dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
+                    dataProvider.Instance.DB.SaveChanges();
+
+                    // Make image default.
+                    staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
+                    //this.g_listEmployees.Add(l_employee);
+                    staticFunctionClass.showStatusView(true, "Thêm nhân viên " + this.g_str_id + " thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Thêm nhân viên " + this.g_str_id + " thất bại!");
                 }
             }
+            else if (this.g_i_addOrEdit == 2)
+            {
+                try
+                {
+                    var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_selectedItem.ID).SingleOrDefault();
+                    l_employee.FULLNAME = this.g_str_fullName;
+                    l_employee.GENDER = this.g_str_gender;
+                    l_employee.YEAROFBIRTH = this.g_i_yearOfBirth;
+                    l_employee.PHONE = this.g_str_phone;
+                    l_employee.EMAIL = this.g_str_email;
+                    l_employee.POSITION = this.g_str_position;
+                    l_employee.IMAGELINK = this.g_str_imageLink;
+                    l_employee.ROLE = this.g_str_role;
+                    l_employee.STATUS = this.g_str_status;
+
+                    dataProvider.Instance.DB.SaveChanges();
+                    staticFunctionClass.showStatusView(true, "Sửa thông tin nhân viên " + this.g_str_id + " thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Sửa thông tin nhân viên " + this.g_str_id + " thất bại!");
+                }
+
+                this.g_b_isReadOnlyID = false;
+                //for (int i = 0; i < this.g_listEmployees.Count(); i++)
+                //{
+                //    if (this.g_listEmployees[i].ID.Trim() == this.g_selectedItem.ID.Trim())
+                //    {
+                //        this.g_listEmployees[i] = new EMPLOYEE()
+                //        {
+                //            ID = this.g_selectedItem.ID,
+                //            FULLNAME = this.g_str_fullName,
+                //            GENDER = this.g_str_gender,
+                //            YEAROFBIRTH = this.g_i_yearOfBirth,
+                //            PHONE = this.g_str_phone,
+                //            EMAIL = this.g_str_email,
+                //            POSITION = this.g_str_position,
+                //            IMAGELINK = this.g_str_imageLink,
+                //            ROLE = this.g_str_role,
+                //            STATUS = this.g_str_status
+                //        };
+                //        break;
+                //    }
+                //}
+            }
+
+            this.g_i_height = 0;
+            this.g_i_addOrEdit = 0;
+            this.g_b_groupGender = !this.g_b_groupGender;
+            this.loaded();
         }
 
-        private void clickSave(EmployeesView p)
+        private bool checkExport()
         {
-            if (p == null)
-                return;
+            if (this.g_i_addOrEdit != 0 || this.g_listEmployees.Count() == 0)
+                return false;
 
-            //p.rDefTop.Height = new GridLength(0, GridUnitType.Star);
+            return true;
         }
 
-        private void clickExport(EmployeesView p)
+        private void clickExport()
         {
             SaveFileDialog sfd = new SaveFileDialog()
             {
@@ -407,27 +596,36 @@ namespace CanTeenManagement.ViewModel
                     workSheet.Cells[1, x].Font.Bold = true;
                 }
 
-                for (int x = 2; x < g_listEmployees.Count() + 2; x++)
+                for (int x = 2; x < this.g_listEmployees.Count() + 2; x++)
                 {
-                    workSheet.Cells[x, 1] = g_listEmployees[x - 2].ID.ToString().Trim();
-                    workSheet.Cells[x, 2] = g_listEmployees[x - 2].FULLNAME.ToString().Trim();
-                    workSheet.Cells[x, 3] = g_listEmployees[x - 2].GENDER.ToString().Trim();
-                    workSheet.Cells[x, 4] = g_listEmployees[x - 2].YEAROFBIRTH.ToString().Trim();
-                    workSheet.Cells[x, 5] = g_listEmployees[x - 2].PHONE.ToString().Trim();
-                    workSheet.Cells[x, 6] = g_listEmployees[x - 2].EMAIL.ToString().Trim();
-                    workSheet.Cells[x, 7] = g_listEmployees[x - 2].POSITION.ToString().Trim();
-                    workSheet.Cells[x, 8] = g_listEmployees[x - 2].ROLE.ToString().Trim();
-                    workSheet.Cells[x, 9] = g_listEmployees[x - 2].STATUS.ToString().Trim();
+                    workSheet.Cells[x, 1] = this.g_listEmployees[x - 2].ID.ToString().Trim();
+                    workSheet.Cells[x, 2] = this.g_listEmployees[x - 2].FULLNAME.ToString().Trim();
+                    workSheet.Cells[x, 3] = this.g_listEmployees[x - 2].GENDER.ToString().Trim();
+                    workSheet.Cells[x, 4] = this.g_listEmployees[x - 2].YEAROFBIRTH.ToString().Trim();
+                    workSheet.Cells[x, 5] = this.g_listEmployees[x - 2].PHONE.ToString().Trim();
+                    workSheet.Cells[x, 6] = this.g_listEmployees[x - 2].EMAIL.ToString().Trim();
+                    workSheet.Cells[x, 7] = this.g_listEmployees[x - 2].POSITION.ToString().Trim();
+                    workSheet.Cells[x, 8] = this.g_listEmployees[x - 2].ROLE.ToString().Trim();
+                    workSheet.Cells[x, 9] = this.g_listEmployees[x - 2].STATUS.ToString().Trim();
                 }
 
                 // AutoSet Cell Widths to Content Size
                 workSheet.Cells.Select();
                 workSheet.Cells.EntireColumn.AutoFit();
 
-                workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
-                            Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
-                            Excel.XlSaveConflictResolution.xlUserResolution, true,
-                            Missing.Value, Missing.Value, Missing.Value);
+                try
+                {
+                    workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                                Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                                Excel.XlSaveConflictResolution.xlUserResolution, true,
+                                Missing.Value, Missing.Value, Missing.Value);
+                    staticFunctionClass.showStatusView(true, "Xuất file thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(false, "Xuất file thất bại!");
+                }
+
                 workBook.Close();
                 excel.Quit();
             }
@@ -442,12 +640,9 @@ namespace CanTeenManagement.ViewModel
                 return ((item as EMPLOYEE).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void filterIDEmployee(EmployeesView p)
+        private void filterIDEmployee()
         {
-            if (p == null)
-                return;
-
-            CollectionViewSource.GetDefaultView(g_listEmployees).Refresh();
+            CollectionViewSource.GetDefaultView(this.g_listEmployees).Refresh();
         }
 
         private void clickDetail(EMPLOYEE p)
@@ -457,7 +652,8 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            g_selectedItem = p;
+            this.g_i_addOrEdit = 0;
+            this.g_selectedItem = p;
 
             MainWindow mainWd = MainWindow.Instance;
             EmployeesView employeesV = EmployeesView.Instance;
@@ -471,5 +667,7 @@ namespace CanTeenManagement.ViewModel
             mainWd.Opacity = 100;
             employeesV.Opacity = 100;
         }
+
+
     }
 }
