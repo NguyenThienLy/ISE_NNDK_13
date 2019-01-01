@@ -426,6 +426,7 @@ namespace CanTeenManagement.ViewModel
             string[] strFirst = Regex.Split(sFirst, "   ");
             string[] strSecond = Regex.Split(sSecond, "   ");
             string[] strThird = Regex.Split(sThird, "   ");
+            int iOthers = iTotal - (iFirst + iSecond + iThird);
 
             if (iFirst > 0)
             {
@@ -439,9 +440,10 @@ namespace CanTeenManagement.ViewModel
             {
                 StatFood_ChartValue.Add(new KeyValuePair<string, int>(strThird[0], iThird));
             }
-
-            int iOthers = iTotal - (iFirst + iSecond + iThird);
-            StatFood_ChartValue.Add(new KeyValuePair<string, int>("Các món còn lại", iOthers));
+            if (iOthers > 0)
+            {
+                StatFood_ChartValue.Add(new KeyValuePair<string, int>("Các món còn lại", iOthers));
+            }
 
             g_txt_StatFood_BestSeller = "Bán chạy nhất:  " + strFirst[0];
             g_dc_StatFood_Chart = StatFood_ChartValue;

@@ -109,8 +109,7 @@
 
                         <chartingToolkit:Chart FontSize="10" HorizontalAlignment="Right" Height="414" Margin="0,154,13,0" VerticalAlignment="Top" Width="935">
                             <chartingToolkit:ColumnSeries Title="{Binding g_t_StatChart_Title}"
-                                                          DependentValuePath="Value"                      
-	                                                	  IndependentValuePath="Key" 
+                                                          DependentValuePath="Value" IndependentValuePath="Key" 
                                                           ItemsSource="{Binding g_dc_StatChart_Chart}" 
 		                                                  IsSelectionEnabled="True" Margin="0,0,0,0">
                                 <chartingToolkit:ColumnSeries.DataPointStyle>
@@ -126,7 +125,7 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="chartingToolkit:ColumnDataPoint">
-                                                    <Grid x:Name="Root" Opacity="1">
+                                                    <Grid x:Name="Root" Opacity="1" MaxWidth="50">
                                                         <ToolTipService.ToolTip>
                                                             <StackPanel Margin="2,2,2,2">
                                                                 <ContentControl Content="{TemplateBinding DependentValue}" ContentStringFormat=" {0:###,###,###}"/>
