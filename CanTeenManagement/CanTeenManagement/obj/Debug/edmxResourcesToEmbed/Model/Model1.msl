@@ -22,9 +22,8 @@
       <EntityTypeMapping TypeName="QLCanTinModel.EMPLOYEE">
         <MappingFragment StoreEntitySet="EMPLOYEE">
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-          <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
           <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="IMAGELINK" ColumnName="IMAGELINK" />
           <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
           <ScalarProperty Name="PHONE" ColumnName="PHONE" />
           <ScalarProperty Name="YEAROFBIRTH" ColumnName="YEAROFBIRTH" />

@@ -18,6 +18,8 @@ using System.Reflection;
 using Microsoft.Win32;
 using CanTeenManagement.CO;
 using System.Windows.Controls.Primitives;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.Enums;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -89,7 +91,7 @@ namespace CanTeenManagement.ViewModel
             {
                 _g_selectedItem = value;
                 OnPropertyChanged();
-                if (this.g_selectedItem != null)
+                if (this.g_selectedItem != null && this.g_i_addOrEdit == 0)
                 {
                     // Binding giá trị đang chọn lên text box.
                     this.g_str_id = this.g_selectedItem.ID.Trim();
@@ -211,6 +213,8 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_star { get => _g_i_star; set { _g_i_star = value; OnPropertyChanged(); } }
         #endregion
 
+        CUSTOMER g_customer = null;
+
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
 
@@ -288,16 +292,90 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
+        public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            return new ObservableCollection<T>(source);
+        }
+
+        public void WatchTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "CUSTOMER";
+            var tableDependency = new SqlTableDependency<CUSTOMER>(connectionString, tableName);
+
+            tableDependency.OnChanged += OnNotificationReceived;
+            tableDependency.Start();
+        }
+
+        public void StopTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "CUSTOMER";
+            var tableDependency = new SqlTableDependency<CUSTOMER>(connectionString, tableName);
+
+            tableDependency.Stop();
+        }
+
+        private void OnNotificationReceived(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<CUSTOMER> e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                this.g_listCustomers = this.ToObservableCollection<CUSTOMER>((from customer in dataProvider.Instance.DB.CUSTOMERs
+                                                                              select new
+                                                                              {
+                                                                                  ID = customer.ID.Trim(),
+                                                                                  PIN = customer.PIN.Trim(),
+                                                                                  FULLNAME = customer.FULLNAME.Trim(),
+                                                                                  GENDER = customer.GENDER.Trim(),
+                                                                                  YEAROFBIRTH = customer.YEAROFBIRTH,
+                                                                                  PHONE = customer.PHONE.Trim(),
+                                                                                  EMAIL = customer.EMAIL.Trim(),
+                                                                                  CASH = customer.CASH,
+                                                                                  POINT = customer.POINT,
+                                                                                  IMAGELINK = customer.IMAGELINK.Trim(),
+                                                                                  STAR = customer.STAR
+
+                                                                              }).ToList().Select(x => new CUSTOMER
+                                                                              {
+                                                                                  ID = x.ID.Trim(),
+                                                                                  PIN = x.PIN.Trim(),
+                                                                                  FULLNAME = x.FULLNAME.Trim(),
+                                                                                  GENDER = x.GENDER.Trim(),
+                                                                                  YEAROFBIRTH = x.YEAROFBIRTH,
+                                                                                  PHONE = x.PHONE.Trim(),
+                                                                                  EMAIL = x.EMAIL.Trim(),
+                                                                                  CASH = x.CASH,
+                                                                                  POINT = x.POINT,
+                                                                                  IMAGELINK = x.IMAGELINK.Trim(),
+                                                                                  STAR = x.STAR
+                                                                              }).ToList().Take(15));
+                for (int i = 0; i < g_listCustomers.Count(); i++)
+                {
+                    if (g_listCustomers[i].ID.Trim() == g_customer.ID)
+                    {
+                        g_selectedItem = g_listCustomers[i];
+                        break;
+                    }
+                }
+                this.sortID();
+                this.clickChangeModeGroup();
+            });
+        }
+
         private void inItSupport()
         {
+            this.g_listCustomers = new ObservableCollection<CUSTOMER>();
             this.g_i_addOrEdit = 0;
             this.g_b_groupGender = true;
             this.g_str_mode = staticVarClass.mode_groupGender;
-
-            this.loadCbb();
+            this.loadCombobox();
         }
 
-        private void loadCbb()
+        private void loadCombobox()
         {
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
@@ -321,14 +399,43 @@ namespace CanTeenManagement.ViewModel
 
         private void loaded()
         {
-            this.g_listCustomers = new ObservableCollection<CUSTOMER>(dataProvider.Instance.DB.CUSTOMERs);
-            for (int i = 0; i < this.g_listCustomers.Count(); i++)
-            {
-                this.g_listCustomers[i].GENDER = this.g_listCustomers[i].GENDER.Trim();
-            }
+            if (this.g_listCustomers != null)
+                this.g_listCustomers.Clear();
 
+            this.g_listCustomers = this.ToObservableCollection<CUSTOMER>((from customer in dataProvider.Instance.DB.CUSTOMERs
+                                                                          select new
+                                                                          {
+                                                                              ID = customer.ID.Trim(),
+                                                                              PIN = customer.PIN.Trim(),
+                                                                              FULLNAME = customer.FULLNAME.Trim(),
+                                                                              GENDER = customer.GENDER.Trim(),
+                                                                              YEAROFBIRTH = customer.YEAROFBIRTH,
+                                                                              PHONE = customer.PHONE.Trim(),
+                                                                              EMAIL = customer.EMAIL.Trim(),
+                                                                              CASH = customer.CASH,
+                                                                              POINT = customer.POINT,
+                                                                              IMAGELINK = customer.IMAGELINK.Trim(),
+                                                                              STAR = customer.STAR
+
+                                                                          }).ToList().Select(x => new CUSTOMER
+                                                                          {
+                                                                              ID = x.ID.Trim(),
+                                                                              PIN = x.PIN.Trim(),
+                                                                              FULLNAME = x.FULLNAME.Trim(),
+                                                                              GENDER = x.GENDER.Trim(),
+                                                                              YEAROFBIRTH = x.YEAROFBIRTH,
+                                                                              PHONE = x.PHONE.Trim(),
+                                                                              EMAIL = x.EMAIL.Trim(),
+                                                                              CASH = x.CASH,
+                                                                              POINT = x.POINT,
+                                                                              IMAGELINK = x.IMAGELINK.Trim(),
+                                                                              STAR = x.STAR
+                                                                          }).ToList().Take(15));
+
+            this.g_selectedItem = null;
             this.sortID();
             this.clickChangeModeGroup();
+            this.WatchTable();
         }
 
         private void sortID()
@@ -427,6 +534,9 @@ namespace CanTeenManagement.ViewModel
             else if (this.g_i_addOrEdit == 1)
             {
                 if (string.IsNullOrEmpty(this.g_str_id))
+                    return false;
+
+                if (this.g_str_id.Length < 7)
                     return false;
 
                 // check id.
@@ -622,6 +732,8 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            //this.g_i_addOrEdit = 0;
+            this.g_customer = p;
             this.g_selectedItem = p;
 
             MainWindow mainWd = MainWindow.Instance;

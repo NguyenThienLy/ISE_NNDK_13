@@ -348,80 +348,14 @@ D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderD
 D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.baml
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.g.cs
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.dll
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignColors.dll
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\WPFToolkit.dll
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.xml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.xml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.xml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.xml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CustomersView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DashBoardView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailCustomersView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\EmployeesView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\ReportView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SettingsView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SortFoodView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatisticView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CustomersView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DashBoardView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailCustomersView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\EmployeesView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\ReportView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SettingsView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SortFoodView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatisticView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.g.cs
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.g.cs
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.g.cs
@@ -493,9 +427,79 @@ G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Prope
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
-D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.ComponentModel.Annotations.dll
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.Common.dll
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.SqlClient.dll
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\TableDependency.SqlClient.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\TableDependency.SqlClient.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.ComponentModel.Annotations.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.Common.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.SqlClient.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\WPFToolkit.dll
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.xml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EntityFramework.SqlServer.xml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\Microsoft.Expression.Interactions.xml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Windows.Interactivity.xml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csprojAssemblyReference.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatisticView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CustomersView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DashBoardView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailCustomersView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\EmployeesView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\ReportView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SettingsView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SortFoodView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatisticView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_Content.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement_MarkupCompile.lref
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\App.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\ResourceXAML\MainResource.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CallFoodView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\CustomersView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DashBoardView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailCustomersView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\DetailEmployeesView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\EmployeesView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\LoginView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\MainWindow.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderDoneView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\OrderView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\PayView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\ReportView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SettingsView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\SortFoodView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.g.resources
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.Properties.Resources.resources
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.GenerateResource.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CoreCompileInputs.cache
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.exe
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.pdb
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
+D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete

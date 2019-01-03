@@ -1,8 +1,5 @@
-﻿drop database QLCanTin
-CREATE DATABASE QLCanTin
+﻿CREATE DATABASE QLCanTin
 GO
-
-ALTER DATABASE QLCanTin SET ENABLE_BROKER
 
 USE QLCanTin
 GO
@@ -13,20 +10,21 @@ SET ANSI_WARNINGS  ON;
 -- Your insert TSQL here.
 --SET ANSI_WARNINGS ON;
 
+ALTER DATABASE QLCanTin SET ENABLE_BROKER
+
 CREATE TABLE EMPLOYEE
 (
     ID nchar(20) PRIMARY KEY,
     
-    PASSWORD nchar(20),
+    PASSWORD nchar(20) NOT NULL,
 	FULLNAME nchar(50),
 	GENDER nchar(10),
 	YEAROFBIRTH int,
 	PHONE nchar (15),
 	EMAIL nchar (50),
-	POSITION nchar(50),
 	IMAGELINK nchar(100),
-	ROLE nchar(50) NOT NULL,
-	STATUS nchar(20)
+	POSITION nchar(50) NOT NULL,
+	STATUS nchar(20) NOT NULL
 )
 GO
 
@@ -34,7 +32,7 @@ CREATE TABLE CUSTOMER
 (
 	ID nchar(20) PRIMARY KEY,
     
-    PIN nchar(30),
+    PIN nchar(30) NOT NULL,
 	FULLNAME nchar(50),
 	GENDER nchar(10),
 	YEAROFBIRTH int,
@@ -53,13 +51,13 @@ CREATE TABLE FOOD
 	ID nchar(20) PRIMARY KEY,
 	
 	FOODNAME nchar(200),
-	FOODTYPE int,
+	FOODTYPE int NOT NULL,
 	FOODDESCRIPTION nchar(200),
-	PRICE int,
+	PRICE int NOT NULL,
 	SALE int,
 	IMAGELINK nchar(100),
 	STAR int,
-	STATUS nchar(50)
+	STATUS nchar(50)NOT NULL
 )
 GO
 
@@ -71,7 +69,7 @@ CREATE TABLE ORDERINFO
 	EMPLOYEEID nchar(20),
 	ORDERDATE datetime,
 	TOTALMONEY int,
-	STATUS nchar(20),
+	STATUS nchar(20) NOT NULL,
 	
 	FOREIGN KEY(CUSTOMERID) REFERENCES CUSTOMER(ID),
 	FOREIGN KEY(EMPLOYEEID) REFERENCES EMPLOYEE(ID)
@@ -83,26 +81,26 @@ CREATE TABLE ORDERDETAIL
 	ORDERID nchar(20),
 	FOODID nchar(20),
 	
-	QUANTITY int,
+	QUANTITY int NOT NULL,
 	TOTALMONEY int,
 	COMPLETIONDATE datetime,
-	STATUS nchar(20),
+	STATUS nchar(20) NOT NULL,
 
 	PRIMARY KEY (ORDERID, FOODID),
 	FOREIGN KEY(ORDERID) REFERENCES ORDERINFO(ID),
-	FOREIGN KEY(FOODID) REFERENCES FOOD(ID),
+	FOREIGN KEY(FOODID) REFERENCES FOOD(ID)
 )
 GO
 
-INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,POSITION, IMAGELINK, ROLE, STATUS) VALUES
-('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam',1998, '0947161098', 'nguyenmit@gmail.com', N'Thu ngân', '\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', 'Thành viên', 'Đang làm'),
-('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ',1998, '0947161098', 'trankhanhlinh98@gmail.com', N'Quản lý','\\127.0.0.1\CanteenManagement\linh.tran.jpg', 'Admin', 'Đang làm')
+INSERT INTO EMPLOYEE(ID,PASSWORD,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,IMAGELINK,ROLE,STATUS) VALUES
+('ly.nguyen', 'ly', N'Nguyễn Thiên Lý', N'Nam', 1998, '0947161098', 'nguyenmit@gmail.com','\\127.0.0.1\CanteenManagement\ly.nguyen.jpg', N'Thu ngân', N'Đang làm'),
+('linh.tran', 'linh', N'Trần Khánh Linh', N'Nữ', 1998, '0947161098', 'trankhanhlinh98@gmail.com','\\127.0.0.1\CanteenManagement\linh.tran.jpg', N'Quản lý', N'Đang làm')
 
-INSERT INTO CUSTOMER(ID,PIN,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,CASH,POINT, IMAGELINK,STAR) VALUES
-('long.nguyen', 'long', N'Nguyễn Hà Hoàng Long', N'Nam',1998, '0947161098', 'long@gmail.com', 100000, 20,'\\127.0.0.1\CanteenManagement\long.nguyen.jpg', 3),
-('khoa.thai', 'khoa', N'Thái Đăng Khoa', N'Nam',1998, '0947161098', 'khoa@gmail.com', 200000, 100, '\\127.0.0.1\CanteenManagement\khoa.thai.jpg',3)
+INSERT INTO CUSTOMER(ID,PIN,FULLNAME,GENDER,YEAROFBIRTH,PHONE,EMAIL,CASH,POINT,IMAGELINK,STAR) VALUES
+('1612352', 'long', N'Nguyễn Hà Hoàng Long', N'Nam', 1998, '0947161098', 'long@gmail.com', 100000, 20,'\\127.0.0.1\CanteenManagement\1612352.jpg', 3),
+('1612300', 'khoa', N'Thái Đăng Khoa', N'Nam',1998, '0947161098', 'khoa@gmail.com', 200000, 100, '\\127.0.0.1\CanteenManagement\1612300.jpg', 3)
 
-INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STAR ,STATUS) VALUES
+INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,STATUS) VALUES
 ('FOOD01', N'Gà chiên nước mắm', 1, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD01.jpg',1, N'Còn'),
 ('FOOD02', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
 ('FOOD03', N'Đậu ve xào thịt', 1, N'Thịt heo xào cùng đâu ve tươi',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD03.jpg',3, N'Còn'),
@@ -119,20 +117,20 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE, IMAGELINK, STA
 ('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
 
 INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALUES
-('ORD01', 'long.nguyen', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
-('ORD02', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD03', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD04', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD05', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD06', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD07', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD08', 'long.nguyen', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD09', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD10', 'long.nguyen', 'ly.nguyen', '10/11/2018', 50000, N'Đang chờ'),
-('ORD11', 'khoa.thai', 'ly.nguyen', '10/11/2018', 25000, N'Đang chờ'),
-('ORD12', 'long.nguyen', 'ly.nguyen', '10/11/2018', 30000, N'Đang chờ'),
-('ORD13', 'khoa.thai', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
-('ORD14', 'long.nguyen', 'ly.nguyen', '10/11/2018', 60000, N'Đang chờ')
+('ORD01', '1612352', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
+('ORD02', '1612300', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD03', '1612352', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD04', '1612300', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD05', '1612352', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD06', '1612300', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD07', '1612352', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD08', '1612352', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD09', '1612300', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD10', '1612352', 'ly.nguyen', '10/11/2018', 50000, N'Đang chờ'),
+('ORD11', '1612300', 'ly.nguyen', '10/11/2018', 25000, N'Đang chờ'),
+('ORD12', '1612352', 'ly.nguyen', '10/11/2018', 30000, N'Đang chờ'),
+('ORD13', '1612300', 'ly.nguyen', '10/11/2018', 22500, N'Đang chờ'),
+('ORD14', '1612352', 'ly.nguyen', '10/11/2018', 60000, N'Đang chờ')
 
 INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY, COMPLETIONDATE,STATUS) VALUES
 ('ORD01', 'FOOD01', 2, 45000,'10/11/2018', N'Đang chờ'),

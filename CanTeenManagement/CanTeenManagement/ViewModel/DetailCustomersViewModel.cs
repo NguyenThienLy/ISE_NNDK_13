@@ -17,6 +17,9 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.IO;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.Enums;
+using System.Windows.Threading;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -166,6 +169,8 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_star { get => _g_i_star; set { _g_i_star = value; OnPropertyChanged(); } }
         #endregion
 
+        DispatcherTimer g_timer = null;
+
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
 
@@ -236,7 +241,48 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
+        public void WatchTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "CUSTOMER";
+            var tableDependency = new SqlTableDependency<CUSTOMER>(connectionString, tableName);
+
+            tableDependency.OnChanged += OnNotificationReceived;
+            tableDependency.Start();
+        }
+
+        public void StopTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "CUSTOMER";
+            var tableDependency = new SqlTableDependency<CUSTOMER>(connectionString, tableName);
+
+            tableDependency.Stop();
+        }
+
+        private void OnNotificationReceived(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<CUSTOMER> e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                g_timer.Start();
+            });
+        }
+
+        private void refresh()
+        {
+            this.loadDataCustomer();
+            g_timer.Stop();
+        }
+
         private void inItSupport()
+        {
+            this.g_timer = new DispatcherTimer();
+            this.g_timer.Tick += (s, ev) => this.refresh();
+            this.g_timer.Interval = new TimeSpan(0, 0, 1);
+            this.loadCombobox();
+        }
+
+        private void loadCombobox()
         {
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
@@ -256,11 +302,8 @@ namespace CanTeenManagement.ViewModel
             this.g_listYearOfBirth = l_listYearOfBirth;
         }
 
-        private void loaded(DetailCustomersView p)
+        private void loadDataCustomer()
         {
-            if (p == null)
-                return;
-
             CustomersView l_customersView = CustomersView.Instance;
 
             if (l_customersView.DataContext == null)
@@ -281,6 +324,14 @@ namespace CanTeenManagement.ViewModel
             this.g_str_imageLink = l_customersVM.g_str_imageLink;
             this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
             #endregion
+        }
+
+        private void loaded(DetailCustomersView p)
+        {
+            if (p == null)
+                return;
+
+            this.loadDataCustomer();
 
             #region đổ dữ liệu vào listview
             this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == this.g_str_id));
@@ -288,41 +339,43 @@ namespace CanTeenManagement.ViewModel
 
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
+
+            this.WatchTable();
         }
 
         private void clickCloseWindow(DetailCustomersView p)
         {
             p.Close();
 
-            CustomersView l_customersView = CustomersView.Instance;
+            //CustomersView l_customersView = CustomersView.Instance;
 
-            if (l_customersView.DataContext == null)
-                return;
+            //if (l_customersView.DataContext == null)
+            //    return;
 
-            var l_customersVM = l_customersView.DataContext as CustomersViewModel;
+            //var l_customersVM = l_customersView.DataContext as CustomersViewModel;
 
-            for (int i = 0; i < l_customersVM.g_listCustomers.Count(); i++)
-            {
-                if (l_customersVM.g_listCustomers[i].ID.Trim() == this.g_str_id)
-                {
-                    l_customersVM.g_listCustomers[i] = new CUSTOMER()
-                    {
-                        ID = this.g_str_id,
-                        FULLNAME = this.g_str_fullName,
-                        GENDER = this.g_str_gender,
-                        YEAROFBIRTH = this.g_i_yearOfBirth,
-                        PHONE = this.g_str_phone,
-                        EMAIL = this.g_str_email,
-                        CASH = this.g_i_cash,
-                        POINT = this.g_i_point,
-                        STAR = this.g_i_star,
-                        IMAGELINK = this.g_str_imageLink
-                    };
+            //for (int i = 0; i < l_customersVM.g_listCustomers.Count(); i++)
+            //{
+            //    if (l_customersVM.g_listCustomers[i].ID.Trim() == this.g_str_id)
+            //    {
+            //        l_customersVM.g_listCustomers[i] = new CUSTOMER()
+            //        {
+            //            ID = this.g_str_id,
+            //            FULLNAME = this.g_str_fullName,
+            //            GENDER = this.g_str_gender,
+            //            YEAROFBIRTH = this.g_i_yearOfBirth,
+            //            PHONE = this.g_str_phone,
+            //            EMAIL = this.g_str_email,
+            //            CASH = this.g_i_cash,
+            //            POINT = this.g_i_point,
+            //            STAR = this.g_i_star,
+            //            IMAGELINK = this.g_str_imageLink
+            //        };
 
-                    l_customersVM.g_selectedItem = l_customersVM.g_listCustomers[i];
-                    break;
-                }
-            }
+            //        l_customersVM.g_selectedItem = l_customersVM.g_listCustomers[i];
+            //        break;
+            //    }
+            //}
         }
 
         private void clickEditInfo(DetailCustomersView p)

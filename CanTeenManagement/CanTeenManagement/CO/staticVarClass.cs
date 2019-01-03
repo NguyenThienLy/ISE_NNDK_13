@@ -97,7 +97,7 @@ namespace CanTeenManagement.CO
         public static string mode_today = "Hôm nay";
         public static string mode_all = "Tất cả";
         public static string mode_groupGender = "Gom nhóm giới tính";
-        public static string mode_groupRole = "Gom nhóm quyền";
+        public static string mode_groupPosition = "Gom nhóm chức vụ";
         public static string mode_groupYearOfBirth = "Gom nhóm năm sinh";
         #endregion
 
@@ -115,10 +115,10 @@ namespace CanTeenManagement.CO
         public static string ftp_Server = @"ftp://" + server_Host + "/";
         #endregion
 
-        #region Role
-        public static string role_admin = "Quản lý";
-        public static string role_member = "Nhân viên";
-        public static string role_staff = "Staff";
+        #region positions.
+        public static string position_manager = "Quản lý";
+        public static string position_cashier = "Thu ngân";
+        public static string position_cook = "Tiếp thực";
         #endregion
 
         #region status.
@@ -138,7 +138,7 @@ namespace CanTeenManagement.CO
         #endregion
 
         #region gmail.
-        public static string gmail_user = "ISE.NNDK.13@gmail.com";
+        public static string gmail_user = "ise.nndk.13@gmail.com";
         public static string gmail_password = "123456aA123456";
         #endregion
 

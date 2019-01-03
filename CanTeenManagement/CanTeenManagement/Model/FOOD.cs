@@ -22,9 +22,9 @@ namespace CanTeenManagement.Model
     
         public string ID { get; set; }
         public string FOODNAME { get; set; }
-        public Nullable<int> FOODTYPE { get; set; }
+        public int FOODTYPE { get; set; }
         public string FOODDESCRIPTION { get; set; }
-        public Nullable<int> PRICE { get; set; }
+        public int PRICE { get; set; }
         public Nullable<int> SALE { get; set; }
         public string IMAGELINK { get; set; }
         public Nullable<int> STAR { get; set; }

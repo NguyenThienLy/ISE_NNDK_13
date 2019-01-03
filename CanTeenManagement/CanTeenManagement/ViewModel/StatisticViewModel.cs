@@ -396,7 +396,7 @@ namespace CanTeenManagement.ViewModel
 
             foreach (var i in result)
             {
-                int temp = i.Sale ?? default(int);
+                int temp = i.Sale;
                 DataLV.Add(new ItemFood(i.Name, temp));
                 iTotal += temp;
 

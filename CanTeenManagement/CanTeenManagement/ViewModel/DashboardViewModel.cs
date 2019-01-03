@@ -49,7 +49,6 @@ namespace CanTeenManagement.ViewModel
         }
 
         DispatcherTimer g_timer = null;
-        int g_i_flagLoaded = 0;
 
         #region command.
         public ICommand g_iCm_LoadedCommand { get; set; }
@@ -67,14 +66,16 @@ namespace CanTeenManagement.ViewModel
 
         public DashboardViewModel()
         {
+            this.inItSupport();
+
             g_iCm_LoadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
-                this.loaded(p);
+                this.loaded();
             });
 
             g_iCm_UnLoadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
-                this.unloaded(p);
+                this.unloaded();
             });
 
             g_iCm_ClickButtonBackCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
@@ -98,27 +99,33 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
-        private void unloaded(DashBoardView p)
+        private void inItSupport()
         {
-            if (p == null)
-                return;
-
-            g_timer.Stop();
+            this.g_i_index = 0;
+            this.g_timer = new DispatcherTimer();
+            this.g_timer.Tick += (s, ev) => clickNext();
+            this.g_timer.Interval = new TimeSpan(0, 0, 5);
         }
 
-        private void loaded(DashBoardView p)
+        private void unloaded()
         {
-            if (p == null)
-                return;
+            this.g_timer.Stop();
+        }
 
+        private void loaded()
+        {
+            this.loadData();
+            this.g_timer.Start();
+        }
+
+        private void loadData()
+        {
             if (this.g_obCl_orderFood != null)
                 this.g_obCl_orderFood.Clear();
-
             if (this.g_obCl_food != null)
                 this.g_obCl_food.Clear();
 
             this.g_obCl_orderFood = new ObservableCollection<ORDERFOOD>();
-
             this.g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs);
 
             foreach (FOOD food in g_obCl_food)
@@ -127,16 +134,6 @@ namespace CanTeenManagement.ViewModel
                 g_obCl_orderFood.Add(t_orderFood);
             }
 
-            this.g_i_index = 0;
-
-            if (g_i_flagLoaded == 0)
-            {
-                g_timer = new DispatcherTimer();
-                g_timer.Tick += (s, ev) => clickNext();
-                g_timer.Interval = new TimeSpan(0, 0, 5);
-            }
-            g_timer.Start();
-            g_i_flagLoaded = 1;
         }
 
         private void clickBack()

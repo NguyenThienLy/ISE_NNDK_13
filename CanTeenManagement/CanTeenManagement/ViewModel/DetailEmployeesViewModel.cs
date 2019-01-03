@@ -16,6 +16,9 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Media;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.Enums;
+using System.Windows.Threading;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -193,12 +196,11 @@ namespace CanTeenManagement.ViewModel
         private string _g_str_position;
         public string g_str_position { get => _g_str_position; set { _g_str_position = value; OnPropertyChanged(); } }
 
-        private string _g_str_role;
-        public string g_str_role { get => _g_str_role; set { _g_str_role = value; OnPropertyChanged(); } }
-
         private string _g_str_status;
         public string g_str_status { get => _g_str_status; set { _g_str_status = value; OnPropertyChanged(); } }
         #endregion
+
+        DispatcherTimer g_timer = null;
 
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
@@ -284,7 +286,48 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
+        public void WatchTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "EMPLOYEE";
+            var tableDependency = new SqlTableDependency<EMPLOYEE>(connectionString, tableName);
+
+            tableDependency.OnChanged += OnNotificationReceived;
+            tableDependency.Start();
+        }
+
+        public void StopTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "EMPLOYEE";
+            var tableDependency = new SqlTableDependency<EMPLOYEE>(connectionString, tableName);
+
+            tableDependency.Stop();
+        }
+
+        private void OnNotificationReceived(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<EMPLOYEE> e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                g_timer.Start();
+            });
+        }
+
+        private void refresh()
+        {
+            this.loadDataEmployee();
+            g_timer.Stop();
+        }
+
         private void inItSupport()
+        {
+            this.g_timer = new DispatcherTimer();
+            this.g_timer.Tick += (s, ev) => this.refresh();
+            this.g_timer.Interval = new TimeSpan(0, 0, 1);
+            this.loadCombobox();
+        }
+
+        private void loadCombobox()
         {
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
@@ -296,7 +339,6 @@ namespace CanTeenManagement.ViewModel
             // Thêm danh sách năm sinh.
             List<int> l_listYearOfBirth = new List<int>();
             int l_i_EighteenYearLocal = DateTime.Now.Year - 2018 + 2000;
-
             for (int i = l_i_EighteenYearLocal; i >= l_i_EighteenYearLocal - (42 + DateTime.Now.Year - 2018); i--)
             {
                 l_listYearOfBirth.Add(i);
@@ -306,17 +348,14 @@ namespace CanTeenManagement.ViewModel
             this.g_listEmails = new List<string>();
         }
 
-        private void loaded(DetailEmployeesView p)
+        private void loadDataEmployee()
         {
-            if (p == null)
-                return;
-
             EmployeesView l_employeesView = EmployeesView.Instance;
 
             if (l_employeesView.DataContext == null)
                 return;
 
-            var l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
+            EmployeesViewModel l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
 
             // Thêm danh sách email.
             this.g_listEmails.Clear();
@@ -336,11 +375,18 @@ namespace CanTeenManagement.ViewModel
             this.g_str_phone = l_employeesVM.g_str_phone;
             this.g_str_email = l_employeesVM.g_str_email;
             this.g_str_position = l_employeesVM.g_str_position;
-            this.g_str_role = l_employeesVM.g_str_role;
             this.g_str_status = l_employeesVM.g_str_status;
             this.g_str_imageLink = l_employeesVM.g_str_imageLink;
             this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
             #endregion
+        }
+
+        private void loaded(DetailEmployeesView p)
+        {
+            if (p == null)
+                return;
+
+            this.loadDataEmployee();
 
             #region đổ dữ liệu vào listview
             this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.EMPLOYEEID == this.g_str_id));
@@ -349,41 +395,47 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
+
+            this.WatchTable();
         }
 
         private void clickCloseWindow(DetailEmployeesView p)
         {
             p.Close();
 
-            EmployeesView l_employeesView = EmployeesView.Instance;
+            //EmployeesView l_employeesView = EmployeesView.Instance;
 
-            if (l_employeesView.DataContext == null)
-                return;
+            //if (l_employeesView.DataContext == null)
+            //    return;
 
-            var l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
+            //var l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
 
-            for (int i = 0; i < l_employeesVM.g_listEmployees.Count(); i++)
-            {
-                if (l_employeesVM.g_listEmployees[i].ID.Trim() == this.g_str_id)
-                {
-                    l_employeesVM.g_listEmployees[i] = new EMPLOYEE()
-                    {
-                        ID = this.g_str_id,
-                        FULLNAME = this.g_str_fullName,
-                        GENDER = this.g_str_gender,
-                        YEAROFBIRTH = this.g_i_yearOfBirth,
-                        PHONE = this.g_str_phone,
-                        EMAIL = this.g_str_email,
-                        POSITION = this.g_str_position,
-                        IMAGELINK = this.g_str_imageLink,
-                        ROLE = this.g_str_role,
-                        STATUS = this.g_str_status
-                    };
+            //for (int i = 0; i < l_employeesVM.g_listEmployees.Count(); i++)
+            //{
+            //    if (l_employeesVM.g_listEmployees[i].ID.Trim() == this.g_str_id)
+            //    {
+            //        //System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            //        //{
+            //        //    l_employeesVM.g_listEmployees[i] = new EMPLOYEE()
+            //        //    {
+            //        //        ID = this.g_str_id,
+            //        //        FULLNAME = this.g_str_fullName,
+            //        //        GENDER = this.g_str_gender,
+            //        //        YEAROFBIRTH = this.g_i_yearOfBirth,
+            //        //        PHONE = this.g_str_phone,
+            //        //        EMAIL = this.g_str_email,
+            //        //        POSITION = this.g_str_position,
+            //        //        IMAGELINK = this.g_str_imageLink,
+            //        //        STATUS = this.g_str_status
+            //        //    };
 
-                    l_employeesVM.g_selectedItem = l_employeesVM.g_listEmployees[i];
-                    break;
-                }
-            }
+            //        //    l_employeesVM.g_selectedItem = l_employeesVM.g_listEmployees[i];
+            //        //});
+            //        l_employeesVM.g_selectedItem = l_employeesVM.g_listEmployees[i];
+
+            //        break;
+            //    }
+            //}
         }
 
         private void clickEditInfo(DetailEmployeesView p)
@@ -426,12 +478,11 @@ namespace CanTeenManagement.ViewModel
                 l_employee.PHONE = this.g_str_phoneEdit;
                 l_employee.EMAIL = this.g_str_emailEdit;
                 l_employee.POSITION = this.g_str_position;
-                l_employee.ROLE = this.g_str_role;
                 l_employee.STATUS = this.g_str_status;
                 l_employee.IMAGELINK = this.g_str_imageLink;
 
                 dataProvider.Instance.DB.SaveChanges();
-                staticFunctionClass.showStatusView(true, "Sửa thông tin thành viên " + this.g_str_id + " thành công!");
+                staticFunctionClass.showStatusView(true, "Sửa thông tin nhân viên " + this.g_str_id + " thành công!");
 
                 #region Cập nhật lại thông tin.
                 this.g_str_fullName = this.g_str_fullNameEdit;
@@ -443,7 +494,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(false, "Sửa thông tin thành viên " + this.g_str_id + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Sửa thông tin nhân viên " + this.g_str_id + " thất bại!");
             }
 
             p.grVInfo.Height = 350;
@@ -605,8 +656,8 @@ namespace CanTeenManagement.ViewModel
         {
             try // Its a good practice to write your code in a try catch block 
             {
-                var l_from = "ise.nndk.13@gmail.com";
-                var l_password = "123456aA123456";
+                var l_from = staticVarClass.gmail_user;
+                var l_password = staticVarClass.gmail_password;
                 var l_to = this.g_selectedEmail.EMAIL;
                 SmtpClient client = new SmtpClient(staticVarClass.email_hostEmail, staticVarClass.email_portEmail);      //Connection Object.
                 var message = new MailMessage(l_from, l_to); // Email Object.

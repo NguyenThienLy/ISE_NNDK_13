@@ -16,7 +16,7 @@ namespace CanTeenManagement.Model
     {
         public string ORDERID { get; set; }
         public string FOODID { get; set; }
-        public Nullable<int> QUANTITY { get; set; }
+        public int QUANTITY { get; set; }
         public Nullable<int> TOTALMONEY { get; set; }
         public Nullable<System.DateTime> COMPLETIONDATE { get; set; }
         public string STATUS { get; set; }

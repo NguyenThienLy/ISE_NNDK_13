@@ -373,21 +373,6 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0 5 0 0">
-                                                <materialDesign:PackIcon Kind="DiamondStone"
-                                                                         FontSize="100"
-                                                                         Foreground="#FF28878B" />
-                                                <TextBlock Text=" Quyền: "
-                                                           Height="30"
-                                                           FontWeight="DemiBold"
-                                                           FontSize="15"
-                                                           HorizontalAlignment="Left" />
-                                                <TextBlock FontFamily="Roboto"
-                                                           FontSize="15"
-                                                           HorizontalAlignment="Left"
-                                                           Text="{Binding g_str_role}" />
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal"
-                                                        Margin="0 5 0 0">
                                                 <materialDesign:PackIcon Kind="CommentText"
                                                                          FontSize="100"
                                                                          Foreground="#FF28878B" />

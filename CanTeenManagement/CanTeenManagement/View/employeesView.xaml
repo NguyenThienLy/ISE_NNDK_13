@@ -202,11 +202,9 @@
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="170" />
                                 <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="95" />
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
                                     Command="{Binding g_iCm_ClickGoBackCommand}"
@@ -224,15 +222,13 @@
                                      BorderBrush="#FF28878B"
                                      materialDesign:HintAssist.Hint="Họ và tên"
                                      Text="{Binding g_str_fullName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <ComboBox Name="cbbGender"
-                                      Grid.Column="5"
+                            <ComboBox Grid.Column="5"
                                       BorderBrush="#FF28878B"
                                       materialDesign:HintAssist.Hint="Giới tính"
                                       VerticalAlignment="Bottom"
                                       ItemsSource="{Binding g_listGenders}"
                                       SelectedItem="{Binding g_str_gender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <ComboBox Name="cbbYearOfBirth"
-                                      Grid.Column="7"
+                            <ComboBox Grid.Column="7"
                                       BorderBrush="#FF28878B"
                                       materialDesign:HintAssist.Hint="Năm sinh"
                                       VerticalAlignment="Bottom"
@@ -246,19 +242,13 @@
                                      BorderBrush="#FF28878B"
                                      materialDesign:HintAssist.Hint="Email"
                                      Text="{Binding g_str_email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <TextBox Grid.Column="13"
-                                     BorderBrush="#FF28878B"
-                                     materialDesign:HintAssist.Hint="Chức vụ"
-                                     Text="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <ComboBox Name="cbbRole"
-                                      Grid.Column="15"
+                            <ComboBox Grid.Column="13"
                                       BorderBrush="#FF28878B"
-                                      materialDesign:HintAssist.Hint="Quyền"
+                                      materialDesign:HintAssist.Hint="Chức vụ"
                                       VerticalAlignment="Bottom"
-                                      ItemsSource="{Binding g_listRoles}"
-                                      SelectedItem="{Binding g_str_role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            <ComboBox Name="cbbStatus"
-                                      Grid.Column="17"
+                                      ItemsSource="{Binding g_listPositions}"
+                                      SelectedItem="{Binding g_str_position, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <ComboBox Grid.Column="15"
                                       BorderBrush="#FF28878B"
                                       materialDesign:HintAssist.Hint="Trạng thái"
                                       VerticalAlignment="Bottom"
@@ -347,15 +337,11 @@
                                                         DisplayMemberBinding="{Binding EMAIL}"
                                                         util:GridViewSort.PropertyName="EMAIL"></GridViewColumn>
                                         <GridViewColumn Header="Chức vụ"
-                                                        Width="80"
+                                                        Width="90"
                                                         DisplayMemberBinding="{Binding POSITION}"
                                                         util:GridViewSort.PropertyName="POSITION"></GridViewColumn>
-                                        <GridViewColumn Header="Quyền"
-                                                        Width="70"
-                                                        DisplayMemberBinding="{Binding ROLE}"
-                                                        util:GridViewSort.PropertyName="ROLE"></GridViewColumn>
                                         <GridViewColumn Header="Trạng thái"
-                                                        Width="80"
+                                                        Width="95"
                                                         DisplayMemberBinding="{Binding STATUS}"
                                                         util:GridViewSort.PropertyName="STATUS"></GridViewColumn>
                                     </GridView>
