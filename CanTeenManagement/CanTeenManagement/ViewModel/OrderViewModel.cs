@@ -751,7 +751,7 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkClickButtonSearch()
         {
-            if (this.g_str_contentSearch == string.Empty)
+            if (this.g_str_contentSearchTemp == string.Empty)
                 return false;
 
             return true;

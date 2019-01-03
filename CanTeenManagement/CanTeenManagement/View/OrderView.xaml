@@ -137,11 +137,6 @@
                                              Text="{Binding g_str_contentSearchTemp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                              VerticalAlignment="Center"
                                              FontSize="12">
-                                        <TextBox.InputBindings>
-                                            <KeyBinding Key="Enter"
-                                                        Command="{Binding g_iCm_KeyTextSearchCommand}"
-                                                        CommandParameter="{Binding Path, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
-                                        </TextBox.InputBindings>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="LostFocus">
                                                 <i:InvokeCommandAction Command="{Binding g_iCm_LostFocusTextSearchCommand}"
@@ -169,7 +164,7 @@
                             </ToggleButton>
                             <TextBlock Text="{Binding g_str_Mode}"
                                        TextAlignment="Center"
-                                       FontSize="20"
+                                       FontSize="15"
                                        VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </DockPanel>

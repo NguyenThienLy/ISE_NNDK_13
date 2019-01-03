@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="PIN" Type="nchar" MaxLength="30" />
     <Property Name="FULLNAME" Type="nchar" MaxLength="50" />
     <Property Name="GENDER" Type="nchar" MaxLength="10" />
@@ -20,7 +20,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="PASSWORD" Type="nchar" MaxLength="20" />
     <Property Name="FULLNAME" Type="nchar" MaxLength="50" />
     <Property Name="GENDER" Type="nchar" MaxLength="10" />
@@ -36,7 +36,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="FOODNAME" Type="nchar" MaxLength="200" />
     <Property Name="FOODTYPE" Type="int" />
     <Property Name="FOODDESCRIPTION" Type="nchar" MaxLength="200" />
@@ -62,7 +62,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID" Type="nchar" MaxLength="20" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CUSTOMERID" Type="nchar" MaxLength="20" />
     <Property Name="EMPLOYEEID" Type="nchar" MaxLength="20" />
     <Property Name="ORDERDATE" Type="datetime" />

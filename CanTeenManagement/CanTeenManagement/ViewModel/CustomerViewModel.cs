@@ -292,7 +292,13 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_addOrEdit = 0;
             this.g_b_groupGender = true;
+            this.g_str_mode = staticVarClass.mode_groupGender;
 
+            this.loadCbb();
+        }
+
+        private void loadCbb()
+        {
             // Thêm danh sách gender.
             List<string> l_listGenders = new List<string>();
             l_listGenders.Add(staticVarClass.gender_feMale);

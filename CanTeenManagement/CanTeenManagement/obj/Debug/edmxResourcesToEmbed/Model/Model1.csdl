@@ -27,7 +27,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PIN" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="GENDER" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -44,7 +44,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="GENDER" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -61,7 +61,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FOODNAME" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
     <Property Name="FOODTYPE" Type="Int32" />
     <Property Name="FOODDESCRIPTION" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
@@ -77,8 +77,8 @@
       <PropertyRef Name="ORDERID" />
       <PropertyRef Name="FOODID" />
     </Key>
-    <Property Name="ORDERID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="FOODID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ORDERID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FOODID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="QUANTITY" Type="Int32" />
     <Property Name="TOTALMONEY" Type="Int32" />
     <Property Name="COMPLETIONDATE" Type="DateTime" Precision="3" />
@@ -90,7 +90,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CUSTOMERID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="EMPLOYEEID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="ORDERDATE" Type="DateTime" Precision="3" />

@@ -231,7 +231,7 @@
                                                                          IconForeground="#FF26788A"
                                                                          Height="Auto">
                                                         <materialDesign:Chip.Icon>
-                                                            <materialDesign:PackIcon Kind="MoneyOff"></materialDesign:PackIcon>
+                                                            <materialDesign:PackIcon Kind="AttachMoney"></materialDesign:PackIcon>
                                                         </materialDesign:Chip.Icon>
                                                     </materialDesign:Chip>
                                                 </Grid>

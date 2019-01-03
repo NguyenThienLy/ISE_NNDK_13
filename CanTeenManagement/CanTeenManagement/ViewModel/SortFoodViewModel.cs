@@ -10,6 +10,8 @@ using CanTeenManagement.View;
 using CanTeenManagement.Model;
 using System.Collections.ObjectModel;
 using CanTeenManagement.CO;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.Enums;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -181,11 +183,79 @@ namespace CanTeenManagement.ViewModel
             g_i_quantitySkip2 = countAllOrder(2, 2);
             g_i_quantitySoldOut1 = countAllOrder(3, 1);
             g_i_quantitySoldOut2 = countAllOrder(3, 2);
+
+            WatchTable();
         }
 
         public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> enumeration)
         {
             return new ObservableCollection<T>(enumeration);
+        }
+
+        public void WatchTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "ORDERDETAIL";
+            var tableDependency = new SqlTableDependency<ORDERDETAIL>(connectionString, tableName);
+
+            tableDependency.OnChanged += OnNotificationReceived;
+            tableDependency.Start();
+        }
+
+        public void StopTable()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
+            var tableName = "ORDERDETAIL";
+            var tableDependency = new SqlTableDependency<ORDERDETAIL>(connectionString, tableName);
+
+            tableDependency.Stop();
+        }
+
+        private void OnNotificationReceived(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<ORDERDETAIL> e)
+        {
+            this.g_list_OrderQueue1 = this.ToObservableCollection<ORDERQUEUE>
+               ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
+                 join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                 join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                 join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+                 where food.FOODTYPE == staticVarClass.foodType_one && orderDetail.STATUS == staticVarClass.status_waiting
+                 orderby orderInfo.ID ascending
+                 select new ORDERQUEUE
+                 {
+                     ORDERID = orderDetail.ORDERID.Trim(),
+                     FOODID = food.ID.Trim(),
+                     FOODNAME = food.FOODNAME.Trim(),
+                     FOODTYPE = (int)food.FOODTYPE,
+                     QUANTITY = (int)orderDetail.QUANTITY,
+                     TOTALMONEY = (int)orderDetail.TOTALMONEY,
+                     CUSTOMERID = customer.ID.Trim(),
+                     CUSTOMERNAME = customer.FULLNAME.Trim(),
+                     ORDERDATE = orderInfo.ORDERDATE.ToString(),
+                     STATUS = orderDetail.STATUS.Trim(),
+                     COMPLETIONDATE = DateTime.Today.ToString()
+                 }).Take(this.g_i_quantityFoodLoad));
+
+            //Lấy danh sách các món có trạng thái đang chờ
+            this.g_list_OrderQueue2 = this.ToObservableCollection<ORDERQUEUE>
+                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
+                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+                  where food.FOODTYPE == staticVarClass.foodType_two && orderDetail.STATUS == staticVarClass.status_waiting
+                  orderby orderInfo.ID ascending
+                  select new ORDERQUEUE
+                  {
+                      ORDERID = orderDetail.ORDERID.Trim(),
+                      FOODID = food.ID.Trim(),
+                      FOODNAME = food.FOODNAME.Trim(),
+                      FOODTYPE = (int)food.FOODTYPE,
+                      QUANTITY = (int)orderDetail.QUANTITY,
+                      TOTALMONEY = (int)orderDetail.TOTALMONEY,
+                      CUSTOMERID = customer.ID.Trim(),
+                      CUSTOMERNAME = customer.FULLNAME.Trim(),
+                      ORDERDATE = orderInfo.ORDERDATE.ToString(),
+                      STATUS = orderDetail.STATUS.Trim()
+                  }).Take(this.g_i_quantityFoodLoad));
         }
 
         //Load các món cơm
@@ -475,7 +545,7 @@ namespace CanTeenManagement.ViewModel
 
         private int countAllOrder(int buttonID, int foodType)
         {
-            string l_status = "Xong";
+            string l_status = staticVarClass.status_done;
             switch (buttonID)
             {
                 case 1:

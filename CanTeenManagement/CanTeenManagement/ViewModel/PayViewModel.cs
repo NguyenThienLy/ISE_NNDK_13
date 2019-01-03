@@ -329,7 +329,7 @@ namespace CanTeenManagement.ViewModel
 
                     staticFunctionClass.showStatusView(true, "Thêm đơn hàng " + this.g_str_orderID + " thành công!");
                 }
-                catch
+                catch (Exception ex)
                 {
                     staticFunctionClass.showStatusView(false, "Thêm đơn hàng " + this.g_str_orderID + " thất bại!");
                 }
@@ -464,6 +464,7 @@ namespace CanTeenManagement.ViewModel
             if (l_orderInfo != null)
             {
                 dataProvider.Instance.DB.ORDERINFOes.Remove(l_orderInfo);
+                //dataProvider.Instance.DB.Entry(l_orderInfo).State = System.Data.Entity.EntityState.Deleted;
                 dataProvider.Instance.DB.SaveChanges();
             }
         }
@@ -477,13 +478,16 @@ namespace CanTeenManagement.ViewModel
                 {
                     string t_id = this.g_obCl_payFood[i].ID;
 
+                    //
                     ORDERDETAIL l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs
                         .Where(orderDetail => orderDetail.ORDERID == this.g_str_orderID
                         && orderDetail.FOODID == t_id).SingleOrDefault();
 
+                    //
                     if (l_orderDetail != null)
                     {
                         dataProvider.Instance.DB.ORDERDETAILs.Remove(l_orderDetail);
+                        //dataProvider.Instance.DB.Entry(l_orderDetail).State = System.Data.Entity.EntityState.Deleted;
                         dataProvider.Instance.DB.SaveChanges();
                     }
                 }

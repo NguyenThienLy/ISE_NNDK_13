@@ -20,8 +20,6 @@ namespace CanTeenManagement.ViewModel
 {
     class FoodDetailViewModel : BaseViewModel
     {
-        public const int DEFAULT_PRICE = 25000;
-
         private string _g_str_id;
         public string g_str_id
         {
@@ -357,7 +355,7 @@ namespace CanTeenManagement.ViewModel
 
         private void initSuport()
         {
-            this.g_b_isFoodNameTrue = false;
+
         }
 
         #region loaded.
@@ -373,13 +371,16 @@ namespace CanTeenManagement.ViewModel
             if (l_orderVM.g_b_isAdd)
             {
                 this.g_b_isAdd = true;
+                this.g_b_isFoodNameTrue = false;
 
                 this.setPropetyOrderFood(this.emptyFood());
-                this.g_i_priceSale = DEFAULT_PRICE;
+                this.g_i_priceSale = staticVarClass.price_defaultFood;
             }
             else
             {
                 this.g_b_isAdd = false;
+                this.g_b_isFoodNameTrue = true;
+
                 this.setPropetyOrderFood(l_orderVM.g_ordF_orderFood);
             }
 
@@ -456,7 +457,7 @@ namespace CanTeenManagement.ViewModel
                 FOODNAME = string.Empty,
                 FOODTYPE = 1,
                 FOODDESCRIPTION = string.Empty,
-                PRICE = DEFAULT_PRICE,
+                PRICE = staticVarClass.price_defaultFood,
                 SALE = 0,
                 IMAGELINK = staticVarClass.linkImg_empty,
                 IMAGESOURCE = staticFunctionClass.LoadBitmap(staticVarClass.linkImg_empty),
@@ -499,12 +500,11 @@ namespace CanTeenManagement.ViewModel
             {
                 try
                 {
-                    // upload new image.
                     string str_path = openFileDialog.FileName;
 
                     if (str_path != string.Empty)
                     {
-                        if (staticFunctionClass.deleteFile(this.g_str_id + staticFunctionClass.getFormat(this.g_str_imageLink)))
+                        if (this.g_b_isAdd == true)
                         {
                             string str_newfileName = this.g_str_id + staticFunctionClass.getFormat(str_path);
 
@@ -513,23 +513,57 @@ namespace CanTeenManagement.ViewModel
                                 // Update image link in database.
                                 this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
 
-                                // Update image link in database.
-                                this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
-
-                                // Update image source.
+                                // Update image source. 
                                 this.g_imgSrc_currFood = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
-
-                                //Thread.Sleep(10000);
-
+                        
                                 dataProvider.Instance.DB.FOODs.Where(food => food.ID == this.g_str_id).ToList()
                                                                   .ForEach(food => food.IMAGELINK = g_str_imageLink);
                                 dataProvider.Instance.DB.SaveChanges();
 
                                 staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
-
-
+                            }
+                            else
+                            {
+                                {
+                                    staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
+                                }
                             }
                         }
+                        else
+                        {
+                            if (staticFunctionClass.deleteFile(this.g_str_id + staticFunctionClass.getFormat(this.g_str_imageLink)))
+                            {
+                                string str_newfileName = this.g_str_id + staticFunctionClass.getFormat(str_path);
+
+                                if (staticFunctionClass.uploadFile(str_newfileName, str_path))
+                                {
+                                    // Update image link in database.
+                                    this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
+
+                                    // Update image source.
+                                    this.g_imgSrc_currFood = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+
+                                    dataProvider.Instance.DB.FOODs.Where(food => food.ID == this.g_str_id).ToList()
+                                                                      .ForEach(food => food.IMAGELINK = g_str_imageLink);
+                                    dataProvider.Instance.DB.SaveChanges();
+
+                                    staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                                }
+                                else
+                                {
+                                    {
+                                        staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                {
+                                    staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
+                                }
+                            }
+                        }
+                      
                     }
                 }
                 catch
@@ -623,7 +657,8 @@ namespace CanTeenManagement.ViewModel
         private bool checkButtonSave()
         {
             if (this.g_i_star == 0 || this.g_b_isFoodNameTrue == false
-                || this.g_str_foodName == string.Empty)
+                || this.g_str_foodName == string.Empty 
+                || this.g_str_imageLink == staticVarClass.linkImg_empty)
                 return false;
 
             return true;
@@ -640,8 +675,7 @@ namespace CanTeenManagement.ViewModel
                 this.editFood();
             }
         }
-        #endregion.
-
+ 
         private string createNewFoodID()
         {
             string l_str_CurrID = dataProvider.Instance.DB.FOODs
@@ -720,6 +754,7 @@ namespace CanTeenManagement.ViewModel
                 staticFunctionClass.showStatusView(false, "Sửa món " + g_str_foodName + " thất bại!");
             }
         }
+        #endregion.
 
         private void selectionChangedCombobox(FoodDetailView p)
         {
@@ -747,6 +782,7 @@ namespace CanTeenManagement.ViewModel
 
         private void textChangedFoodName()
         {
+            // Lỗi ở đây.
             this.g_b_isFoodNameTrue = false;
         }
         #endregion

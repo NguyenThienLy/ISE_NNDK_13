@@ -10,6 +10,10 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region price.
+        public static int price_defaultFood = 25000;
+        #endregion
+
         #region color.
         public static string color_indianRed = "IndianRed";
         public static string color_mainColor = "#FF28878B";

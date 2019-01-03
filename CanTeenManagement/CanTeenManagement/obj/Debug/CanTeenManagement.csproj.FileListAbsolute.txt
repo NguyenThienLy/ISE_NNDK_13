@@ -495,3 +495,7 @@ G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.cspro
 G:\Nam3ki1\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.ComponentModel.Annotations.dll
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.Common.dll
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.SqlClient.dll
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\TableDependency.SqlClient.dll
