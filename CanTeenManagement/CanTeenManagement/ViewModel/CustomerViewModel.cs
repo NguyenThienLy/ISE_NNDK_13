@@ -353,12 +353,15 @@ namespace CanTeenManagement.ViewModel
                                                                                   IMAGELINK = x.IMAGELINK.Trim(),
                                                                                   STAR = x.STAR
                                                                               }).ToList().Take(15));
-                for (int i = 0; i < g_listCustomers.Count(); i++)
+                if (this.g_customer != null)
                 {
-                    if (g_listCustomers[i].ID.Trim() == g_customer.ID)
+                    for (int i = 0; i < g_listCustomers.Count(); i++)
                     {
-                        g_selectedItem = g_listCustomers[i];
-                        break;
+                        if (g_listCustomers[i].ID.Trim() == g_customer.ID)
+                        {
+                            g_selectedItem = g_listCustomers[i];
+                            break;
+                        }
                     }
                 }
                 this.sortID();

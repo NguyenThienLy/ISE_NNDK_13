@@ -15,6 +15,8 @@ namespace CanTeenManagement.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        public bool g_b_detailFromMainWindow = false;
+
         private string _g_str_imageLink;
         public string g_str_imageLink
         {
@@ -138,6 +140,7 @@ namespace CanTeenManagement.ViewModel
         private void initSupport()
         {
             this.g_b_isLoaded = false;
+            this.g_b_detailFromMainWindow = false;
         }
 
         private void clickCloseWindow(MainWindow p)
@@ -151,7 +154,7 @@ namespace CanTeenManagement.ViewModel
             p.Close();
         }
 
-        private void clickLogOutWindow(MainWindow p)
+        public void clickLogOutWindow(MainWindow p)
         {
             MainWindow mainWD = MainWindow.Instance;
             mainWD.Close();
@@ -304,6 +307,7 @@ namespace CanTeenManagement.ViewModel
                 return;
 
             p.Opacity = 0.5;
+            this.g_b_detailFromMainWindow = true;
             var detailEmployee = new DetailEmployeesView();
             detailEmployee.ShowDialog();
             p.Opacity = 100;

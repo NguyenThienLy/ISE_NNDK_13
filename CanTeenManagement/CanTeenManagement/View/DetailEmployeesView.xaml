@@ -87,7 +87,8 @@
                                     BorderBrush="#FF28878B"
                                     Height="Auto"
                                     Width="Auto"
-                                    RenderTransformOrigin="-0.444,0.593">
+                                    RenderTransformOrigin="-0.444,0.593"
+                                    ToolTip="Đổi ảnh đại diện">
                                 <materialDesign:PackIcon Kind="Brush"
                                                          Height="22"
                                                          Width="17" />
@@ -140,7 +141,8 @@
                                                         Style="{StaticResource MaterialDesignToolButton}"
                                                         Foreground="White"
                                                         Background="#FF29E67F"
-                                                        BorderBrush="#FF28878B">
+                                                        BorderBrush="#FF28878B"
+                                                        ToolTip="Quay lại">
                                                     <materialDesign:PackIcon Kind="ArrowLeft"
                                                                              Height="22"
                                                                              Width="23" />
@@ -162,7 +164,8 @@
                                                         Foreground="White"
                                                         Background="#FF29E67F"
                                                         BorderBrush="#FF28878B"
-                                                        Width="46">
+                                                        Width="46"
+                                                        ToolTip="Lưu">
                                                     <materialDesign:PackIcon Kind="ContentSave"
                                                                              Height="22"
                                                                              Width="23" />
@@ -278,7 +281,8 @@
                                                         Foreground="White"
                                                         Background="#FF29E67F"
                                                         BorderBrush="#FF28878B"
-                                                        Width="46">
+                                                        Width="46"
+                                                        ToolTip="Sửa thông tin">
                                                     <materialDesign:PackIcon Kind="Edit"
                                                                              Height="22"
                                                                              Width="23" />
@@ -409,7 +413,8 @@
                                                         Style="{StaticResource MaterialDesignToolButton}"
                                                         Foreground="White"
                                                         Background="#FF29E67F"
-                                                        BorderBrush="#FF28878B">
+                                                        BorderBrush="#FF28878B"
+                                                        ToolTip="Quay lại">
                                                     <materialDesign:PackIcon Kind="ArrowLeft"
                                                                              Height="22"
                                                                              Width="23" />
@@ -431,7 +436,8 @@
                                                         Foreground="White"
                                                         Background="#FF29E67F"
                                                         BorderBrush="#FF28878B"
-                                                        Width="46">
+                                                        Width="46"
+                                                        ToolTip="Gửi đi">
                                                     <materialDesign:PackIcon Kind="Send"
                                                                              Height="22"
                                                                              Width="23" />
@@ -447,8 +453,7 @@
                                                                          Foreground="#FF28878B"
                                                                          Height="17"
                                                                          Width="19" />
-                                                <ComboBox Name="cbbSendEmail"
-                                                          Margin="0 0 0 0"
+                                                <ComboBox Margin="0 0 0 0"
                                                           ItemsSource="{Binding g_listEmails}"
                                                           SelectedItem="{Binding g_selectedEmail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                           FontSize="14"
@@ -480,6 +485,124 @@
                                                          TextWrapping="Wrap"
                                                          VerticalScrollBarVisibility="Auto"
                                                          materialDesign:HintAssist.Hint="Nhập nội dung mail" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </Grid>
+                            <Grid x:Name="grVChangePassword"
+                                  Grid.Column="0">
+                                <materialDesign:Card  Background="White">
+                                    <Grid Margin="0 10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="300" />
+                                        </Grid.RowDefinitions>
+                                        <materialDesign:ColorZone Grid.Row="0"
+                                                                  Background="#FF28878B"
+                                                                  Height="50">
+                                            <DockPanel  Height="40">
+                                                <Button Command="{Binding g_iCm_ClickGoBackCommand}"
+                                                        CommandParameter="{Binding ElementName = detailEmployeesView}"
+                                                        Margin="0 0 0 0"
+                                                        DockPanel.Dock="Left"
+                                                        Style="{StaticResource MaterialDesignToolButton}"
+                                                        Foreground="White"
+                                                        Background="#FF29E67F"
+                                                        BorderBrush="#FF28878B"
+                                                        ToolTip="Quay lại">
+                                                    <materialDesign:PackIcon Kind="ArrowLeft"
+                                                                             Height="22"
+                                                                             Width="23" />
+                                                </Button>
+                                                <TextBlock DockPanel.Dock="Left"
+                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                           VerticalAlignment="Center"
+                                                           FontStyle="Italic"
+                                                           FontFamily="Roboto"
+                                                           FontSize="20"
+                                                           Foreground="White"
+                                                           Margin="10, 0"
+                                                           Text="Đổi mật khẩu" />
+                                                <Button Command="{Binding g_iCm_ClickChangePasswordCommand}"
+                                                        CommandParameter="{Binding ElementName = detailEmployeesView}"
+                                                        Margin="98 4 0 4"
+                                                        DockPanel.Dock="Right"
+                                                        Style="{StaticResource MaterialDesignToolButton}"
+                                                        Foreground="White"
+                                                        Background="#FF29E67F"
+                                                        BorderBrush="#FF28878B"
+                                                        Width="46"
+                                                        ToolTip="Lưu">
+                                                    <materialDesign:PackIcon Kind="DoneOutline"
+                                                                             Height="22"
+                                                                             Width="23" />
+                                                </Button>
+                                            </DockPanel>
+                                        </materialDesign:ColorZone>
+                                        <StackPanel Grid.Row="1"
+                                                    Margin="10 0 10 10">
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 10 0 0">
+                                                <materialDesign:PackIcon Margin="0 18 5 0"
+                                                                         Kind="KeyVariant"
+                                                                         Foreground="#FF28878B"
+                                                                         Height="17"
+                                                                         Width="19" />
+                                                <PasswordBox x:Name="passBxCurrPass"
+                                                             materialDesign:HintAssist.Hint="Mật khẩu hiện tại"
+                                                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                                             Width="278"
+                                                             FontSize="14">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PasswordChanged">
+                                                            <i:InvokeCommandAction Command="{Binding g_iCm_PasswordChangedCurrentPasswordCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                   CommandParameter="{Binding ElementName = passBxCurrPass}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </PasswordBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 5 0 0">
+                                                <materialDesign:PackIcon Margin="0 14 5 0"
+                                                                         Kind="KeyPlus"
+                                                                         Foreground="#FF28878B"
+                                                                         Height="19"
+                                                                         Width="19" />
+                                                <PasswordBox x:Name="passBxNewPass"
+                                                             IsHitTestVisible="{Binding g_b_isHitTestVisibleNewPass}"
+                                                             materialDesign:HintAssist.Hint="Mật khẩu mới"
+                                                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                                             Width="278"
+                                                             FontSize="14">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PasswordChanged">
+                                                            <i:InvokeCommandAction Command="{Binding g_iCm_PasswordChangedNewPasswordCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                   CommandParameter="{Binding ElementName = passBxNewPass}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </PasswordBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0 10 0 0">
+                                                <materialDesign:PackIcon Margin="0 14 5 0"
+                                                                         Kind="Repeat"
+                                                                         Foreground="#FF28878B"
+                                                                         Height="19"
+                                                                         Width="19" />
+                                                <PasswordBox x:Name="passBxConfirmNewPass"
+                                                             IsHitTestVisible="{Binding g_b_isHitTestVisibleConfirmNewPass}"
+                                                             materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới"
+                                                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                                             Width="278"
+                                                             FontSize="14">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PasswordChanged">
+                                                            <i:InvokeCommandAction Command="{Binding g_iCm_PasswordChangedConfirmNewPasswordCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                   CommandParameter="{Binding ElementName = passBxConfirmNewPass}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </PasswordBox>
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
@@ -534,11 +657,23 @@
                                         <DockPanel  Height="30"
                                                     VerticalAlignment="Top"
                                                     Margin="0 -11">
+                                            <Button Width="{Binding g_i_widthButtonChangePassword}"
+                                                    Command="{Binding g_iCm_ClickOpenChangePasswordCommand}"
+                                                    CommandParameter="{Binding ElementName = detailEmployeesView}"
+                                                    DockPanel.Dock="Right"
+                                                    Margin="0 -5"
+                                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                                    ToolTip="Đổi mật khẩu">
+                                                <materialDesign:PackIcon Kind="PasswordReset"
+                                                                         Height="22"
+                                                                         Width="23" />
+                                            </Button>
                                             <Button Command="{Binding g_iCm_ClickOpenMailCommand}"
                                                     CommandParameter="{Binding ElementName = detailEmployeesView}"
                                                     DockPanel.Dock="Right"
                                                     Margin="0 -5"
-                                                    Style="{DynamicResource MaterialDesignToolButton}">
+                                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                                    ToolTip="Gửi mail">
                                                 <materialDesign:PackIcon Kind="Email"
                                                                          Height="22"
                                                                          Width="23" />
@@ -547,7 +682,8 @@
                                                     CommandParameter="{Binding ElementName = detailEmployeesView}"
                                                     DockPanel.Dock="Right"
                                                     Margin="0 -5"
-                                                    Style="{DynamicResource MaterialDesignToolButton}">
+                                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                                    ToolTip="Xuất file">
                                                 <materialDesign:PackIcon Kind="FileExport"
                                                                          Height="22"
                                                                          Width="23" />
@@ -565,7 +701,8 @@
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
-                                                        <Button Margin="0 -5"
+                                                        <Button IsHitTestVisible="False"
+                                                                Margin="0 -5"
                                                                 Style="{DynamicResource MaterialDesignToolButton}">
                                                             <materialDesign:PackIcon Kind="Magnify"
                                                                                      Opacity=".70"
@@ -592,7 +729,8 @@
                                                 </materialDesign:ColorZone>
                                                 <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
                                                         Margin="8 0 0 0"
-                                                        Panel.ZIndex="0">
+                                                        Panel.ZIndex="0"
+                                                        ToolTip="Tìm kiếm">
                                                     <materialDesign:PackIcon Kind="Send"
                                                                              Height="22"
                                                                              Width="23" />

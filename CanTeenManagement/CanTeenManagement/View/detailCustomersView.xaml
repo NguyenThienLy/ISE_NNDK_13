@@ -86,7 +86,8 @@
                                     Background="#FFFF9C00"
                                     BorderBrush="#FF28878B"
                                     Height="Auto"
-                                    Width="Auto">
+                                    Width="Auto"
+                                    ToolTip="Đổi ảnh đại diện">
                                 <materialDesign:PackIcon Kind="Brush"
                                                          Height="22"
                                                          Width="17" />
@@ -139,7 +140,8 @@
                                                         Style="{StaticResource MaterialDesignToolButton}"
                                                         Foreground="White"
                                                         Background="#FF29E67F"
-                                                        BorderBrush="#FF28878B">
+                                                        BorderBrush="#FF28878B"
+                                                        ToolTip="Quay lại">
                                                     <materialDesign:PackIcon Kind="ArrowLeft"
                                                                              Height="22"
                                                                              Width="23" />
@@ -161,7 +163,8 @@
                                                         Foreground="White"
                                                         Background="#FF29E67F"
                                                         BorderBrush="#FF28878B"
-                                                        Width="46">
+                                                        Width="46"
+                                                        ToolTip="Lưu">
                                                     <materialDesign:PackIcon Kind="ContentSave"
                                                                              Height="22"
                                                                              Width="23" />
@@ -277,7 +280,8 @@
                                                         Foreground="White"
                                                         Background="#FF29E67F"
                                                         BorderBrush="#FF28878B"
-                                                        Width="46">
+                                                        Width="46"
+                                                        ToolTip="Sửa thông tin">
                                                     <materialDesign:PackIcon Kind="Edit"
                                                                              Height="22"
                                                                              Width="23" />
@@ -447,7 +451,8 @@
                                                     DockPanel.Dock="Right"
                                                     Margin="0,0,0,-2"
                                                     Style="{DynamicResource MaterialDesignToolButton}"
-                                                    Width="30">
+                                                    Width="30"
+                                                    ToolTip="Xuất file">
                                                 <materialDesign:PackIcon Kind="FileExport"
                                                                          Height="22"
                                                                          Width="23" />
@@ -465,7 +470,8 @@
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
-                                                        <Button Margin="0 -5"
+                                                        <Button IsHitTestVisible="False"
+                                                                Margin="0 -5"
                                                                 Style="{DynamicResource MaterialDesignToolButton}">
                                                             <materialDesign:PackIcon Kind="Magnify"
                                                                                      Opacity=".70"
@@ -492,7 +498,8 @@
                                                 </materialDesign:ColorZone>
                                                 <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}"
                                                          Margin="8 0 0 0"
-                                                         Panel.ZIndex="0">
+                                                         Panel.ZIndex="0"
+                                                         ToolTip="Tìm kiếm">
                                                     <materialDesign:PackIcon Kind="Send"
                                                                              Height="22"
                                                                              Width="23" />

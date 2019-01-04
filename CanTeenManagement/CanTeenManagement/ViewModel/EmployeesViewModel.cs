@@ -363,12 +363,15 @@ namespace CanTeenManagement.ViewModel
                                                                                   IMAGELINK = x.IMAGELINK.Trim(),
                                                                                   STATUS = x.STATUS.Trim()
                                                                               }).ToList().Take(15));
-                for (int i = 0; i < g_listEmployees.Count(); i++)
+                if (this.g_employee != null)
                 {
-                    if (g_listEmployees[i].ID.Trim() == g_employee.ID)
+                    for (int i = 0; i < this.g_listEmployees.Count(); i++)
                     {
-                        g_selectedItem = g_listEmployees[i];
-                        break;
+                        if (this.g_listEmployees[i].ID.Trim() == this.g_employee.ID)
+                        {
+                            this.g_selectedItem = this.g_listEmployees[i];
+                            break;
+                        }
                     }
                 }
                 this.sortID();
@@ -751,16 +754,20 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            this.g_i_addOrEdit = 0;
+            //this.g_i_addOrEdit = 0;
             this.g_employee = p;
             this.g_selectedItem = p;
 
             MainWindow mainWd = MainWindow.Instance;
             EmployeesView employeesV = EmployeesView.Instance;
 
+            if (mainWd.DataContext == null)
+                return;
+            MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
+
             mainWd.Opacity = 0.5;
             employeesV.Opacity = 0.5;
-
+            l_mainVM.g_b_detailFromMainWindow = false;
             DetailEmployeesView detailEmpView = new DetailEmployeesView();
             detailEmpView.ShowDialog();
 

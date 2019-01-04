@@ -53,7 +53,7 @@ namespace CanTeenManagement.ViewModel
         #region command.
         public ICommand g_iCm_LoadedCommand { get; set; }
 
-        public ICommand g_iCm_UnLoadedCommand { get; set; }
+        public ICommand g_iCm_UnloadedCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonBackCommand { get; set; }
 
@@ -73,7 +73,7 @@ namespace CanTeenManagement.ViewModel
                 this.loaded();
             });
 
-            g_iCm_UnLoadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
+            g_iCm_UnloadedCommand = new RelayCommand<DashBoardView>((p) => { return true; }, (p) =>
             {
                 this.unloaded();
             });
@@ -133,7 +133,6 @@ namespace CanTeenManagement.ViewModel
                 ORDERFOOD t_orderFood = new ORDERFOOD(food);
                 g_obCl_orderFood.Add(t_orderFood);
             }
-
         }
 
         private void clickBack()

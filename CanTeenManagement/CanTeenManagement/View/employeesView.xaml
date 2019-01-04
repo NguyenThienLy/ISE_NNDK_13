@@ -76,7 +76,8 @@
                                 CommandParameter="{Binding ElementName=employeesView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5"
-                                Style="{DynamicResource MaterialDesignToolButton}">
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                ToolTip="Xuất file">
                             <materialDesign:PackIcon Kind="FileExport"
                                                      Height="22"
                                                      Width="23" />
@@ -85,7 +86,8 @@
                                 CommandParameter="{Binding ElementName=employeesView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5 20 -5"
-                                Style="{DynamicResource MaterialDesignToolButton}">
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                ToolTip="Lưu thông tin">
                             <materialDesign:PackIcon Kind="ContentSave"
                                                      Height="22"
                                                      Width="23" />
@@ -94,7 +96,8 @@
                                 CommandParameter="{Binding ElementName=employeesView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5"
-                                Style="{DynamicResource MaterialDesignToolButton}">
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                ToolTip="Thêm mới">
                             <materialDesign:PackIcon Kind="Add"
                                                      Height="22"
                                                      Width="23" />
@@ -103,15 +106,14 @@
                                 CommandParameter="{Binding ElementName=employeesView}"
                                 DockPanel.Dock="Right"
                                 Margin="0 -5"
-                                Style="{DynamicResource MaterialDesignToolButton}">
+                                Style="{DynamicResource MaterialDesignToolButton}"
+                                ToolTip="Sửa thông tin">
                             <materialDesign:PackIcon Kind="Edit"
                                                      Height="22"
                                                      Width="23" />
                         </Button>
                         <StackPanel  Orientation="Horizontal"
                                      materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Height="25"
-                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
                             <materialDesign:ColorZone  Mode="Standard"
                                                        Padding="8 4 8 4"
                                                        CornerRadius="2"
@@ -123,7 +125,8 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Button Margin="0 -5"
+                                    <Button IsHitTestVisible="False"
+                                            Margin="0 -5"
                                             Style="{DynamicResource MaterialDesignToolButton}">
                                         <materialDesign:PackIcon Kind="Magnify"
                                                                  Opacity=".70"
@@ -151,7 +154,8 @@
                             </materialDesign:ColorZone>
                             <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
                                     Margin="8 0 0 0"
-                                    Panel.ZIndex="0">
+                                    Panel.ZIndex="0"
+                                    ToolTip="Tìm kiếm">
                                 <materialDesign:PackIcon Kind="Send"
                                                          Height="22"
                                                          Width="23" />

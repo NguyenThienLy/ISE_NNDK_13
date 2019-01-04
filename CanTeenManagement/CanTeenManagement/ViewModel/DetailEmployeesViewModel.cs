@@ -19,22 +19,12 @@ using System.Windows.Media;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.Enums;
 using System.Windows.Threading;
+using System.Windows.Controls;
 
 namespace CanTeenManagement.ViewModel
 {
     public class DetailEmployeesViewModel : BaseViewModel
     {
-        private List<string> _g_listEmails;
-        public List<string> g_listEmails
-        {
-            get => _g_listEmails;
-            set
-            {
-                _g_listEmails = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string _g_str_filter;
         public string g_str_filter
         {
@@ -60,6 +50,7 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        #region Các ô trong edit.
         private List<string> _g_listGenders;
         public List<string> g_listGenders
         {
@@ -82,7 +73,6 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        #region Các ô trong edit.
         private string _g_str_fullNameEdit;
         public string g_str_fullNameEdit { get => _g_str_fullNameEdit; set { _g_str_fullNameEdit = value; OnPropertyChanged(); } }
 
@@ -113,6 +103,17 @@ namespace CanTeenManagement.ViewModel
         #endregion
 
         #region Các ô trong gửi mail.
+        private List<string> _g_listEmails;
+        public List<string> g_listEmails
+        {
+            get => _g_listEmails;
+            set
+            {
+                _g_listEmails = value;
+                OnPropertyChanged();
+            }
+        }
+
         private EMPLOYEE _g_selectedEmail;
         public EMPLOYEE g_selectedEmail
         {
@@ -142,6 +143,78 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_contentMail = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Các ô trong đổi mật khẩu
+        PasswordBox g_passBoxCurrPass = null;
+        PasswordBox g_passBoxNewPass = null;
+        PasswordBox g_passBoxConfirmNewPass = null;
+
+        private int _g_i_widthButtonChangePassword;
+        public int g_i_widthButtonChangePassword
+        {
+            get { return _g_i_widthButtonChangePassword; }
+            set
+            {
+                _g_i_widthButtonChangePassword = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_currentPassword;
+        public string g_str_currentPassword
+        {
+            get => _g_str_currentPassword;
+            set
+            {
+                _g_str_currentPassword = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_newPassword;
+        public string g_str_newPassword
+        {
+            get => _g_str_newPassword;
+            set
+            {
+                _g_str_newPassword = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_confirmNewPassword;
+        public string g_str_confirmNewPassword
+        {
+            get => _g_str_confirmNewPassword;
+            set
+            {
+                _g_str_confirmNewPassword = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isHitTestVisibleNewPass;
+        public bool g_b_isHitTestVisibleNewPass
+        {
+            get { return _g_b_isHitTestVisibleNewPass; }
+            set
+            {
+                _g_b_isHitTestVisibleNewPass = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _g_b_isHitTestVisibleConfirmNewPass;
+        public bool g_b_isHitTestVisibleConfirmNewPass
+        {
+            get { return _g_b_isHitTestVisibleConfirmNewPass; }
+            set
+            {
+                _g_b_isHitTestVisibleConfirmNewPass = value;
                 OnPropertyChanged();
             }
         }
@@ -217,6 +290,16 @@ namespace CanTeenManagement.ViewModel
 
         public ICommand g_iCm_ClickOpenMailCommand { get; set; }
 
+        public ICommand g_iCm_ClickChangePasswordCommand { get; set; }
+
+        public ICommand g_iCm_ClickOpenChangePasswordCommand { get; set; }
+
+        public ICommand g_iCm_PasswordChangedCurrentPasswordCommand { get; set; }
+
+        public ICommand g_iCm_PasswordChangedNewPasswordCommand { get; set; }
+
+        public ICommand g_iCm_PasswordChangedConfirmNewPasswordCommand { get; set; }
+
         public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
 
         public ICommand g_iCm_ClickChangeImageCommand { get; set; }
@@ -265,6 +348,31 @@ namespace CanTeenManagement.ViewModel
                 this.clickSendMail(p);
             });
 
+            g_iCm_ClickOpenChangePasswordCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.clickOpenChangePassword(p);
+            });
+
+            g_iCm_ClickChangePasswordCommand = new RelayCommand<DetailEmployeesView>((p) => { return this.checkChangePassword(); }, (p) =>
+            {
+                this.clickChangePassword(p);
+            });
+
+            g_iCm_PasswordChangedCurrentPasswordCommand = new RelayCommand<System.Windows.Controls.PasswordBox>((p) => { return true; }, (p) =>
+            {
+                this.passwordChangedCurrentPassword(p);
+            });
+
+            g_iCm_PasswordChangedNewPasswordCommand = new RelayCommand<System.Windows.Controls.PasswordBox>((p) => { return true; }, (p) =>
+            {
+                this.passwordChangedNewPassword(p);
+            });
+
+            g_iCm_PasswordChangedConfirmNewPasswordCommand = new RelayCommand<System.Windows.Controls.PasswordBox>((p) => { return true; }, (p) =>
+            {
+                this.passwordChangedConfirmNewPassword(p);
+            });
+
             g_iCm_MouseLeftButtonDownCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 this.mouseLeftButtonDown(p);
@@ -284,6 +392,8 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickGoBack(p);
             });
+
+
         }
 
         public void WatchTable()
@@ -324,6 +434,14 @@ namespace CanTeenManagement.ViewModel
             this.g_timer = new DispatcherTimer();
             this.g_timer.Tick += (s, ev) => this.refresh();
             this.g_timer.Interval = new TimeSpan(0, 0, 1);
+
+            this.g_selectedEmail = null;
+            this.g_str_titleMail = string.Empty;
+            this.g_str_contentMail = string.Empty;
+
+            this.g_i_widthButtonChangePassword = 0;
+            this.resetChangePassword();
+
             this.loadCombobox();
         }
 
@@ -351,11 +469,14 @@ namespace CanTeenManagement.ViewModel
         private void loadDataEmployee()
         {
             EmployeesView l_employeesView = EmployeesView.Instance;
-
             if (l_employeesView.DataContext == null)
                 return;
-
             EmployeesViewModel l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
+
+            MainWindow mainWd = MainWindow.Instance;
+            if (mainWd.DataContext == null)
+                return;
+            MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
 
             // Thêm danh sách email.
             this.g_listEmails.Clear();
@@ -367,18 +488,43 @@ namespace CanTeenManagement.ViewModel
                     this.g_listEmails.Add(l_str_email);
             }
 
-            #region gán giá trị cho các ô
-            this.g_str_id = l_employeesVM.g_str_id;
-            this.g_str_fullName = l_employeesVM.g_str_fullName;
-            this.g_str_gender = l_employeesVM.g_str_gender;
-            this.g_i_yearOfBirth = l_employeesVM.g_i_yearOfBirth;
-            this.g_str_phone = l_employeesVM.g_str_phone;
-            this.g_str_email = l_employeesVM.g_str_email;
-            this.g_str_position = l_employeesVM.g_str_position;
-            this.g_str_status = l_employeesVM.g_str_status;
-            this.g_str_imageLink = l_employeesVM.g_str_imageLink;
-            this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
-            #endregion
+            if (l_mainVM.g_b_detailFromMainWindow == true)
+            {
+                var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == staticVarClass.account_userName).SingleOrDefault();
+
+                #region gán giá trị cho các ô
+                this.g_str_id = l_employee.ID;
+                this.g_str_fullName = l_employee.FULLNAME;
+                this.g_str_gender = l_employee.GENDER;
+                this.g_i_yearOfBirth = l_employee.YEAROFBIRTH;
+                this.g_str_phone = l_employee.PHONE;
+                this.g_str_email = l_employee.EMAIL;
+                this.g_str_position = l_employee.POSITION;
+                this.g_str_status = l_employee.STATUS;
+                this.g_str_imageLink = l_employee.IMAGELINK;
+                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+                #endregion
+
+                this.g_i_widthButtonChangePassword = 30;
+            }
+            else
+            {
+                #region gán giá trị cho các ô
+                this.g_str_id = l_employeesVM.g_str_id;
+                this.g_str_fullName = l_employeesVM.g_str_fullName;
+                this.g_str_gender = l_employeesVM.g_str_gender;
+                this.g_i_yearOfBirth = l_employeesVM.g_i_yearOfBirth;
+                this.g_str_phone = l_employeesVM.g_str_phone;
+                this.g_str_email = l_employeesVM.g_str_email;
+                this.g_str_position = l_employeesVM.g_str_position;
+                this.g_str_status = l_employeesVM.g_str_status;
+                this.g_str_imageLink = l_employeesVM.g_str_imageLink;
+                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+                #endregion
+
+                if (this.g_str_id == staticVarClass.account_userName)
+                    this.g_i_widthButtonChangePassword = 30;
+            }
         }
 
         private void loaded(DetailEmployeesView p)
@@ -386,6 +532,7 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            this.g_i_widthButtonChangePassword = 0;
             this.loadDataEmployee();
 
             #region đổ dữ liệu vào listview
@@ -395,6 +542,7 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
+            p.grVChangePassword.Height = 0;
 
             this.WatchTable();
         }
@@ -446,6 +594,7 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 350;
             p.grVSendMail.Height = 0;
+            p.grVChangePassword.Height = 0;
 
             this.g_str_fullNameEdit = this.g_str_fullName;
             this.g_str_genderEdit = this.g_str_gender;
@@ -500,6 +649,7 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
+            p.grVChangePassword.Height = 0;
         }
 
         private bool checkExport()
@@ -631,9 +781,10 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 0;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 350;
-            this.g_selectedEmail = null;
-            this.g_str_titleMail = string.Empty;
-            this.g_str_contentMail = string.Empty;
+            p.grVChangePassword.Height = 0;
+            //this.g_selectedEmail = null;
+            //this.g_str_titleMail = string.Empty;
+            //this.g_str_contentMail = string.Empty;
         }
 
         private bool checkSendMail()
@@ -672,13 +823,152 @@ namespace CanTeenManagement.ViewModel
 
                 staticFunctionClass.showStatusView(true, "Gửi email đến " + l_to + " thành công!");
 
-                p.grVInfo.Height = 350;
-                p.grVEdit.Height = 0;
-                p.grVSendMail.Height = 0;
+                this.g_selectedEmail = null;
+                this.g_str_titleMail = string.Empty;
+                this.g_str_contentMail = string.Empty;
+
+                //p.grVInfo.Height = 350;
+                //p.grVEdit.Height = 0;
+                //p.grVSendMail.Height = 0;
+                //p.grVChangePassword.Height = 0;
             }
             catch
             {
                 staticFunctionClass.showStatusView(false, "Gửi email đến " + this.g_selectedEmail.EMAIL + " thất bại!");
+            }
+        }
+
+        private void clickOpenChangePassword(DetailEmployeesView p)
+        {
+            if (p == null)
+                return;
+
+            p.grVInfo.Height = 0;
+            p.grVEdit.Height = 0;
+            p.grVSendMail.Height = 0;
+            p.grVChangePassword.Height = 350;
+        }
+
+        private void resetChangePassword()
+        {
+            this.g_str_currentPassword = string.Empty;
+            this.g_str_newPassword = string.Empty;
+            this.g_str_confirmNewPassword = string.Empty;
+
+            this.g_b_isHitTestVisibleNewPass = false;
+            this.g_b_isHitTestVisibleConfirmNewPass = false;
+
+            if (this.g_passBoxCurrPass != null)
+            {
+                this.g_passBoxCurrPass.Password = string.Empty;
+            }
+            if (this.g_passBoxNewPass != null)
+            {
+                this.g_passBoxNewPass.Password = string.Empty;
+            }
+            if (this.g_passBoxConfirmNewPass != null)
+            {
+                this.g_passBoxConfirmNewPass.Password = string.Empty;
+            }
+        }
+
+        private void passwordChangedCurrentPassword(System.Windows.Controls.PasswordBox p)
+        {
+            this.g_passBoxCurrPass = p;
+            this.g_str_currentPassword = this.g_passBoxCurrPass.Password;
+
+            if (this.g_str_currentPassword != string.Empty)
+            {
+                this.g_b_isHitTestVisibleNewPass = true;
+                this.g_b_isHitTestVisibleConfirmNewPass = true;
+            }
+            else
+            {
+                this.g_b_isHitTestVisibleNewPass = false;
+                this.g_b_isHitTestVisibleConfirmNewPass = false;
+            }
+        }
+
+        private void passwordChangedNewPassword(System.Windows.Controls.PasswordBox p)
+        {
+            this.g_passBoxNewPass = p;
+            this.g_str_newPassword = this.g_passBoxNewPass.Password;
+
+            if (this.g_str_newPassword != string.Empty)
+            {
+                this.g_b_isHitTestVisibleConfirmNewPass = true;
+            }
+            else
+            {
+                if (this.g_passBoxConfirmNewPass != null)
+                    this.g_passBoxConfirmNewPass.Password = string.Empty;
+
+                this.g_b_isHitTestVisibleConfirmNewPass = false;
+            }
+        }
+
+        private void passwordChangedConfirmNewPassword(System.Windows.Controls.PasswordBox p)
+        {
+            this.g_passBoxConfirmNewPass = p;
+            this.g_str_confirmNewPassword = this.g_passBoxConfirmNewPass.Password;
+        }
+
+        private bool checkChangePassword()
+        {
+            if (this.g_str_currentPassword == string.Empty)
+                return false;
+
+            if (this.g_str_newPassword == string.Empty)
+                return false;
+
+            if (this.g_str_confirmNewPassword == string.Empty)
+                return false;
+
+            return true;
+        }
+
+        private void clickChangePassword(DetailEmployeesView p)
+        {
+            if (staticVarClass.account_password != this.g_str_currentPassword)
+            {
+                staticFunctionClass.showStatusView(false, "Mật khẩu hiện tại không khớp. Vui lòng nhập lại!");
+            }
+            else
+            {
+                if (this.g_str_newPassword == this.g_str_confirmNewPassword)
+                {
+                    try
+                    {
+                        var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).SingleOrDefault();
+                        l_employee.PASSWORD = this.g_str_confirmNewPassword;
+
+                        dataProvider.Instance.DB.SaveChanges();
+
+                        staticVarClass.account_password = this.g_str_confirmNewPassword;
+                        staticFunctionClass.showStatusView(true, "Đổi mật khẩu thành công!");
+
+                        this.resetChangePassword();
+                        this.clickCloseWindow(p);
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MainWindow mainWd = MainWindow.Instance;
+                            if (mainWd.DataContext == null)
+                                return;
+                            MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
+
+                            l_mainVM.clickLogOutWindow(mainWd);
+                        });
+                    }
+                    catch
+                    {
+                        staticFunctionClass.showStatusView(false, "Đổi mật khẩu thất bại!");
+                    }
+                }
+                else
+                {
+                    staticFunctionClass.showStatusView(false, "Xác nhận mật khẩu mới không khớp. Vui lòng nhập lại!");
+                }
             }
         }
 
@@ -687,6 +977,7 @@ namespace CanTeenManagement.ViewModel
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
+            p.grVChangePassword.Height = 0;
         }
 
         private bool filterIDOrder(object item)
