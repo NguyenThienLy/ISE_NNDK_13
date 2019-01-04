@@ -60,6 +60,20 @@ namespace CanTeenManagement.CO
         public static int time_autoOffLogIn = 1 * 1000;
         #endregion
 
+        #region time string.
+        public static string timeStr_instanceTime = "Khoảng thời gian";
+
+        public static string timeStr_byWeek = "Theo tuần";
+
+        public static string timeStr_thisWeek = "Tuần hiện tại";
+
+        public static string timeStr_thisMoth = "Tháng hiện tại";
+
+        public static string timeStr_thisYear = "Năm hiện tại";
+
+        public static string timeStr_manyYears = "Nhiều";
+        #endregion
+
         #region Link file server IP.
         public static string linkFile_serverIP = "Server.txt";
         public static string linkFile_account = "Account.txt";
@@ -99,6 +113,8 @@ namespace CanTeenManagement.CO
         public static string mode_groupGender = "Gom nhóm giới tính";
         public static string mode_groupPosition = "Gom nhóm chức vụ";
         public static string mode_groupYearOfBirth = "Gom nhóm năm sinh";
+        public static string mode_statisticChart = "Doanh số";
+        public static string mode_statisticFood = "Món ăn";
         #endregion
 
         #region account.

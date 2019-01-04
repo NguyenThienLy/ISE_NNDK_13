@@ -746,8 +746,15 @@ namespace CanTeenManagement.ViewModel
 
         private void saveAddPriceForCustomer()
         {
+            int i_cash = 0;
+
+            if (this.g_b_isAddCash == true)
+                i_cash = this.g_i_sumPrice;
+            else
+                i_cash = -this.g_i_sumPrice;
+
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH += this.g_i_sumPrice);
+                                              .ForEach(customer => customer.CASH += i_cash);
             dataProvider.Instance.DB.SaveChanges();
         }
 
@@ -814,8 +821,15 @@ namespace CanTeenManagement.ViewModel
 
         private void saveSubPriceForCustomer()
         {
+            int i_cash = 0;
+
+            if (this.g_b_isAddCash == true)
+                i_cash = -this.g_i_sumPrice;
+            else
+                i_cash = this.g_i_sumPrice;
+
             dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH -= this.g_i_sumPrice);
+                                              .ForEach(customer => customer.CASH += i_cash);
             dataProvider.Instance.DB.SaveChanges();
         }
 

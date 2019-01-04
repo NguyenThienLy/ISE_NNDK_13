@@ -94,10 +94,6 @@
                                                     CommandParameter="{Binding Path, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
                                     </TextBox.InputBindings>
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="LostFocus">
-                                            <i:InvokeCommandAction Command="{Binding g_iCm_LostFocusFoodNameCommand}"
-                                                                   CommandParameter="{Binding ElementName = txtfoodName}" />
-                                        </i:EventTrigger>
                                         <i:EventTrigger EventName="TextChanged">
                                             <i:InvokeCommandAction Command="{Binding g_iCm_TextChangedFoodNameCommand}"
                                                                    CommandParameter="{Binding ElementName = txtfoodName}" />

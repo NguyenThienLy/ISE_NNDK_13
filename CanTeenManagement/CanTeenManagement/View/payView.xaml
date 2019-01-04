@@ -354,6 +354,7 @@
                                              FontSize="50"
                                              FontWeight="DemiBold"
                                              IsReadOnly="True"
+                                             Focusable="False"
                                              CaretBrush="{x:Null}"
                                              BorderThickness="0">
                                         <i:Interaction.Triggers>

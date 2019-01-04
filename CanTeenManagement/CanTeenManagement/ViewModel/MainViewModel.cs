@@ -53,6 +53,8 @@ namespace CanTeenManagement.ViewModel
         #region commands.
         public ICommand g_iCm_ClickCloseWindowCommand { get; set; }
 
+        public ICommand g_iCm_ClickLogOutWindowCommand { get; set; }
+
         public ICommand g_iCm_ClickMinimizeWindowCommand { get; set; }
 
         public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
@@ -68,7 +70,7 @@ namespace CanTeenManagement.ViewModel
 
         public MainViewModel()
         {
-            this.g_b_isLoaded = false;
+            this.initSupport();
 
             //CloseWindowCommand = new RelayCommand<MainWindow>((p) => { return p == null ? false : true; }, (p) =>
             //{
@@ -83,6 +85,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickCloseWindowCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 this.clickCloseWindow(p);
+            });
+
+            g_iCm_ClickLogOutWindowCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
+            {
+                this.clickLogOutWindow(p);
             });
 
             g_iCm_ClickMinimizeWindowCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
@@ -128,6 +135,11 @@ namespace CanTeenManagement.ViewModel
             return parent;
         }
 
+        private void initSupport()
+        {
+            this.g_b_isLoaded = false;
+        }
+
         private void clickCloseWindow(MainWindow p)
         {
             if (p == null)
@@ -137,6 +149,25 @@ namespace CanTeenManagement.ViewModel
             mainWD.Close();
 
             p.Close();
+        }
+
+        private void clickLogOutWindow(MainWindow p)
+        {
+            MainWindow mainWD = MainWindow.Instance;
+            mainWD.Close();
+
+            var loginV = new LoginView();
+
+            if (loginV.DataContext == null)
+                return;
+
+            var loginVM = loginV.DataContext as LoginViewModel;
+
+            loginVM.g_b_isLogin = false;
+
+            this.g_b_isLoaded = false;
+
+            this.loaded(p);
         }
 
         private void clickMinimizeWindow(MainWindow p)
@@ -188,13 +219,9 @@ namespace CanTeenManagement.ViewModel
                     break;
                 case 4:
                     p.GridMainWindow.Children.Clear();
-                    p.GridMainWindow.Children.Add(ReportView.Instance);
-                    break;
-                case 5:
-                    p.GridMainWindow.Children.Clear();
                     p.GridMainWindow.Children.Add(CallFoodView.Instance);
                     break;
-                case 6:
+                case 5:
                     p.GridMainWindow.Children.Clear();
                     p.GridMainWindow.Children.Add(EmployeesView.Instance);
                     break;
