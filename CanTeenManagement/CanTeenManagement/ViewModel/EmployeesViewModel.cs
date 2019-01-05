@@ -59,6 +59,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_isHitTestVisibleMode;
+        public bool g_b_isHitTestVisibleMode
+        {
+            get { return _g_b_isHitTestVisibleMode; }
+            set
+            {
+                _g_b_isHitTestVisibleMode = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _g_i_height;
         public int g_i_height
         {
@@ -166,8 +177,11 @@ namespace CanTeenManagement.ViewModel
         }
 
         int g_i_addOrEdit;
-
         bool g_b_groupGender;
+        bool g_b_isRefreshed;
+        bool g_b_isUnloaded;
+
+        EMPLOYEE g_employee = null;
 
         #region Các thuộc tính của employee.
         private string _g_str_imageLink;
@@ -232,10 +246,10 @@ namespace CanTeenManagement.ViewModel
         public string g_str_status { get => _g_str_status; set { _g_str_status = value; OnPropertyChanged(); } }
         #endregion
 
-        EMPLOYEE g_employee = null;
-
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
+
+        public ICommand g_iCm_UnloadedCommand { get; set; }
 
         public ICommand g_iCm_ClickAddInfoCommand { get; set; }
 
@@ -261,6 +275,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_LoadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
                 this.loaded();
+            });
+
+            g_iCm_UnloadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.unloaded();
             });
 
             g_iCm_ClickAddInfoCommand = new RelayCommand<EmployeesView>((p) => { return this.checkAdd(); }, (p) =>
@@ -336,33 +355,9 @@ namespace CanTeenManagement.ViewModel
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                this.g_listEmployees = this.ToObservableCollection<EMPLOYEE>((from employee in dataProvider.Instance.DB.EMPLOYEEs
-                                                                              select new
-                                                                              {
-                                                                                  ID = employee.ID.Trim(),
-                                                                                  PASSWORD = employee.PASSWORD.Trim(),
-                                                                                  FULLNAME = employee.FULLNAME.Trim(),
-                                                                                  GENDER = employee.GENDER.Trim(),
-                                                                                  YEAROFBIRTH = employee.YEAROFBIRTH,
-                                                                                  PHONE = employee.PHONE.Trim(),
-                                                                                  EMAIL = employee.EMAIL.Trim(),
-                                                                                  POSITION = employee.POSITION.Trim(),
-                                                                                  IMAGELINK = employee.IMAGELINK.Trim(),
-                                                                                  STATUS = employee.STATUS.Trim()
+                this.g_b_isRefreshed = true;
+                this.loadData();
 
-                                                                              }).ToList().Select(x => new EMPLOYEE
-                                                                              {
-                                                                                  ID = x.ID.Trim(),
-                                                                                  PASSWORD = x.PASSWORD.Trim(),
-                                                                                  FULLNAME = x.FULLNAME.Trim(),
-                                                                                  GENDER = x.GENDER.Trim(),
-                                                                                  YEAROFBIRTH = x.YEAROFBIRTH,
-                                                                                  PHONE = x.PHONE.Trim(),
-                                                                                  EMAIL = x.EMAIL.Trim(),
-                                                                                  POSITION = x.POSITION.Trim(),
-                                                                                  IMAGELINK = x.IMAGELINK.Trim(),
-                                                                                  STATUS = x.STATUS.Trim()
-                                                                              }).ToList().Take(15));
                 if (this.g_employee != null)
                 {
                     for (int i = 0; i < this.g_listEmployees.Count(); i++)
@@ -382,8 +377,12 @@ namespace CanTeenManagement.ViewModel
         private void inItSupport()
         {
             this.g_listEmployees = new ObservableCollection<EMPLOYEE>();
+            this.g_selectedItem = null;
             this.g_i_addOrEdit = 0;
             this.g_b_groupGender = true;
+            this.g_b_isRefreshed = false;
+            this.g_b_isUnloaded = false;
+            this.g_b_isHitTestVisibleMode = true;
             this.g_str_mode = staticVarClass.mode_groupGender;
             this.loadCombobox();
         }
@@ -425,11 +424,22 @@ namespace CanTeenManagement.ViewModel
             this.g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
+        private void unloaded()
+        {
+            this.g_b_isUnloaded = true;
+        }
+
         private void loaded()
         {
-            if (this.g_listEmployees != null)
-                this.g_listEmployees.Clear();
+            this.loadData();
+            this.sortID();
+            this.clickChangeModeGroup();
 
+            this.WatchTable();
+        }
+
+        private void loadData()
+        {
             this.g_listEmployees = this.ToObservableCollection<EMPLOYEE>((from employee in dataProvider.Instance.DB.EMPLOYEEs
                                                                           select new
                                                                           {
@@ -457,10 +467,6 @@ namespace CanTeenManagement.ViewModel
                                                                               IMAGELINK = x.IMAGELINK.Trim(),
                                                                               STATUS = x.STATUS.Trim()
                                                                           }).ToList().Take(15));
-            this.g_selectedItem = null;
-            this.sortID();
-            this.clickChangeModeGroup();
-            this.WatchTable();
         }
 
         private void sortID()
@@ -472,11 +478,22 @@ namespace CanTeenManagement.ViewModel
 
         private void clickChangeModeGroup()
         {
+            if (this.g_i_addOrEdit != 0 || this.g_b_isRefreshed == true) // click save or autoRefresh.
+            {
+                this.g_b_groupGender = !this.g_b_groupGender;
+            }
+
+            if (this.g_b_isUnloaded == true)
+            {
+                this.g_b_groupGender = !this.g_b_groupGender;
+            }
+
             ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listEmployees);
 
             if (this.g_b_groupGender)
             {
                 this.g_b_groupGender = false;
+
                 var groupDescription = new PropertyGroupDescription("GENDER");
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(groupDescription);
@@ -485,11 +502,15 @@ namespace CanTeenManagement.ViewModel
             else
             {
                 this.g_b_groupGender = true;
+
                 var groupDescription = new PropertyGroupDescription("POSITION");
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(groupDescription);
                 this.g_str_mode = staticVarClass.mode_groupPosition;
             }
+
+            this.g_b_isRefreshed = false;
+            this.g_b_isUnloaded = false;
         }
 
         private string getNameForPicture(string id)
@@ -503,12 +524,12 @@ namespace CanTeenManagement.ViewModel
             return l_temp;
         }
 
-        private bool clickGoBack()
+        private void clickGoBack()
         {
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isReadOnlyID = false;
-            return true;
+            this.g_b_isHitTestVisibleMode = true;
         }
 
         private bool checkAdd()
@@ -523,6 +544,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_height = 40;
             this.g_i_addOrEdit = 1;
+            this.g_b_isHitTestVisibleMode = false;
 
             #region Làm trống text box.
             this.g_str_id = string.Empty;
@@ -550,6 +572,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 40;
             this.g_i_addOrEdit = 2;
             this.g_b_isReadOnlyID = true;
+            this.g_b_isHitTestVisibleMode = false;
         }
 
         private bool checkSave()
@@ -659,8 +682,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
-            this.g_b_groupGender = !this.g_b_groupGender;
-            this.loaded();
+            this.g_b_isHitTestVisibleMode = true;
         }
 
         private bool checkExport()
@@ -749,9 +771,12 @@ namespace CanTeenManagement.ViewModel
 
         private void clickDetail(EMPLOYEE p)
         {
+            // Lấy cái p này chính là dòng đang được chọn.
+            // Tui có làm ở trong order view truyền vào pay view bà tham khảo đó nha.
             if (p == null)
                 return;
 
+            //this.g_i_addOrEdit = 0;
             this.g_employee = p;
             this.g_selectedItem = p;
 
@@ -770,6 +795,10 @@ namespace CanTeenManagement.ViewModel
 
             mainWd.Opacity = 100;
             employeesV.Opacity = 100;
+
+
         }
+
+
     }
 }

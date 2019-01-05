@@ -61,6 +61,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_isHitTestVisibleMode;
+        public bool g_b_isHitTestVisibleMode
+        {
+            get { return _g_b_isHitTestVisibleMode; }
+            set
+            {
+                _g_b_isHitTestVisibleMode = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _g_i_height;
         public int g_i_height
         {
@@ -154,6 +165,10 @@ namespace CanTeenManagement.ViewModel
 
         int g_i_addOrEdit;
         bool g_b_groupGender;
+        bool g_b_isRefreshed;
+        bool g_b_isUnloaded;
+
+        CUSTOMER g_customer = null;
 
         #region Các thuộc tính của customer.
         private string _g_str_imageLink;
@@ -213,10 +228,10 @@ namespace CanTeenManagement.ViewModel
         public Nullable<int> g_i_star { get => _g_i_star; set { _g_i_star = value; OnPropertyChanged(); } }
         #endregion
 
-        CUSTOMER g_customer = null;
-
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
+
+        public ICommand g_iCm_UnloadedCommand { get; set; }
 
         public ICommand g_iCm_ClickAddCommand { get; set; }
 
@@ -244,6 +259,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_LoadedCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
             {
                 this.loaded();
+            });
+
+            g_iCm_UnloadedCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
+            {
+                this.unloaded();
             });
 
             g_iCm_ClickAddCommand = new RelayCommand<CustomersView>((p) => { return this.checkAdd(); }, (p) =>
@@ -324,35 +344,9 @@ namespace CanTeenManagement.ViewModel
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                this.g_listCustomers = this.ToObservableCollection<CUSTOMER>((from customer in dataProvider.Instance.DB.CUSTOMERs
-                                                                              select new
-                                                                              {
-                                                                                  ID = customer.ID.Trim(),
-                                                                                  PIN = customer.PIN.Trim(),
-                                                                                  FULLNAME = customer.FULLNAME.Trim(),
-                                                                                  GENDER = customer.GENDER.Trim(),
-                                                                                  YEAROFBIRTH = customer.YEAROFBIRTH,
-                                                                                  PHONE = customer.PHONE.Trim(),
-                                                                                  EMAIL = customer.EMAIL.Trim(),
-                                                                                  CASH = customer.CASH,
-                                                                                  POINT = customer.POINT,
-                                                                                  IMAGELINK = customer.IMAGELINK.Trim(),
-                                                                                  STAR = customer.STAR
+                this.g_b_isRefreshed = true;
+                this.loadData();
 
-                                                                              }).ToList().Select(x => new CUSTOMER
-                                                                              {
-                                                                                  ID = x.ID.Trim(),
-                                                                                  PIN = x.PIN.Trim(),
-                                                                                  FULLNAME = x.FULLNAME.Trim(),
-                                                                                  GENDER = x.GENDER.Trim(),
-                                                                                  YEAROFBIRTH = x.YEAROFBIRTH,
-                                                                                  PHONE = x.PHONE.Trim(),
-                                                                                  EMAIL = x.EMAIL.Trim(),
-                                                                                  CASH = x.CASH,
-                                                                                  POINT = x.POINT,
-                                                                                  IMAGELINK = x.IMAGELINK.Trim(),
-                                                                                  STAR = x.STAR
-                                                                              }).ToList().Take(15));
                 if (this.g_customer != null)
                 {
                     for (int i = 0; i < g_listCustomers.Count(); i++)
@@ -372,8 +366,12 @@ namespace CanTeenManagement.ViewModel
         private void inItSupport()
         {
             this.g_listCustomers = new ObservableCollection<CUSTOMER>();
+            this.g_selectedItem = null;
             this.g_i_addOrEdit = 0;
             this.g_b_groupGender = true;
+            this.g_b_isRefreshed = false;
+            this.g_b_isUnloaded = false;
+            this.g_b_isHitTestVisibleMode = true;
             this.g_str_mode = staticVarClass.mode_groupGender;
             this.loadCombobox();
         }
@@ -400,11 +398,21 @@ namespace CanTeenManagement.ViewModel
             this.g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
+        private void unloaded()
+        {
+            this.g_b_isUnloaded = true;
+        }
+
         private void loaded()
         {
-            if (this.g_listCustomers != null)
-                this.g_listCustomers.Clear();
+            this.loadData();
+            this.sortID();
+            this.clickChangeModeGroup();
+            this.WatchTable();
+        }
 
+        private void loadData()
+        {
             this.g_listCustomers = this.ToObservableCollection<CUSTOMER>((from customer in dataProvider.Instance.DB.CUSTOMERs
                                                                           select new
                                                                           {
@@ -434,11 +442,6 @@ namespace CanTeenManagement.ViewModel
                                                                               IMAGELINK = x.IMAGELINK.Trim(),
                                                                               STAR = x.STAR
                                                                           }).ToList().Take(15));
-
-            this.g_selectedItem = null;
-            this.sortID();
-            this.clickChangeModeGroup();
-            this.WatchTable();
         }
 
         private void sortID()
@@ -450,12 +453,23 @@ namespace CanTeenManagement.ViewModel
 
         private void clickChangeModeGroup()
         {
+            if (this.g_i_addOrEdit != 0 || this.g_b_isRefreshed == true) // click save.
+            {
+                this.g_b_groupGender = !this.g_b_groupGender;
+            }
+
+            if (this.g_b_isUnloaded == true)
+            {
+                this.g_b_groupGender = !this.g_b_groupGender;
+            }
+
             ICollectionView view = (ICollectionView)CollectionViewSource.GetDefaultView(this.g_listCustomers);
 
             if (this.g_b_groupGender)
             {
                 this.g_b_groupGender = false;
-                var groupDescription = new PropertyGroupDescription("GENDER".Trim());
+
+                var groupDescription = new PropertyGroupDescription("GENDER");
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(groupDescription);
                 this.g_str_mode = staticVarClass.mode_groupGender;
@@ -463,11 +477,15 @@ namespace CanTeenManagement.ViewModel
             else
             {
                 this.g_b_groupGender = true;
-                var groupDescription = new PropertyGroupDescription("YEAROFBIRTH".Trim());
+
+                var groupDescription = new PropertyGroupDescription("YEAROFBIRTH");
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(groupDescription);
                 this.g_str_mode = staticVarClass.mode_groupYearOfBirth;
             }
+
+            this.g_b_isRefreshed = false;
+            this.g_b_isUnloaded = false;
         }
 
         private string getNameForPicture(string id)
@@ -484,6 +502,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isReadOnlyID = false;
+            this._g_b_isHitTestVisibleMode = true;
             return true;
         }
 
@@ -499,6 +518,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_i_height = 40;
             this.g_i_addOrEdit = 1;
+            this.g_b_isHitTestVisibleMode = false;
 
             #region Làm trống text box.
             this.g_str_id = string.Empty;
@@ -526,6 +546,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 40;
             this.g_i_addOrEdit = 2;
             this.g_b_isReadOnlyID = true;
+            this.g_b_isHitTestVisibleMode = false;
         }
 
         private bool checkSave()
@@ -641,8 +662,7 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
-            this.g_b_groupGender = !this.g_b_groupGender;
-            this.loaded();
+            this.g_b_isHitTestVisibleMode = true;
         }
 
         private bool checkExport()

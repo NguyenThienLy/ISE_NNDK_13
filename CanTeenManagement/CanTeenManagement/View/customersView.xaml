@@ -24,6 +24,10 @@
             <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}"
                                    CommandParameter="{Binding ElementName = customersView}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_UnloadedCommand}"
+                                   CommandParameter="{Binding ElementName = customersView}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
                                          OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
@@ -177,6 +181,7 @@
                                           Command="{ Binding g_iCm_ClickChangeModeCommand}"
                                           CommandParameter="{Binding ElementName = tglBtnMode}"
                                           Width="50"
+                                          IsHitTestVisible="{Binding g_b_isHitTestVisibleMode}"
                                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                           ToolTip="Chế độ xem">
                                 <materialDesign:PackIcon Kind="sort"

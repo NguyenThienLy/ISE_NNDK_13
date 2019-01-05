@@ -396,6 +396,15 @@ namespace CanTeenManagement.ViewModel
 
         }
 
+        public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            return new ObservableCollection<T>(source);
+        }
+
         public void WatchTable()
         {
             var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
@@ -490,7 +499,41 @@ namespace CanTeenManagement.ViewModel
 
             if (l_mainVM.g_b_detailFromMainWindow == true)
             {
-                var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == staticVarClass.account_userName).SingleOrDefault();
+                l_employeesVM.g_listEmployees = this.ToObservableCollection<EMPLOYEE>((from employee in dataProvider.Instance.DB.EMPLOYEEs
+                                                                                       select new
+                                                                                       {
+                                                                                           ID = employee.ID.Trim(),
+                                                                                           PASSWORD = employee.PASSWORD.Trim(),
+                                                                                           FULLNAME = employee.FULLNAME.Trim(),
+                                                                                           GENDER = employee.GENDER.Trim(),
+                                                                                           YEAROFBIRTH = employee.YEAROFBIRTH,
+                                                                                           PHONE = employee.PHONE.Trim(),
+                                                                                           EMAIL = employee.EMAIL.Trim(),
+                                                                                           POSITION = employee.POSITION.Trim(),
+                                                                                           IMAGELINK = employee.IMAGELINK.Trim(),
+                                                                                           STATUS = employee.STATUS.Trim()
+
+                                                                                       }).ToList().Select(x => new EMPLOYEE
+                                                                                       {
+                                                                                           ID = x.ID.Trim(),
+                                                                                           PASSWORD = x.PASSWORD.Trim(),
+                                                                                           FULLNAME = x.FULLNAME.Trim(),
+                                                                                           GENDER = x.GENDER.Trim(),
+                                                                                           YEAROFBIRTH = x.YEAROFBIRTH,
+                                                                                           PHONE = x.PHONE.Trim(),
+                                                                                           EMAIL = x.EMAIL.Trim(),
+                                                                                           POSITION = x.POSITION.Trim(),
+                                                                                           IMAGELINK = x.IMAGELINK.Trim(),
+                                                                                           STATUS = x.STATUS.Trim()
+                                                                                       }).ToList());
+                EMPLOYEE l_employee = null;
+                for (int i = 0; i < l_employeesVM.g_listEmployees.Count; i++)
+                {
+                    if (l_employeesVM.g_listEmployees[i].ID == staticVarClass.account_userName)
+                    {
+                        l_employee = l_employeesVM.g_listEmployees[i];
+                    }
+                }
 
                 #region gán giá trị cho các ô
                 this.g_str_id = l_employee.ID;
