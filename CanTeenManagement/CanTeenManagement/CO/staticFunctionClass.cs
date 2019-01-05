@@ -277,6 +277,8 @@ namespace CanTeenManagement.CO
             ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
             int i = workSheet.Dimension.End.Row;
             int j = workSheet.Dimension.End.Column;
+
+
             string temp = workSheet.Cells[i, j].Value.ToString();
 
             if (staticVarClass.ID_currCustomer == temp)

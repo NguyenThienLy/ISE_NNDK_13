@@ -174,6 +174,8 @@ namespace CanTeenManagement.ViewModel
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
 
+        public ICommand g_iCm_UnloadedCommand { get; set; }
+
         public ICommand g_iCm_ClickCloseCommand { get; set; }
 
         public ICommand g_iCm_ClickEditInfoCommand { get; set; }
@@ -198,6 +200,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_LoadedCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
                 this.loaded(p);
+            });
+
+            g_iCm_UnloadedCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
+            {
+                this.unloaded();
             });
 
             g_iCm_ClickCloseCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
@@ -326,6 +333,11 @@ namespace CanTeenManagement.ViewModel
             #endregion
         }
 
+        private void unloaded()
+        {
+            //this.StopTable();
+        }
+
         private void loaded(DetailCustomersView p)
         {
             if (p == null)
@@ -334,13 +346,19 @@ namespace CanTeenManagement.ViewModel
             this.loadDataCustomer();
 
             #region đổ dữ liệu vào listview
-            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.CUSTOMERID == this.g_str_id));
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_listOrders = new ObservableCollection<ORDERINFO>
+                    (DB.ORDERINFOes
+                    .Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done
+                    && orderinfo.CUSTOMERID == this.g_str_id));
+            }
             #endregion
 
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
 
-            this.WatchTable();
+            //this.WatchTable();
         }
 
         private void clickCloseWindow(DetailCustomersView p)
@@ -398,10 +416,13 @@ namespace CanTeenManagement.ViewModel
             if (string.IsNullOrEmpty(this.g_str_id))
                 return false;
 
-            // check id.
-            var l_IDList = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
-            if (l_IDList == null || l_IDList.Count() == 0)
-                return false;
+            using (var DB = new QLCanTinEntities())
+            {
+                // check id.
+                var l_IDList = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
+                if (l_IDList == null || l_IDList.Count() == 0)
+                    return false;
+            }
 
             return true;
         }
@@ -410,18 +431,22 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                var l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id).SingleOrDefault();
-                l_customer.FULLNAME = this.g_str_fullName;
-                l_customer.GENDER = this.g_str_gender;
-                l_customer.YEAROFBIRTH = this.g_i_yearOfBirth;
-                l_customer.PHONE = this.g_str_phone;
-                l_customer.EMAIL = this.g_str_email;
-                l_customer.CASH = this.g_i_cash;
-                l_customer.POINT = this.g_i_point;
-                l_customer.STAR = this.g_i_star;
-                l_customer.IMAGELINK = this.g_str_imageLink;
+                using (var DB = new QLCanTinEntities())
+                {
+                    var l_customer = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id).SingleOrDefault();
+                    l_customer.FULLNAME = this.g_str_fullName;
+                    l_customer.GENDER = this.g_str_gender;
+                    l_customer.YEAROFBIRTH = this.g_i_yearOfBirth;
+                    l_customer.PHONE = this.g_str_phone;
+                    l_customer.EMAIL = this.g_str_email;
+                    l_customer.CASH = this.g_i_cash;
+                    l_customer.POINT = this.g_i_point;
+                    l_customer.STAR = this.g_i_star;
+                    l_customer.IMAGELINK = this.g_str_imageLink;
 
-                dataProvider.Instance.DB.SaveChanges();
+                    DB.SaveChanges();
+                }
+
                 staticFunctionClass.showStatusView(true, "Sửa thông tin khách hàng " + this.g_str_fullName + " thành công!");
 
                 #region Cập nhật lại thông tin.
@@ -542,9 +567,12 @@ namespace CanTeenManagement.ViewModel
                                 // Update image source.
                                 this.g_imgSrc_customer = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
-                                dataProvider.Instance.DB.EMPLOYEEs.Where(customer => customer.ID == this.g_str_id).ToList()
+                                using (var DB = new QLCanTinEntities())
+                                {
+                                    DB.EMPLOYEEs.Where(customer => customer.ID == this.g_str_id).ToList()
                                                                   .ForEach(customer => customer.IMAGELINK = this.g_str_imageLink);
-                                dataProvider.Instance.DB.SaveChanges();
+                                    DB.SaveChanges();
+                                }
 
                                 staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
                             }

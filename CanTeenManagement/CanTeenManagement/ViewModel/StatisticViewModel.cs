@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using CanTeenManagement.View;
+﻿using CanTeenManagement.CO;
 using CanTeenManagement.Model;
-using System.Windows;
+using CanTeenManagement.View;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
-using System.Globalization;
 using System.ComponentModel;
-using System.Windows.Data;
-using CanTeenManagement.CO;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -145,13 +145,13 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_StatChart = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
             {
-                statChart();
+                this.clickChart();
             });
 
             g_iCm_StatFood = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
             {
                 DataLV.Clear();
-                statFood();
+                this.clickFood();
             });
 
             g_iCm_Sort = new RelayCommand(sort);
@@ -195,6 +195,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
 
             this.statChart();
+            this.checkVisibilityChart();
         }
 
         private void clickFood()
@@ -210,6 +211,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
 
             this.statFood();
+            this.checkVisibilityFood();
         }
 
         private void statChart()
@@ -248,7 +250,10 @@ namespace CanTeenManagement.ViewModel
             }
 
             g_dc_StatChart_Chart = StatChart_Value;
+        }
 
+        private void checkVisibilityChart()
+        {
             if (g_dc_StatChart_Chart.Count == 0)
             {
                 this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
@@ -302,9 +307,9 @@ namespace CanTeenManagement.ViewModel
 
         private void statChartByTime()
         {
-
             int iTimeSpan = (_g_sd_StatChart_ToTime - _g_sd_StatChart_FromTime).Value.Days;
             int iDayNum = iTimeSpan + 1;
+            int l_i_money = 0;
 
             if (iTimeSpan > 366)
             {
@@ -319,14 +324,18 @@ namespace CanTeenManagement.ViewModel
 
                 while (dtDateTime <= _g_sd_StatChart_ToTime)
                 {
-                    var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                               where oi.ORDERDATE == dtDateTime
-                               select new { oi.TOTALMONEY };
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        var data = from oi in DB.ORDERINFOes
+                                   where oi.ORDERDATE == dtDateTime
+                                   select new { oi.TOTALMONEY };
 
-                    int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                        l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    }
+
                     string date = dtDateTime.Value.Day.ToString() + "/" + dtDateTime.Value.Month.ToString();
 
-                    StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                    StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                     dtDateTime = dtDateTime.Value.AddDays(1);
                 }
@@ -350,14 +359,18 @@ namespace CanTeenManagement.ViewModel
                         dtEndTime = _g_sd_StatChart_ToTime;
                     }
 
-                    var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                               where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
-                               select new { oi.TOTALMONEY };
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        var data = from oi in DB.ORDERINFOes
+                                   where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
+                                   select new { oi.TOTALMONEY };
 
-                    int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                        l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    }
+
                     string date = getDateMonth(dtBeginTime, dtEndTime);
 
-                    StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                    StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                     dtBeginTime = dtEndTime.Value.AddDays(1);
                     dtEndTime = dtBeginTime.Value.AddDays(iDayPerColumn);
@@ -370,14 +383,18 @@ namespace CanTeenManagement.ViewModel
 
                 while (dtBeginTime <= _g_sd_StatChart_ToTime)
                 {
-                    var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                               where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
-                               select new { oi.TOTALMONEY };
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        var data = from oi in DB.ORDERINFOes
+                                   where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
+                                   select new { oi.TOTALMONEY };
 
-                    int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                        l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    }
+
                     string date = "Tháng " + dtBeginTime.Value.Month.ToString();
 
-                    StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                    StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                     dtBeginTime = dtEndTime.Value.AddDays(1);
                     dtEndTime = dtBeginTime.Value.AddMonths(1).AddDays(-1);
@@ -389,6 +406,7 @@ namespace CanTeenManagement.ViewModel
         {
             DateTime? dtFirstDayOfWeek = g_sd_StatChart_FromTime;
             DateTime? dtLastDayOfWeek = dtFirstDayOfWeek.Value.AddDays(6);
+            int l_i_money = 0;
 
             for (int i = 0; i < MAX_COLUMN; i++)
             {
@@ -397,14 +415,18 @@ namespace CanTeenManagement.ViewModel
                     break;
                 }
 
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE >= dtFirstDayOfWeek && oi.ORDERDATE <= dtLastDayOfWeek
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE >= dtFirstDayOfWeek && oi.ORDERDATE <= dtLastDayOfWeek
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string week = "Tuần " + getWeekOfYear(dtFirstDayOfWeek).ToString() + "\n" + getDateMonth(dtFirstDayOfWeek, dtLastDayOfWeek);
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(week, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(week, l_i_money));
 
                 dtFirstDayOfWeek = dtLastDayOfWeek.Value.AddDays(1);
                 dtLastDayOfWeek = dtFirstDayOfWeek.Value.AddDays(6);
@@ -416,17 +438,22 @@ namespace CanTeenManagement.ViewModel
             DateTime? dtFirstDayOfWeek = getLastWeekDay(DayOfWeek.Monday);
             DateTime? dtLastDayOfWeek = dtFirstDayOfWeek.Value.AddDays(6);
             DateTime? dtDateTime = dtFirstDayOfWeek;
+            int l_i_money = 0;
 
             while (dtDateTime <= dtLastDayOfWeek)
             {
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE == dtDateTime
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE == dtDateTime
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string date = getDayNameOfWeek(dtDateTime);
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                 dtDateTime = dtDateTime.Value.AddDays(1);
             }
@@ -437,43 +464,56 @@ namespace CanTeenManagement.ViewModel
             DateTime? dtFirstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime? dtLastDayOfMonth = dtFirstDayOfMonth.Value.AddMonths(1).AddDays(-1);
             DateTime? dtDateTime = dtFirstDayOfMonth;
+            int l_i_money = 0;
 
             {
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE == dtDateTime
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE == dtDateTime
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string date = dtDateTime.Value.Day.ToString() + "/" + dtDateTime.Value.Month.ToString();
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                 dtDateTime = dtDateTime.Value.AddDays(1);
             }
 
             while (dtDateTime < dtLastDayOfMonth)
             {
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE == dtDateTime
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE == dtDateTime
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string date = dtDateTime.Value.Day.ToString();
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                 dtDateTime = dtDateTime.Value.AddDays(1);
             }
 
             {
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE == dtDateTime
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE == dtDateTime
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string date = dtDateTime.Value.Day.ToString() + "/" + dtDateTime.Value.Month.ToString();
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
             }
         }
 
@@ -484,17 +524,22 @@ namespace CanTeenManagement.ViewModel
             DateTime? dtCurrentMonth = dtFirstMonthOfYear;
             DateTime? dtFirstDayOfMonth = dtCurrentMonth;
             DateTime? dtLastDayOfMonth = dtFirstDayOfMonth.Value.AddMonths(1).AddDays(-1);
+            int l_i_money = 0;
 
             while (dtCurrentMonth <= dtLastMonthOfYear)
             {
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE >= dtFirstDayOfMonth && oi.ORDERDATE <= dtLastDayOfMonth
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE >= dtFirstDayOfMonth && oi.ORDERDATE <= dtLastDayOfMonth
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string date = "Tháng " + dtCurrentMonth.Value.Month.ToString();
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(date, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(date, l_i_money));
 
                 dtCurrentMonth = dtCurrentMonth.Value.AddMonths(1);
                 dtFirstDayOfMonth = dtCurrentMonth;
@@ -507,20 +552,25 @@ namespace CanTeenManagement.ViewModel
             DateTime? dtLastYear = new DateTime(DateTime.Now.Year, 1, 1);
             DateTime? dtFirstYear = dtLastYear.Value.AddYears(-10);
             DateTime? dtCurrentYear = dtFirstYear;
+            int l_i_money = 0;
 
             while (dtCurrentYear <= dtLastYear)
             {
                 DateTime? dtFirstDayOfYear = dtCurrentYear;
                 DateTime? dtLastDayOfYear = dtFirstDayOfYear.Value.AddYears(1).AddDays(-1);
 
-                var data = from oi in dataProvider.Instance.DB.ORDERINFOes
-                           where oi.ORDERDATE >= dtFirstDayOfYear && oi.ORDERDATE <= dtLastDayOfYear
-                           select new { oi.TOTALMONEY };
+                using (var DB = new QLCanTinEntities())
+                {
+                    var data = from oi in DB.ORDERINFOes
+                               where oi.ORDERDATE >= dtFirstDayOfYear && oi.ORDERDATE <= dtLastDayOfYear
+                               select new { oi.TOTALMONEY };
 
-                int money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                    l_i_money = data.AsEnumerable().Sum(oi => oi.TOTALMONEY) ?? default(int);
+                }
+
                 string year = dtCurrentYear.Value.Year.ToString();
 
-                StatChart_Value.Add(new KeyValuePair<string, int>(year, money));
+                StatChart_Value.Add(new KeyValuePair<string, int>(year, l_i_money));
 
                 dtCurrentYear = dtCurrentYear.Value.AddYears(1);
             }
@@ -529,47 +579,49 @@ namespace CanTeenManagement.ViewModel
         private void statFoodBetweenTime(DateTime? dtBeginTime, DateTime? dtEndTime)
         {
             StatFood_ChartValue = new ObservableCollection<KeyValuePair<string, int>>();
-
-            var dataOrderDetail = dataProvider.Instance.DB.ORDERDETAILs;
-            var dataFood = dataProvider.Instance.DB.FOODs;
-            var dataOrderInfo = dataProvider.Instance.DB.ORDERINFOes;
-
-            var result = from od in dataOrderDetail
-                         group od by od.FOODID into g
-                         join f in dataFood on g.FirstOrDefault().FOODID equals f.ID
-                         join oi in dataOrderInfo on g.FirstOrDefault().ORDERID equals oi.ID
-                         where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
-                         select new { Name = f.FOODNAME, Sale = g.Sum(a => a.QUANTITY) };
-
             int iFirst = 0, iSecond = 0, iThird = 0, iTotal = 0;
             string sFirst = string.Empty, sSecond = string.Empty, sThird = string.Empty;
 
-            foreach (var i in result)
+            using (var DB = new QLCanTinEntities())
             {
-                int temp = i.Sale;
-                DataLV.Add(new ItemFood(i.Name, temp));
-                iTotal += temp;
+                var dataOrderDetail = DB.ORDERDETAILs;
+                var dataFood = DB.FOODs;
+                var dataOrderInfo = DB.ORDERINFOes;
 
-                if (iFirst < temp)
+                var result = from od in dataOrderDetail
+                             group od by od.FOODID into g
+                             join f in dataFood on g.FirstOrDefault().FOODID equals f.ID
+                             join oi in dataOrderInfo on g.FirstOrDefault().ORDERID equals oi.ID
+                             where oi.ORDERDATE >= dtBeginTime && oi.ORDERDATE <= dtEndTime
+                             select new { Name = f.FOODNAME, Sale = g.Sum(a => a.QUANTITY) };
+
+                foreach (var i in result)
                 {
-                    iThird = iSecond;
-                    sThird = sSecond;
-                    iSecond = iFirst;
-                    sSecond = sFirst;
-                    iFirst = temp;
-                    sFirst = i.Name;
-                }
-                else if (iSecond < temp)
-                {
-                    iThird = iSecond;
-                    sThird = sSecond;
-                    iSecond = temp;
-                    sSecond = i.Name;
-                }
-                else if (iSecond < temp)
-                {
-                    iThird = temp;
-                    sThird = i.Name;
+                    int temp = i.Sale;
+                    DataLV.Add(new ItemFood(i.Name, temp));
+                    iTotal += temp;
+
+                    if (iFirst < temp)
+                    {
+                        iThird = iSecond;
+                        sThird = sSecond;
+                        iSecond = iFirst;
+                        sSecond = sFirst;
+                        iFirst = temp;
+                        sFirst = i.Name;
+                    }
+                    else if (iSecond < temp)
+                    {
+                        iThird = iSecond;
+                        sThird = sSecond;
+                        iSecond = temp;
+                        sSecond = i.Name;
+                    }
+                    else if (iSecond < temp)
+                    {
+                        iThird = temp;
+                        sThird = i.Name;
+                    }
                 }
             }
 
@@ -597,7 +649,10 @@ namespace CanTeenManagement.ViewModel
 
             g_txt_StatFood_BestSeller = strFirst[0];
             g_dc_StatFood_Chart = StatFood_ChartValue;
+        }
 
+        private void checkVisibilityFood()
+        {
             if (g_dc_StatFood_Chart.Count == 0)
             {
                 this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
@@ -693,8 +748,9 @@ namespace CanTeenManagement.ViewModel
             g_sv_StatFood_Choice = staticVarClass.timeStr_instanceTime;
             StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
             DataLV = new ObservableCollection<ItemFood>();
-            statChart();
-            //statFood();
+
+            this.statChart();
+            this.checkVisibilityChart();
         }
 
         #region Sort
@@ -798,6 +854,6 @@ namespace CanTeenManagement.ViewModel
                 return _CanExecute(parameter);
             }
         }
-        #endregion        
+        #endregion
     }
 }

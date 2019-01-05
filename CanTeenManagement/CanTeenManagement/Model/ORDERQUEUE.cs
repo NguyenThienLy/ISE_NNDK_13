@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +60,16 @@ namespace CanTeenManagement.Model
 
         public string STATUS { get; set; }
 
-        public string COMPLETIONDATE { get; set; }
+        private string _COMPLETIONDATE;
+        public string COMPLETIONDATE
+        {
+            get => _COMPLETIONDATE;
+
+            set
+            {
+                _COMPLETIONDATE = value;
+            }
+        }
 
         public ORDERQUEUE() { }
     }

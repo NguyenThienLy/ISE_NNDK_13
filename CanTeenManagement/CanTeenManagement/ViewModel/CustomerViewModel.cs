@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CanTeenManagement.View;
+﻿using CanTeenManagement.CO;
 using CanTeenManagement.Model;
-using System.Windows.Input;
-using System.Windows;
+using CanTeenManagement.View;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Data;
-using System.Windows.Controls;
-using System.Windows.Media.Effects;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
+using System.Linq;
 using System.Reflection;
-using Microsoft.Win32;
-using CanTeenManagement.CO;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Input;
 using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.Enums;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -163,6 +157,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibilityCustomers;
+        public string g_str_visibilityCustomers
+        {
+            get => _g_str_visibilityCustomers;
+            set
+            {
+                _g_str_visibilityCustomers = value;
+                OnPropertyChanged();
+            }
+        }
+
         int g_i_addOrEdit;
         bool g_b_groupGender;
         bool g_b_isRefreshed;
@@ -172,7 +177,15 @@ namespace CanTeenManagement.ViewModel
 
         #region Các thuộc tính của customer.
         private string _g_str_imageLink;
-        public string g_str_imageLink { get => _g_str_imageLink; set { _g_str_imageLink = value; OnPropertyChanged(); } }
+        public string g_str_imageLink
+        {
+            get => _g_str_imageLink;
+            set
+            {
+                _g_str_imageLink = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_id;
         public string g_str_id
@@ -191,13 +204,37 @@ namespace CanTeenManagement.ViewModel
         }
 
         private string _g_str_fullName;
-        public string g_str_fullName { get => _g_str_fullName; set { _g_str_fullName = value; OnPropertyChanged(); } }
+        public string g_str_fullName
+        {
+            get => _g_str_fullName;
+            set
+            {
+                _g_str_fullName = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_gender;
-        public string g_str_gender { get => _g_str_gender; set { _g_str_gender = value; OnPropertyChanged(); } }
+        public string g_str_gender
+        {
+            get => _g_str_gender;
+            set
+            {
+                _g_str_gender = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Nullable<int> _g_i_yearOfBirth;
-        public Nullable<int> g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
+        public Nullable<int> g_i_yearOfBirth
+        {
+            get => _g_i_yearOfBirth;
+            set
+            {
+                _g_i_yearOfBirth = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_phone;
         public string g_str_phone
@@ -216,16 +253,48 @@ namespace CanTeenManagement.ViewModel
         }
 
         private string _g_str_email;
-        public string g_str_email { get => _g_str_email; set { _g_str_email = value; OnPropertyChanged(); } }
+        public string g_str_email
+        {
+            get => _g_str_email;
+            set
+            {
+                _g_str_email = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Nullable<int> _g_i_cash;
-        public Nullable<int> g_i_cash { get => _g_i_cash; set { _g_i_cash = value; OnPropertyChanged(); } }
+        public Nullable<int> g_i_cash
+        {
+            get => _g_i_cash;
+            set
+            {
+                _g_i_cash = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Nullable<int> _g_i_point;
-        public Nullable<int> g_i_point { get => _g_i_point; set { _g_i_point = value; OnPropertyChanged(); } }
+        public Nullable<int> g_i_point
+        {
+            get => _g_i_point;
+            set
+            {
+                _g_i_point = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Nullable<int> _g_i_star;
-        public Nullable<int> g_i_star { get => _g_i_star; set { _g_i_star = value; OnPropertyChanged(); } }
+        public Nullable<int> g_i_star
+        {
+            get => _g_i_star;
+            set
+            {
+                _g_i_star = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region commands.
@@ -250,11 +319,19 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickGoBackCommand { get; set; }
 
         public ICommand g_iCm_ClickChangeModeCommand { get; set; }
+
+        public ICommand g_iCm_ClickPreviousPageCommand { get; set; }
+
+        public ICommand g_iCm_ClickNextPageCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonPageCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRefreshCommand { get; set; }
         #endregion
 
         public CustomersViewModel()
         {
-            this.inItSupport();
+            this.initSupport();
 
             g_iCm_LoadedCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
             {
@@ -310,6 +387,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickChangeModeGroup();
             });
+
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return checkClickButtonRefresh(); }, (p) =>
+            {
+                this.clickButtonRefresh();
+            });
         }
 
         public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> source)
@@ -363,8 +445,11 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
-        private void inItSupport()
+        private void initSupport()
         {
+            this.g_str_visibilityCustomers = staticVarClass.visibility_hidden;
+
+            //
             this.g_listCustomers = new ObservableCollection<CUSTOMER>();
             this.g_selectedItem = null;
             this.g_i_addOrEdit = 0;
@@ -376,6 +461,7 @@ namespace CanTeenManagement.ViewModel
             this.loadCombobox();
         }
 
+        #region load.
         private void loadCombobox()
         {
             // Thêm danh sách gender.
@@ -401,48 +487,67 @@ namespace CanTeenManagement.ViewModel
         private void unloaded()
         {
             this.g_b_isUnloaded = true;
+         //   this.StopTable();
         }
 
         private void loaded()
         {
             this.loadData();
+            this.checkVisibilityData();
             this.sortID();
             this.clickChangeModeGroup();
-            this.WatchTable();
+           // this.WatchTable();
         }
 
         private void loadData()
         {
-            this.g_listCustomers = this.ToObservableCollection<CUSTOMER>((from customer in dataProvider.Instance.DB.CUSTOMERs
-                                                                          select new
-                                                                          {
-                                                                              ID = customer.ID.Trim(),
-                                                                              PIN = customer.PIN.Trim(),
-                                                                              FULLNAME = customer.FULLNAME.Trim(),
-                                                                              GENDER = customer.GENDER.Trim(),
-                                                                              YEAROFBIRTH = customer.YEAROFBIRTH,
-                                                                              PHONE = customer.PHONE.Trim(),
-                                                                              EMAIL = customer.EMAIL.Trim(),
-                                                                              CASH = customer.CASH,
-                                                                              POINT = customer.POINT,
-                                                                              IMAGELINK = customer.IMAGELINK.Trim(),
-                                                                              STAR = customer.STAR
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_listCustomers = this.ToObservableCollection<CUSTOMER>
+                ((from customer in DB.CUSTOMERs
+                  select new
+                  {
+                      ID = customer.ID.Trim(),
+                      PIN = customer.PIN.Trim(),
+                      FULLNAME = customer.FULLNAME.Trim(),
+                      GENDER = customer.GENDER.Trim(),
+                      YEAROFBIRTH = customer.YEAROFBIRTH,
+                      PHONE = customer.PHONE.Trim(),
+                      EMAIL = customer.EMAIL.Trim(),
+                      CASH = customer.CASH,
+                      POINT = customer.POINT,
+                      IMAGELINK = customer.IMAGELINK.Trim(),
+                      STAR = customer.STAR
 
-                                                                          }).ToList().Select(x => new CUSTOMER
-                                                                          {
-                                                                              ID = x.ID.Trim(),
-                                                                              PIN = x.PIN.Trim(),
-                                                                              FULLNAME = x.FULLNAME.Trim(),
-                                                                              GENDER = x.GENDER.Trim(),
-                                                                              YEAROFBIRTH = x.YEAROFBIRTH,
-                                                                              PHONE = x.PHONE.Trim(),
-                                                                              EMAIL = x.EMAIL.Trim(),
-                                                                              CASH = x.CASH,
-                                                                              POINT = x.POINT,
-                                                                              IMAGELINK = x.IMAGELINK.Trim(),
-                                                                              STAR = x.STAR
-                                                                          }).ToList().Take(15));
+                  }).ToList().Select(x => new CUSTOMER
+                  {
+                      ID = x.ID.Trim(),
+                      PIN = x.PIN.Trim(),
+                      FULLNAME = x.FULLNAME.Trim(),
+                      GENDER = x.GENDER.Trim(),
+                      YEAROFBIRTH = x.YEAROFBIRTH,
+                      PHONE = x.PHONE.Trim(),
+                      EMAIL = x.EMAIL.Trim(),
+                      CASH = x.CASH,
+                      POINT = x.POINT,
+                      IMAGELINK = x.IMAGELINK.Trim(),
+                      STAR = x.STAR
+                  }).ToList());
+            }
         }
+
+        private void checkVisibilityData()
+        {
+            if (this.g_listCustomers.Count == 0)
+            {
+                this.g_str_visibilityCustomers = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibilityCustomers = staticVarClass.visibility_hidden;
+            }
+        }
+        #endregion
 
         private void sortID()
         {
@@ -506,6 +611,7 @@ namespace CanTeenManagement.ViewModel
             return true;
         }
 
+        #region btn add.
         private bool checkAdd()
         {
             if (this.g_i_addOrEdit != 0)
@@ -531,7 +637,9 @@ namespace CanTeenManagement.ViewModel
             this.g_i_point = 0;
             #endregion
         }
+        #endregion
 
+        #region btn edit.
         private bool checkEdit()
         {
             if (this.g_selectedItem == null || this.g_i_addOrEdit != 0)
@@ -548,7 +656,9 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isReadOnlyID = true;
             this.g_b_isHitTestVisibleMode = false;
         }
+        #endregion
 
+        #region btn save.
         private bool checkSave()
         {
             if (this.g_i_addOrEdit == 0)
@@ -563,18 +673,24 @@ namespace CanTeenManagement.ViewModel
                 if (this.g_str_id.Length < 7)
                     return false;
 
-                // check id.
-                var l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
-                if (l_customer == null || l_customer.Count() != 0)
-                    return false;
+                using (var DB = new QLCanTinEntities())
+                {
+                    // check id.
+                    var l_customer = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
+                    if (l_customer == null || l_customer.Count() != 0)
+                        return false;
+                }
 
             }
             else if (this.g_i_addOrEdit == 2)
             {
-                // check id.
-                var l_IDList = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
-                if (l_IDList == null || l_IDList.Count() == 0)
-                    return false;
+                using (var DB = new QLCanTinEntities())
+                {
+                    // check id.
+                    var l_IDList = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_id);
+                    if (l_IDList == null || l_IDList.Count() == 0)
+                        return false;
+                }
             }
 
             return true;
@@ -601,8 +717,11 @@ namespace CanTeenManagement.ViewModel
 
                 try
                 {
-                    dataProvider.Instance.DB.CUSTOMERs.Add(l_customer);
-                    dataProvider.Instance.DB.SaveChanges();
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        DB.CUSTOMERs.Add(l_customer);
+                        DB.SaveChanges();
+                    }
 
                     // Make image default.
                     staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_customer.ID), l_customer.ID, 95);
@@ -618,18 +737,22 @@ namespace CanTeenManagement.ViewModel
             {
                 try
                 {
-                    var l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_selectedItem.ID).SingleOrDefault();
-                    l_customer.FULLNAME = this.g_str_fullName;
-                    l_customer.GENDER = this.g_str_gender;
-                    l_customer.YEAROFBIRTH = this.g_i_yearOfBirth;
-                    l_customer.PHONE = this.g_str_phone;
-                    l_customer.EMAIL = this.g_str_email;
-                    l_customer.CASH = this.g_i_cash;
-                    l_customer.POINT = this.g_i_point;
-                    l_customer.STAR = this.g_i_star;
-                    l_customer.IMAGELINK = this.g_str_imageLink;
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        var l_customer = DB.CUSTOMERs.Where(customer => customer.ID == this.g_selectedItem.ID).SingleOrDefault();
+                        l_customer.FULLNAME = this.g_str_fullName;
+                        l_customer.GENDER = this.g_str_gender;
+                        l_customer.YEAROFBIRTH = this.g_i_yearOfBirth;
+                        l_customer.PHONE = this.g_str_phone;
+                        l_customer.EMAIL = this.g_str_email;
+                        l_customer.CASH = this.g_i_cash;
+                        l_customer.POINT = this.g_i_point;
+                        l_customer.STAR = this.g_i_star;
+                        l_customer.IMAGELINK = this.g_str_imageLink;
 
-                    dataProvider.Instance.DB.SaveChanges();
+                        DB.SaveChanges();
+                    }
+
                     staticFunctionClass.showStatusView(true, "Sửa thông tin khách hàng " + this.g_str_id + " thành công!");
                 }
                 catch
@@ -664,7 +787,9 @@ namespace CanTeenManagement.ViewModel
             this.g_i_addOrEdit = 0;
             this.g_b_isHitTestVisibleMode = true;
         }
+        #endregion
 
+        #region export.
         private bool checkExport()
         {
             if (this.g_i_addOrEdit != 0 || this.g_listCustomers.Count() == 0)
@@ -736,7 +861,9 @@ namespace CanTeenManagement.ViewModel
             }
 
         }
+        #endregion
 
+        #region fillter.
         private bool filterIDCustomer(object item)
         {
             if (string.IsNullOrEmpty(_g_str_filter))
@@ -749,6 +876,7 @@ namespace CanTeenManagement.ViewModel
         {
             CollectionViewSource.GetDefaultView(this.g_listCustomers).Refresh();
         }
+        #endregion
 
         private void clickDetail(CUSTOMER p)
         {
@@ -786,6 +914,21 @@ namespace CanTeenManagement.ViewModel
             mainWd.Opacity = 100;
             customersV.Opacity = 100;
         }
+
+        #region button refresh.
+        private bool checkClickButtonRefresh()
+        {
+            if (this.g_str_visibilityCustomers == staticVarClass.visibility_visible)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRefresh()
+        {
+            this.loaded();
+        }
+        #endregion
     }
 }
 

@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using CanTeenManagement.View;
+﻿using CanTeenManagement.CO;
 using CanTeenManagement.Model;
-using CanTeenManagement.CO;
+using CanTeenManagement.View;
 using Microsoft.Win32;
-using System.Net.Mail;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
-using System.Reflection;
 using System.ComponentModel;
-using System.Windows.Data;
-using System.Windows.Media;
-using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.Enums;
-using System.Windows.Threading;
+using System.Linq;
+using System.Net.Mail;
+using System.Reflection;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
+using TableDependency.SqlClient;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -278,6 +274,8 @@ namespace CanTeenManagement.ViewModel
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
 
+        public ICommand g_iCm_UnloadedCommand { get; set; }
+
         public ICommand g_iCm_ClickCloseCommand { get; set; }
 
         public ICommand g_iCm_ClickEditInfoCommand { get; set; }
@@ -316,6 +314,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_LoadedCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
             {
                 this.loaded(p);
+            });
+
+            g_iCm_UnloadedCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            {
+                this.unloaded();
             });
 
             g_iCm_ClickCloseCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
@@ -499,33 +502,38 @@ namespace CanTeenManagement.ViewModel
 
             if (l_mainVM.g_b_detailFromMainWindow == true)
             {
-                l_employeesVM.g_listEmployees = this.ToObservableCollection<EMPLOYEE>((from employee in dataProvider.Instance.DB.EMPLOYEEs
-                                                                                       select new
-                                                                                       {
-                                                                                           ID = employee.ID.Trim(),
-                                                                                           PASSWORD = employee.PASSWORD.Trim(),
-                                                                                           FULLNAME = employee.FULLNAME.Trim(),
-                                                                                           GENDER = employee.GENDER.Trim(),
-                                                                                           YEAROFBIRTH = employee.YEAROFBIRTH,
-                                                                                           PHONE = employee.PHONE.Trim(),
-                                                                                           EMAIL = employee.EMAIL.Trim(),
-                                                                                           POSITION = employee.POSITION.Trim(),
-                                                                                           IMAGELINK = employee.IMAGELINK.Trim(),
-                                                                                           STATUS = employee.STATUS.Trim()
+                using (var DB = new QLCanTinEntities())
+                {
+                    l_employeesVM.g_listEmployees = this.ToObservableCollection<EMPLOYEE>
+                    ((from employee in DB.EMPLOYEEs
+                      select new
+                      {
+                          ID = employee.ID.Trim(),
+                          PASSWORD = employee.PASSWORD.Trim(),
+                          FULLNAME = employee.FULLNAME.Trim(),
+                          GENDER = employee.GENDER.Trim(),
+                          YEAROFBIRTH = employee.YEAROFBIRTH,
+                          PHONE = employee.PHONE.Trim(),
+                          EMAIL = employee.EMAIL.Trim(),
+                          POSITION = employee.POSITION.Trim(),
+                          IMAGELINK = employee.IMAGELINK.Trim(),
+                          STATUS = employee.STATUS.Trim()
 
-                                                                                       }).ToList().Select(x => new EMPLOYEE
-                                                                                       {
-                                                                                           ID = x.ID.Trim(),
-                                                                                           PASSWORD = x.PASSWORD.Trim(),
-                                                                                           FULLNAME = x.FULLNAME.Trim(),
-                                                                                           GENDER = x.GENDER.Trim(),
-                                                                                           YEAROFBIRTH = x.YEAROFBIRTH,
-                                                                                           PHONE = x.PHONE.Trim(),
-                                                                                           EMAIL = x.EMAIL.Trim(),
-                                                                                           POSITION = x.POSITION.Trim(),
-                                                                                           IMAGELINK = x.IMAGELINK.Trim(),
-                                                                                           STATUS = x.STATUS.Trim()
-                                                                                       }).ToList());
+                      }).ToList().Select(x => new EMPLOYEE
+                      {
+                          ID = x.ID.Trim(),
+                          PASSWORD = x.PASSWORD.Trim(),
+                          FULLNAME = x.FULLNAME.Trim(),
+                          GENDER = x.GENDER.Trim(),
+                          YEAROFBIRTH = x.YEAROFBIRTH,
+                          PHONE = x.PHONE.Trim(),
+                          EMAIL = x.EMAIL.Trim(),
+                          POSITION = x.POSITION.Trim(),
+                          IMAGELINK = x.IMAGELINK.Trim(),
+                          STATUS = x.STATUS.Trim()
+                      }).ToList());
+                }
+
                 EMPLOYEE l_employee = null;
                 for (int i = 0; i < l_employeesVM.g_listEmployees.Count; i++)
                 {
@@ -570,6 +578,11 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private void unloaded()
+        {
+            //this.StopTable();
+        }
+
         private void loaded(DetailEmployeesView p)
         {
             if (p == null)
@@ -578,16 +591,21 @@ namespace CanTeenManagement.ViewModel
             this.g_i_widthButtonChangePassword = 0;
             this.loadDataEmployee();
 
-            #region đổ dữ liệu vào listview
-            this.g_listOrders = new ObservableCollection<ORDERINFO>(dataProvider.Instance.DB.ORDERINFOes.Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done && orderinfo.EMPLOYEEID == this.g_str_id));
-            #endregion
+            using (var DB = new QLCanTinEntities())
+            {
+                #region đổ dữ liệu vào listview
+                this.g_listOrders = new ObservableCollection<ORDERINFO>(DB.ORDERINFOes
+                    .Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done 
+                    && orderinfo.EMPLOYEEID == this.g_str_id));
+                #endregion
+            }
 
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
             p.grVChangePassword.Height = 0;
 
-            this.WatchTable();
+          //  this.WatchTable();
         }
 
         private void clickCloseWindow(DetailEmployeesView p)
@@ -651,10 +669,13 @@ namespace CanTeenManagement.ViewModel
             if (string.IsNullOrEmpty(this.g_str_id))
                 return false;
 
-            // check id.
-            var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
-            if (l_IDList == null || l_IDList.Count() == 0)
-                return false;
+            using (var DB = new QLCanTinEntities())
+            {
+                // check id.
+                var l_IDList = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
+                if (l_IDList == null || l_IDList.Count() == 0)
+                    return false;
+            }
 
             return true;
         }
@@ -663,17 +684,21 @@ namespace CanTeenManagement.ViewModel
         {
             try
             {
-                var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).SingleOrDefault();
-                l_employee.FULLNAME = this.g_str_fullNameEdit;
-                l_employee.GENDER = this.g_str_genderEdit;
-                l_employee.YEAROFBIRTH = this.g_i_yearOfBirthEdit;
-                l_employee.PHONE = this.g_str_phoneEdit;
-                l_employee.EMAIL = this.g_str_emailEdit;
-                l_employee.POSITION = this.g_str_position;
-                l_employee.STATUS = this.g_str_status;
-                l_employee.IMAGELINK = this.g_str_imageLink;
+                using (var DB = new QLCanTinEntities())
+                {
+                    var l_employee = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).SingleOrDefault();
+                    l_employee.FULLNAME = this.g_str_fullNameEdit;
+                    l_employee.GENDER = this.g_str_genderEdit;
+                    l_employee.YEAROFBIRTH = this.g_i_yearOfBirthEdit;
+                    l_employee.PHONE = this.g_str_phoneEdit;
+                    l_employee.EMAIL = this.g_str_emailEdit;
+                    l_employee.POSITION = this.g_str_position;
+                    l_employee.STATUS = this.g_str_status;
+                    l_employee.IMAGELINK = this.g_str_imageLink;
 
-                dataProvider.Instance.DB.SaveChanges();
+                    DB.SaveChanges();
+                }
+
                 staticFunctionClass.showStatusView(true, "Sửa thông tin nhân viên " + this.g_str_id + " thành công!");
 
                 #region Cập nhật lại thông tin.
@@ -795,9 +820,12 @@ namespace CanTeenManagement.ViewModel
                                 // Update image source.
                                 this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
-                                dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).ToList()
+                                using (var DB = new QLCanTinEntities())
+                                {
+                                    DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).ToList()
                                                                   .ForEach(employee => employee.IMAGELINK = this.g_str_imageLink);
-                                dataProvider.Instance.DB.SaveChanges();
+                                    DB.SaveChanges();
+                                }
 
                                 staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
                             }
@@ -982,10 +1010,13 @@ namespace CanTeenManagement.ViewModel
                 {
                     try
                     {
-                        var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).SingleOrDefault();
-                        l_employee.PASSWORD = this.g_str_confirmNewPassword;
+                        using (var DB = new QLCanTinEntities())
+                        {
+                            var l_employee = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).SingleOrDefault();
+                            l_employee.PASSWORD = this.g_str_confirmNewPassword;
 
-                        dataProvider.Instance.DB.SaveChanges();
+                            DB.SaveChanges();
+                        }
 
                         staticVarClass.account_password = this.g_str_confirmNewPassword;
                         staticFunctionClass.showStatusView(true, "Đổi mật khẩu thành công!");

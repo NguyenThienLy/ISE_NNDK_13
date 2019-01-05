@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using CanTeenManagement.View;
+﻿using CanTeenManagement.CO;
 using CanTeenManagement.Model;
+using CanTeenManagement.View;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using CanTeenManagement.CO;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Input;
+using System.Windows.Threading;
 using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.Enums;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -112,8 +109,11 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        DispatcherTimer g_timerRefresh = null;
+
         #region commands.
-        public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
+        public ICommand g_iCm_LoadedWindowCommand { get; set; }
+        public ICommand g_iCm_UnloadedWindowCommand { get; set; }
 
         public ICommand g_iCm_ClickDoneCommand { get; set; }
         public ICommand g_iCm_ClickSkipCommand { get; set; }
@@ -132,9 +132,14 @@ namespace CanTeenManagement.ViewModel
         {
             this.initSupport();
 
-            g_iCm_LoadedItemsControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
+            g_iCm_LoadedWindowCommand = new RelayCommand<SortFoodView>((p) => { return true; }, (p) =>
             {
-                this.loaded(p);
+                this.loaded();
+            });
+
+            g_iCm_UnloadedWindowCommand = new RelayCommand<SortFoodView>((p) => { return true; }, (p) =>
+            {
+                this.unloaded();
             });
 
             #region Command card
@@ -195,21 +200,11 @@ namespace CanTeenManagement.ViewModel
 
             this.g_str_visibility1 = staticVarClass.visibility_hidden;
             this.g_str_visibility2 = staticVarClass.visibility_hidden;
-        }
 
-        private void loaded(ItemsControl p)
-        {
-            this.loadData1();
-            this.loadData2();
-
-            g_i_quantityDone1 = countAllOrder(1, 1);
-            g_i_quantityDone2 = countAllOrder(1, 2);
-            g_i_quantitySkip1 = countAllOrder(2, 1);
-            g_i_quantitySkip2 = countAllOrder(2, 2);
-            g_i_quantitySoldOut1 = countAllOrder(3, 1);
-            g_i_quantitySoldOut2 = countAllOrder(3, 2);
-
-            WatchTable();
+            //
+            this.g_timerRefresh = new DispatcherTimer();
+            this.g_timerRefresh.Tick += (s, ev) => loadData();
+            this.g_timerRefresh.Interval = new TimeSpan(0, 0, 2);
         }
 
         public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> enumeration)
@@ -217,6 +212,7 @@ namespace CanTeenManagement.ViewModel
             return new ObservableCollection<T>(enumeration);
         }
 
+        #region refresh.
         public void WatchTable()
         {
             var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EPOSEntities"].ConnectionString;
@@ -238,11 +234,13 @@ namespace CanTeenManagement.ViewModel
 
         private void OnNotificationReceived(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<ORDERDETAIL> e)
         {
-            this.g_list_OrderQueue1 = this.ToObservableCollection<ORDERQUEUE>
-               ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
-                 join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
-                 join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
-                 join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_list_OrderQueue1 = this.ToObservableCollection<ORDERQUEUE>
+               ((from orderInfo in DB.ORDERINFOes
+                 join orderDetail in DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                 join customer in DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                 join food in DB.FOODs on orderDetail.FOODID equals food.ID
                  where food.FOODTYPE == staticVarClass.foodType_one && orderDetail.STATUS == staticVarClass.status_waiting
                  orderby orderInfo.ID ascending
                  select new ORDERQUEUE
@@ -260,27 +258,59 @@ namespace CanTeenManagement.ViewModel
                      COMPLETIONDATE = DateTime.Today.ToString()
                  }).Take(this.g_i_quantityFoodLoad));
 
-            //Lấy danh sách các món có trạng thái đang chờ
-            this.g_list_OrderQueue2 = this.ToObservableCollection<ORDERQUEUE>
-                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
-                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
-                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
-                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
-                  where food.FOODTYPE == staticVarClass.foodType_two && orderDetail.STATUS == staticVarClass.status_waiting
-                  orderby orderInfo.ID ascending
-                  select new ORDERQUEUE
-                  {
-                      ORDERID = orderDetail.ORDERID.Trim(),
-                      FOODID = food.ID.Trim(),
-                      FOODNAME = food.FOODNAME.Trim(),
-                      FOODTYPE = (int)food.FOODTYPE,
-                      QUANTITY = (int)orderDetail.QUANTITY,
-                      TOTALMONEY = (int)orderDetail.TOTALMONEY,
-                      CUSTOMERID = customer.ID.Trim(),
-                      CUSTOMERNAME = customer.FULLNAME.Trim(),
-                      ORDERDATE = orderInfo.ORDERDATE.ToString(),
-                      STATUS = orderDetail.STATUS.Trim()
-                  }).Take(this.g_i_quantityFoodLoad));
+                //Lấy danh sách các món có trạng thái đang chờ
+                this.g_list_OrderQueue2 = this.ToObservableCollection<ORDERQUEUE>
+                    ((from orderInfo in DB.ORDERINFOes
+                      join orderDetail in DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                      join customer in DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                      join food in DB.FOODs on orderDetail.FOODID equals food.ID
+                      where food.FOODTYPE == staticVarClass.foodType_two && orderDetail.STATUS == staticVarClass.status_waiting
+                      orderby orderInfo.ID ascending
+                      select new ORDERQUEUE
+                      {
+                          ORDERID = orderDetail.ORDERID.Trim(),
+                          FOODID = food.ID.Trim(),
+                          FOODNAME = food.FOODNAME.Trim(),
+                          FOODTYPE = (int)food.FOODTYPE,
+                          QUANTITY = (int)orderDetail.QUANTITY,
+                          TOTALMONEY = (int)orderDetail.TOTALMONEY,
+                          CUSTOMERID = customer.ID.Trim(),
+                          CUSTOMERNAME = customer.FULLNAME.Trim(),
+                          ORDERDATE = orderInfo.ORDERDATE.ToString(),
+                          STATUS = orderDetail.STATUS.Trim()
+                      }).Take(this.g_i_quantityFoodLoad));
+            }
+        }
+        #endregion
+
+        private void unloaded()
+        {
+            // this.StopTable();
+            this.g_timerRefresh.Stop();
+        }
+
+        #region load.
+        private void loaded()
+        {
+            this.loadData();
+
+            g_i_quantityDone1 = countAllOrder(1, 1);
+            g_i_quantityDone2 = countAllOrder(1, 2);
+            g_i_quantitySkip1 = countAllOrder(2, 1);
+            g_i_quantitySkip2 = countAllOrder(2, 2);
+            g_i_quantitySoldOut1 = countAllOrder(3, 1);
+            g_i_quantitySoldOut2 = countAllOrder(3, 2);
+
+            //this.WatchTable();
+            this.g_timerRefresh.Start();
+        }
+
+        private void loadData()
+        {
+            this.loadData1();
+            this.checkVisibilityData1();
+            this.loadData2();
+            this.checkVisibilityData2();
         }
 
         //Load các món cơm
@@ -291,12 +321,14 @@ namespace CanTeenManagement.ViewModel
                 this.g_list_OrderQueue1.Clear();
             }
 
-            //Lấy danh sách các món có trạng thái đang chờ
-            this.g_list_OrderQueue1 = this.ToObservableCollection<ORDERQUEUE>
-                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
-                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
-                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
-                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+            using (var DB = new QLCanTinEntities())
+            {
+                //Lấy danh sách các món có trạng thái đang chờ
+                this.g_list_OrderQueue1 = this.ToObservableCollection<ORDERQUEUE>
+                ((from orderInfo in DB.ORDERINFOes
+                  join orderDetail in DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                  join customer in DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                  join food in DB.FOODs on orderDetail.FOODID equals food.ID
                   where food.FOODTYPE == staticVarClass.foodType_one && orderDetail.STATUS == staticVarClass.status_waiting
                   orderby orderInfo.ID ascending
                   select new ORDERQUEUE
@@ -313,7 +345,11 @@ namespace CanTeenManagement.ViewModel
                       STATUS = orderDetail.STATUS.Trim(),
                       COMPLETIONDATE = DateTime.Today.ToString()
                   }).Take(this.g_i_quantityFoodLoad));
+            }
+        }
 
+        private void checkVisibilityData1()
+        {
             if (this.g_list_OrderQueue1.Count == 0)
             {
                 this.g_str_visibility1 = staticVarClass.visibility_visible;
@@ -332,12 +368,14 @@ namespace CanTeenManagement.ViewModel
                 this.g_list_OrderQueue2.Clear();
             }
 
-            //Lấy danh sách các món có trạng thái đang chờ
-            this.g_list_OrderQueue2 = this.ToObservableCollection<ORDERQUEUE>
-                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
-                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
-                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
-                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+            using (var DB = new QLCanTinEntities())
+            {
+                //Lấy danh sách các món có trạng thái đang chờ
+                this.g_list_OrderQueue2 = this.ToObservableCollection<ORDERQUEUE>
+                ((from orderInfo in DB.ORDERINFOes
+                  join orderDetail in DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                  join customer in DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                  join food in DB.FOODs on orderDetail.FOODID equals food.ID
                   where food.FOODTYPE == staticVarClass.foodType_two && orderDetail.STATUS == staticVarClass.status_waiting
                   orderby orderInfo.ID ascending
                   select new ORDERQUEUE
@@ -353,7 +391,11 @@ namespace CanTeenManagement.ViewModel
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
                       STATUS = orderDetail.STATUS.Trim()
                   }).Take(this.g_i_quantityFoodLoad));
+            }
+        }
 
+        private void checkVisibilityData2()
+        {
             if (this.g_list_OrderQueue2.Count == 0)
             {
                 this.g_str_visibility2 = staticVarClass.visibility_visible;
@@ -363,90 +405,123 @@ namespace CanTeenManagement.ViewModel
                 this.g_str_visibility2 = staticVarClass.visibility_hidden;
             }
         }
+        #endregion
 
         #region Click card
         private void updateStatusFoodDetail(string orderID, string foodID, string status)
         {
-            dataProvider.Instance.DB.ORDERDETAILs
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.ORDERDETAILs
                .Where(ord => ord.ORDERID == orderID && ord.FOODID == foodID)
                .ToList().ForEach(ord => ord.STATUS = status);
 
-            dataProvider.Instance.DB.ORDERDETAILs
-               .Where(ord => ord.ORDERID == orderID && ord.FOODID == foodID)
-               .ToList().ForEach(ord => ord.COMPLETIONDATE = DateTime.Today);
-            //Lưu thay đổi vào cơ sở dữ liệu
-            dataProvider.Instance.DB.SaveChanges();
+                DB.ORDERDETAILs
+                   .Where(ord => ord.ORDERID == orderID && ord.FOODID == foodID)
+                   .ToList().ForEach(ord => ord.COMPLETIONDATE = DateTime.Today);
+                //Lưu thay đổi vào cơ sở dữ liệu
+                DB.SaveChanges();
+            }
         }
 
         private void payBackCustomer(string customerID, int cash)
         {
-            //Cộng lại tiền của món bỏ qua cho khách 
-            dataProvider.Instance.DB.CUSTOMERs
+            using (var DB = new QLCanTinEntities())
+            {
+                //Cộng lại tiền của món bỏ qua cho khách 
+                DB.CUSTOMERs
            .Where(cus => cus.ID == customerID)
            .ToList().ForEach(cus => cus.CASH += cash);
 
-            //Lưu thay đổi vào cơ sở dữ liệu
-            dataProvider.Instance.DB.SaveChanges();
+                //Lưu thay đổi vào cơ sở dữ liệu
+                DB.SaveChanges();
+            }
         }
 
         private void subPointCustomer(string customerID, int cash)
         {
             int l_i_addPoint = cash / 10;
 
-
-            dataProvider.Instance.DB.CUSTOMERs
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs
                 .Where(customer => customer.ID == customerID).ToList()
                 .ForEach(customer => customer.POINT -= l_i_addPoint);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.SaveChanges();
+            }
         }
 
         private void updateStatusFood(string foodID, string status)
         {
-            dataProvider.Instance.DB.FOODs
-            .Where(food => food.ID == foodID)
-            .ToList().ForEach(food => food.STATUS = status);
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.FOODs
+               .Where(food => food.ID == foodID)
+               .ToList().ForEach(food => food.STATUS = status);
 
-            //Lưu thay đổi vào cơ sở dữ liệu
-            dataProvider.Instance.DB.SaveChanges();
+                //Lưu thay đổi vào cơ sở dữ liệu
+                DB.SaveChanges();
+            }
         }
 
         private void clickDone(ORDERQUEUE p)
         {
-            this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_done);
+            try
+            {
+                this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_done);
 
-            this.addOrder(p.FOODTYPE);
+                this.addOrder(p.FOODTYPE);
 
-            addOneToAllOrder(1, p.FOODTYPE);
+                addOneToAllOrder(1, p.FOODTYPE);
 
-            staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME);
+                staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME + " thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME + " thất bại!");
+            }
         }
 
         private void clickSkip(ORDERQUEUE p)
         {
-            this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_skip);
+            try
+            {
+                this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_skip);
 
-            this.addOrder(p.FOODTYPE);
+                this.addOrder(p.FOODTYPE);
 
-            addOneToAllOrder(2, p.FOODTYPE);
+                addOneToAllOrder(2, p.FOODTYPE);
 
-            staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME);
+                staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME + " thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME + " thất bại!");
+            }
         }
 
         private void clickSoldOut(ORDERQUEUE p)
         {
-            this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_soldOut);
+            try
+            {
+                this.updateStatusFoodDetail(p.ORDERID, p.FOODID, staticVarClass.status_soldOut);
 
-            this.payBackCustomer(p.CUSTOMERID, p.TOTALMONEY);
+                this.payBackCustomer(p.CUSTOMERID, p.TOTALMONEY);
 
-            this.subPointCustomer(p.CUSTOMERID, p.TOTALMONEY);
+                this.subPointCustomer(p.CUSTOMERID, p.TOTALMONEY);
 
-            this.updateStatusFood(p.FOODID, staticVarClass.status_soldOut);
+                this.updateStatusFood(p.FOODID, staticVarClass.status_soldOut);
 
-            this.addOrder(p.FOODTYPE);
+                this.addOrder(p.FOODTYPE);
 
-            addOneToAllOrder(3, p.FOODTYPE);
+                addOneToAllOrder(3, p.FOODTYPE);
 
-            staticFunctionClass.showStatusView(true, "Hết món " + p.FOODNAME);
+                staticFunctionClass.showStatusView(true, "Báo hết món " + p.FOODNAME + "thành công!");
+            }
+            catch
+            {
+                staticFunctionClass.showStatusView(true, "Báo hết món " + p.FOODNAME + " thất bại!");
+            }
         }
         #endregion
 
@@ -455,10 +530,12 @@ namespace CanTeenManagement.ViewModel
             if (foodType == 1)
             {
                 this.loadData1();
+                this.checkVisibilityData1();
             }
             else if (foodType == 2)
             {
                 this.loadData2();
+                this.checkVisibilityData2();
             }
         }
 
@@ -553,11 +630,13 @@ namespace CanTeenManagement.ViewModel
                     break;
             }
 
-            this.g_list_OrderComplete = this.ToObservableCollection<ORDERQUEUE>
-                ((from orderInfo in dataProvider.Instance.DB.ORDERINFOes
-                  join orderDetail in dataProvider.Instance.DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
-                  join customer in dataProvider.Instance.DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
-                  join food in dataProvider.Instance.DB.FOODs on orderDetail.FOODID equals food.ID
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_list_OrderComplete = this.ToObservableCollection<ORDERQUEUE>
+                ((from orderInfo in DB.ORDERINFOes
+                  join orderDetail in DB.ORDERDETAILs on orderInfo.ID equals orderDetail.ORDERID
+                  join customer in DB.CUSTOMERs on orderInfo.CUSTOMERID equals customer.ID
+                  join food in DB.FOODs on orderDetail.FOODID equals food.ID
                   where food.FOODTYPE == foodType && orderDetail.STATUS == l_status && orderDetail.COMPLETIONDATE == DateTime.Today
                   orderby orderInfo.ORDERDATE ascending
                   select new ORDERQUEUE
@@ -574,6 +653,7 @@ namespace CanTeenManagement.ViewModel
                       STATUS = orderDetail.STATUS.Trim(),
                       COMPLETIONDATE = orderDetail.COMPLETIONDATE.ToString()
                   }));
+            }
 
             MainWindow mainWd = MainWindow.Instance;
 
@@ -590,6 +670,8 @@ namespace CanTeenManagement.ViewModel
         private int countAllOrder(int buttonID, int foodType)
         {
             string l_status = staticVarClass.status_done;
+            int l_count = 0;
+
             switch (buttonID)
             {
                 case 1:
@@ -603,8 +685,13 @@ namespace CanTeenManagement.ViewModel
                     break;
             }
 
-            int count = dataProvider.Instance.DB.ORDERDETAILs.Where(ord => ord.STATUS == l_status && ord.FOOD.FOODTYPE == foodType && ord.COMPLETIONDATE == DateTime.Today).Count();
-            return count;
+            using (var DB = new QLCanTinEntities())
+            {
+                l_count = DB.ORDERDETAILs
+                    .Where(ord => ord.STATUS == l_status && ord.FOOD.FOODTYPE == foodType
+                    && ord.COMPLETIONDATE == DateTime.Today).Count();
+            }
+            return l_count;
         }
 
         private void addOneToAllOrder(int buttonID, int foodType)

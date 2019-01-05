@@ -49,6 +49,7 @@ namespace CanTeenManagement.ViewModel
         }
 
         DispatcherTimer g_timer = null;
+        DispatcherTimer g_timerRefresh = null;
 
         #region command.
         public ICommand g_iCm_LoadedCommand { get; set; }
@@ -102,20 +103,28 @@ namespace CanTeenManagement.ViewModel
         private void inItSupport()
         {
             this.g_i_index = 0;
+
             this.g_timer = new DispatcherTimer();
             this.g_timer.Tick += (s, ev) => clickNext();
             this.g_timer.Interval = new TimeSpan(0, 0, 5);
+
+            this.g_timerRefresh = new DispatcherTimer();
+            this.g_timerRefresh.Tick += (s, ev) => loadData();
+            this.g_timerRefresh.Interval = new TimeSpan(0, 0, 1800);
         }
 
         private void unloaded()
         {
             this.g_timer.Stop();
+            this.g_timerRefresh.Stop();
         }
 
         private void loaded()
         {
             this.loadData();
+
             this.g_timer.Start();
+            this.g_timerRefresh.Start();
         }
 
         private void loadData()
@@ -126,7 +135,11 @@ namespace CanTeenManagement.ViewModel
                 this.g_obCl_food.Clear();
 
             this.g_obCl_orderFood = new ObservableCollection<ORDERFOOD>();
-            this.g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs);
+
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs);
+            }
 
             foreach (FOOD food in g_obCl_food)
             {

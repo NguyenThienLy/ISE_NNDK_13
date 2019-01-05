@@ -1,15 +1,12 @@
-﻿using System;
+﻿using CanTeenManagement.CO;
+using CanTeenManagement.Model;
+using CanTeenManagement.View;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CanTeenManagement.View;
-using CanTeenManagement.Model;
-using CanTeenManagement.CO;
-using System.IO;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -386,7 +383,14 @@ namespace CanTeenManagement.ViewModel
             this.saveAccount();
             this.g_b_isClickLogin = true;
 
-            var l_quantityAccount = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_textUsername && employee.PASSWORD == this.g_str_password).Count();
+            int l_quantityAccount = 0;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_quantityAccount = DB.EMPLOYEEs
+                   .Where(employee => employee.ID == this.g_str_textUsername
+                   && employee.PASSWORD == this.g_str_password).Count();
+            }
 
             if (l_quantityAccount > 0)
             {

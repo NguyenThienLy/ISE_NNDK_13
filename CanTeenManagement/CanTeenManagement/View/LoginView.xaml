@@ -158,7 +158,8 @@
                     <CheckBox IsChecked="{Binding g_b_isChecked, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
-                              Margin="100,50"></CheckBox>
+                              Margin="100,50"
+                              Background="#FF28878B"></CheckBox>
                     <TextBlock Text="Ghi nhớ mật khẩu"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Bottom"

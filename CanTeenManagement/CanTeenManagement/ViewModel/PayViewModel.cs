@@ -1,16 +1,13 @@
-﻿using CanTeenManagement.Model;
+﻿using CanTeenManagement.CO;
+using CanTeenManagement.Model;
 using CanTeenManagement.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using CanTeenManagement.CO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -340,7 +337,7 @@ namespace CanTeenManagement.ViewModel
 
                     staticFunctionClass.showStatusView(true, "Thêm đơn hàng " + this.g_str_orderID + " thành công!");
                 }
-                catch (Exception ex)
+                catch
                 {
                     staticFunctionClass.showStatusView(false, "Thêm đơn hàng " + this.g_str_orderID + " thất bại!");
                 }
@@ -363,19 +360,22 @@ namespace CanTeenManagement.ViewModel
 
         private bool createNewOrderID()
         {
-            string l_str_CurrID = dataProvider.Instance.DB.ORDERINFOes
+            using (var DB = new QLCanTinEntities())
+            {
+                string l_str_CurrID = DB.ORDERINFOes
                 .OrderByDescending(orderInfo => orderInfo.ID)
                 .Select(orderInfo => orderInfo.ID).FirstOrDefault();
 
-            //var resultString = dataProvider.Instance.DB.ORDERINFOes.OrderByDescending(id => id.ID).First();
-            Match match = Regex.Match(l_str_CurrID, @"(\d+)");
+                //var resultString = dataProvider.Instance.DB.ORDERINFOes.OrderByDescending(id => id.ID).First();
+                Match match = Regex.Match(l_str_CurrID, @"(\d+)");
 
-            if (match.Success)
-            {
-                // Create new orderID.
-                this.g_str_orderID = "ORD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
+                if (match.Success)
+                {
+                    // Create new orderID.
+                    this.g_str_orderID = "ORD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
 
-                return true;
+                    return true;
+                }
             }
 
             return false;
@@ -383,19 +383,22 @@ namespace CanTeenManagement.ViewModel
 
         private void saveOrderInfo()
         {
-            //Save in order info.
-            var l_orderInfo = new ORDERINFO()
+            using (var DB = new QLCanTinEntities())
             {
-                ID = this.g_str_orderID,
-                CUSTOMERID = this.g_str_customerID,
-                EMPLOYEEID = staticVarClass.account_userName,
-                ORDERDATE = DateTime.Now,
-                TOTALMONEY = this.g_i_sumPrice,
-                STATUS = staticVarClass.status_waiting
-            };
+                //Save in order info.
+                var l_orderInfo = new ORDERINFO()
+                {
+                    ID = this.g_str_orderID,
+                    CUSTOMERID = this.g_str_customerID,
+                    EMPLOYEEID = staticVarClass.account_userName,
+                    ORDERDATE = DateTime.Now,
+                    TOTALMONEY = this.g_i_sumPrice,
+                    STATUS = staticVarClass.status_waiting
+                };
 
-            dataProvider.Instance.DB.ORDERINFOes.Add(l_orderInfo);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.ORDERINFOes.Add(l_orderInfo);
+                DB.SaveChanges();
+            }
         }
 
         private void saveOrderDetail()
@@ -403,18 +406,21 @@ namespace CanTeenManagement.ViewModel
             int i = 0;
             for (i = 0; i < this.g_obCl_payFood.Count; i++)
             {
-                //Save in order detail.
-                var l_orderDetail = new ORDERDETAIL()
+                using (var DB = new QLCanTinEntities())
                 {
-                    ORDERID = this.g_str_orderID,
-                    FOODID = this.g_obCl_payFood[i].ID,
-                    QUANTITY = this.g_obCl_payFood[i].QUANTITY,
-                    TOTALMONEY = this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE,
-                    STATUS = staticVarClass.status_waiting
-                };
+                    //Save in order detail.
+                    var l_orderDetail = new ORDERDETAIL()
+                    {
+                        ORDERID = this.g_str_orderID,
+                        FOODID = this.g_obCl_payFood[i].ID,
+                        QUANTITY = this.g_obCl_payFood[i].QUANTITY,
+                        TOTALMONEY = this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE,
+                        STATUS = staticVarClass.status_waiting
+                    };
 
-                dataProvider.Instance.DB.ORDERDETAILs.Add(l_orderDetail);
-                dataProvider.Instance.DB.SaveChanges();
+                    DB.ORDERDETAILs.Add(l_orderDetail);
+                    DB.SaveChanges();
+                }
             }
         }
 
@@ -422,18 +428,24 @@ namespace CanTeenManagement.ViewModel
         {
             int l_i_price = this.g_i_sumPrice;
 
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
                                               .ForEach(customer => customer.CASH -= l_i_price);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.SaveChanges();
+            }
         }
 
         private void addPointForCustomer()
         {
             int l_i_addPoint = this.g_i_sumPrice / 10;
 
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
                                               .ForEach(customer => customer.POINT += l_i_addPoint);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.SaveChanges();
+            }
         }
         #endregion
 
@@ -469,14 +481,16 @@ namespace CanTeenManagement.ViewModel
 
         private void deleteOrderInfo()
         {
-
-            ORDERINFO l_orderInfo = dataProvider.Instance.DB.ORDERINFOes.Where(orderInfo => orderInfo.ID == this.g_str_orderID).SingleOrDefault();
-
-            if (l_orderInfo != null)
+            using (var DB = new QLCanTinEntities())
             {
-                dataProvider.Instance.DB.ORDERINFOes.Remove(l_orderInfo);
-                //dataProvider.Instance.DB.Entry(l_orderInfo).State = System.Data.Entity.EntityState.Deleted;
-                dataProvider.Instance.DB.SaveChanges();
+                ORDERINFO l_orderInfo = DB.ORDERINFOes.Where(orderInfo => orderInfo.ID == this.g_str_orderID).SingleOrDefault();
+
+                if (l_orderInfo != null)
+                {
+                    DB.ORDERINFOes.Remove(l_orderInfo);
+                    //dataProvider.Instance.DB.Entry(l_orderInfo).State = System.Data.Entity.EntityState.Deleted;
+                    DB.SaveChanges();
+                }
             }
         }
 
@@ -489,17 +503,20 @@ namespace CanTeenManagement.ViewModel
                 {
                     string t_id = this.g_obCl_payFood[i].ID;
 
-                    //
-                    ORDERDETAIL l_orderDetail = dataProvider.Instance.DB.ORDERDETAILs
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        //
+                        ORDERDETAIL l_orderDetail = DB.ORDERDETAILs
                         .Where(orderDetail => orderDetail.ORDERID == this.g_str_orderID
                         && orderDetail.FOODID == t_id).SingleOrDefault();
 
-                    //
-                    if (l_orderDetail != null)
-                    {
-                        dataProvider.Instance.DB.ORDERDETAILs.Remove(l_orderDetail);
-                        //dataProvider.Instance.DB.Entry(l_orderDetail).State = System.Data.Entity.EntityState.Deleted;
-                        dataProvider.Instance.DB.SaveChanges();
+                        //
+                        if (l_orderDetail != null)
+                        {
+                            DB.ORDERDETAILs.Remove(l_orderDetail);
+                            //dataProvider.Instance.DB.Entry(l_orderDetail).State = System.Data.Entity.EntityState.Deleted;
+                            DB.SaveChanges();
+                        }
                     }
                 }
             }
@@ -509,18 +526,24 @@ namespace CanTeenManagement.ViewModel
         {
             int l_i_price = this.g_i_sumPrice;
 
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
                                               .ForEach(customer => customer.CASH += l_i_price);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.SaveChanges();
+            }
         }
 
         private void subPointCustomer()
         {
             int l_i_addPoint = this.g_i_sumPrice / 10;
 
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
                                               .ForEach(customer => customer.POINT -= l_i_addPoint);
-            dataProvider.Instance.DB.SaveChanges();
+                DB.SaveChanges();
+            }
         }
         #endregion
 
@@ -637,7 +660,12 @@ namespace CanTeenManagement.ViewModel
 
         private void textChangedTextBoxCustomerID()
         {
-            CUSTOMER l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
+            CUSTOMER l_customer = null;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_customer = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
+            }
 
             if (l_customer != null)
             {
@@ -689,9 +717,14 @@ namespace CanTeenManagement.ViewModel
             if (this.g_b_isHaveCus == false)
                 return;
 
-            int l_currCash = (int)dataProvider.Instance.DB.CUSTOMERs
+            int l_currCash = 0;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_currCash = (int)DB.CUSTOMERs
                 .Where(cus => cus.ID == this.g_str_customerID)
                 .Select(cus => cus.CASH).FirstOrDefault();
+            }
 
             if (this.g_i_sumPrice > l_currCash)
             {

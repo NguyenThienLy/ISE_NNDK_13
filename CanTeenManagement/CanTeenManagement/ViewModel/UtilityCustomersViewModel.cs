@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -441,7 +439,12 @@ namespace CanTeenManagement.ViewModel
 
         private void textChangedTextBoxCustomerID()
         {
-            CUSTOMER l_customer = dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
+            CUSTOMER l_customer = null;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_customer = DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).SingleOrDefault();
+            }
 
             if (l_customer != null)
             {
@@ -463,7 +466,7 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(UtilityCustomersView p)
         {
-            this.g_timer.Start();
+            this.g_timer.Stop();
 
             //
             OrderView orderView = OrderView.Instance;
@@ -485,6 +488,12 @@ namespace CanTeenManagement.ViewModel
 
             // 
             this.g_i_sumPrice = 0;
+
+            // 
+            this.g_b_isAddCash = true;
+
+            //
+            this.g_b_isAgree = false;
 
             p.Close();
         }
@@ -593,9 +602,14 @@ namespace CanTeenManagement.ViewModel
             if (this.g_b_isHaveCus == false || this.g_b_isAddCash == true)
                 return;
 
-            int l_currCash = (int)dataProvider.Instance.DB.CUSTOMERs
+            int l_currCash = 0;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_currCash = (int)DB.CUSTOMERs
                 .Where(cus => cus.ID == this.g_str_customerID)
                 .Select(cus => cus.CASH).FirstOrDefault();
+            }
 
             if (this.g_i_sumPrice > l_currCash)
             {
@@ -615,9 +629,6 @@ namespace CanTeenManagement.ViewModel
         #region Button clear.
         private bool checkClickButtonClear()
         {
-            //if (this.g_i_sumPrice == "")
-            //    this.g_i_sumPrice = "0";
-
             if (this.g_i_sumPrice == 0 || this.g_b_isAgree == true)
                 return false;
 
@@ -768,23 +779,22 @@ namespace CanTeenManagement.ViewModel
 
         private void saveAddPriceForCustomer()
         {
-            int i_cash = 0;
-
-            if (this.g_b_isAddCash == true)
-                i_cash = this.g_i_sumPrice;
-            else
-                i_cash = -this.g_i_sumPrice;
-
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH += i_cash);
-            dataProvider.Instance.DB.SaveChanges();
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+                                              .ForEach(customer => customer.CASH += this.g_i_sumPrice);
+                DB.SaveChanges();
+            }
         }
 
         private void updateCustomerCash()
         {
-            this.g_i_customerCash = (int)dataProvider.Instance.DB.CUSTOMERs
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_i_customerCash = (int)DB.CUSTOMERs
                 .Where(customer => customer.ID == this.g_str_customerID)
                 .Select(customer => customer.CASH).FirstOrDefault();
+            }
         }
         #endregion
 
@@ -843,16 +853,12 @@ namespace CanTeenManagement.ViewModel
 
         private void saveSubPriceForCustomer()
         {
-            int i_cash = 0;
-
-            if (this.g_b_isAddCash == true)
-                i_cash = -this.g_i_sumPrice;
-            else
-                i_cash = this.g_i_sumPrice;
-
-            dataProvider.Instance.DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
-                                              .ForEach(customer => customer.CASH += i_cash);
-            dataProvider.Instance.DB.SaveChanges();
+            using (var DB = new QLCanTinEntities())
+            {
+                DB.CUSTOMERs.Where(customer => customer.ID == this.g_str_customerID).ToList()
+                                              .ForEach(customer => customer.CASH -= this.g_i_sumPrice);
+                DB.SaveChanges();
+            }
         }
 
         private void resetForBack()

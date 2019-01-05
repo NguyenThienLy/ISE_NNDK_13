@@ -278,15 +278,18 @@ namespace CanTeenManagement.ViewModel
         // Load image link and full name.
         private void loadUserInfo()
         {
-            var l_userInfo = dataProvider.Instance.DB.EMPLOYEEs
+            using (var DB = new QLCanTinEntities())
+            {
+                var l_userInfo = DB.EMPLOYEEs
                .Where(user => user.ID == staticVarClass.account_userName)
                .Select(user => new { user.FULLNAME, user.IMAGELINK }).SingleOrDefault();
 
-            if (l_userInfo != null)
-            {
-                this.g_str_fullName = l_userInfo.FULLNAME.Trim();
-                this.g_str_imageLink = l_userInfo.IMAGELINK.Trim();
-                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(g_str_imageLink);
+                if (l_userInfo != null)
+                {
+                    this.g_str_fullName = l_userInfo.FULLNAME.Trim();
+                    this.g_str_imageLink = l_userInfo.IMAGELINK.Trim();
+                    this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(g_str_imageLink);
+                }
             }
         }
 

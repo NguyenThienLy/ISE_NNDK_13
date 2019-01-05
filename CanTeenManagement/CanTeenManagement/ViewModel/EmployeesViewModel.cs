@@ -1,4 +1,5 @@
-﻿using CanTeenManagement.Model;
+﻿using CanTeenManagement.CO;
+using CanTeenManagement.Model;
 using CanTeenManagement.View;
 using Microsoft.Win32;
 using System;
@@ -6,18 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Reflection;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using CanTeenManagement.CO;
-using System.Windows.Controls.Primitives;
 using TableDependency.SqlClient;
-using TableDependency.SqlClient.Base.Enums;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -176,6 +172,17 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibilityEmloyees;
+        public string g_str_visibilityEmloyees
+        {
+            get => _g_str_visibilityEmloyees;
+            set
+            {
+                _g_str_visibilityEmloyees = value;
+                OnPropertyChanged();
+            }
+        }
+
         int g_i_addOrEdit;
         bool g_b_groupGender;
         bool g_b_isRefreshed;
@@ -212,13 +219,37 @@ namespace CanTeenManagement.ViewModel
         }
 
         private string _g_str_fullName;
-        public string g_str_fullName { get => _g_str_fullName; set { _g_str_fullName = value; OnPropertyChanged(); } }
+        public string g_str_fullName
+        {
+            get => _g_str_fullName;
+            set
+            {
+                _g_str_fullName = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_gender;
-        public string g_str_gender { get => _g_str_gender; set { _g_str_gender = value; OnPropertyChanged(); } }
+        public string g_str_gender
+        {
+            get => _g_str_gender;
+            set
+            {
+                _g_str_gender = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Nullable<int> _g_i_yearOfBirth;
-        public Nullable<int> g_i_yearOfBirth { get => _g_i_yearOfBirth; set { _g_i_yearOfBirth = value; OnPropertyChanged(); } }
+        public Nullable<int> g_i_yearOfBirth
+        {
+            get => _g_i_yearOfBirth;
+            set
+            {
+                _g_i_yearOfBirth = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_phone;
         public string g_str_phone
@@ -237,13 +268,37 @@ namespace CanTeenManagement.ViewModel
         }
 
         private string _g_str_email;
-        public string g_str_email { get => _g_str_email; set { _g_str_email = value; OnPropertyChanged(); } }
+        public string g_str_email
+        {
+            get => _g_str_email;
+            set
+            {
+                _g_str_email = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_position;
-        public string g_str_position { get => _g_str_position; set { _g_str_position = value; OnPropertyChanged(); } }
+        public string g_str_position
+        {
+            get => _g_str_position;
+            set
+            {
+                _g_str_position = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _g_str_status;
-        public string g_str_status { get => _g_str_status; set { _g_str_status = value; OnPropertyChanged(); } }
+        public string g_str_status
+        {
+            get => _g_str_status;
+            set
+            {
+                _g_str_status = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region commands.
@@ -266,11 +321,13 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickGoBackCommand { get; set; }
 
         public ICommand g_iCm_ClickChangeModeCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRefreshCommand { get; set; }
         #endregion
 
         public EmployeesViewModel()
         {
-            this.inItSupport();
+            this.initSupport();
 
             g_iCm_LoadedCommand = new RelayCommand<EmployeesView>((p) => { return true; }, (p) =>
             {
@@ -320,6 +377,11 @@ namespace CanTeenManagement.ViewModel
             g_iCm_ClickChangeModeCommand = new RelayCommand<ToggleButton>((p) => { return true; }, (p) =>
             {
                 this.clickChangeModeGroup();
+            });
+
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return checkClickButtonRefresh(); }, (p) =>
+            {
+                this.clickButtonRefresh();
             });
         }
 
@@ -374,8 +436,11 @@ namespace CanTeenManagement.ViewModel
             });
         }
 
-        private void inItSupport()
+        private void initSupport()
         {
+            this.g_str_visibilityEmloyees = staticVarClass.visibility_hidden;
+
+            //
             this.g_listEmployees = new ObservableCollection<EMPLOYEE>();
             this.g_selectedItem = null;
             this.g_i_addOrEdit = 0;
@@ -387,6 +452,7 @@ namespace CanTeenManagement.ViewModel
             this.loadCombobox();
         }
 
+        #region load.
         private void loadCombobox()
         {
             // Thêm danh sách gender.
@@ -427,47 +493,66 @@ namespace CanTeenManagement.ViewModel
         private void unloaded()
         {
             this.g_b_isUnloaded = true;
+            //this.StopTable();
         }
 
         private void loaded()
         {
             this.loadData();
+            this.checkVisibilityData();
             this.sortID();
             this.clickChangeModeGroup();
 
-            this.WatchTable();
+            //this.WatchTable();
         }
 
         private void loadData()
         {
-            this.g_listEmployees = this.ToObservableCollection<EMPLOYEE>((from employee in dataProvider.Instance.DB.EMPLOYEEs
-                                                                          select new
-                                                                          {
-                                                                              ID = employee.ID.Trim(),
-                                                                              PASSWORD = employee.PASSWORD.Trim(),
-                                                                              FULLNAME = employee.FULLNAME.Trim(),
-                                                                              GENDER = employee.GENDER.Trim(),
-                                                                              YEAROFBIRTH = employee.YEAROFBIRTH,
-                                                                              PHONE = employee.PHONE.Trim(),
-                                                                              EMAIL = employee.EMAIL.Trim(),
-                                                                              POSITION = employee.POSITION.Trim(),
-                                                                              IMAGELINK = employee.IMAGELINK.Trim(),
-                                                                              STATUS = employee.STATUS.Trim()
+            using (var DB = new QLCanTinEntities())
+            {
+                this.g_listEmployees = this.ToObservableCollection<EMPLOYEE>
+                ((from employee in DB.EMPLOYEEs
+                  select new
+                  {
+                      ID = employee.ID.Trim(),
+                      PASSWORD = employee.PASSWORD.Trim(),
+                      FULLNAME = employee.FULLNAME.Trim(),
+                      GENDER = employee.GENDER.Trim(),
+                      YEAROFBIRTH = employee.YEAROFBIRTH,
+                      PHONE = employee.PHONE.Trim(),
+                      EMAIL = employee.EMAIL.Trim(),
+                      POSITION = employee.POSITION.Trim(),
+                      IMAGELINK = employee.IMAGELINK.Trim(),
+                      STATUS = employee.STATUS.Trim()
 
-                                                                          }).ToList().Select(x => new EMPLOYEE
-                                                                          {
-                                                                              ID = x.ID.Trim(),
-                                                                              PASSWORD = x.PASSWORD.Trim(),
-                                                                              FULLNAME = x.FULLNAME.Trim(),
-                                                                              GENDER = x.GENDER.Trim(),
-                                                                              YEAROFBIRTH = x.YEAROFBIRTH,
-                                                                              PHONE = x.PHONE.Trim(),
-                                                                              EMAIL = x.EMAIL.Trim(),
-                                                                              POSITION = x.POSITION.Trim(),
-                                                                              IMAGELINK = x.IMAGELINK.Trim(),
-                                                                              STATUS = x.STATUS.Trim()
-                                                                          }).ToList().Take(15));
+                  }).ToList().Select(x => new EMPLOYEE
+                  {
+                      ID = x.ID.Trim(),
+                      PASSWORD = x.PASSWORD.Trim(),
+                      FULLNAME = x.FULLNAME.Trim(),
+                      GENDER = x.GENDER.Trim(),
+                      YEAROFBIRTH = x.YEAROFBIRTH,
+                      PHONE = x.PHONE.Trim(),
+                      EMAIL = x.EMAIL.Trim(),
+                      POSITION = x.POSITION.Trim(),
+                      IMAGELINK = x.IMAGELINK.Trim(),
+                      STATUS = x.STATUS.Trim()
+                  }).ToList());
+            }
         }
+
+        private void checkVisibilityData()
+        {
+            if (this.g_listEmployees.Count == 0)
+            {
+                this.g_str_visibilityEmloyees = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibilityEmloyees = staticVarClass.visibility_hidden;
+            }
+        }
+        #endregion
 
         private void sortID()
         {
@@ -586,17 +671,23 @@ namespace CanTeenManagement.ViewModel
                 if (string.IsNullOrEmpty(this.g_str_id))
                     return false;
 
-                // check id.
-                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
-                if (l_IDList == null || l_IDList.Count() != 0)
-                    return false;
+                using (var DB = new QLCanTinEntities())
+                {
+                    // check id.
+                    var l_IDList = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
+                    if (l_IDList == null || l_IDList.Count() != 0)
+                        return false;
+                }
             }
             else if (this.g_i_addOrEdit == 2)
             {
-                // check id.
-                var l_IDList = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
-                if (l_IDList == null || l_IDList.Count() == 0)
-                    return false;
+                using (var DB = new QLCanTinEntities())
+                {
+                    // check id.
+                    var l_IDList = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id);
+                    if (l_IDList == null || l_IDList.Count() == 0)
+                        return false;
+                }
             }
 
             return true;
@@ -622,8 +713,11 @@ namespace CanTeenManagement.ViewModel
 
                 try
                 {
-                    dataProvider.Instance.DB.EMPLOYEEs.Add(l_employee);
-                    dataProvider.Instance.DB.SaveChanges();
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        DB.EMPLOYEEs.Add(l_employee);
+                        DB.SaveChanges();
+                    }
 
                     // Make image default.
                     staticFunctionClass.CreateProfilePicture(this.getNameForPicture(l_employee.ID), l_employee.ID, 80);
@@ -639,17 +733,21 @@ namespace CanTeenManagement.ViewModel
             {
                 try
                 {
-                    var l_employee = dataProvider.Instance.DB.EMPLOYEEs.Where(employee => employee.ID == this.g_selectedItem.ID).SingleOrDefault();
-                    l_employee.FULLNAME = this.g_str_fullName;
-                    l_employee.GENDER = this.g_str_gender;
-                    l_employee.YEAROFBIRTH = this.g_i_yearOfBirth;
-                    l_employee.PHONE = this.g_str_phone;
-                    l_employee.EMAIL = this.g_str_email;
-                    l_employee.POSITION = this.g_str_position;
-                    l_employee.IMAGELINK = this.g_str_imageLink;
-                    l_employee.STATUS = this.g_str_status;
+                    using (var DB = new QLCanTinEntities())
+                    {
+                        var l_employee = DB.EMPLOYEEs.Where(employee => employee.ID == this.g_selectedItem.ID).SingleOrDefault();
+                        l_employee.FULLNAME = this.g_str_fullName;
+                        l_employee.GENDER = this.g_str_gender;
+                        l_employee.YEAROFBIRTH = this.g_i_yearOfBirth;
+                        l_employee.PHONE = this.g_str_phone;
+                        l_employee.EMAIL = this.g_str_email;
+                        l_employee.POSITION = this.g_str_position;
+                        l_employee.IMAGELINK = this.g_str_imageLink;
+                        l_employee.STATUS = this.g_str_status;
 
-                    dataProvider.Instance.DB.SaveChanges();
+                        DB.SaveChanges();
+                    }
+
                     staticFunctionClass.showStatusView(true, "Sửa thông tin nhân viên " + this.g_str_id + " thành công!");
                 }
                 catch
@@ -658,26 +756,6 @@ namespace CanTeenManagement.ViewModel
                 }
 
                 this.g_b_isReadOnlyID = false;
-                //for (int i = 0; i < this.g_listEmployees.Count(); i++)
-                //{
-                //    if (this.g_listEmployees[i].ID.Trim() == this.g_selectedItem.ID.Trim())
-                //    {
-                //        this.g_listEmployees[i] = new EMPLOYEE()
-                //        {
-                //            ID = this.g_selectedItem.ID,
-                //            FULLNAME = this.g_str_fullName,
-                //            GENDER = this.g_str_gender,
-                //            YEAROFBIRTH = this.g_i_yearOfBirth,
-                //            PHONE = this.g_str_phone,
-                //            EMAIL = this.g_str_email,
-                //            POSITION = this.g_str_position,
-                //            IMAGELINK = this.g_str_imageLink,
-                //            ROLE = this.g_str_role,
-                //            STATUS = this.g_str_status
-                //        };
-                //        break;
-                //    }
-                //}
             }
 
             this.g_i_height = 0;
@@ -760,13 +838,25 @@ namespace CanTeenManagement.ViewModel
         {
             if (string.IsNullOrEmpty(_g_str_filter))
                 return true;
+
+            int l_temp = (item as EMPLOYEE).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase);
+
+            if (l_temp == -1)
+            {
+                this.g_str_visibilityEmloyees = staticVarClass.visibility_visible;
+            }
             else
-                return ((item as EMPLOYEE).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
+            {
+                this.g_str_visibilityEmloyees = staticVarClass.visibility_hidden;
+            }
+
+            return (l_temp >= 0);
         }
 
         private void filterIDEmployee()
         {
             CollectionViewSource.GetDefaultView(this.g_listEmployees).Refresh();
+            this.checkVisibilityData();
         }
 
         private void clickDetail(EMPLOYEE p)
@@ -799,6 +889,19 @@ namespace CanTeenManagement.ViewModel
 
         }
 
+        #region button refresh.
+        private bool checkClickButtonRefresh()
+        {
+            if (this.g_str_visibilityEmloyees == staticVarClass.visibility_visible)
+                return false;
 
+            return true;
+        }
+
+        private void clickButtonRefresh()
+        {
+            this.loaded();
+        }
+        #endregion
     }
 }

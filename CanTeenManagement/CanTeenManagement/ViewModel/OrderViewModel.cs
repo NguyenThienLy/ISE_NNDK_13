@@ -18,6 +18,7 @@ namespace CanTeenManagement.ViewModel
 {
     class OrderViewModel : BaseViewModel
     {
+        #region collection.
         private ObservableCollection<ORDERFOOD> _g_obCl_orderFoodShow;
         public ObservableCollection<ORDERFOOD> g_obCl_orderFoodShow
         {
@@ -49,35 +50,23 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        // Curr page.
-        private int _g_i_currPage;
-        public int g_i_currPage
+        //List order food.
+        private ObservableCollection<PAYFOOD> _g_obCl_orderFood;
+        public ObservableCollection<PAYFOOD> g_obCl_orderFood
         {
-            get => _g_i_currPage;
-            set
-            {
-                _g_i_currPage = value;
-            }
+            get => _g_obCl_orderFood;
+            set { _g_obCl_orderFood = value; }
         }
 
-        private int _g_i_page;
-        public int g_i_page
+        private ORDERFOOD _g_ordF_orderFood;
+        public ORDERFOOD g_ordF_orderFood
         {
-            get => _g_i_page;
-            set
-            {
-                _g_i_page = value;
-            }
+            get => _g_ordF_orderFood;
+            set { _g_ordF_orderFood = value; }
         }
+        #endregion
 
-        // total food in page.
-        private int _g_i_skipFood;
-        public int g_i_skipFood
-        {
-            get => _g_i_skipFood;
-            set { _g_i_skipFood = value; }
-        }
-
+        #region search.
         // curr Price in slider.
         private int _g_i_currPrice;
         public int g_i_currPrice
@@ -142,21 +131,7 @@ namespace CanTeenManagement.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        //List order food.
-        private ObservableCollection<PAYFOOD> _g_obCl_orderFood;
-        public ObservableCollection<PAYFOOD> g_obCl_orderFood
-        {
-            get => _g_obCl_orderFood;
-            set { _g_obCl_orderFood = value; }
-        }
-
-        private ORDERFOOD _g_ordF_orderFood;
-        public ORDERFOOD g_ordF_orderFood
-        {
-            get => _g_ordF_orderFood;
-            set { _g_ordF_orderFood = value; }
-        }
+        #endregion
 
         private bool _g_b_isAdd;
         public bool g_b_isAdd
@@ -165,40 +140,21 @@ namespace CanTeenManagement.ViewModel
             set { _g_b_isAdd = value; }
         }
 
-        //Turn food.
-        private int _g_i_turn;
-        public int g_i_turn
-        {
-            get => _g_i_turn;
-            set
-            {
-                _g_i_turn = value;
-            }
-        }
+        #region break page.
+        // Curr page.
+        int g_i_currPage;
+        int g_i_page;
+        //Turn.
+        int g_i_turn;
+        //Curr turn.
+        int g_i_currTurn;
+        //Curr turn.
+        int g_i_currIndex;
+        // total food in page.
+        int g_i_skipFood;
+        #endregion
 
-        //Curr turn food.
-        private int _g_i_currTurn;
-        public int g_i_currTurn
-        {
-            get => _g_i_currTurn;
-            set
-            {
-                _g_i_currTurn = value;
-            }
-        }
-
-        //Curr turn food.
-        private int _g_i_currIndex;
-        public int g_i_currIndex
-        {
-            get => _g_i_currIndex;
-            set
-            {
-                _g_i_currIndex = value;
-            }
-        }
-
-        //Mode
+        #region mode.
         private bool _g_b_isViewToday;
         public bool g_b_isViewToday
         {
@@ -219,6 +175,7 @@ namespace CanTeenManagement.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         private string _g_str_visibilityOrderFood;
         public string g_str_visibilityOrderFood
@@ -267,6 +224,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_LostFocusTextSearchCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonSearchCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRefreshCommand { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -283,6 +242,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickPayView(p);
             });
 
+            #region break page.
             g_iCm_ClickPreviousPageCommand = new RelayCommand<Button>((p) => { return this.checkPreviousPage(); }, (p) =>
             {
                 this.clickPreviousPage();
@@ -297,7 +257,9 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickButtonPage(p);
             });
+            #endregion
 
+            #region search.
             g_iCm_ValueChangedSliderCommand = new RelayCommand<Slider>((p) => { return true; }, (p) =>
             {
                 this.valueChangedSlider(p);
@@ -332,6 +294,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.searchFood();
             });
+            #endregion
 
             g_iCm_ClickCartCommand = new RelayCommand<ORDERFOOD>((p) => { return this.checkClickCart(p); }, (p) =>
             {
@@ -357,6 +320,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickButtonDelete(p);
             });
+
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return checkClickButtonRefresh(); }, (p) =>
+            {
+                this.clickButtonRefresh();
+            });
         }
 
         FrameworkElement getWindowParent(UserControl p)
@@ -373,38 +341,7 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
-            this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
-
-            //
-            this.g_str_contentSearch = string.Empty;
-            this.g_str_contentSearchTemp = string.Empty;
-
-            //
-            this.g_b_isViewToday = true;
-            this.g_str_Mode = staticVarClass.mode_today;
-
-            //
-            this.g_i_currPage = 1;
-            this.g_i_page = 0;
-
-            //
-            this.g_i_currIndex = 0;
-
-            //
-            this.g_i_currTurn = 0;
-            this.g_i_turn = 0;
-
-            //
-            this.g_i_currPrice = 0;
-            this.g_i_currStar = 1;
-            this.g_b_isCheckedFoodCooked = true;
-            this.g_b_isCheckedNotFoodCooked = true;
-            this.g_str_contentSearch = string.Empty;
-
-            //
-            this.g_i_currOrderFood = 0;
-
-            //
+            #region collection.
             this.g_obCl_orderFood = new ObservableCollection<PAYFOOD>();
 
             //
@@ -412,12 +349,47 @@ namespace CanTeenManagement.ViewModel
 
             //
             this.g_obCl_page = new ObservableCollection<PAGE>();
+            #endregion
+
+            #region mode.
+            this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
+            //
+            this.g_b_isViewToday = true;
+            this.g_str_Mode = staticVarClass.mode_today;
+            #endregion
+
+            #region break page.
+            this.g_i_currPage = 1;
+            this.g_i_page = 0;
+            //
+            this.g_i_currIndex = 0;
+            //
+            this.g_i_currTurn = 0;
+            this.g_i_turn = 0;
+            //
+            this.g_i_skipFood = 0;
+            #endregion
+
+            #region search.
+            this.g_i_currPrice = 0;
+            this.g_i_currStar = 1;
+            this.g_b_isCheckedFoodCooked = true;
+            this.g_b_isCheckedNotFoodCooked = true;
+            this.g_str_contentSearch = string.Empty;
+            //
+            this.g_str_contentSearch = string.Empty;
+            this.g_str_contentSearchTemp = string.Empty;
+            #endregion
+
+            //
+            this.g_i_currOrderFood = 0;
         }
 
         #region Loaded.
         private void loaded()
         {
             this.loadedData();
+            this.checkVisibilityData();
             this.loadedPage();
             this.matchChoose();
         }
@@ -429,62 +401,68 @@ namespace CanTeenManagement.ViewModel
 
             if (this.g_b_isViewToday == true)
             {
-                // Food type is 1 or 2 not 3.
-                if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME.Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2)
-                        && food.STATUS == staticVarClass.status_still)
-                        .OrderByDescending(food => food.PRICE).Count();
-                // Food type is 3 not 2 and 3.
-                else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME
-                        .Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && food.FOODTYPE == 3
-                        && food.STATUS == staticVarClass.status_still)
-                        .OrderByDescending(food => food.PRICE).Count();
-                // Food type is 1 or 2 or 3.
-                else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME.Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)
-                        && food.STATUS == staticVarClass.status_still)
-                        .OrderByDescending(food => food.PRICE).Count();
+                using (var DB = new QLCanTinEntities())
+                {
+                    // Food type is 1 or 2 not 3.
+                    if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME.Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && (food.FOODTYPE == 1 || food.FOODTYPE == 2)
+                            && food.STATUS == staticVarClass.status_still)
+                            .OrderByDescending(food => food.PRICE).Count();
+                    // Food type is 3 not 2 and 3.
+                    else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME
+                            .Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && food.FOODTYPE == 3
+                            && food.STATUS == staticVarClass.status_still)
+                            .OrderByDescending(food => food.PRICE).Count();
+                    // Food type is 1 or 2 or 3.
+                    else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME.Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)
+                            && food.STATUS == staticVarClass.status_still)
+                            .OrderByDescending(food => food.PRICE).Count();
+                }
             }
             else
             {
-                // Food type is 1 or 2 not 3.
-                if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME.Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2))
-                        .OrderByDescending(food => food.PRICE).Count();
-                // Food type is 3 not 2 and 3.
-                else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME
-                        .Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && food.FOODTYPE == 3)
-                        .OrderByDescending(food => food.PRICE).Count();
-                // Food type is 1 or 2 or 3.
-                else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
-                    l_count = dataProvider.Instance.DB.FOODs
-                        .Where(food => food.PRICE >= this.g_i_currPrice
-                        && food.FOODNAME.Contains(this.g_str_contentSearch)
-                        && food.STAR >= this.g_i_currStar
-                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3))
-                        .OrderByDescending(food => food.PRICE).Count();
+                using (var DB = new QLCanTinEntities())
+                {
+                    // Food type is 1 or 2 not 3.
+                    if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME.Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && (food.FOODTYPE == 1 || food.FOODTYPE == 2))
+                            .OrderByDescending(food => food.PRICE).Count();
+                    // Food type is 3 not 2 and 3.
+                    else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME
+                            .Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && food.FOODTYPE == 3)
+                            .OrderByDescending(food => food.PRICE).Count();
+                    // Food type is 1 or 2 or 3.
+                    else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
+                        l_count = DB.FOODs
+                            .Where(food => food.PRICE >= this.g_i_currPrice
+                            && food.FOODNAME.Contains(this.g_str_contentSearch)
+                            && food.STAR >= this.g_i_currStar
+                            && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3))
+                            .OrderByDescending(food => food.PRICE).Count();
+                }
             }
 
             return l_count;
@@ -546,65 +524,71 @@ namespace CanTeenManagement.ViewModel
 
             if (this.g_b_isViewToday == true)
             {
-                // Food type is 1 or 2 not 3.
-                if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                    .Where(food => food.PRICE >= this.g_i_currPrice
-                    && food.FOODNAME.Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && (food.FOODTYPE == 1 || food.FOODTYPE == 2)
-                    && food.STATUS == staticVarClass.status_still)
-                    .OrderByDescending(food => food.PRICE)
-                    .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
-                // Food type is 3 not 1 and 2.
-                else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                    .Where(food => food.PRICE >= this.g_i_currPrice
-                    && food.FOODNAME.Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && food.FOODTYPE == 3
-                    && food.STATUS == staticVarClass.status_still)
-                    .OrderByDescending(food => food.PRICE)
-                    .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
-                // Food type is 1 or 2 or 3.
-                else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                   .Where(food => food.PRICE >= this.g_i_currPrice && food.FOODNAME
-                   .Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)
-                    && food.STATUS == staticVarClass.status_still)
-                   .OrderByDescending(food => food.PRICE)
-                   .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                using (var DB = new QLCanTinEntities())
+                {
+                    // Food type is 1 or 2 not 3.
+                    if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                        .Where(food => food.PRICE >= this.g_i_currPrice
+                        && food.FOODNAME.Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2)
+                        && food.STATUS == staticVarClass.status_still)
+                        .OrderByDescending(food => food.PRICE)
+                        .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                    // Food type is 3 not 1 and 2.
+                    else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                        .Where(food => food.PRICE >= this.g_i_currPrice
+                        && food.FOODNAME.Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && food.FOODTYPE == 3
+                        && food.STATUS == staticVarClass.status_still)
+                        .OrderByDescending(food => food.PRICE)
+                        .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                    // Food type is 1 or 2 or 3.
+                    else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                       .Where(food => food.PRICE >= this.g_i_currPrice && food.FOODNAME
+                       .Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3)
+                        && food.STATUS == staticVarClass.status_still)
+                       .OrderByDescending(food => food.PRICE)
+                       .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                }
             }
             else
             {
-                // Food type is 1 or 2 not 3.
-                if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                    .Where(food => food.PRICE >= this.g_i_currPrice
-                    && food.FOODNAME.Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && (food.FOODTYPE == 1 || food.FOODTYPE == 2))
-                    .OrderByDescending(food => food.PRICE)
-                    .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
-                // Food type is 3 not 1 and 2.
-                else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                    .Where(food => food.PRICE >= this.g_i_currPrice
-                    && food.FOODNAME.Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && food.FOODTYPE == 3).OrderByDescending(food => food.PRICE)
-                    .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
-                // Food type is 1 or 2 or 3.
-                else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
-                    g_obCl_food = new ObservableCollection<FOOD>(dataProvider.Instance.DB.FOODs
-                   .Where(food => food.PRICE >= this.g_i_currPrice && food.FOODNAME
-                   .Contains(this.g_str_contentSearch)
-                    && food.STAR >= this.g_i_currStar
-                    && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3))
-                   .OrderByDescending(food => food.PRICE)
-                   .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                using (var DB = new QLCanTinEntities())
+                {
+                    // Food type is 1 or 2 not 3.
+                    if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == false)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                        .Where(food => food.PRICE >= this.g_i_currPrice
+                        && food.FOODNAME.Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2))
+                        .OrderByDescending(food => food.PRICE)
+                        .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                    // Food type is 3 not 1 and 2.
+                    else if (this.g_b_isCheckedFoodCooked == false && this.g_b_isCheckedNotFoodCooked == true)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                        .Where(food => food.PRICE >= this.g_i_currPrice
+                        && food.FOODNAME.Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && food.FOODTYPE == 3).OrderByDescending(food => food.PRICE)
+                        .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                    // Food type is 1 or 2 or 3.
+                    else if (this.g_b_isCheckedFoodCooked == true && this.g_b_isCheckedNotFoodCooked == true)
+                        g_obCl_food = new ObservableCollection<FOOD>(DB.FOODs
+                       .Where(food => food.PRICE >= this.g_i_currPrice && food.FOODNAME
+                       .Contains(this.g_str_contentSearch)
+                        && food.STAR >= this.g_i_currStar
+                        && (food.FOODTYPE == 1 || food.FOODTYPE == 2 || food.FOODTYPE == 3))
+                       .OrderByDescending(food => food.PRICE)
+                       .Skip(this.g_i_skipFood).Take(staticVarClass.quantilityPage_order));
+                }
             }
 
             foreach (FOOD food in g_obCl_food)
@@ -612,7 +596,10 @@ namespace CanTeenManagement.ViewModel
                 ORDERFOOD t_orderFood = new ORDERFOOD(food);
                 g_obCl_orderFoodShow.Add(t_orderFood);
             }
+        }
 
+        private void checkVisibilityData()
+        {
             if (this.g_obCl_food.Count == 0)
             {
                 this.g_str_visibilityOrderFood = staticVarClass.visibility_visible;
@@ -653,6 +640,7 @@ namespace CanTeenManagement.ViewModel
         }
         #endregion
 
+        #region break page.
         #region Previous page.
         private bool checkPreviousPage()
         {
@@ -713,6 +701,7 @@ namespace CanTeenManagement.ViewModel
         {
             this.g_obCl_page[curr].BORDERCOLOR = color;
         }
+        #endregion
         #endregion
 
         #region Search.
@@ -937,6 +926,21 @@ namespace CanTeenManagement.ViewModel
 
             // Quantity order food.
             this.g_i_currOrderFood -= l_payFood.QUANTITY;
+        }
+        #endregion
+
+        #region button refresh.
+        private bool checkClickButtonRefresh()
+        {
+            if (this.g_str_visibilityOrderFood == staticVarClass.visibility_visible)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRefresh()
+        {
+            this.loaded();
         }
         #endregion
     }

@@ -18,6 +18,16 @@
              DataContext="{StaticResource sortFoodVM}"
              Height="660"
              Width="980">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName = sortFoodView}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_UnloadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName = sortFoodView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
                                          OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid x:Name="gvMain">
@@ -60,17 +70,7 @@
                                           Mode="PrimaryMid"
                                           Padding="16"
                                           Background="{x:Null}"
-                                          VerticalAlignment="Top">
-                    <DockPanel VerticalAlignment="Top"
-                               Margin="0 -11"
-                               Height="30">
-                        <StackPanel  Orientation="Horizontal"
-                                     materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Height="25"
-                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                        </StackPanel>
-                    </DockPanel>
-                </materialDesign:ColorZone>
+                                          VerticalAlignment="Top"></materialDesign:ColorZone>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -125,12 +125,6 @@
                         <Grid Grid.Row="1">
                             <ItemsControl x:Name="itemControlOrderQueue1"
                                           ItemsSource="{Binding g_list_OrderQueue1}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand1}"
-                                                               CommandParameter="{Binding ElementName = itemControlOrderQueue1}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Vertical" />
@@ -370,12 +364,6 @@
                         <Grid Grid.Row="1">
                             <ItemsControl x:Name="itemControlOrderQueue2"
                                           ItemsSource="{Binding g_list_OrderQueue2}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"
-                                                               CommandParameter="{Binding ElementName = itemControlOrderQueue2}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Vertical" />

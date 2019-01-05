@@ -28,6 +28,10 @@
             <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}"
                                    CommandParameter="{Binding ElementName = detailEmployeesView}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_UnloadedCommand}"
+                                   CommandParameter="{Binding ElementName = detailEmployeesView}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Margin="0 0 20 20"
           Background="White">
@@ -648,7 +652,6 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"></RowDefinition>
                                         <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="40"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <materialDesign:ColorZone Grid.Row="0"
                                                               Mode="PrimaryMid"
@@ -703,13 +706,14 @@
                                                         </Grid.ColumnDefinitions>
                                                         <Button IsHitTestVisible="False"
                                                                 Margin="0 -5"
+                                                                Grid.Column="1"
                                                                 Style="{DynamicResource MaterialDesignToolButton}">
                                                             <materialDesign:PackIcon Kind="Magnify"
                                                                                      Opacity=".70"
                                                                                      Height="22"
                                                                                      Width="23" />
                                                         </Button>
-                                                        <TextBox Grid.Column="1"
+                                                        <TextBox Grid.Column="0"
                                                                  Margin="8 0 0 0"
                                                                  materialDesign:HintAssist.Hint="Nhập thông tin về để tìm kiếm"
                                                                  materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -727,14 +731,6 @@
                                                         </TextBox>
                                                     </Grid>
                                                 </materialDesign:ColorZone>
-                                                <Button Style="{DynamicResource MaterialDesignToolForegroundButton}"
-                                                        Margin="8 0 0 0"
-                                                        Panel.ZIndex="0"
-                                                        ToolTip="Tìm kiếm">
-                                                    <materialDesign:PackIcon Kind="Send"
-                                                                             Height="22"
-                                                                             Width="23" />
-                                                </Button>
                                             </StackPanel>
                                         </DockPanel>
                                     </materialDesign:ColorZone>
@@ -760,121 +756,6 @@
                                                 </ListView.View>
                                             </ListView>
                                         </ScrollViewer>
-                                    </Grid>
-                                    <Grid Grid.Row="2"
-                                          Height="30">
-                                        <Grid Width="300">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="White"
-                                                    BorderBrush="#FF28878B"
-                                                    FontSize="20"
-                                                    Foreground="DarkGray"
-                                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                    ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Kind="PagePrevious" />
-                                            </Button>
-                                            <Button Grid.Column="1"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="White"
-                                                    BorderBrush="#FF28878B"
-                                                    FontSize="20"
-                                                    Foreground="DarkGray"
-                                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                    ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Width="20"
-                                                                         Height="30"
-                                                                         Kind="NumericOne" />
-                                            </Button>
-                                            <Button  Grid.Column="2"
-                                                     Height="30"
-                                                     Width="30"
-                                                     Background="White"
-                                                     BorderBrush="#FF28878B"
-                                                     FontSize="20"
-                                                     Foreground="DarkGray"
-                                                     Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                     ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Width="20"
-                                                                         Height="30"
-                                                                         Kind="NumericTwo" />
-                                            </Button>
-                                            <Button Grid.Column="3"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="White"
-                                                    BorderBrush="#FF28878B"
-                                                    FontSize="20"
-                                                    Foreground="DarkGray"
-                                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                    ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Width="20"
-                                                                         Height="30"
-                                                                         Kind="NumericThree" />
-                                            </Button>
-                                            <Button  Grid.Column="4"
-                                                     Height="30"
-                                                     Width="30"
-                                                     Background="White"
-                                                     BorderBrush="#FF28878B"
-                                                     FontSize="20"
-                                                     Foreground="DarkGray"
-                                                     Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                     ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Width="20"
-                                                                         Height="30"
-                                                                         Kind="NumericFour" />
-                                            </Button>
-                                            <Button Grid.Column="5"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="White"
-                                                    BorderBrush="#FF28878B"
-                                                    FontSize="20"
-                                                    Foreground="DarkGray"
-                                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                    ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Width="20"
-                                                                         Height="30"
-                                                                         Kind="NumericFive" />
-                                            </Button>
-                                            <Button Grid.Column="6"
-                                                    Height="30"
-                                                    Width="30"
-                                                    Background="White"
-                                                    BorderBrush="#FF28878B"
-                                                    FontSize="20"
-                                                    Foreground="DarkGray"
-                                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                    ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                                                <materialDesign:PackIcon Margin="-7"
-                                                                         HorizontalAlignment="Center"
-                                                                         Kind="PageNext" />
-                                            </Button>
-                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -4,18 +4,12 @@ using CanTeenManagement.View;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -529,9 +523,12 @@ namespace CanTeenManagement.ViewModel
                             // Update image source. 
                             this.g_imgSrc_currFood = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
 
-                            dataProvider.Instance.DB.FOODs.Where(food => food.ID == this.g_str_id).ToList()
-                                                              .ForEach(food => food.IMAGELINK = g_str_imageLink);
-                            dataProvider.Instance.DB.SaveChanges();
+                            using (var DB = new QLCanTinEntities())
+                            {
+                                DB.FOODs.Where(food => food.ID == this.g_str_id).ToList()
+                                                               .ForEach(food => food.IMAGELINK = g_str_imageLink);
+                                DB.SaveChanges();
+                            }
 
                             staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
                         }
@@ -656,9 +653,14 @@ namespace CanTeenManagement.ViewModel
 
         private string createNewFoodID()
         {
-            string l_str_CurrID = dataProvider.Instance.DB.FOODs
+            string l_str_CurrID = string.Empty;
+
+            using (var DB = new QLCanTinEntities())
+            {
+                l_str_CurrID = DB.FOODs
                 .OrderByDescending(food => food.ID)
                 .Select(food => food.ID).FirstOrDefault();
+            }
 
             Match match = Regex.Match(l_str_CurrID, @"(\d+)");
 
@@ -691,8 +693,11 @@ namespace CanTeenManagement.ViewModel
                     STATUS = g_str_status
                 };
 
-                dataProvider.Instance.DB.FOODs.Add(l_food);
-                dataProvider.Instance.DB.SaveChanges();
+                using (var DB = new QLCanTinEntities())
+                {
+                    DB.FOODs.Add(l_food);
+                    DB.SaveChanges();
+                }
 
                 staticFunctionClass.showStatusView(true, "Thêm món " + g_str_foodName + " thành công!");
             }
@@ -709,21 +714,24 @@ namespace CanTeenManagement.ViewModel
                 this.g_str_foodName = staticFunctionClass.StringNormalization(g_str_foodName);
                 this.g_str_foodDecription = staticFunctionClass.StringNormalization(g_str_foodDecription);
 
-                var l_food = dataProvider.Instance.DB.FOODs.Where(f => f.ID == g_str_id).FirstOrDefault();
-
-                if (l_food != null)
+                using (var DB = new QLCanTinEntities())
                 {
-                    l_food.FOODNAME = g_str_foodName;
-                    l_food.FOODTYPE = g_i_foodType + 1;
-                    l_food.FOODDESCRIPTION = g_str_foodDecription;
-                    l_food.PRICE = g_i_price;
-                    l_food.SALE = g_i_sale;
-                    l_food.IMAGELINK = g_str_imageLink;
-                    l_food.STAR = g_i_star;
-                    l_food.STATUS = g_str_status;
-                }
+                    var l_food = DB.FOODs.Where(f => f.ID == g_str_id).FirstOrDefault();
 
-                dataProvider.Instance.DB.SaveChanges();
+                    if (l_food != null)
+                    {
+                        l_food.FOODNAME = g_str_foodName;
+                        l_food.FOODTYPE = g_i_foodType + 1;
+                        l_food.FOODDESCRIPTION = g_str_foodDecription;
+                        l_food.PRICE = g_i_price;
+                        l_food.SALE = g_i_sale;
+                        l_food.IMAGELINK = g_str_imageLink;
+                        l_food.STAR = g_i_star;
+                        l_food.STATUS = g_str_status;
+                    }
+
+                    DB.SaveChanges();
+                }
 
                 staticFunctionClass.showStatusView(true, "Sửa món " + g_str_foodName + " thành công!");
             }
@@ -745,16 +753,19 @@ namespace CanTeenManagement.ViewModel
         #region Food name.
         private void checkFoodName()
         {
-            if (dataProvider.Instance.DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true)
+            using (var DB = new QLCanTinEntities())
             {
-                staticFunctionClass.showStatusView(false, "Món " + this.g_str_foodName + " đã có trong cơ sở dữ liệu");
+                if (DB.FOODs.Any(f => f.FOODNAME == g_str_foodName) == true)
+                {
+                    staticFunctionClass.showStatusView(false, "Món " + this.g_str_foodName + " đã có trong cơ sở dữ liệu");
 
-                this.g_str_foodName = string.Empty;
-                this.g_b_isFoodNameTrue = false;
-            }
-            else
-            {
-                this.g_b_isFoodNameTrue = true;
+                    this.g_str_foodName = string.Empty;
+                    this.g_b_isFoodNameTrue = false;
+                }
+                else
+                {
+                    this.g_b_isFoodNameTrue = true;
+                }
             }
         }
 

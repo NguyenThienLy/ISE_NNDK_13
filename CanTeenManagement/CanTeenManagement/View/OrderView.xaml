@@ -105,8 +105,19 @@
                         </materialDesign:Badged>
                         <StackPanel  Orientation="Horizontal"
                                      materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Height="25"
-                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                            <Button x:Name="btnRefresh"
+                                    Height="25"
+                                    Width="25"
+                                    Background="IndianRed"
+                                    BorderBrush="IndianRed"
+                                    ToolTip="Làm mới lại dữ liệu"
+                                    Command="{Binding g_iCm_ClickButtonRefreshCommand}"
+                                    CommandParameter="{Binding ElementName=btnRefresh}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                <materialDesign:PackIcon Kind="Refresh"
+                                                         Height="15"
+                                                         Width="15" />
+                            </Button>
                             <materialDesign:ColorZone  Mode="Standard"
                                                        Padding="8 4 8 4"
                                                        CornerRadius="2"
@@ -126,7 +137,9 @@
                                             ToolTip="Tìm kiếm"
                                             Grid.Column="2">
                                         <materialDesign:PackIcon Kind="Magnify"
-                                                                 Opacity=".56" />
+                                                                 Opacity=".56"
+                                                                 Height="22"
+                                                                 Width="23" />
                                     </Button>
                                     <TextBox x:Name="txtSearch"
                                              Grid.Column="1"
