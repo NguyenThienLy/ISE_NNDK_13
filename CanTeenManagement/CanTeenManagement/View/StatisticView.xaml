@@ -341,27 +341,13 @@
                                        VerticalAlignment="Center" />
                             <ComboBox Margin="10 0 0 0"
                                       Text="{Binding g_sv_StatChart_Choice}"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                       FontSize="20"
-                                      IsEditable="True"
-                                      IsReadOnly="True"
-                                      Background="{x:Null}"
                                       FontWeight="DemiBold">
-                                <ComboBoxItem>
-                                    <TextBlock Text="Khoảng thời gian"
-                                               FontSize="20" />
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Tuần hiện tại"
-                                               FontSize="20" />
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Tháng hiện tại"
-                                               FontSize="20" />
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Năm hiện tại"
-                                               FontSize="20" />
-                                </ComboBoxItem>
+                                <ComboBoxItem IsSelected="True" FontSize="20">Khoảng thời gian</ComboBoxItem>
+                                <ComboBoxItem FontSize="20">Tuần hiện tại</ComboBoxItem>
+                                <ComboBoxItem FontSize="20">Tháng hiện tại</ComboBoxItem>
+                                <ComboBoxItem FontSize="20">Năm hiện tại</ComboBoxItem>
                             </ComboBox>
                         </StackPanel>
                         <Button Grid.Column="3"

@@ -254,17 +254,20 @@ namespace CanTeenManagement.ViewModel
 
         private void checkVisibilityChart()
         {
-            if (g_dc_StatChart_Chart.Count == 0)
-            {
-                this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
+            this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
 
-                this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
-            }
-            else
-            {
-                this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
+            this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
 
-                this.g_str_visibilityChartChart = staticVarClass.visibility_visible;
+            for (int i = 0; i < g_dc_StatChart_Chart.Count; i++)
+            {
+                if (g_dc_StatChart_Chart[i].Value != 0)
+                {
+                    this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
+
+                    this.g_str_visibilityChartChart = staticVarClass.visibility_visible;
+
+                    break;
+                }
             }
         }
 
@@ -303,6 +306,25 @@ namespace CanTeenManagement.ViewModel
             }
 
             sortSaleByDescending();
+        }
+
+        private void checkVisibilityFood()
+        {
+            this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
+
+            this.g_str_visibilityChartFood = staticVarClass.visibility_hidden;
+
+            for (int i = 0; i < g_dc_StatFood_Chart.Count; i++)
+            {
+                if (g_dc_StatFood_Chart[i].Value != 0)
+                {
+                    this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
+
+                    this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
+
+                    break;
+                }
+            }
         }
 
         private void statChartByTime()
@@ -649,22 +671,6 @@ namespace CanTeenManagement.ViewModel
 
             g_txt_StatFood_BestSeller = strFirst[0];
             g_dc_StatFood_Chart = StatFood_ChartValue;
-        }
-
-        private void checkVisibilityFood()
-        {
-            if (g_dc_StatFood_Chart.Count == 0)
-            {
-                this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
-
-                this.g_str_visibilityChartFood = staticVarClass.visibility_hidden;
-            }
-            else
-            {
-                this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
-
-                this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
-            }
         }
 
         private string getDateMonth(DateTime? dtBeginTime, DateTime? dtEndTime)

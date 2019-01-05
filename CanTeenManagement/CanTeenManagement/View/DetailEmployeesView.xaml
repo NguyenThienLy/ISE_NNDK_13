@@ -736,7 +736,7 @@
                                     </materialDesign:ColorZone>
                                     <Grid Grid.Row="1">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <ListView x:Name="lsVCustomer"
+                                            <ListView x:Name="lsVEmployee"
                                                       ItemsSource="{Binding g_listOrders}">
                                                 <ListView.View>
                                                     <GridView>

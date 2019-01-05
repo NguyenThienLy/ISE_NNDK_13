@@ -505,3 +505,16 @@ D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanT
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.dll
 G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.xml
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.dll
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.ComponentModel.Annotations.dll
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.Common.dll
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\System.Data.SqlClient.dll
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\TableDependency.SqlClient.dll
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.xml
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.ResolveComReference.cache
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.g.cs
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.g.cs
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.g.cs
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\FoodDetailView.baml
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\StatusView.baml
+D:\TKL\GIT\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\View\UtilityCustomersView.baml
