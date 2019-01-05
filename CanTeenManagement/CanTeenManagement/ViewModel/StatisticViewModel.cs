@@ -131,10 +131,18 @@ namespace CanTeenManagement.ViewModel
 
         #region commands.
         public ICommand g_iCm_StatChart { get; set; }
+
         public ICommand g_iCm_StatFood { get; set; }
+
         public ICommand g_iCm_Sort { get; set; }
+
         public ICommand g_iCm_clickChart { get; set; }
+
         public ICommand g_iCm_clickFood { get; set; }
+
+        public ICommand g_iCm_ClickButtonRefreshCommand { get; set; }
+
+        public ICommand g_iCm_LoadedCommand { get; set; }
         #endregion
 
         public int MAX_COLUMN = 20;
@@ -143,12 +151,17 @@ namespace CanTeenManagement.ViewModel
         {
             this.initSupport();
 
-            g_iCm_StatChart = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
+            g_iCm_LoadedCommand = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
+            {
+                this.loaded();
+            });
+
+            g_iCm_StatChart = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
                 this.clickChart();
             });
 
-            g_iCm_StatFood = new RelayCommand<StatisticView>((p) => { return true; }, (p) =>
+            g_iCm_StatFood = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
                 DataLV.Clear();
                 this.clickFood();
@@ -165,6 +178,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickFood();
             });
+
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return checkClickButtonRefresh(); }, (p) =>
+            {
+                this.clickButtonRefresh();
+            });
         }
 
         private void initSupport()
@@ -179,9 +197,30 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
             this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
 
-            this.statStartUp();
+            g_sd_StatChart_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
+            g_sd_StatChart_ToTime = DateTime.Today;
+            g_sv_StatChart_Choice = staticVarClass.timeStr_instanceTime;
+            g_sd_StatFood_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
+            g_sd_StatFood_ToTime = DateTime.Today;
+            g_sv_StatFood_Choice = staticVarClass.timeStr_instanceTime;
+            StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
+            DataLV = new ObservableCollection<ItemFood>();
         }
 
+        private void loaded()
+        {
+            if (this.g_b_isChart == true)
+            {
+                this.clickChart();
+            }
+            else
+            {
+                DataLV.Clear();
+                this.clickFood();
+            }
+        }
+
+        #region chart.
         private void clickChart()
         {
             this.g_b_isChart = true;
@@ -196,22 +235,6 @@ namespace CanTeenManagement.ViewModel
 
             this.statChart();
             this.checkVisibilityChart();
-        }
-
-        private void clickFood()
-        {
-            this.g_b_isChart = false;
-            this.g_str_mode = staticVarClass.mode_statisticFood;
-
-            this.g_str_visibilityFood = staticVarClass.visibility_visible;
-            this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
-
-            this.g_str_visibilityChart = staticVarClass.visibility_hidden;
-            this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
-            this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
-
-            this.statFood();
-            this.checkVisibilityFood();
         }
 
         private void statChart()
@@ -265,62 +288,6 @@ namespace CanTeenManagement.ViewModel
                     this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
 
                     this.g_str_visibilityChartChart = staticVarClass.visibility_visible;
-
-                    break;
-                }
-            }
-        }
-
-        private void statFood()
-        {
-            if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisWeek)
-            {
-                DateTime? dtFirstDayOfWeek = getLastWeekDay(DayOfWeek.Monday);
-                DateTime? dtLastDayOfWeek = dtFirstDayOfWeek.Value.AddDays(6);
-
-                statFoodBetweenTime(dtFirstDayOfWeek, dtLastDayOfWeek);
-            }
-            else if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisMoth)
-            {
-                DateTime? dtFirstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                DateTime? dtLastDayOfMonth = dtFirstDayOfMonth.Value.AddMonths(1).AddDays(-1);
-
-                statFoodBetweenTime(dtFirstDayOfMonth, dtLastDayOfMonth);
-            }
-            else if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisYear)
-            {
-                DateTime? dtFirstDayOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-                DateTime? dtLastDayOfYear = dtFirstDayOfYear.Value.AddYears(1).AddDays(-1);
-
-                statFoodBetweenTime(dtFirstDayOfYear, dtLastDayOfYear);
-            }
-            else
-            {
-                if (!_g_sd_StatFood_FromTime.HasValue || !_g_sd_StatFood_ToTime.HasValue)    // khi người dùng quên chọn ngày hoặc kiểu thống kê thì chương trình ko bị crash
-                {
-                    MessageBox.Show("Hãy chọn khoảng thời gian!", "Error", 0, 0);
-                    return;
-                }
-
-                statFoodBetweenTime(_g_sd_StatFood_FromTime, _g_sd_StatFood_ToTime);
-            }
-
-            sortSaleByDescending();
-        }
-
-        private void checkVisibilityFood()
-        {
-            this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
-
-            this.g_str_visibilityChartFood = staticVarClass.visibility_hidden;
-
-            for (int i = 0; i < g_dc_StatFood_Chart.Count; i++)
-            {
-                if (g_dc_StatFood_Chart[i].Value != 0)
-                {
-                    this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
-
-                    this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
 
                     break;
                 }
@@ -597,6 +564,80 @@ namespace CanTeenManagement.ViewModel
                 dtCurrentYear = dtCurrentYear.Value.AddYears(1);
             }
         }
+        #endregion
+
+        #region food.
+        private void clickFood()
+        {
+            this.g_b_isChart = false;
+            this.g_str_mode = staticVarClass.mode_statisticFood;
+
+            this.g_str_visibilityFood = staticVarClass.visibility_visible;
+            this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
+
+            this.g_str_visibilityChart = staticVarClass.visibility_hidden;
+            this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
+            this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
+
+            this.statFood();
+            this.checkVisibilityFood();
+        }
+
+        private void statFood()
+        {
+            if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisWeek)
+            {
+                DateTime? dtFirstDayOfWeek = getLastWeekDay(DayOfWeek.Monday);
+                DateTime? dtLastDayOfWeek = dtFirstDayOfWeek.Value.AddDays(6);
+
+                statFoodBetweenTime(dtFirstDayOfWeek, dtLastDayOfWeek);
+            }
+            else if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisMoth)
+            {
+                DateTime? dtFirstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime? dtLastDayOfMonth = dtFirstDayOfMonth.Value.AddMonths(1).AddDays(-1);
+
+                statFoodBetweenTime(dtFirstDayOfMonth, dtLastDayOfMonth);
+            }
+            else if (_g_sv_StatFood_Choice == staticVarClass.timeStr_thisYear)
+            {
+                DateTime? dtFirstDayOfYear = new DateTime(DateTime.Now.Year, 1, 1);
+                DateTime? dtLastDayOfYear = dtFirstDayOfYear.Value.AddYears(1).AddDays(-1);
+
+                statFoodBetweenTime(dtFirstDayOfYear, dtLastDayOfYear);
+            }
+            else
+            {
+                if (!_g_sd_StatFood_FromTime.HasValue || !_g_sd_StatFood_ToTime.HasValue)    // khi người dùng quên chọn ngày hoặc kiểu thống kê thì chương trình ko bị crash
+                {
+                    MessageBox.Show("Hãy chọn khoảng thời gian!", "Error", 0, 0);
+                    return;
+                }
+
+                statFoodBetweenTime(_g_sd_StatFood_FromTime, _g_sd_StatFood_ToTime);
+            }
+
+            sortSaleByDescending();
+        }
+
+        private void checkVisibilityFood()
+        {
+            this.g_str_visibilityEmpty = staticVarClass.visibility_visible;
+
+            this.g_str_visibilityChartFood = staticVarClass.visibility_hidden;
+
+            for (int i = 0; i < g_dc_StatFood_Chart.Count; i++)
+            {
+                if (g_dc_StatFood_Chart[i].Value != 0)
+                {
+                    this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
+
+                    this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
+
+                    break;
+                }
+            }
+        }
 
         private void statFoodBetweenTime(DateTime? dtBeginTime, DateTime? dtEndTime)
         {
@@ -743,21 +784,7 @@ namespace CanTeenManagement.ViewModel
 
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date.Value, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
-
-        private void statStartUp()
-        {
-            g_sd_StatChart_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
-            g_sd_StatChart_ToTime = DateTime.Today;
-            g_sv_StatChart_Choice = staticVarClass.timeStr_instanceTime;
-            g_sd_StatFood_FromTime = new DateTime(DateTime.Today.Year, 1, 1);
-            g_sd_StatFood_ToTime = DateTime.Today;
-            g_sv_StatFood_Choice = staticVarClass.timeStr_instanceTime;
-            StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
-            DataLV = new ObservableCollection<ItemFood>();
-
-            this.statChart();
-            this.checkVisibilityChart();
-        }
+        #endregion
 
         #region Sort
         private string _sortColumn;
@@ -859,6 +886,21 @@ namespace CanTeenManagement.ViewModel
 
                 return _CanExecute(parameter);
             }
+        }
+        #endregion
+
+        #region button refresh.
+        private bool checkClickButtonRefresh()
+        {
+            if (this.g_str_visibilityEmpty == staticVarClass.visibility_visible)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRefresh()
+        {
+            this.loaded();
         }
         #endregion
     }

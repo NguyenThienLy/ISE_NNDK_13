@@ -80,28 +80,51 @@
                                             <RowDefinition Height="30"></RowDefinition>
                                             <RowDefinition></RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="0"
-                                                    HorizontalAlignment="Center"
-                                                    Orientation="Horizontal">
-                                            <ToggleButton x:Name="tglBtnMode"
-                                                          Command="{ Binding g_iCm_ChangeModeCommand}"
-                                                          CommandParameter="{Binding ElementName = tglBtnMode}"
-                                                          Width="50"
-                                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                                          ToolTip="MaterialDesignSwitchToggleButton with Content and ToggleButtonAssist.OnContent">
-                                                <materialDesign:PackIcon Kind="AttachMoney"
-                                                                         RenderTransformOrigin=".5,.5"></materialDesign:PackIcon>
-                                                <materialDesign:ToggleButtonAssist.OnContent>
-                                                    <materialDesign:PackIcon Kind="MoneyOff" />
-                                                </materialDesign:ToggleButtonAssist.OnContent>
-                                            </ToggleButton>
-                                            <TextBlock FontSize="40"
-                                                       Margin="5"
-                                                       TextWrapping="Wrap"
-                                                       FontWeight="DemiBold"
-                                                       VerticalAlignment="Center"
-                                                       Text="{Binding g_str_Mode}" />
-                                        </StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <Button x:Name="btnRefresh"
+                                                    Height="25"
+                                                    Width="25"
+                                                    Background="IndianRed"
+                                                    BorderBrush="IndianRed"
+                                                    ToolTip="Làm mới"
+                                                    Command="{Binding g_iCm_ClickButtonRefreshCommand}"
+                                                    CommandParameter="{Binding ElementName=btnRefresh}"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                                <materialDesign:PackIcon Kind="Refresh"
+                                                                         Height="15"
+                                                                         Width="15" />
+                                            </Button>
+                                            <StackPanel Grid.Column="1"
+                                                        HorizontalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                <ToggleButton x:Name="tglBtnMode"
+                                                              Command="{ Binding g_iCm_ChangeModeCommand}"
+                                                              CommandParameter="{Binding ElementName = tglBtnMode}"
+                                                              Width="50"
+                                                              IsChecked="{Binding g_b_Mode}"
+                                                              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                                              ToolTip="MaterialDesignSwitchToggleButton with Content and ToggleButtonAssist.OnContent">
+                                                    <materialDesign:PackIcon Kind="AttachMoney"
+                                                                             RenderTransformOrigin=".5,.5"></materialDesign:PackIcon>
+                                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                                        <materialDesign:PackIcon Kind="MoneyOff" />
+                                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                                </ToggleButton>
+                                                <TextBlock FontSize="40"
+                                                           Margin="5"
+                                                           TextWrapping="Wrap"
+                                                           FontWeight="DemiBold"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding g_str_Mode}" />
+                                            </StackPanel>
+                                        </Grid>
+                                      
                                         <Grid Grid.Row="1"
                                               Margin="15 0 0 0">
                                             <ItemsControl x:Name="itemControlHaveCash"

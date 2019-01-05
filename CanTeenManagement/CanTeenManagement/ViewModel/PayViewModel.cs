@@ -13,7 +13,7 @@ using System.Windows.Threading;
 
 namespace CanTeenManagement.ViewModel
 {
-    class PayViewModel : BaseViewModel
+     class PayViewModel : BaseViewModel
     {
         private ObservableCollection<PAYFOOD> _g_obCl_payFood;
         public ObservableCollection<PAYFOOD> g_obCl_payFood
@@ -96,40 +96,7 @@ namespace CanTeenManagement.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private string _g_str_orderID;
-        public string g_str_orderID
-        {
-            get => _g_str_orderID;
-
-            set
-            {
-                _g_str_orderID = value;
-            }
-        }
-
-        private bool _g_b_isPay;
-        public bool g_b_isPay
-        {
-            get => _g_b_isPay;
-
-            set
-            {
-                _g_b_isPay = value;
-            }
-        }
-
-        private bool _g_b_isHaveCus;
-        public bool g_b_isHaveCus
-        {
-            get => _g_b_isHaveCus;
-
-            set
-            {
-                _g_b_isHaveCus = value;
-            }
-        }
-
+       
         private string _g_str_visibitily;
         public string g_str_visibitily
         {
@@ -142,16 +109,23 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private bool _g_b_isEnough;
-        public bool g_b_isEnough
+        private string _g_str_visibilityOrderFood;
+        public string g_str_visibilityOrderFood
         {
-            get => _g_b_isEnough;
+            get => _g_str_visibilityOrderFood;
 
             set
             {
-                _g_b_isEnough = value;
+                _g_str_visibilityOrderFood = value;
+                OnPropertyChanged();
             }
         }
+        
+        string g_str_orderID;
+        bool g_b_isPay;
+        bool g_b_isHaveCus;
+        bool g_b_isEnough;
+        public bool g_b_addPriceNow;
 
         DispatcherTimer g_timer = null;
 
@@ -179,6 +153,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_MouseLeftButtonDownCommand { get; set; }
 
         public ICommand g_iCm_TextChangedPriceTextBoxCommand { get; set; }
+
+        public ICommand g_iCm_ClickAddPriceCommand { get; set; }
         #endregion
 
         public PayViewModel()
@@ -244,10 +220,22 @@ namespace CanTeenManagement.ViewModel
             {
                 this.textChangedPriceTextBox();
             });
+
+            g_iCm_ClickAddPriceCommand = new RelayCommand<PayView>((p) => { return true; }, (p) =>
+            {
+                this.clickAddPrice(p);
+            });
+
         }
 
         private void initSupport()
         {
+            this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
+
+            //
+            this.g_b_addPriceNow = false;
+
+            //
             this.g_timer = new DispatcherTimer();
             this.g_timer.Tick += (s, ev) => setIDCustomer();
             this.g_timer.Interval = new TimeSpan(0, 0, 1);
@@ -292,6 +280,20 @@ namespace CanTeenManagement.ViewModel
             this.g_obCl_payFood = l_orderVM.g_obCl_orderFood;
             // Sum price in order food.
             this.g_i_sumPrice = this.getSumPrice();
+
+            this.checkVisibilityOrderFood();
+        }
+
+        private void checkVisibilityOrderFood()
+        {
+            if (this.g_obCl_payFood.Count == 0)
+            {
+                this.g_str_visibilityOrderFood = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
+            }
         }
 
         private int getSumPrice()
@@ -561,7 +563,7 @@ namespace CanTeenManagement.ViewModel
 
             var l_orderVM = orderView.DataContext as OrderViewModel;
 
-            // Reset affter pay in orderView.
+            //Reset affter pay in orderView.
             l_orderVM.g_obCl_orderFood.Clear();
             l_orderVM.g_i_currOrderFood = 0;
 
@@ -572,6 +574,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibitily = staticVarClass.visibility_hidden;
 
             p.Close();
+            p = null;
         }
 
         #region Button delete.
@@ -599,6 +602,8 @@ namespace CanTeenManagement.ViewModel
             this.g_i_sumPrice -= p.QUANTITY * p.PRICESALE;
 
             this.g_obCl_payFood.Remove(p);
+
+            this.checkVisibilityOrderFood();
         }
         #endregion
 
@@ -745,6 +750,22 @@ namespace CanTeenManagement.ViewModel
             string str_ID = staticFunctionClass.getIDFronExcel();
             if (str_ID != string.Empty)
                 this.g_str_customerID = str_ID;
+        }
+
+        private void clickAddPrice(PayView p)
+        {
+            p.Hide();
+            g_timer.Stop();
+
+            this.g_b_addPriceNow = true;
+
+            UtilityCustomersView utilityCustomersView = new UtilityCustomersView();
+            utilityCustomersView.ShowDialog();
+
+            this.g_b_addPriceNow = false;
+
+            this.textChangedPriceTextBox();
+            p.ShowDialog();      
         }
     }
 }

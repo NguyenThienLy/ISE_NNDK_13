@@ -141,6 +141,18 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private bool _g_b_Mode;
+        public bool g_b_Mode
+        {
+            get => _g_b_Mode;
+
+            set
+            {
+                _g_b_Mode = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _g_str_Mode;
         public string g_str_Mode
         {
@@ -161,28 +173,6 @@ namespace CanTeenManagement.ViewModel
             {
                 _g_imgSrc_customer = value;
                 OnPropertyChanged();
-            }
-        }
-
-        private bool _g_b_isAgree;
-        public bool g_b_isAgree
-        {
-            get => _g_b_isAgree;
-
-            set
-            {
-                _g_b_isAgree = value;
-            }
-        }
-
-        private bool _g_b_isHaveCus;
-        public bool g_b_isHaveCus
-        {
-            get => _g_b_isHaveCus;
-
-            set
-            {
-                _g_b_isHaveCus = value;
             }
         }
 
@@ -210,16 +200,10 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private bool _g_b_isEnough;
-        public bool g_b_isEnough
-        {
-            get => _g_b_isEnough;
-
-            set
-            {
-                _g_b_isEnough = value;
-            }
-        }
+        bool g_b_isAgree;
+        bool g_b_isHaveCus;
+        bool g_b_isEnough;
+        bool g_b_addPriceNow;
 
         DispatcherTimer g_timer = null;
 
@@ -259,6 +243,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_TextChangedPriceTextBoxCommand { get; set; }
 
         public ICommand g_iCm_LoadedWindowCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonRefreshCommand { get; set; }
         #endregion
 
         public UtilityCustomersViewModel()
@@ -344,6 +330,11 @@ namespace CanTeenManagement.ViewModel
             {
                 this.textChangedPriceTextBox();
             });
+
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonRefresh(); }, (p) =>
+            {
+                this.clickButtonRefresh();
+            });
         }
 
         private void initSupport()
@@ -354,6 +345,7 @@ namespace CanTeenManagement.ViewModel
 
             //
             this.g_b_isAddCash = true;
+            this.g_b_Mode = false;
             this.g_str_Mode = staticVarClass.mode_addCash;
 
             //
@@ -385,7 +377,27 @@ namespace CanTeenManagement.ViewModel
 
         private void loaded()
         {
-            this.g_timer.Start();
+            //
+            PayView payView = new PayView();
+
+            if (payView.DataContext == null)
+                return;
+
+            var l_payVM = payView.DataContext as PayViewModel;
+
+            this.g_b_addPriceNow = l_payVM.g_b_addPriceNow;
+
+            payView.Close();
+
+            if (this.g_b_addPriceNow == false)
+            {
+                this.g_timer.Start();
+            }
+            else
+            {
+                this.g_str_customerID = l_payVM.g_str_customerID;
+                this.textChangedTextBoxCustomerID();
+            }
         }
 
         private void resetCustomer()
@@ -466,19 +478,8 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(UtilityCustomersView p)
         {
-            this.g_timer.Stop();
-
-            //
-            OrderView orderView = OrderView.Instance;
-
-            if (orderView.DataContext == null)
-                return;
-
-            var l_orderVM = orderView.DataContext as OrderViewModel;
-
-            // Reset affter pay in orderView.
-            l_orderVM.g_obCl_orderFood.Clear();
-            l_orderVM.g_i_currOrderFood = 0;
+            if (this.g_b_addPriceNow == false)
+                this.g_timer.Stop();
 
             this.resetCustomer();
             this.g_str_customerID = string.Empty;
@@ -491,7 +492,8 @@ namespace CanTeenManagement.ViewModel
 
             // 
             this.g_b_isAddCash = true;
-
+            this.g_b_Mode = false;
+            this.g_str_Mode = staticVarClass.mode_addCash;
             //
             this.g_b_isAgree = false;
 
@@ -561,6 +563,7 @@ namespace CanTeenManagement.ViewModel
             if (this.g_b_isAddCash)
             {
                 this.g_b_isAddCash = false;
+                this.g_b_Mode = true;
                 this.g_str_Mode = staticVarClass.mode_subCash;
 
                 //
@@ -569,6 +572,7 @@ namespace CanTeenManagement.ViewModel
             else
             {
                 this.g_b_isAddCash = true;
+                this.g_b_Mode = false;
                 this.g_str_Mode = staticVarClass.mode_addCash;
 
                 //
@@ -874,5 +878,22 @@ namespace CanTeenManagement.ViewModel
             if (str_ID != string.Empty)
                 this.g_str_customerID = str_ID;
         }
+
+        #region button refresh.
+        private bool checkClickButtonRefresh()
+        {
+            if (this.g_b_isAgree == false)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonRefresh()
+        {
+            this.g_b_isAgree = false;
+            this.g_i_sumPrice = 0;
+            this.g_str_isEnable = staticVarClass.str_true;
+        }
+        #endregion
     }
 }

@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d"
+             x:Name="statisticView"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -16,6 +18,12 @@
              DataContext="{StaticResource statisticVM}"
              Height="660"
              Width="980">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedCommand}"
+                                   CommandParameter="{Binding ElementName = statisticView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:TransitioningContent x:Name="TransittionigContentSlide"
                                          OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
         <Grid>
@@ -57,6 +65,19 @@
                                 VerticalAlignment="Top"
                                 Margin="0 -11">
                         <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnRefresh"
+                                    Height="25"
+                                    Width="25"
+                                    Background="IndianRed"
+                                    BorderBrush="IndianRed"
+                                    ToolTip="Làm mới lại dữ liệu"
+                                    Command="{Binding g_iCm_ClickButtonRefreshCommand}"
+                                    CommandParameter="{Binding ElementName=btnRefresh}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                <materialDesign:PackIcon Kind="Refresh"
+                                                         Height="15"
+                                                         Width="15" />
+                            </Button>
                             <StackPanel  Orientation="Horizontal"
                                          materialDesign:RippleAssist.IsCentered="True">
                                 <materialDesign:PopupBox Margin="4 0 4 0"
@@ -341,8 +362,10 @@
                                        VerticalAlignment="Center" />
                             <ComboBox Margin="10 0 0 0"
                                       Text="{Binding g_sv_StatChart_Choice}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                       FontSize="20"
+                                      IsEditable="True"
+                                      IsReadOnly="True"
+                                      Background="{x:Null}"
                                       FontWeight="DemiBold">
                                 <ComboBoxItem IsSelected="True" FontSize="20">Khoảng thời gian</ComboBoxItem>
                                 <ComboBoxItem FontSize="20">Tuần hiện tại</ComboBoxItem>
