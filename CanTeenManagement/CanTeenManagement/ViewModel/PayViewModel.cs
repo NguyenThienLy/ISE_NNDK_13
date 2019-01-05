@@ -12,6 +12,7 @@ using CanTeenManagement.CO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -155,8 +156,10 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        DispatcherTimer g_timer = null;
+
         #region command.
-        public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
+        public ICommand g_iCm_LoadedWindowCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonPayCommand { get; set; }
 
@@ -185,9 +188,9 @@ namespace CanTeenManagement.ViewModel
         {
             this.initSupport();
 
-            g_iCm_LoadedItemsControlCommand = new RelayCommand<ItemsControl>((p) => { return true; }, (p) =>
+            g_iCm_LoadedWindowCommand = new RelayCommand<PayView>((p) => { return true; }, (p) =>
             {
-                this.loadedItemsControl();
+                this.loaded();
             });
 
             g_iCm_ClickButtonPayCommand = new RelayCommand<Button>((p) => { return this.checkButtonPay(); }, (p) =>
@@ -248,6 +251,11 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
+            this.g_timer = new DispatcherTimer();
+            this.g_timer.Tick += (s, ev) => setIDCustomer();
+            this.g_timer.Interval = new TimeSpan(0, 0, 1);
+
+            //
             this.g_i_sumPrice = 0;
             this.g_b_isPay = false;
             this.g_b_isHaveCus = false;
@@ -272,8 +280,11 @@ namespace CanTeenManagement.ViewModel
             this.g_imgSrc_customer = staticVarClass.imgSrc_empty;
         }
 
-        private void loadedItemsControl()
+        private void loaded()
         {
+            this.g_timer.Start();
+
+            //
             OrderView orderView = OrderView.Instance;
 
             if (orderView.DataContext == null)
@@ -518,6 +529,8 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
+            this.g_timer.Stop();
+            //
             OrderView orderView = OrderView.Instance;
 
             if (orderView.DataContext == null)
@@ -692,6 +705,13 @@ namespace CanTeenManagement.ViewModel
 
                 this.g_str_visibitily = staticVarClass.visibility_hidden;
             }
+        }
+
+        private void setIDCustomer()
+        {
+            string str_ID = staticFunctionClass.getIDFronExcel();
+            if (str_ID != string.Empty)
+                this.g_str_customerID = str_ID;
         }
     }
 }

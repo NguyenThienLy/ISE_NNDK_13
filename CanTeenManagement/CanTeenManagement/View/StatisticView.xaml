@@ -175,84 +175,116 @@
                                 BorderBrush="#43A047"
                                 Content="Thống kê"></Button>
                     </Grid>
-                    <Border Grid.Row="0"
-                            Height="1"
-                            Margin="0 99 0 0"
-                            Background="Black" />
-                    <Grid Grid.Row="1"
-                          Visibility="{Binding g_str_visibilityChartFood}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="600"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="35"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition Height="100"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <ListView Grid.Row="1"
-                                      FontSize="15"
-                                      ItemsSource="{Binding g_is_StatFood_Source}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Width="220"
-                                                        DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}">
-                                            <GridViewColumnHeader Content="Món ăn"
-                                                                  Command="{Binding g_iCm_Sort}"
-                                                                  CommandParameter="g_dmb_StatFood_FoodName" />
-                                        </GridViewColumn >
-                                        <GridViewColumn DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}">
-                                            <GridViewColumnHeader Content="Số lượng bán"
-                                                                  Command="{Binding g_iCm_Sort}"
-                                                                  CommandParameter="g_dmb_StatFood_Sale" />
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Grid.Row="2"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                <TextBlock Text="Món bán chạy nhất: "
-                                           FontSize="15"
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="20"
+                                         Width="940"
+                                         Height="480"
+                                         Visibility="{Binding g_str_visibilityChartFood}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="570"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="100"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <ListView Grid.Row="1"
+                                          FontSize="13"
+                                          Margin="0 0 10 0"
+                                          ItemsSource="{Binding g_is_StatFood_Source}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="210"
+                                                            DisplayMemberBinding="{Binding g_dmb_StatFood_FoodName}">
+                                                <GridViewColumnHeader Content="Món ăn"
+                                                                      Command="{Binding g_iCm_Sort}"
+                                                                      CommandParameter="g_dmb_StatFood_FoodName" />
+                                            </GridViewColumn >
+                                            <GridViewColumn DisplayMemberBinding="{Binding g_dmb_StatFood_Sale}">
+                                                <GridViewColumnHeader Content="Số lượng bán"
+                                                                      Command="{Binding g_iCm_Sort}"
+                                                                      CommandParameter="g_dmb_StatFood_Sale" />
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <StackPanel Grid.Row="2"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="Món bán chạy nhất: "
+                                               FontSize="15"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"></TextBlock>
+                                    <TextBlock Margin="10 0 0 0"
+                                               Text="{Binding g_txt_StatFood_BestSeller}"
+                                               FontSize="20"
+                                               FontWeight="DemiBold"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <chartingToolkit:Chart FontSize="10"
+                                                       HorizontalAlignment="Center"
+                                                       Height="400"
+                                                       VerticalAlignment="Center"
+                                                       Width="450">
+                                    <chartingToolkit:PieSeries Height="325"
+                                                               VerticalAlignment="Top"
+                                                               DependentValuePath="Value"
+                                                               IndependentValuePath="Key"
+                                                               ItemsSource="{Binding g_dc_StatFood_Chart}"
+                                                               IsSelectionEnabled="True"
+                                                               Margin="0,0,0,0"></chartingToolkit:PieSeries>
+                                </chartingToolkit:Chart>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="1"
+                                         Width="400"
+                                         Height="110"
+                                         VerticalAlignment="Center"
+                                         Visibility="{Binding g_str_visibilityEmpty}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Margin="5 0 5 0"
+                                     Height="100"
+                                     Width="100">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/NotFound.jpg" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Xin lỗi,"
                                            VerticalAlignment="Center"
-                                           TextAlignment="Center"></TextBlock>
-                                <TextBlock Margin="10 0 0 0"
-                                           Text="{Binding g_txt_StatFood_BestSeller}"
-                                           FontSize="20"
-                                           FontWeight="DemiBold"
+                                           HorizontalAlignment="Left"
                                            TextWrapping="Wrap"
+                                           FontSize="15"></TextBlock>
+                                <TextBlock Text="Không có dữ liệu để thống kê"
                                            VerticalAlignment="Center"
-                                           TextAlignment="Center" />
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           FontSize="30"
+                                           FontWeight="DemiBold"></TextBlock>
+                                <TextBlock Text="Chọn lại thời gian để thống kê"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           FontSize="15"
+                                           TextAlignment="Center"></TextBlock>
                             </StackPanel>
                         </Grid>
-                        <Grid Grid.Column="0">
-                            <chartingToolkit:Chart FontSize="10"
-                                                   Height="450"
-                                                   Width="550"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Focusable="False">
-                                <chartingToolkit:PieSeries Height="324"
-                                                           VerticalAlignment="Top"
-                                                           DependentValuePath="Value"
-                                                           IndependentValuePath="Key"
-                                                           ItemsSource="{Binding g_dc_StatFood_Chart}"
-                                                           IsSelectionEnabled="True"
-                                                           Margin="0,0,0,0"></chartingToolkit:PieSeries>
-                            </chartingToolkit:Chart>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                          Visibility="{Binding g_str_visibilityEmpty}">
-                        <TextBlock Text="Xin lỗi, không có dữ liệu để thống kê"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   FontSize="80"
-                                   TextAlignment="Center"
-                                   FontWeight="DemiBold"></TextBlock>
-                    </Grid>
+                    </materialDesign:Card>
                 </Grid>
                 <Grid Visibility="{Binding g_str_visibilityChart}"
                       Background="White">
@@ -346,68 +378,97 @@
                                 BorderBrush="#43A047"
                                 Content="Thống kê"></Button>
                     </Grid>
-                    <Border Grid.Row="0"
-                            Height="1"
-                            Margin="0 99 0 0"
-                            Background="Black" />
-                    <chartingToolkit:Chart Grid.Row="1"
-                                           FontSize="10"
-                                           Margin="20"
-                                           Visibility="{Binding g_str_visibilityChartChart}">
-                        <chartingToolkit:ColumnSeries Title="{Binding g_t_StatChart_Title}"
-                                                      DependentValuePath="Value"
-                                                      IndependentValuePath="Key"
-                                                      ItemsSource="{Binding g_dc_StatChart_Chart}"
-                                                      IsSelectionEnabled="True">
-                            <chartingToolkit:ColumnSeries.DataPointStyle>
-                                <Style TargetType="chartingToolkit:DataPoint">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="#FF26788A" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="BorderBrush"
-                                            Value="White" />
-                                    <Setter Property="BorderThickness"
-                                            Value="2" />
-                                    <Setter Property="IsTabStop"
-                                            Value="False" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="chartingToolkit:ColumnDataPoint">
-                                                <Grid x:Name="Root"
-                                                      Opacity="1"
-                                                      MaxWidth="50">
-                                                    <ToolTipService.ToolTip>
-                                                        <StackPanel Margin="2,2,2,2">
-                                                            <ContentControl Content="{TemplateBinding DependentValue}"
-                                                                            ContentStringFormat=" {0:###,###,###}" />
-                                                            <ContentControl Content="{TemplateBinding IndependentValue}"
-                                                                            ContentStringFormat=" {0:0,0}" />
-                                                        </StackPanel>
-                                                    </ToolTipService.ToolTip>
-                                                    <Rectangle StrokeThickness="{TemplateBinding BorderThickness}"
-                                                               Stroke="{TemplateBinding BorderBrush}"
-                                                               Fill="{TemplateBinding Background}" />
-                                                </Grid>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </chartingToolkit:ColumnSeries.DataPointStyle>
-                        </chartingToolkit:ColumnSeries>
-                    </chartingToolkit:Chart>
-                    <Grid Grid.Row="1"
-                          Visibility="{Binding g_str_visibilityEmpty}">
-                        <TextBlock Text="Xin lỗi, không có dữ liệu để thống kê"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   FontSize="80"
-                                   Margin="40"
-                                   TextAlignment="Center"
-                                   FontWeight="DemiBold"></TextBlock>
-                    </Grid>
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="20"
+                                         Width="940"
+                                         Height="480"
+                                         Visibility="{Binding g_str_visibilityChartChart}">
+                        <chartingToolkit:Chart FontSize="10">
+                            <chartingToolkit:ColumnSeries Title="{Binding g_t_StatChart_Title}"
+                                                          DependentValuePath="Value"
+                                                          IndependentValuePath="Key"
+                                                          ItemsSource="{Binding g_dc_StatChart_Chart}"
+                                                          IsSelectionEnabled="True">
+                                <chartingToolkit:ColumnSeries.DataPointStyle>
+                                    <Style TargetType="chartingToolkit:DataPoint">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="#FF26788A" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush"
+                                                Value="White" />
+                                        <Setter Property="BorderThickness"
+                                                Value="2" />
+                                        <Setter Property="IsTabStop"
+                                                Value="False" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="chartingToolkit:ColumnDataPoint">
+                                                    <Grid x:Name="Root"
+                                                          Opacity="1"
+                                                          MaxWidth="50">
+                                                        <ToolTipService.ToolTip>
+                                                            <StackPanel Margin="2,2,2,2">
+                                                                <ContentControl Content="{TemplateBinding DependentValue}"
+                                                                                ContentStringFormat=" {0:###,###,###}" />
+                                                                <ContentControl Content="{TemplateBinding IndependentValue}"
+                                                                                ContentStringFormat=" {0:0,0}" />
+                                                            </StackPanel>
+                                                        </ToolTipService.ToolTip>
+                                                        <Rectangle StrokeThickness="{TemplateBinding BorderThickness}"
+                                                                   Stroke="{TemplateBinding BorderBrush}"
+                                                                   Fill="{TemplateBinding Background}" />
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </chartingToolkit:ColumnSeries.DataPointStyle>
+                            </chartingToolkit:ColumnSeries>
+                        </chartingToolkit:Chart>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="1"
+                                         Width="400"
+                                         Height="110"
+                                         VerticalAlignment="Center"
+                                         Visibility="{Binding g_str_visibilityEmpty}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Margin="5 0 5 0"
+                                     Height="100"
+                                     Width="100">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/NotFound.jpg" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Xin lỗi,"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           FontSize="15"></TextBlock>
+                                <TextBlock Text="Không có dữ liệu để thống kê"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           FontSize="30"
+                                           FontWeight="DemiBold"></TextBlock>
+                                <TextBlock Text="Chọn lại thời gian để thống kê"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           FontSize="15"
+                                           TextAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
                 </Grid>
             </Grid>
         </Grid>

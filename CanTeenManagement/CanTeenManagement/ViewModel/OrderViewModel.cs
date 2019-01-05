@@ -209,7 +209,6 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-
         private string _g_str_Mode;
         public string g_str_Mode
         {
@@ -217,6 +216,17 @@ namespace CanTeenManagement.ViewModel
             set
             {
                 _g_str_Mode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_visibilityOrderFood;
+        public string g_str_visibilityOrderFood
+        {
+            get => _g_str_visibilityOrderFood;
+            set
+            {
+                _g_str_visibilityOrderFood = value;
                 OnPropertyChanged();
             }
         }
@@ -318,7 +328,7 @@ namespace CanTeenManagement.ViewModel
                 this.searchFood();
             });
 
-            g_iCm_ClickButtonSearchCommand = new RelayCommand<Button>((p) => { return this.checkClickButtonSearch(); }, (p) =>
+            g_iCm_ClickButtonSearchCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
                 this.searchFood();
             });
@@ -363,6 +373,9 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
+            this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
+
+            //
             this.g_str_contentSearch = string.Empty;
             this.g_str_contentSearchTemp = string.Empty;
 
@@ -599,6 +612,15 @@ namespace CanTeenManagement.ViewModel
                 ORDERFOOD t_orderFood = new ORDERFOOD(food);
                 g_obCl_orderFoodShow.Add(t_orderFood);
             }
+
+            if (this.g_obCl_food.Count == 0)
+            {
+                this.g_str_visibilityOrderFood = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibilityOrderFood = staticVarClass.visibility_hidden;
+            }
         }
         #endregion
 
@@ -626,8 +648,8 @@ namespace CanTeenManagement.ViewModel
 
             this.loaded();
 
-            mainWd.Opacity = 100;
             p.Opacity = 100;
+            mainWd.Opacity = 100;
         }
         #endregion
 
@@ -747,14 +769,6 @@ namespace CanTeenManagement.ViewModel
             this.g_i_skipFood = 0;
 
             this.loaded();
-        }
-
-        private bool checkClickButtonSearch()
-        {
-            if (this.g_str_contentSearchTemp == string.Empty)
-                return false;
-
-            return true;
         }
 
         private void searchFood()

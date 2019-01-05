@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -222,6 +223,8 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        DispatcherTimer g_timer = null;
+
         #region command.
         public ICommand g_iCm_TextChangedTextBoxCustomerIDCommand { get; set; }
 
@@ -256,11 +259,18 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickButtonBackCommand { get; set; }
 
         public ICommand g_iCm_TextChangedPriceTextBoxCommand { get; set; }
+
+        public ICommand g_iCm_LoadedWindowCommand { get; set; }
         #endregion
 
         public UtilityCustomersViewModel()
         {
             this.initSupport();
+
+            g_iCm_LoadedWindowCommand = new RelayCommand<UtilityCustomersView>((p) => { return true; }, (p) =>
+            {
+                this.loaded();
+            });
 
             g_iCm_TextChangedTextBoxCustomerIDCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
@@ -340,6 +350,10 @@ namespace CanTeenManagement.ViewModel
 
         private void initSupport()
         {
+            this.g_timer = new DispatcherTimer();
+            this.g_timer.Tick += (s, ev) => setIDCustomer();
+            this.g_timer.Interval = new TimeSpan(0, 0, 1);
+
             //
             this.g_b_isAddCash = true;
             this.g_str_Mode = staticVarClass.mode_addCash;
@@ -369,6 +383,11 @@ namespace CanTeenManagement.ViewModel
 
             // 
             this.g_b_isEnough = true;
+        }
+
+        private void loaded()
+        {
+            this.g_timer.Start();
         }
 
         private void resetCustomer()
@@ -444,6 +463,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(UtilityCustomersView p)
         {
+            this.g_timer.Start();
+
+            //
             OrderView orderView = OrderView.Instance;
 
             if (orderView.DataContext == null)
@@ -839,5 +861,12 @@ namespace CanTeenManagement.ViewModel
             this.g_str_isEnable = staticVarClass.str_true;
         }
         #endregion
+
+        private void setIDCustomer()
+        {
+            string str_ID = staticFunctionClass.getIDFronExcel();
+            if (str_ID != string.Empty)
+                this.g_str_customerID = str_ID;
+        }
     }
 }

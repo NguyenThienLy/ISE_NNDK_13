@@ -194,7 +194,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
             this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
 
-            this.statStartUp();
+            this.statChart();
         }
 
         private void clickFood()
@@ -209,7 +209,7 @@ namespace CanTeenManagement.ViewModel
             this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
             this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
 
-            this.statStartUp();
+            this.statFood();
         }
 
         private void statChart()
@@ -259,7 +259,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
 
-                this.g_str_visibilityChartChart = staticVarClass.visibility_hidden;
+                this.g_str_visibilityChartChart = staticVarClass.visibility_visible;
             }
         }
 
@@ -290,7 +290,7 @@ namespace CanTeenManagement.ViewModel
             {
                 if (!_g_sd_StatFood_FromTime.HasValue || !_g_sd_StatFood_ToTime.HasValue)    // khi người dùng quên chọn ngày hoặc kiểu thống kê thì chương trình ko bị crash
                 {
-                    staticFunctionClass.showStatusView(false, "Hãy chọn khoảng thời gian!");
+                    MessageBox.Show("Hãy chọn khoảng thời gian!", "Error", 0, 0);
                     return;
                 }
 
@@ -542,7 +542,7 @@ namespace CanTeenManagement.ViewModel
                          select new { Name = f.FOODNAME, Sale = g.Sum(a => a.QUANTITY) };
 
             int iFirst = 0, iSecond = 0, iThird = 0, iTotal = 0;
-            string sFirst = "", sSecond = "", sThird = "";
+            string sFirst = string.Empty, sSecond = string.Empty, sThird = string.Empty;
 
             foreach (var i in result)
             {
@@ -608,7 +608,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_str_visibilityEmpty = staticVarClass.visibility_hidden;
 
-                this.g_str_visibilityChartFood = staticVarClass.visibility_hidden;
+                this.g_str_visibilityChartFood = staticVarClass.visibility_visible;
             }
         }
 
@@ -694,7 +694,7 @@ namespace CanTeenManagement.ViewModel
             StatChart_Value = new ObservableCollection<KeyValuePair<string, int>>();
             DataLV = new ObservableCollection<ItemFood>();
             statChart();
-            statFood();
+            //statFood();
         }
 
         #region Sort

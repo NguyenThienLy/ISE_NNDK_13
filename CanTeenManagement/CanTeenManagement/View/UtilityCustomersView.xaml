@@ -23,6 +23,12 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=utityCustomersView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="0 0 20 20"
           Background="White">
         <Grid.Effect>

@@ -23,6 +23,12 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding g_iCm_LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=payView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="0 0 20 20"
           Background="White">
         <Grid.Effect>
@@ -64,12 +70,6 @@
                                 <ScrollViewer  VerticalScrollBarVisibility="Auto">
                                     <ItemsControl x:Name="itemControlHaveFood"
                                                   ItemsSource="{Binding g_obCl_payFood ,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Loaded">
-                                                <i:InvokeCommandAction Command="{Binding g_iCm_LoadedItemsControlCommand}"
-                                                                       CommandParameter="{Binding ElementName=itemControlHaveFood}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel Orientation="Horizontal" />

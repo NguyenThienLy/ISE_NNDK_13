@@ -749,12 +749,9 @@ namespace CanTeenManagement.ViewModel
 
         private void clickDetail(EMPLOYEE p)
         {
-            // Lấy cái p này chính là dòng đang được chọn.
-            // Tui có làm ở trong order view truyền vào pay view bà tham khảo đó nha.
             if (p == null)
                 return;
 
-            //this.g_i_addOrEdit = 0;
             this.g_employee = p;
             this.g_selectedItem = p;
 
@@ -773,10 +770,6 @@ namespace CanTeenManagement.ViewModel
 
             mainWd.Opacity = 100;
             employeesV.Opacity = 100;
-
-
         }
-
-
     }
 }

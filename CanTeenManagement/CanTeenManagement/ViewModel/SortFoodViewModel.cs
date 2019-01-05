@@ -90,6 +90,28 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        private string _g_str_visibility1;
+        public string g_str_visibility1
+        {
+            get => _g_str_visibility1;
+            set
+            {
+                _g_str_visibility1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _g_str_visibility2;
+        public string g_str_visibility2
+        {
+            get => _g_str_visibility2;
+            set
+            {
+                _g_str_visibility2 = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region commands.
         public ICommand g_iCm_LoadedItemsControlCommand { get; set; }
 
@@ -170,6 +192,9 @@ namespace CanTeenManagement.ViewModel
             this.g_i_quantityFoodLoad = 3;
 
             this.g_list_OrderComplete = new ObservableCollection<ORDERQUEUE>();
+
+            this.g_str_visibility1 = staticVarClass.visibility_hidden;
+            this.g_str_visibility2 = staticVarClass.visibility_hidden;
         }
 
         private void loaded(ItemsControl p)
@@ -288,6 +313,15 @@ namespace CanTeenManagement.ViewModel
                       STATUS = orderDetail.STATUS.Trim(),
                       COMPLETIONDATE = DateTime.Today.ToString()
                   }).Take(this.g_i_quantityFoodLoad));
+
+            if (this.g_list_OrderQueue1.Count == 0)
+            {
+                this.g_str_visibility1 = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibility1 = staticVarClass.visibility_hidden;
+            }
         }
 
         //Load các món nước
@@ -319,6 +353,15 @@ namespace CanTeenManagement.ViewModel
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
                       STATUS = orderDetail.STATUS.Trim()
                   }).Take(this.g_i_quantityFoodLoad));
+
+            if (this.g_list_OrderQueue2.Count == 0)
+            {
+                this.g_str_visibility2 = staticVarClass.visibility_visible;
+            }
+            else
+            {
+                this.g_str_visibility2 = staticVarClass.visibility_hidden;
+            }
         }
 
         #region Click card
@@ -495,7 +538,8 @@ namespace CanTeenManagement.ViewModel
             }
             this.g_list_OrderComplete = new ObservableCollection<ORDERQUEUE>();
 
-            string l_status = "Xong";
+            string l_status = string.Empty;
+
             switch (buttonID)
             {
                 case 1:

@@ -123,7 +123,8 @@
                                             Style="{DynamicResource MaterialDesignToolButton}"
                                             Command="{Binding g_iCm_ClickButtonSearchCommand}"
                                             CommandParameter="{Binding ElementName=btnSearch}"
-                                            ToolTip="Tìm kiếm">
+                                            ToolTip="Tìm kiếm"
+                                            Grid.Column="2">
                                         <materialDesign:PackIcon Kind="Magnify"
                                                                  Opacity=".56" />
                                     </Button>
@@ -328,6 +329,45 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                        <materialDesign:Card VerticalAlignment="Center"
+                                             Width="350"
+                                             Height="110"
+                                             Visibility="{Binding g_str_visibilityOrderFood}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Margin="5 0 5 0"
+                                         Height="100"
+                                         Width="100">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Images/NotFound.jpg" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Vertical"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Xin lỗi,"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               TextWrapping="Wrap"
+                                               FontSize="15"></TextBlock>
+                                    <TextBlock Text="Không tìm thấy"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               TextWrapping="Wrap"
+                                               FontSize="30"
+                                               FontWeight="DemiBold"></TextBlock>
+                                    <TextBlock Text="Chọn lại các lựa chọn khác để tìm kiếm"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               TextWrapping="Wrap"
+                                               FontSize="15"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>

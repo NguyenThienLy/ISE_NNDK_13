@@ -306,11 +306,66 @@ namespace CanTeenManagement.ViewModel
             if (p == null)
                 return;
 
-            p.Opacity = 0.5;
+            MainWindow mainWd = MainWindow.Instance;
+
+            mainWd.Opacity = 0.5;
+            int i_Index = p.ListViewMenu.SelectedIndex;
+
+            switch (i_Index)
+            {
+                case 0:
+                    DashBoardView.Instance.Opacity = 0.5;
+                    break;
+                case 1:
+                    OrderView.Instance.Opacity = 0.5;
+                    break;
+                case 2:
+                    CustomersView.Instance.Opacity = 0.5;
+                    break;
+                case 3:
+                    StatisticView.Instance.Opacity = 0.5;
+                    break;
+                case 4:
+                    CallFoodView.Instance.Opacity = 0.5;
+                    break;
+                case 5:
+                    EmployeesView.Instance.Opacity = 0.5;
+                    break;
+                default:
+                    SortFoodView.Instance.Opacity = 0.5;
+                    break;
+            }
+
             this.g_b_detailFromMainWindow = true;
+
             var detailEmployee = new DetailEmployeesView();
             detailEmployee.ShowDialog();
-            p.Opacity = 100;
+
+            switch (i_Index)
+            {
+                case 0:
+                    DashBoardView.Instance.Opacity = 100;
+                    break;
+                case 1:
+                    OrderView.Instance.Opacity = 100;
+                    break;
+                case 2:
+                    CustomersView.Instance.Opacity = 100;
+                    break;
+                case 3:
+                    StatisticView.Instance.Opacity = 100;
+                    break;
+                case 4:
+                    CallFoodView.Instance.Opacity = 100;
+                    break;
+                case 5:
+                    EmployeesView.Instance.Opacity = 100;
+                    break;
+                default:
+                    SortFoodView.Instance.Opacity = 100;
+                    break;
+            }
+            mainWd.Opacity = 100;
         }
 
         public void moveCusorMenu(int index, MainWindow p)

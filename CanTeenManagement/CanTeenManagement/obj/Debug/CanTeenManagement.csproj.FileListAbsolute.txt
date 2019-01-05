@@ -503,3 +503,5 @@ D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanT
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.exe.config
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\CanTeenManagement.pdb
 D:\TKL\Git Kraken\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\obj\Debug\CanTeenManagement.csproj.CopyComplete
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.dll
+G:\Nam3ki1\NhapmonCNPM\project1\ISE_NNDK_13\CanTeenManagement\CanTeenManagement\bin\Debug\EPPlus.xml

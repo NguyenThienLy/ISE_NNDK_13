@@ -10,6 +10,10 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+        #region ID.
+        public static string ID_currCustomer = string.Empty;
+        #endregion
+
         #region price.
         public static int price_defaultFood = 25000;
         #endregion

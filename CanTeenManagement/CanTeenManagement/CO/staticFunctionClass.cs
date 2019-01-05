@@ -8,6 +8,7 @@ using System.Drawing;
 using CanTeenManagement.View;
 using CanTeenManagement.ViewModel;
 using System.Windows.Media.Imaging;
+using OfficeOpenXml;
 
 namespace CanTeenManagement.CO
 {
@@ -268,6 +269,20 @@ namespace CanTeenManagement.CO
             builder.Remove(builder.Length - 1, 1);
 
             return builder.ToString();
+        }
+
+        public static string getIDFronExcel()
+        {
+            var package = new ExcelPackage(new FileInfo("Barcode_Test.xlsx"));
+            ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+            int i = workSheet.Dimension.End.Row;
+            int j = workSheet.Dimension.End.Column;
+            string temp = workSheet.Cells[i, j].Value.ToString();
+
+            if (staticVarClass.ID_currCustomer == temp)
+                return string.Empty;
+
+            return temp;
         }
     }
 }
