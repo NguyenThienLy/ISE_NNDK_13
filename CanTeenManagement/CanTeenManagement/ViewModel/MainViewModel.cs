@@ -106,6 +106,8 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_LoadedCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
+                staticVarClass.form_mainWindow = p;
+
                 this.loaded(p);
             });
 
@@ -169,6 +171,8 @@ namespace CanTeenManagement.ViewModel
             loginVM.g_b_isLogin = false;
 
             this.g_b_isLoaded = false;
+
+            loginV.Close();
 
             this.loaded(p);
         }

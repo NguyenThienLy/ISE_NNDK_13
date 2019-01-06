@@ -240,7 +240,7 @@ namespace CanTeenManagement.ViewModel
 
             g_iCm_TextChangedFilterCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
             {
-                this.filterIDOrder(p);
+                this.filterIDOrder();
             });
 
             g_iCm_ClickGoBackCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
@@ -375,6 +375,7 @@ namespace CanTeenManagement.ViewModel
             }
             #endregion
 
+            this.g_str_filter = string.Empty;
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
 
@@ -642,10 +643,10 @@ namespace CanTeenManagement.ViewModel
 
         private bool filterIDOrder(object item)
         {
-            if (string.IsNullOrEmpty(_g_str_filter))
+            if (string.IsNullOrEmpty(g_str_filter))
                 return true;
             else
-                return ((item as ORDERINFO).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as ORDERINFO).ID.IndexOf(g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private void filterIDOrder()

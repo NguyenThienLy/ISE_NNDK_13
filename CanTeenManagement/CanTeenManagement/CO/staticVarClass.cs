@@ -11,6 +11,11 @@ namespace CanTeenManagement.CO
 {
     class staticVarClass
     {
+
+        #region form.
+        public static MainWindow form_mainWindow = null;
+        #endregion
+
         #region ID.
         public static string ID_currCustomer = string.Empty;
         #endregion

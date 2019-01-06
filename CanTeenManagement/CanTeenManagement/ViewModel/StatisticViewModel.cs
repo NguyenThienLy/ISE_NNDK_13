@@ -25,11 +25,64 @@ namespace CanTeenManagement.ViewModel
         private string _g_t_StatChart_Title;
         private ObservableCollection<KeyValuePair<string, int>> _g_dc_StatChart_Chart;
 
-        public DateTime? g_sd_StatChart_FromTime { get => _g_sd_StatChart_FromTime; set { _g_sd_StatChart_FromTime = value; OnPropertyChanged(); } }
-        public DateTime? g_sd_StatChart_ToTime { get => _g_sd_StatChart_ToTime; set { _g_sd_StatChart_ToTime = value; OnPropertyChanged(); } }
-        public string g_sv_StatChart_Choice { get => _g_sv_StatChart_Choice; set { _g_sv_StatChart_Choice = value; OnPropertyChanged(); } }
-        public string g_t_StatChart_Title { get => _g_t_StatChart_Title; set { _g_t_StatChart_Title = value; OnPropertyChanged(); } }
-        public ObservableCollection<KeyValuePair<string, int>> g_dc_StatChart_Chart { get => _g_dc_StatChart_Chart; set { _g_dc_StatChart_Chart = value; OnPropertyChanged(); } }
+        public DateTime? g_sd_StatChart_FromTime
+        {
+            get => _g_sd_StatChart_FromTime;
+            set
+            {
+                if (value > g_sd_StatChart_ToTime)
+                {
+                    value = g_sd_StatChart_ToTime;
+
+                    staticFunctionClass.showStatusView(false, "Ngày bắt đầu lớn hơn ngày kết thúc");
+                }
+
+                _g_sd_StatChart_FromTime = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime? g_sd_StatChart_ToTime
+        {
+            get => _g_sd_StatChart_ToTime;
+            set
+            {
+                if (value < g_sd_StatChart_FromTime)
+                {
+                    value = g_sd_StatChart_FromTime;
+
+                    staticFunctionClass.showStatusView(false, "Ngày kết thúc nhỏ hơn ngày bắt đầu");
+                }
+                _g_sd_StatChart_ToTime = value;
+                OnPropertyChanged();
+            }
+        }
+        public string g_sv_StatChart_Choice
+        {
+            get => _g_sv_StatChart_Choice;
+            set
+            {
+                _g_sv_StatChart_Choice = value;
+                OnPropertyChanged();
+            }
+        }
+        public string g_t_StatChart_Title
+        {
+            get => _g_t_StatChart_Title;
+            set
+            {
+                _g_t_StatChart_Title = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<KeyValuePair<string, int>> g_dc_StatChart_Chart
+        {
+            get => _g_dc_StatChart_Chart;
+            set
+            {
+                _g_dc_StatChart_Chart = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<KeyValuePair<string, int>> StatChart_Value { get; private set; }
         #endregion
 
@@ -41,14 +94,70 @@ namespace CanTeenManagement.ViewModel
         private CollectionViewSource _g_is_StatFood_Source;
         private ObservableCollection<KeyValuePair<string, int>> _g_dc_StatFood_Chart;
 
-        public DateTime? g_sd_StatFood_FromTime { get => _g_sd_StatFood_FromTime; set { _g_sd_StatFood_FromTime = value; OnPropertyChanged(); } }
-        public DateTime? g_sd_StatFood_ToTime { get => _g_sd_StatFood_ToTime; set { _g_sd_StatFood_ToTime = value; OnPropertyChanged(); } }
-        public string g_sv_StatFood_Choice { get => _g_sv_StatFood_Choice; set { _g_sv_StatFood_Choice = value; OnPropertyChanged(); } }
-        public string g_txt_StatFood_BestSeller { get => _g_txt_StatFood_BestSeller; set { _g_txt_StatFood_BestSeller = value; OnPropertyChanged(); } }
-        public ListCollectionView g_is_StatFood_Source { get => (ListCollectionView)_g_is_StatFood_Source.View; /*set { _g_is_StatFood_Source.Source = value; OnPropertyChanged(); } */}
+        public DateTime? g_sd_StatFood_FromTime
+        {
+            get => _g_sd_StatFood_FromTime;
+            set
+            {
+                if (value > g_sd_StatFood_ToTime)
+                {
+                    value = g_sd_StatFood_ToTime;
+
+                    staticFunctionClass.showStatusView(false, "Ngày bắt đầu lớn hơn ngày kết thúc");
+                }
+
+                _g_sd_StatFood_FromTime = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime? g_sd_StatFood_ToTime
+        {
+            get => _g_sd_StatFood_ToTime;
+            set
+            {
+                if (value < g_sd_StatFood_FromTime)
+                {
+                    value = g_sd_StatFood_FromTime;
+
+                    staticFunctionClass.showStatusView(false, "Ngày kết thúc nhỏ hơn ngày bắt đầu");
+                }
+                _g_sd_StatFood_ToTime = value;
+                OnPropertyChanged();
+            }
+        }
+        public string g_sv_StatFood_Choice
+        {
+            get => _g_sv_StatFood_Choice;
+            set
+            {
+                _g_sv_StatFood_Choice = value;
+                OnPropertyChanged();
+            }
+        }
+        public string g_txt_StatFood_BestSeller
+        {
+            get => _g_txt_StatFood_BestSeller;
+            set
+            {
+                _g_txt_StatFood_BestSeller = value;
+                OnPropertyChanged();
+            }
+        }
+        public ListCollectionView g_is_StatFood_Source
+        {
+            get => (ListCollectionView)_g_is_StatFood_Source.View; /*set { _g_is_StatFood_Source.Source = value; OnPropertyChanged(); } */
+        }
         //public CollectionViewSource g_is_StatFood_Source { get => _g_is_StatFood_Source; set { _g_is_StatFood_Source = value; OnPropertyChanged(); } }
         public ListCollectionView StatFood_Value { get; private set; }
-        public ObservableCollection<KeyValuePair<string, int>> g_dc_StatFood_Chart { get => _g_dc_StatFood_Chart; set { _g_dc_StatFood_Chart = value; OnPropertyChanged(); } }
+        public ObservableCollection<KeyValuePair<string, int>> g_dc_StatFood_Chart
+        {
+            get => _g_dc_StatFood_Chart;
+            set
+            {
+                _g_dc_StatFood_Chart = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<KeyValuePair<string, int>> StatFood_ChartValue { get; private set; }
         #endregion
 
@@ -263,7 +372,7 @@ namespace CanTeenManagement.ViewModel
             }
             else
             {
-                if (!_g_sd_StatChart_FromTime.HasValue || !_g_sd_StatChart_ToTime.HasValue)    // khi người dùng quên chọn ngày hoặc kiểu thống kê thì chương trình ko bị crash
+                if (!_g_sd_StatChart_FromTime.HasValue || !_g_sd_StatChart_ToTime.HasValue)
                 {
                     staticFunctionClass.showStatusView(false, "Hãy chọn khoảng thời gian!");
                     return;

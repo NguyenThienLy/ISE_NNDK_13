@@ -397,8 +397,6 @@ namespace CanTeenManagement.ViewModel
             {
                 this.clickGoBack(p);
             });
-
-
         }
 
         public ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> source)
@@ -605,6 +603,7 @@ namespace CanTeenManagement.ViewModel
                 #endregion
             }
 
+            this.g_str_filter = string.Empty;
             p.grVInfo.Height = 350;
             p.grVEdit.Height = 0;
             p.grVSendMail.Height = 0;
@@ -627,41 +626,10 @@ namespace CanTeenManagement.ViewModel
 
         private void clickCloseWindow(DetailEmployeesView p)
         {
-            p.Close();
+            if (p == null)
+                return;
 
-            //EmployeesView l_employeesView = EmployeesView.Instance;
-
-            //if (l_employeesView.DataContext == null)
-            //    return;
-
-            //var l_employeesVM = l_employeesView.DataContext as EmployeesViewModel;
-
-            //for (int i = 0; i < l_employeesVM.g_listEmployees.Count(); i++)
-            //{
-            //    if (l_employeesVM.g_listEmployees[i].ID.Trim() == this.g_str_id)
-            //    {
-            //        //System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            //        //{
-            //        //    l_employeesVM.g_listEmployees[i] = new EMPLOYEE()
-            //        //    {
-            //        //        ID = this.g_str_id,
-            //        //        FULLNAME = this.g_str_fullName,
-            //        //        GENDER = this.g_str_gender,
-            //        //        YEAROFBIRTH = this.g_i_yearOfBirth,
-            //        //        PHONE = this.g_str_phone,
-            //        //        EMAIL = this.g_str_email,
-            //        //        POSITION = this.g_str_position,
-            //        //        IMAGELINK = this.g_str_imageLink,
-            //        //        STATUS = this.g_str_status
-            //        //    };
-
-            //        //    l_employeesVM.g_selectedItem = l_employeesVM.g_listEmployees[i];
-            //        //});
-            //        l_employeesVM.g_selectedItem = l_employeesVM.g_listEmployees[i];
-
-            //        break;
-            //    }
-            //}
+            p.Close();      
         }
 
         private bool checkEditInfo()
@@ -1069,21 +1037,19 @@ namespace CanTeenManagement.ViewModel
                             DB.SaveChanges();
                         }
 
-                        staticVarClass.account_password = this.g_str_confirmNewPassword;
                         staticFunctionClass.showStatusView(true, "Đổi mật khẩu thành công!");
+                        staticVarClass.account_password = this.g_str_confirmNewPassword;
 
                         this.resetChangePassword();
                         this.clickCloseWindow(p);
 
-                        System.Windows.Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            MainWindow mainWd = MainWindow.Instance;
-                            if (mainWd.DataContext == null)
-                                return;
-                            MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
+                        MainWindow mainWd = MainWindow.Instance;
+                        if (mainWd.DataContext == null)
+                            return;
+                        MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
 
-                            l_mainVM.clickLogOutWindow(mainWd);
-                        });
+                        //staticVarClass.form_mainWindow.Hide();
+                        l_mainVM.clickLogOutWindow(staticVarClass.form_mainWindow);                    
                     }
                     catch
                     {
@@ -1107,10 +1073,10 @@ namespace CanTeenManagement.ViewModel
 
         private bool filterIDOrder(object item)
         {
-            if (string.IsNullOrEmpty(_g_str_filter))
+            if (string.IsNullOrEmpty(g_str_filter))
                 return true;
             else
-                return ((item as ORDERINFO).ID.IndexOf(_g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as ORDERINFO).ID.IndexOf(g_str_filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private void filterIDOrder()
