@@ -655,6 +655,10 @@ namespace CanTeenManagement.ViewModel
                 .Select(food => food.ID).FirstOrDefault();
             }
 
+            if (l_str_CurrID == null)
+                return "FOOD1";
+
+
             Match match = Regex.Match(l_str_CurrID, @"(\d+)");
 
             if (match.Success)
@@ -663,7 +667,7 @@ namespace CanTeenManagement.ViewModel
                 return "FOOD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
             }
 
-            return null; ;
+            return null;
         }
 
         private void addNewFood()

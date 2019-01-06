@@ -368,13 +368,22 @@ namespace CanTeenManagement.ViewModel
                 .OrderByDescending(orderInfo => orderInfo.ID)
                 .Select(orderInfo => orderInfo.ID).FirstOrDefault();
 
-                //var resultString = dataProvider.Instance.DB.ORDERINFOes.OrderByDescending(id => id.ID).First();
-                Match match = Regex.Match(l_str_CurrID, @"(\d+)");
-
-                if (match.Success)
+                if (l_str_CurrID != null)
                 {
-                    // Create new orderID.
-                    this.g_str_orderID = "ORD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
+                    //var resultString = dataProvider.Instance.DB.ORDERINFOes.OrderByDescending(id => id.ID).First();
+                    Match match = Regex.Match(l_str_CurrID, @"(\d+)");
+
+                    if (match.Success)
+                    {
+                        // Create new orderID.
+                        this.g_str_orderID = "ORD" + ((int.Parse(match.Groups[1].Value)) + 1).ToString();
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    this.g_str_orderID = "ORD1";
 
                     return true;
                 }
