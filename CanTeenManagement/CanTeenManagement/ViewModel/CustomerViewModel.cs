@@ -922,6 +922,7 @@ namespace CanTeenManagement.ViewModel
             DetailCustomersView detailCusView = new DetailCustomersView();
             detailCusView.ShowDialog();
 
+            this.g_b_groupGender = !this.g_b_groupGender;
             this.loaded();
 
             mainWd.Opacity = 100;
