@@ -257,7 +257,7 @@
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Bottom"
                                                         Margin="0 0 16 -20"
-                                                        ToolTip="Thêm vào danh sách món">
+                                                        ToolTip="Thêm vào giỏ hàng">
                                                     <materialDesign:PackIcon  Kind="Cart" />
                                                 </Button>
                                                 <Button Height="20"

@@ -282,12 +282,13 @@ namespace CanTeenManagement.ViewModel
             {
                 var l_userInfo = DB.EMPLOYEEs
                .Where(user => user.ID == staticVarClass.account_userName)
-               .Select(user => new { user.FULLNAME, user.IMAGELINK }).SingleOrDefault();
+               .Select(user => new { user.FULLNAME, user.IMAGELINK, user.POSITION }).SingleOrDefault();
 
                 if (l_userInfo != null)
                 {
                     this.g_str_fullName = l_userInfo.FULLNAME.Trim();
                     this.g_str_imageLink = l_userInfo.IMAGELINK.Trim();
+                    staticVarClass.position_user = l_userInfo.POSITION.Trim();
                     this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(g_str_imageLink);
                 }
             }

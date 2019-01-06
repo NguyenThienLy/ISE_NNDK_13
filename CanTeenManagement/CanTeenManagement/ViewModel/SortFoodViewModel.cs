@@ -110,6 +110,7 @@ namespace CanTeenManagement.ViewModel
         }
 
         DispatcherTimer g_timerRefresh = null;
+        int g_i_position;
 
         #region commands.
         public ICommand g_iCm_LoadedWindowCommand { get; set; }
@@ -195,6 +196,7 @@ namespace CanTeenManagement.ViewModel
         private void initSupport()
         {
             this.g_i_quantityFoodLoad = 3;
+            this.g_i_position = 0;
 
             this.g_list_OrderComplete = new ObservableCollection<ORDERQUEUE>();
 
@@ -255,7 +257,7 @@ namespace CanTeenManagement.ViewModel
                      CUSTOMERNAME = customer.FULLNAME.Trim(),
                      ORDERDATE = orderInfo.ORDERDATE.ToString(),
                      STATUS = orderDetail.STATUS.Trim(),
-                     COMPLETIONDATE = DateTime.Today.ToString()
+                     COMPLETIONDATE = DateTime.Today
                  }).Take(this.g_i_quantityFoodLoad));
 
                 //Lấy danh sách các món có trạng thái đang chờ
@@ -290,9 +292,26 @@ namespace CanTeenManagement.ViewModel
         }
 
         #region load.
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_i_position = 1;
+            }
+            else if (staticVarClass.position_user == staticVarClass.position_cashier)
+            {
+                this.g_i_position = 2;
+            }
+            else
+            {
+                this.g_i_position = 3;
+            }
+        }
+
         private void loaded()
         {
             this.loadData();
+            this.authorize();
 
             g_i_quantityDone1 = countAllOrder(1, 1);
             g_i_quantityDone2 = countAllOrder(1, 2);
@@ -343,7 +362,7 @@ namespace CanTeenManagement.ViewModel
                       CUSTOMERNAME = customer.FULLNAME.Trim(),
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
                       STATUS = orderDetail.STATUS.Trim(),
-                      COMPLETIONDATE = DateTime.Today.ToString()
+                      COMPLETIONDATE = DateTime.Today
                   }).Take(this.g_i_quantityFoodLoad));
             }
         }
@@ -464,6 +483,15 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        #region Button done.
+        private bool checkClickDone()
+        {
+            if (this.g_i_position != 3)
+                return false;
+
+            return true;
+        }
+
         private void clickDone(ORDERQUEUE p)
         {
             try
@@ -480,6 +508,16 @@ namespace CanTeenManagement.ViewModel
             {
                 staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME + " thất bại!");
             }
+        }
+        #endregion
+
+        #region Button skip.
+        private bool checkClickSkip()
+        {
+            if (this.g_i_position != 3)
+                return false;
+
+            return true;
         }
 
         private void clickSkip(ORDERQUEUE p)
@@ -498,6 +536,16 @@ namespace CanTeenManagement.ViewModel
             {
                 staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME + " thất bại!");
             }
+        }
+        #endregion
+
+        #region Button sold out.
+        private bool checkClickSoldOut()
+        {
+            if (this.g_i_position != 3)
+                return false;
+
+            return true;
         }
 
         private void clickSoldOut(ORDERQUEUE p)
@@ -523,6 +571,7 @@ namespace CanTeenManagement.ViewModel
                 staticFunctionClass.showStatusView(true, "Báo hết món " + p.FOODNAME + " thất bại!");
             }
         }
+        #endregion
         #endregion
 
         private void addOrder(int foodType)
@@ -651,7 +700,7 @@ namespace CanTeenManagement.ViewModel
                       CUSTOMERNAME = customer.FULLNAME.Trim(),
                       ORDERDATE = orderInfo.ORDERDATE.ToString(),
                       STATUS = orderDetail.STATUS.Trim(),
-                      COMPLETIONDATE = orderDetail.COMPLETIONDATE.ToString()
+                      COMPLETIONDATE = orderDetail.COMPLETIONDATE
                   }));
             }
 

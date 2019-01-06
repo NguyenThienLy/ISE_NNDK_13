@@ -92,10 +92,10 @@
                                                         DisplayMemberBinding="{Binding QUANTITY}"
                                                         Header="Số lượng" />
                                         <GridViewColumn Width="150"
-                                                        DisplayMemberBinding="{Binding COMPLETIONDATE, StringFormat={}{0:dd/MM/yyyy}}"
+                                                        DisplayMemberBinding="{Binding COMPLETIONDATE, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}"
                                                         Header="Ngày hoàn thành" />
                                         <GridViewColumn Width="100"
-                                                        DisplayMemberBinding="{Binding STATUS, StringFormat='yyyy-MM-dd HH:mm:ss.fff'}"
+                                                        DisplayMemberBinding="{Binding STATUS}"
                                                         Header="Trạng thái" />
                                     </GridView>
                                 </ListView.View>

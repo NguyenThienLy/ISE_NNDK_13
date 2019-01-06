@@ -172,6 +172,7 @@ namespace CanTeenManagement.ViewModel
         bool g_b_groupGender;
         bool g_b_isRefreshed;
         bool g_b_isUnloaded;
+        int g_i_position;
 
         CUSTOMER g_customer = null;
 
@@ -373,7 +374,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickDetail(p);
             });
 
-            g_iCm_ClickUtilityCommand = new RelayCommand<CustomersView>((p) => { return true; }, (p) =>
+            g_iCm_ClickUtilityCommand = new RelayCommand<CustomersView>((p) => { return checkUtility(); }, (p) =>
             {
                 this.clickUtility();
             });
@@ -428,6 +429,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_b_isRefreshed = true;
                 this.loadData();
+                this.authorize();
 
                 if (this.g_customer != null)
                 {
@@ -456,6 +458,7 @@ namespace CanTeenManagement.ViewModel
             this.g_b_groupGender = true;
             this.g_b_isRefreshed = false;
             this.g_b_isUnloaded = false;
+            this.g_i_position = 0;
             this.g_b_isHitTestVisibleMode = true;
             this.g_str_mode = staticVarClass.mode_groupGender;
             this.loadCombobox();
@@ -484,19 +487,36 @@ namespace CanTeenManagement.ViewModel
             this.g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_i_position = 1;
+            }
+            else if (staticVarClass.position_user == staticVarClass.position_cashier)
+            {
+                this.g_i_position = 2;
+            }
+            else
+            {
+                this.g_i_position = 3;
+            }
+        }
+
         private void unloaded()
         {
             this.g_b_isUnloaded = true;
-         //   this.StopTable();
+            //   this.StopTable();
         }
 
         private void loaded()
         {
             this.loadData();
+            this.authorize();
             this.checkVisibilityData();
             this.sortID();
             this.clickChangeModeGroup();
-           // this.WatchTable();
+            // this.WatchTable();
         }
 
         private void loadData()
@@ -614,6 +634,9 @@ namespace CanTeenManagement.ViewModel
         #region btn add.
         private bool checkAdd()
         {
+            if (this.g_i_position != 1)
+                return false;
+
             if (this.g_i_addOrEdit != 0)
                 return false;
 
@@ -642,6 +665,9 @@ namespace CanTeenManagement.ViewModel
         #region btn edit.
         private bool checkEdit()
         {
+            if (this.g_i_position != 1)
+                return false;
+
             if (this.g_selectedItem == null || this.g_i_addOrEdit != 0)
                 return false;
 
@@ -900,6 +926,14 @@ namespace CanTeenManagement.ViewModel
             customersV.Opacity = 100;
         }
 
+        private bool checkUtility()
+        {
+            if (this.g_i_position == 3)
+                return false;
+
+            return true;
+        }
+
         private void clickUtility()
         {
             MainWindow mainWd = MainWindow.Instance;
@@ -918,14 +952,15 @@ namespace CanTeenManagement.ViewModel
         #region button refresh.
         private bool checkClickButtonRefresh()
         {
-            if (this.g_str_visibilityCustomers == staticVarClass.visibility_visible)
-                return false;
+            //if (this.g_str_visibilityCustomers == staticVarClass.visibility_visible)
+            //    return false;
 
             return true;
         }
 
         private void clickButtonRefresh()
         {
+            this.g_b_isRefreshed = true;
             this.loaded();
         }
         #endregion

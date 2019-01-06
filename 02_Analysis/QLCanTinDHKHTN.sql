@@ -150,3 +150,136 @@ INSERT INTO ORDERDETAIL(ORDERID,FOODID,QUANTITY,TOTALMONEY, COMPLETIONDATE,STATU
 ('ORD13', 'FOOD13', 1, 10000,'10/11/2018', N'Đang chờ'),
 ('ORD14', 'FOOD14', 1, 10000,'10/11/2018', N'Đang chờ')
 
+
+CREATE TRIGGER orderinfo_Status
+ON ORDERDETAIL
+FOR UPDATE, INSERT
+AS 
+	IF UPDATE(STATUS)
+	BEGIN
+		DECLARE @orderID nchar(20)
+		DECLARE @foodID int
+		DECLARE @flag int
+		DECLARE @price int
+		DECLARE @totalMoneyInfo int
+		DECLARE @statusOrderInfo nchar(20)
+		DECLARE @statusOrderDetail nchar(20)
+		
+		SET @flag=0
+		SELECT @orderID=I.ORDERID FROM INSERTED I
+		
+		SELECT @statusOrderInfo=STATUS, @totalMoneyInfo=TOTALMONEY FROM ORDERINFO WHERE ID=@orderID
+		
+		IF(@statusOrderInfo<>'Xong')
+		BEGIN
+			SELECT *
+			INTO   #TempTable
+			FROM   ORDERDETAIL WHERE ORDERID=@orderID
+
+			WHILE ((SELECT COUNT(*) FROM #TempTable) > 0)
+			BEGIN
+				SELECT TOP 1 @foodID=FOODID, @statusOrderDetail=STATUS FROM #TempTable
+			
+				IF (@statusOrderDetail=N'Đang chờ')	
+				BEGIN
+					SET @flag=1
+					BREAK
+				END
+					
+				DELETE #TempTable WHERE ORDERID=@orderID AND FOODID=@foodID
+			END
+
+			DROP TABLE #TempTable
+
+			IF(@flag=1)
+				UPDATE ORDERINFO SET STATUS=N'Đang chờ' WHERE ID=@orderID
+			ELSE IF(@flag=0)
+				UPDATE ORDERINFO SET STATUS=N'Xong' WHERE ID=@orderID
+		END
+		
+		ELSE 
+		BEGIN
+			SELECT *
+			INTO   #Temp
+			FROM   ORDERDETAIL WHERE ORDERID=@orderID
+
+			WHILE ((SELECT COUNT(*) FROM #Temp) > 0)
+			BEGIN
+				SELECT TOP 1 @foodID=FOODID, @statusOrderDetail=STATUS, @price=TOTALMONEY FROM #Temp
+			
+				IF (@statusOrderDetail=N'Hết món')	
+				BEGIN
+					SET @flag=@flag+@price
+				END
+					
+				DELETE #Temp WHERE ORDERID=@orderID AND FOODID=@foodID
+			END
+
+			DROP TABLE #Temp
+
+			IF(@flag>0)
+				UPDATE ORDERINFO SET TOTALMONEY=@totalMoneyInfo-@flag WHERE ID=@orderID
+		END
+	END
+GO
+
+CREATE TRIGGER customer_star
+ON CUSTOMER
+FOR UPDATE, INSERT
+AS 
+	IF UPDATE(POINT)
+	BEGIN
+		DECLARE @ID nchar(20)
+		DECLARE @point int
+		DECLARE @star int
+		
+		SET @star=1
+		
+		SELECT @ID=I.ID, @point=I.POINT FROM INSERTED I
+		
+		-- 100.000 điểm = 1 star
+		SET @star=1+@point/100000
+		IF (@star>5)
+			SET @star=5
+		
+		UPDATE CUSTOMER SET STAR=@star WHERE ID=@ID
+	END
+GO
+
+CREATE TRIGGER food_star
+ON ORDERDETAIL
+FOR UPDATE, INSERT
+AS 
+	IF UPDATE(FOODID)
+	BEGIN
+		DECLARE @orderID nchar(20)
+		DECLARE @foodID int
+		DECLARE @statusOrderDetail nchar(20)
+		DECLARE @quantity int
+		DECLARE @count int
+		DECLARE @star int
+		SET @count=0
+		
+		SELECT @foodID=I.FOODID FROM INSERTED I
+		
+		SELECT *
+		INTO   #TempTable
+		FROM   ORDERDETAIL WHERE FOODID=@foodID
+
+		WHILE ((SELECT COUNT(*) FROM #TempTable) > 0)
+		BEGIN
+			SELECT TOP 1 @orderID=ORDERID, @foodID=FOODID, @statusOrderDetail=STATUS, @quantity=QUANTITY FROM #TempTable
+			
+			IF (@statusOrderDetail=N'Xong')	
+				SET @count=@count+@quantity
+				
+			DELETE #TempTable WHERE ORDERID=@orderID AND FOODID=@foodID
+		END
+		
+		-- 100 dĩa = 1 star
+		SET @star=1+@count/100
+		IF(@star>5)
+			SET @star=5
+		
+		UPDATE FOOD SET STAR=@star WHERE ID=@foodID
+	END

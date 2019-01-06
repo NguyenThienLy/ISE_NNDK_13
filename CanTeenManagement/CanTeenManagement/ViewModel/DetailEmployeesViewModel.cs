@@ -270,6 +270,7 @@ namespace CanTeenManagement.ViewModel
         #endregion
 
         DispatcherTimer g_timer = null;
+        bool g_b_isAdmin;
 
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
@@ -326,7 +327,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickCloseWindow(p);
             });
 
-            g_iCm_ClickEditInfoCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<DetailEmployeesView>((p) => { return this.checkEditInfo(); }, (p) =>
             {
                 this.clickEditInfo(p);
             });
@@ -381,7 +382,7 @@ namespace CanTeenManagement.ViewModel
                 this.mouseLeftButtonDown(p);
             });
 
-            g_iCm_ClickChangeImageCommand = new RelayCommand<DetailEmployeesView>((p) => { return true; }, (p) =>
+            g_iCm_ClickChangeImageCommand = new RelayCommand<DetailEmployeesView>((p) => { return this.checkChangeImage(); }, (p) =>
             {
                 this.clickChangeImage();
             });
@@ -438,6 +439,7 @@ namespace CanTeenManagement.ViewModel
         private void refresh()
         {
             this.loadDataEmployee();
+            this.authorize();
             g_timer.Stop();
         }
 
@@ -450,6 +452,7 @@ namespace CanTeenManagement.ViewModel
             this.g_selectedEmail = null;
             this.g_str_titleMail = string.Empty;
             this.g_str_contentMail = string.Empty;
+            this.g_b_isAdmin = false;
 
             this.g_i_widthButtonChangePassword = 0;
             this.resetChangePassword();
@@ -590,12 +593,13 @@ namespace CanTeenManagement.ViewModel
 
             this.g_i_widthButtonChangePassword = 0;
             this.loadDataEmployee();
+            this.authorize();
 
             using (var DB = new QLCanTinEntities())
             {
                 #region đổ dữ liệu vào listview
                 this.g_listOrders = new ObservableCollection<ORDERINFO>(DB.ORDERINFOes
-                    .Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done 
+                    .Where(orderinfo => orderinfo.STATUS == staticVarClass.status_done
                     && orderinfo.EMPLOYEEID == this.g_str_id));
                 #endregion
             }
@@ -605,7 +609,19 @@ namespace CanTeenManagement.ViewModel
             p.grVSendMail.Height = 0;
             p.grVChangePassword.Height = 0;
 
-          //  this.WatchTable();
+            //  this.WatchTable();
+        }
+
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_b_isAdmin = true;
+            }
+            else
+            {
+                this.g_b_isAdmin = false;
+            }
         }
 
         private void clickCloseWindow(DetailEmployeesView p)
@@ -645,6 +661,14 @@ namespace CanTeenManagement.ViewModel
             //        break;
             //    }
             //}
+        }
+
+        private bool checkEditInfo()
+        {
+            if (staticVarClass.account_userName != this.g_str_id && this.g_b_isAdmin == false)
+                return false;
+            else
+                return true;
         }
 
         private void clickEditInfo(DetailEmployeesView p)
@@ -791,6 +815,14 @@ namespace CanTeenManagement.ViewModel
             p.DragMove();
         }
 
+        private bool checkChangeImage()
+        {
+            if (staticVarClass.account_userName != this.g_str_id)
+                return false;
+
+            return true;
+        }
+
         private void clickChangeImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -841,7 +873,7 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkOpenMail()
         {
-            if (this.g_str_email == string.Empty)
+            if (this.g_str_email == string.Empty || staticVarClass.account_userName != this.g_str_id)
                 return false;
 
             return true;

@@ -60,8 +60,8 @@ namespace CanTeenManagement.Model
 
         public string STATUS { get; set; }
 
-        private string _COMPLETIONDATE;
-        public string COMPLETIONDATE
+        private Nullable<System.DateTime> _COMPLETIONDATE;
+        public Nullable<System.DateTime> COMPLETIONDATE
         {
             get => _COMPLETIONDATE;
 

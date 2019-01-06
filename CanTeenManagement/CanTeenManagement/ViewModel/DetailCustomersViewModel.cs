@@ -170,6 +170,7 @@ namespace CanTeenManagement.ViewModel
         #endregion
 
         DispatcherTimer g_timer = null;
+        int g_i_position;
 
         #region commands.
         public ICommand g_iCm_LoadedCommand { get; set; }
@@ -212,7 +213,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickCloseWindow(p);
             });
 
-            g_iCm_ClickEditInfoCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
+            g_iCm_ClickEditInfoCommand = new RelayCommand<DetailCustomersView>((p) => { return this.checkEditInfo(); }, (p) =>
             {
                 this.clickEditInfo(p);
             });
@@ -232,7 +233,7 @@ namespace CanTeenManagement.ViewModel
                 this.mouseLeftButtonDown(p);
             });
 
-            g_iCm_ClickChangeImageCommand = new RelayCommand<DetailCustomersView>((p) => { return true; }, (p) =>
+            g_iCm_ClickChangeImageCommand = new RelayCommand<DetailCustomersView>((p) => { return this.checkChangeImage(); }, (p) =>
             {
                 this.clickChangeImage();
             });
@@ -278,6 +279,7 @@ namespace CanTeenManagement.ViewModel
         private void refresh()
         {
             this.loadDataCustomer();
+            this.authorize();
             g_timer.Stop();
         }
 
@@ -286,6 +288,7 @@ namespace CanTeenManagement.ViewModel
             this.g_timer = new DispatcherTimer();
             this.g_timer.Tick += (s, ev) => this.refresh();
             this.g_timer.Interval = new TimeSpan(0, 0, 1);
+            this.g_i_position = 0;
             this.loadCombobox();
         }
 
@@ -307,6 +310,22 @@ namespace CanTeenManagement.ViewModel
                 l_listYearOfBirth.Add(i);
             }
             this.g_listYearOfBirth = l_listYearOfBirth;
+        }
+
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_i_position = 1;
+            }
+            else if (staticVarClass.position_user == staticVarClass.position_cashier)
+            {
+                this.g_i_position = 2;
+            }
+            else
+            {
+                this.g_i_position = 3;
+            }
         }
 
         private void loadDataCustomer()
@@ -344,6 +363,7 @@ namespace CanTeenManagement.ViewModel
                 return;
 
             this.loadDataCustomer();
+            this.authorize();
 
             #region đổ dữ liệu vào listview
             using (var DB = new QLCanTinEntities())
@@ -394,6 +414,14 @@ namespace CanTeenManagement.ViewModel
             //        break;
             //    }
             //}
+        }
+
+        private bool checkEditInfo()
+        {
+            if (this.g_i_position == 3)
+                return false;
+
+            return true;
         }
 
         private void clickEditInfo(DetailCustomersView p)
@@ -536,6 +564,14 @@ namespace CanTeenManagement.ViewModel
         private void mouseLeftButtonDown(DetailCustomersView p)
         {
             p.DragMove();
+        }
+
+        private bool checkChangeImage()
+        {
+            if (this.g_i_position != 1)
+                return false;
+
+            return true;
         }
 
         private void clickChangeImage()

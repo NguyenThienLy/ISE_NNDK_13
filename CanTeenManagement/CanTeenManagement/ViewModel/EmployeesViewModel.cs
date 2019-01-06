@@ -187,6 +187,7 @@ namespace CanTeenManagement.ViewModel
         bool g_b_groupGender;
         bool g_b_isRefreshed;
         bool g_b_isUnloaded;
+        bool g_b_isAdmin;
 
         EMPLOYEE g_employee = null;
 
@@ -419,6 +420,7 @@ namespace CanTeenManagement.ViewModel
             {
                 this.g_b_isRefreshed = true;
                 this.loadData();
+                this.authorize();
 
                 if (this.g_employee != null)
                 {
@@ -448,6 +450,7 @@ namespace CanTeenManagement.ViewModel
             this.g_b_isRefreshed = false;
             this.g_b_isUnloaded = false;
             this.g_b_isHitTestVisibleMode = true;
+            this.g_b_isAdmin = false;
             this.g_str_mode = staticVarClass.mode_groupGender;
             this.loadCombobox();
         }
@@ -490,6 +493,18 @@ namespace CanTeenManagement.ViewModel
             this.g_i_yearOfBirth = l_listYearOfBirth[0];
         }
 
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_b_isAdmin = true;
+            }
+            else
+            {
+                this.g_b_isAdmin = false;
+            }
+        }
+
         private void unloaded()
         {
             this.g_b_isUnloaded = true;
@@ -499,6 +514,7 @@ namespace CanTeenManagement.ViewModel
         private void loaded()
         {
             this.loadData();
+            this.authorize();
             this.checkVisibilityData();
             this.sortID();
             this.clickChangeModeGroup();
@@ -619,6 +635,9 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkAdd()
         {
+            if (this.g_b_isAdmin == false)
+                return false;
+
             if (this.g_i_addOrEdit != 0)
                 return false;
 
@@ -645,6 +664,9 @@ namespace CanTeenManagement.ViewModel
 
         private bool checkEdit()
         {
+            if (this.g_b_isAdmin == false)
+                return false;
+
             if (this.g_selectedItem == null || this.g_i_addOrEdit != 0)
                 return false;
 
@@ -892,14 +914,15 @@ namespace CanTeenManagement.ViewModel
         #region button refresh.
         private bool checkClickButtonRefresh()
         {
-            if (this.g_str_visibilityEmloyees == staticVarClass.visibility_visible)
-                return false;
+            //if (this.g_str_visibilityEmloyees == staticVarClass.visibility_visible)
+            //    return false;
 
             return true;
         }
 
         private void clickButtonRefresh()
         {
+            this.g_b_isRefreshed = true;
             this.loaded();
         }
         #endregion

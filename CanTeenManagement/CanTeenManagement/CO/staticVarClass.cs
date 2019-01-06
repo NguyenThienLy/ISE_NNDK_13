@@ -140,6 +140,7 @@ namespace CanTeenManagement.CO
         public static string position_manager = "Quản lý";
         public static string position_cashier = "Thu ngân";
         public static string position_cook = "Tiếp thực";
+        public static string position_user = string.Empty;
         #endregion
 
         #region status.

@@ -13,6 +13,9 @@ using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using CanTeenManagement.CO;
 using System.Windows.Controls.Primitives;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Win32;
+using System.Reflection;
 
 namespace CanTeenManagement.ViewModel
 {
@@ -188,6 +191,8 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
+        int g_i_position;
+
         #region commands.
         public ICommand g_iCm_ClickPayViewCommand { get; set; }
 
@@ -210,6 +215,8 @@ namespace CanTeenManagement.ViewModel
         public ICommand g_iCm_ClickCartCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonAddCommand { get; set; }
+
+        public ICommand g_iCm_ClickButtonExportCommand { get; set; }
 
         public ICommand g_iCm_ClickButtonUpdateCommand { get; set; }
 
@@ -301,12 +308,17 @@ namespace CanTeenManagement.ViewModel
                 this.clickCart(p);
             });
 
-            g_iCm_ClickButtonAddCommand = new RelayCommand<OrderView>((p) => { return true; }, (p) =>
+            g_iCm_ClickButtonAddCommand = new RelayCommand<OrderView>((p) => { return this.checkClickButtonAdd(); }, (p) =>
             {
                 this.clickButtonAdd();
             });
 
-            g_iCm_ClickButtonUpdateCommand = new RelayCommand<ORDERFOOD>((p) => { return true; }, (p) =>
+            g_iCm_ClickButtonExportCommand = new RelayCommand<OrderView>((p) => { return this.checkClickButtonExport(); }, (p) =>
+            {
+                this.clickButtonExport();
+            });
+
+            g_iCm_ClickButtonUpdateCommand = new RelayCommand<ORDERFOOD>((p) => { return this.checkClickButtonUpdate(); }, (p) =>
             {
                 this.clickButtonUpdate(p);
             });
@@ -383,12 +395,30 @@ namespace CanTeenManagement.ViewModel
 
             //
             this.g_i_currOrderFood = 0;
+            this.g_i_position = 0;
         }
 
         #region Loaded.
+        private void authorize()
+        {
+            if (staticVarClass.position_user == staticVarClass.position_manager)
+            {
+                this.g_i_position = 1;
+            }
+            else if (staticVarClass.position_user == staticVarClass.position_cashier)
+            {
+                this.g_i_position = 2;
+            }
+            else
+            {
+                this.g_i_position = 3;
+            }
+        }
+
         private void loaded()
         {
             this.loadedData();
+            this.authorize();
             this.checkVisibilityData();
             this.loadedPage();
             this.matchChoose();
@@ -809,6 +839,9 @@ namespace CanTeenManagement.ViewModel
         #region Button cart.
         private bool checkClickCart(ORDERFOOD p)
         {
+            if (this.g_i_position == 3)
+                return false;
+
             // 10 order.
             if (this.g_i_currOrderFood + 1 > 10 || p.STATUS == staticVarClass.status_soldOut)
                 return false;
@@ -834,6 +867,15 @@ namespace CanTeenManagement.ViewModel
         }
         #endregion
 
+        #region Button add.
+        private bool checkClickButtonAdd()
+        {
+            if (this.g_i_position != 1)
+                return false;
+
+            return true;
+        }
+
         private void clickButtonAdd()
         {
             this.g_b_isAdd = true;
@@ -852,6 +894,88 @@ namespace CanTeenManagement.ViewModel
 
             mainWd.Opacity = 100;
             orderV.Opacity = 100;
+        }
+        #endregion
+
+        #region Button export.
+        private bool checkClickButtonExport()
+        {
+            if (this.g_obCl_orderFood == null || this.g_obCl_orderFood.Count() == 0)
+                return false;
+
+            return true;
+        }
+
+        private void clickButtonExport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                Title = "Choose a place to save",
+                ValidateNames = true,
+                Filter = "Excel (*.xlsx) | *.xlsx"
+            };
+
+            Nullable<bool> b_result = sfd.ShowDialog();
+
+            // Nếu người dùng đã chọn được file excel.
+            if (b_result == true)
+            {
+                string str_fullNameChosen = sfd.FileName;
+
+                Excel.Application excel = new Excel.Application();
+                //excel.Visible = true; 
+                Excel.Workbook workBook = excel.Workbooks.Add(1);
+                Excel.Worksheet workSheet = (Excel.Worksheet)workBook.Worksheets[1];
+                List<string> l_listHeaders = new List<string> { "Mã món ăn", "Tên món ăn", "Loại món ăn", "Mô tả món ăn", "Đơn giá", "% giảm giá", "Số sao", "Trạng thái" };
+
+                for (int x = 1; x < l_listHeaders.Count() + 1; x++)
+                {
+                    workSheet.Cells[1, x] = l_listHeaders[x - 1];
+                    workSheet.Cells[1, x].Font.Bold = true;
+                }
+
+                for (int x = 2; x < this.g_obCl_food.Count() + 2; x++)
+                {
+                    workSheet.Cells[x, 1] = this.g_obCl_food[x - 2].ID.ToString().Trim();
+                    workSheet.Cells[x, 2] = this.g_obCl_food[x - 2].FOODNAME.ToString().Trim();
+                    workSheet.Cells[x, 3] = this.g_obCl_food[x - 2].FOODTYPE.ToString().Trim();
+                    workSheet.Cells[x, 4] = this.g_obCl_food[x - 2].FOODDESCRIPTION.ToString().Trim();
+                    workSheet.Cells[x, 5] = this.g_obCl_food[x - 2].PRICE.ToString().Trim();
+                    workSheet.Cells[x, 6] = this.g_obCl_food[x - 2].SALE.ToString().Trim();
+                    workSheet.Cells[x, 7] = this.g_obCl_food[x - 2].STAR.ToString().Trim();
+                    workSheet.Cells[x, 8] = this.g_obCl_food[x - 2].STATUS.ToString().Trim();
+                }
+
+                // AutoSet Cell Widths to Content Size
+                workSheet.Cells.Select();
+                workSheet.Cells.EntireColumn.AutoFit();
+
+                try
+                {
+                    workBook.SaveAs(str_fullNameChosen, Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                            Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                            Excel.XlSaveConflictResolution.xlUserResolution, true,
+                            Missing.Value, Missing.Value, Missing.Value);
+                    staticFunctionClass.showStatusView(true, "Xuất file thành công!");
+                }
+                catch
+                {
+                    staticFunctionClass.showStatusView(true, "Xuất file thất bại!");
+                }
+
+                workBook.Close();
+                excel.Quit();
+            }
+        }
+        #endregion
+
+        #region Button update.
+        private bool checkClickButtonUpdate()
+        {
+            if (this.g_i_position != 1)
+                return false;
+
+            return true;
         }
 
         private void clickButtonUpdate(ORDERFOOD p)
@@ -878,6 +1002,7 @@ namespace CanTeenManagement.ViewModel
             mainWd.Opacity = 100;
             orderV.Opacity = 100;
         }
+        #endregion
 
         private void changeMode()
         {

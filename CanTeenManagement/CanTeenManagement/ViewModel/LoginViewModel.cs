@@ -216,9 +216,6 @@ namespace CanTeenManagement.ViewModel
                         _strRe_ReaderTemp.Close();
                         _fs_FileTemp.Close();
                     }
-
-                    staticVarClass.account_userName = g_str_username;
-                    staticVarClass.account_password = g_str_password;
                 }
                 else
                 {
@@ -239,9 +236,6 @@ namespace CanTeenManagement.ViewModel
 
                     str_Wr.Flush();
                     str_Wr.Close();
-
-                    staticVarClass.account_userName = g_str_username;
-                    staticVarClass.account_password = g_str_password;
                 }
                 else
                 {
@@ -292,8 +286,6 @@ namespace CanTeenManagement.ViewModel
 
                 if (this.g_str_username != string.Empty)
                     this.getPassword(this.g_str_username);
-                //this.cbbUsername.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                //this.cbbUsername.AutoCompleteSource = AutoCompleteSource.ListItems;
 
                 if (this.g_b_isClickLogin == true)
                 {
