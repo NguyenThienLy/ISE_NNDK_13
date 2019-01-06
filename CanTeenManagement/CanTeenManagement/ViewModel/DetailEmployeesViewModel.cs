@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -835,32 +836,50 @@ namespace CanTeenManagement.ViewModel
             {
                 try
                 {
-                    // upload new image.
                     string str_path = openFileDialog.FileName;
 
                     if (str_path != string.Empty)
                     {
-                        if (staticFunctionClass.deleteFile(this.g_str_id + staticFunctionClass.getFormat(this.g_str_imageLink)))
+                        string str_oleFileName = this.g_str_id + staticFunctionClass.getFormatBefore(this.g_str_imageLink);
+
+                        if (File.Exists(staticVarClass.server_serverDirectory + str_oleFileName))
                         {
-                            string str_newfileName = this.g_str_id + staticFunctionClass.getFormat(str_path);
-
-                            if (staticFunctionClass.uploadFile(str_newfileName, str_path))
+                            if (!staticFunctionClass.deleteFile(str_oleFileName))
                             {
-                                // Update image link in database.
-                                this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newfileName;
-
-                                // Update image source.
-                                this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
-
-                                using (var DB = new QLCanTinEntities())
-                                {
-                                    DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).ToList()
-                                                                  .ForEach(employee => employee.IMAGELINK = this.g_str_imageLink);
-                                    DB.SaveChanges();
-                                }
-
-                                staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                                staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
+                                return;
                             }
+                        }
+
+                        long t_tick = DateTime.Now.Ticks;
+                        string str_newFileName = this.g_str_id + "_" + t_tick.ToString() + staticFunctionClass.getFormat(str_path);
+
+                        if (staticFunctionClass.uploadFile(str_newFileName, str_path))
+                        {
+                            // Update image link in database.
+                            this.g_str_imageLink = staticVarClass.server_serverDirectory + str_newFileName;
+
+                            // Update image source.
+                            this.g_imgSrc_employee = staticFunctionClass.LoadBitmap(this.g_str_imageLink);
+
+                            using (var DB = new QLCanTinEntities())
+                            {
+                                DB.EMPLOYEEs.Where(employee => employee.ID == this.g_str_id).ToList()
+                                                              .ForEach(customer => customer.IMAGELINK = this.g_str_imageLink);
+                                DB.SaveChanges();
+                            }
+
+                            MainWindow mainWd = MainWindow.Instance;
+                            if (mainWd.DataContext == null)
+                                return;
+                            MainViewModel l_mainVM = mainWd.DataContext as MainViewModel;
+                            l_mainVM.loadUserInfo();
+
+                            staticFunctionClass.showStatusView(true, "Đổi ảnh đại diện thành công!");
+                        }
+                        else
+                        {
+                            staticFunctionClass.showStatusView(false, "Đổi ảnh đại diện thất bại!");
                         }
                     }
                 }

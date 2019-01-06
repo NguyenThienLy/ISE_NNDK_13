@@ -320,8 +320,8 @@
                                             <materialDesign:RatingBar   x:Name="ratingBarTwo"
                                                                         VerticalAlignment="Center"
                                                                         Value="{Binding g_i_star, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                                                        Foreground="Gold" 
-                                                                        IsHitTestVisible="False"/>
+                                                                        Foreground="Gold"
+                                                                        IsHitTestVisible="False" />
                                         </StackPanel>
                                         <StackPanel Grid.Row="4"
                                                     Margin="10 0"

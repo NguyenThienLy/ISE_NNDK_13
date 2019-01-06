@@ -233,15 +233,7 @@ namespace CanTeenManagement.ViewModel
             }
         }
 
-        private bool _g_b_isFistTime;
-        public bool g_b_isFistTime
-        {
-            get => _g_b_isFistTime;
-            set
-            {
-                _g_b_isFistTime = value;
-            }
-        }
+        bool g_b_isFistTime;
 
         #region command.
         public ICommand g_iCm_LoadedWindowCommand { get; set; }
@@ -502,7 +494,7 @@ namespace CanTeenManagement.ViewModel
 
                     if (str_path != string.Empty)
                     {
-                        string str_oleFileName = this.g_str_id + staticFunctionClass.getFormat(this.g_str_imageLink);
+                        string str_oleFileName = this.g_str_id + staticFunctionClass.getFormatBefore(this.g_str_imageLink);
 
                         if (File.Exists(staticVarClass.server_serverDirectory + str_oleFileName))
                         {
@@ -513,7 +505,8 @@ namespace CanTeenManagement.ViewModel
                             }
                         }
 
-                        string str_newFileName = this.g_str_id + staticFunctionClass.getFormat(str_path);
+                        long t_tick = DateTime.Now.Ticks;
+                        string str_newFileName = this.g_str_id+"_" + t_tick.ToString() + staticFunctionClass.getFormat(str_path);
 
                         if (staticFunctionClass.uploadFile(str_newFileName, str_path))
                         {

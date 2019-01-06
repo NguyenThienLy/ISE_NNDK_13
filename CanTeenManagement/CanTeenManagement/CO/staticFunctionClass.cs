@@ -1,14 +1,13 @@
-﻿using System;
+﻿using CanTeenManagement.View;
+using CanTeenManagement.ViewModel;
+using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using CanTeenManagement.View;
-using CanTeenManagement.ViewModel;
 using System.Windows.Media.Imaging;
-using OfficeOpenXml;
 
 namespace CanTeenManagement.CO
 {
@@ -71,6 +70,29 @@ namespace CanTeenManagement.CO
             var extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
 
             return dot + extension;
+        }
+
+        public static string getFormatBefore(string path)
+        {
+            int l_index = path.IndexOf("_");
+            int foundPos = 0;
+            string dot = ".";
+            string difDot = "_";
+
+            string extension = string.Empty;
+
+            if (l_index == -1)
+            {
+                foundPos = path.LastIndexOf(dot);
+                extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+
+                return dot + extension;
+            }
+
+            foundPos = path.LastIndexOf(difDot);
+            extension = path.Substring(foundPos + 1, path.Length - foundPos - 1);
+
+            return difDot + extension;
         }
 
         public static bool uploadFile(string fileName, string path)

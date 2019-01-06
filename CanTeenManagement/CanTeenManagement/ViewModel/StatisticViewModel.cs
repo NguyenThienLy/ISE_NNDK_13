@@ -179,7 +179,7 @@ namespace CanTeenManagement.ViewModel
                 this.clickFood();
             });
 
-            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return checkClickButtonRefresh(); }, (p) =>
+            g_iCm_ClickButtonRefreshCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
                 this.clickButtonRefresh();
             });

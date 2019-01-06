@@ -922,6 +922,8 @@ namespace CanTeenManagement.ViewModel
             DetailCustomersView detailCusView = new DetailCustomersView();
             detailCusView.ShowDialog();
 
+            this.loaded();
+
             mainWd.Opacity = 100;
             customersV.Opacity = 100;
         }

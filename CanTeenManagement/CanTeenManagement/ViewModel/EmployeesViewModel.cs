@@ -905,6 +905,8 @@ namespace CanTeenManagement.ViewModel
             DetailEmployeesView detailEmpView = new DetailEmployeesView();
             detailEmpView.ShowDialog();
 
+            this.loaded();
+
             mainWd.Opacity = 100;
             employeesV.Opacity = 100;
 

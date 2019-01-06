@@ -276,7 +276,7 @@ namespace CanTeenManagement.ViewModel
         }
 
         // Load image link and full name.
-        private void loadUserInfo()
+        public void loadUserInfo()
         {
             using (var DB = new QLCanTinEntities())
             {

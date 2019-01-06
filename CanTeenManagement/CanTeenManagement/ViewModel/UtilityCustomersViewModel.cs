@@ -497,6 +497,9 @@ namespace CanTeenManagement.ViewModel
             //
             this.g_b_isAgree = false;
 
+            //
+            this.g_str_isEnable = staticVarClass.str_true;
+
             p.Close();
         }
 
