@@ -787,32 +787,12 @@ namespace CanTeenManagement.ViewModel
                 }
 
                 this.g_b_isReadOnlyID = false;
-                //for (int i = 0; i < this.g_listCustomers.Count(); i++)
-                //{
-                //    if (this.g_listCustomers[i].ID == this.g_selectedItem.ID)
-                //    {
-                //        this.g_listCustomers[i] = new CUSTOMER()
-                //        {
-                //            ID = this.g_selectedItem.ID,
-                //            FULLNAME = this.g_str_fullName,
-                //            GENDER = this.g_str_gender,
-                //            YEAROFBIRTH = this.g_i_yearOfBirth,
-                //            PHONE = this.g_str_phone,
-                //            EMAIL = this.g_str_email,
-                //            CASH = this.g_i_cash,
-                //            POINT = this.g_i_point,
-                //            STAR = this.g_i_star,
-                //            IMAGELINK = this.g_str_imageLink
-                //        };
-                //        break;
-                //    }
-                //}
             }
 
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isHitTestVisibleMode = true;
-            this.loaded();
+            this.clickButtonRefresh();
         }
         #endregion
 

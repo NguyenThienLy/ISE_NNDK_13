@@ -783,6 +783,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isHitTestVisibleMode = true;
+            this.clickButtonRefresh();
         }
 
         private bool checkExport()
