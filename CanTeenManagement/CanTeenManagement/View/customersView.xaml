@@ -365,7 +365,7 @@
                                                         util:GridViewSort.PropertyName="EMAIL"></GridViewColumn>
                                         <GridViewColumn Header="Số tiền"
                                                         Width="80"
-                                                        DisplayMemberBinding="{Binding CASH}"
+                                                        DisplayMemberBinding="{Binding CASH, StringFormat='{}{0:0,0} đ'}"
                                                         util:GridViewSort.PropertyName="CASH"></GridViewColumn>
                                         <GridViewColumn Header="Điểm"
                                                         Width="65"

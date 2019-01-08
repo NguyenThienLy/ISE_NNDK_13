@@ -419,15 +419,33 @@ namespace CanTeenManagement.ViewModel
             {
                 using (var DB = new QLCanTinEntities())
                 {
-                    //Save in order detail.
-                    var l_orderDetail = new ORDERDETAIL()
+                    ORDERDETAIL l_orderDetail = null;
+
+                    if (this.g_obCl_payFood[i].FOODTYPE == 3)
                     {
-                        ORDERID = this.g_str_orderID,
-                        FOODID = this.g_obCl_payFood[i].ID,
-                        QUANTITY = this.g_obCl_payFood[i].QUANTITY,
-                        TOTALMONEY = this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE,
-                        STATUS = staticVarClass.status_waiting
-                    };
+                        //Save in order detail.
+                         l_orderDetail = new ORDERDETAIL()
+                        {
+                            ORDERID = this.g_str_orderID,
+                            FOODID = this.g_obCl_payFood[i].ID,
+                            QUANTITY = this.g_obCl_payFood[i].QUANTITY,
+                            TOTALMONEY = this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE,
+                            STATUS = staticVarClass.status_done,
+                            COMPLETIONDATE = DateTime.Now
+                         };
+                    }
+                    else
+                    {
+                        //Save in order detail.
+                         l_orderDetail = new ORDERDETAIL()
+                        {
+                            ORDERID = this.g_str_orderID,
+                            FOODID = this.g_obCl_payFood[i].ID,
+                            QUANTITY = this.g_obCl_payFood[i].QUANTITY,
+                            TOTALMONEY = this.g_obCl_payFood[i].QUANTITY * this.g_obCl_payFood[i].PRICESALE,
+                            STATUS = staticVarClass.status_waiting
+                        };
+                    }
 
                     DB.ORDERDETAILs.Add(l_orderDetail);
                     DB.SaveChanges();

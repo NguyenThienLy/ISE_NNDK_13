@@ -627,7 +627,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isReadOnlyID = false;
-            this._g_b_isHitTestVisibleMode = true;
+            this.g_b_isHitTestVisibleMode = true;
             return true;
         }
 
@@ -812,6 +812,7 @@ namespace CanTeenManagement.ViewModel
             this.g_i_height = 0;
             this.g_i_addOrEdit = 0;
             this.g_b_isHitTestVisibleMode = true;
+            this.loaded();
         }
         #endregion
 

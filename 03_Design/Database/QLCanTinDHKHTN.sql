@@ -1,4 +1,6 @@
-﻿CREATE DATABASE QLCanTin
+﻿drop database QLCanTin
+
+CREATE DATABASE QLCanTin
 GO
 
 USE QLCanTin
@@ -107,7 +109,7 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,
 ('FOOD04', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
 ('FOOD05', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
 ('FOOD06', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
-('FOOD07', N'Nước string', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
+('FOOD07', N'Nước sting', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
 ('FOOD08', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
 ('FOOD09', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
 ('FOOD10', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
@@ -115,6 +117,54 @@ INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,
 ('FOOD12', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
 ('FOOD13', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
 ('FOOD14', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
+
+INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,STATUS) VALUES
+('FOOD15', N'Gà chiên nước mắm', 1, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD01.jpg',1, N'Còn'),
+('FOOD16', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
+('FOOD17', N'Đậu ve xào thịt', 1, N'Thịt heo xào cùng đâu ve tươi',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD03.jpg',3, N'Còn'),
+('FOOD18', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
+('FOOD19', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
+('FOOD20', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
+('FOOD21', N'Nước sting', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
+('FOOD22', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
+('FOOD23', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
+('FOOD24', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
+('FOOD25', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD11.png',3, N'Còn'),
+('FOOD26', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
+('FOOD27', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
+('FOOD28', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
+
+INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,STATUS) VALUES
+('FOOD29', N'Gà chiên nước mắm', 1, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD01.jpg',1, N'Còn'),
+('FOOD30', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
+('FOOD31', N'Đậu ve xào thịt', 1, N'Thịt heo xào cùng đâu ve tươi',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD03.jpg',3, N'Còn'),
+('FOOD32', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
+('FOOD33', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
+('FOOD34', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
+('FOOD35', N'Nước sting', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
+('FOOD36', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
+('FOOD37', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
+('FOOD38', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
+('FOOD39', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD11.png',3, N'Còn'),
+('FOOD40', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
+('FOOD41', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
+('FOOD42', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
+
+INSERT INTO FOOD(ID,FOODNAME,FOODTYPE,FOODDESCRIPTION,PRICE,SALE,IMAGELINK,STAR,STATUS) VALUES
+('FOOD43', N'Gà chiên nước mắm', 1, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD01.jpg',1, N'Còn'),
+('FOOD44', N'Phở bò ', 2, N'Thịt bò tái thêm sợi phở cộng rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD02.jpg',1, N'Còn'),
+('FOOD45', N'Đậu ve xào thịt', 1, N'Thịt heo xào cùng đâu ve tươi',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD03.jpg',3, N'Còn'),
+('FOOD46', N'Ba rọi nướng ', 1, N'Ba rọi nướng đi kèm nước mắm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD04.jpg', 2,N'Còn'),
+('FOOD47', N'Hủ tiếu thịt', 2, N'Sợi hủ tiếu cộng thêm thịt heo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD05.jpg',5, N'Còn'),
+('FOOD48', N'Cháo lòng', 1, N'Cháo trắng thêm lòng, gan, tim heo',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD06.jpg',4, N'Còn'),
+('FOOD49', N'Nước sting', 3, N'Thịt gà chiên nước mắm thêm xà lách cộng rau thơm',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD07.jpg', 4,N'Còn'),
+('FOOD50', N'Hoa thiên lý xào thịt bò', 1 , N'Hoa thiên lý được xào chung với thịt bò',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD08.jpg',3, N'Còn'),
+('FOOD51', N'Nước mũ trôm nha đam', 3, N'Nước mủ trôm nha đam bổ sung năng lượng, giúp tỉnh táo',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD09.jpg',2, N'Còn'),
+('FOOD52', N'Đậu hủ nhồi thịt', 1 , N'Đậu hủ tươi nhồi với thịt bằm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD10.jpg',2, N'Còn'),
+('FOOD53', N'Trứng chiên', 1, N'Trứng gà chiên lên kèm với rau sống',45000, 10,'\\127.0.0.1\CanteenManagement\FOOD11.png',3, N'Còn'),
+('FOOD54', N'Bò cuống lá lốt', 1 , N'Thịt bò được cuống kèm với lá lốt',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD12.jpg',4, N'Còn'),
+('FOOD55', N'Tôm kho', 1 , N'Tôm được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD13.jpg',3, N'Còn'),
+('FOOD56', N'Gà kho', 1 , N'Gà được kho cộng với rau thơm',10000, 0,'\\127.0.0.1\CanteenManagement\FOOD14.jpg',5, N'Còn')
 
 INSERT INTO ORDERINFO(ID,CUSTOMERID,EMPLOYEEID,ORDERDATE,TOTALMONEY,STATUS) VALUES
 ('ORD01', '1612352', 'ly.nguyen', '10/11/2018', 55000, N'Đang chờ'),
@@ -158,7 +208,7 @@ AS
 	IF UPDATE(STATUS)
 	BEGIN
 		DECLARE @orderID nchar(20)
-		DECLARE @foodID int
+		DECLARE @foodID nchar(20)
 		DECLARE @flag int
 		DECLARE @price int
 		DECLARE @totalMoneyInfo int
@@ -223,6 +273,8 @@ AS
 	END
 GO
 
+
+drop trigger orderinfo_Status
 CREATE TRIGGER customer_star
 ON CUSTOMER
 FOR UPDATE, INSERT
@@ -253,7 +305,7 @@ AS
 	IF UPDATE(FOODID)
 	BEGIN
 		DECLARE @orderID nchar(20)
-		DECLARE @foodID int
+		DECLARE @foodID nchar(20)
 		DECLARE @statusOrderDetail nchar(20)
 		DECLARE @quantity int
 		DECLARE @count int

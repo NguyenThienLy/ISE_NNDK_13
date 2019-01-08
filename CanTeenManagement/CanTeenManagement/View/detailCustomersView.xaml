@@ -520,7 +520,7 @@
                                                                         DisplayMemberBinding="{Binding EMPLOYEEID}"></GridViewColumn>
                                                         <GridViewColumn Header="Tổng tiền"
                                                                         Width="90"
-                                                                        DisplayMemberBinding="{Binding TOTALMONEY}"></GridViewColumn>
+                                                                        DisplayMemberBinding="{Binding TOTALMONEY,StringFormat='{}{0:0,0} đ'}"></GridViewColumn>
                                                     </GridView>
                                                 </ListView.View>
                                             </ListView>

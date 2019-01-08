@@ -357,6 +357,9 @@
                                             <TextBox x:Name="txtCustomerID"
                                                      Text="{Binding g_str_customerID,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                      FontSize="15"
+                                                     IsHitTestVisible="False"
+                                                     BorderThickness="0"
+                                                     Focusable="False"
                                                      FontWeight="Bold"
                                                      CaretBrush="#FF36AE98"
                                                      materialDesign:HintAssist.Hint="Trống">

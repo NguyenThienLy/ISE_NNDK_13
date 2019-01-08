@@ -86,6 +86,7 @@
                                          Margin="5"
                                          TextWrapping="Wrap"
                                          VerticalAlignment="Center"
+                                         MaxLength="40"
                                          Text="{Binding g_str_foodName, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                          materialDesign:HintAssist.Hint="Trống">
                                     <TextBox.InputBindings>

@@ -506,7 +506,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(true, "Hoàn thành món " + p.FOODNAME + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Hoàn thành món " + p.FOODNAME + " thất bại!");
             }
         }
         #endregion
@@ -534,7 +534,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(true, "Bỏ qua món " + p.FOODNAME + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Bỏ qua món " + p.FOODNAME + " thất bại!");
             }
         }
         #endregion
@@ -568,7 +568,7 @@ namespace CanTeenManagement.ViewModel
             }
             catch
             {
-                staticFunctionClass.showStatusView(true, "Báo hết món " + p.FOODNAME + " thất bại!");
+                staticFunctionClass.showStatusView(false, "Báo hết món " + p.FOODNAME + " thất bại!");
             }
         }
         #endregion

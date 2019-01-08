@@ -656,7 +656,7 @@ namespace CanTeenManagement.ViewModel
             }
 
             if (l_str_CurrID == null)
-                return "FOOD1";
+                return "FOOD01";
 
 
             Match match = Regex.Match(l_str_CurrID, @"(\d+)");
